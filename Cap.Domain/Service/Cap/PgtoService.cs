@@ -45,6 +45,7 @@ namespace Cap.Domain.Service.Cap
         {
             // formata
             item.Descricao = item.Descricao.ToUpper().Trim();
+            item.AlteradoEm = DateTime.Now;
 
             // valida
             if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)

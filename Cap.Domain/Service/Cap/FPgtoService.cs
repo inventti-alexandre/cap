@@ -43,6 +43,7 @@ namespace Cap.Domain.Service.Cap
         public int Gravar(FPgto item)
         {
             item.Descricao = item.Descricao.ToUpper().Trim();
+            item.AlteradoEm = DateTime.Now;
 
             if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)
             {

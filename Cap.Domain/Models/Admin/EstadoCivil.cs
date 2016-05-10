@@ -12,7 +12,7 @@ namespace Cap.Domain.Models.Admin
 
         [Required(ErrorMessage ="Informe o estado civil")]
         [Display(Name ="Estado civil")]
-        [StringLength(20, ErrorMessage ="O estado civil é composto por no máximo 20 caracteres")]
+        [StringLength(30, ErrorMessage ="O estado civil é composto por no máximo 20 caracteres")]
         public string Descricao { get; set; }
 
         public bool Ativo { get; set; }

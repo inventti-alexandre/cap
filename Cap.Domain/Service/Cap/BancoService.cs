@@ -44,6 +44,7 @@ namespace Cap.Domain.Service.Cap
         {
             item.Descricao = item.Descricao.ToUpper().Trim();
             item.Razao = item.Razao.ToUpper().Trim();
+            item.AlteradoEm = DateTime.Now;
 
             if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)
             {

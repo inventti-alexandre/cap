@@ -23,6 +23,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<Banco>>().To<BancoService>();
             kernel.Bind<IBaseService<Estado>>().To<EstadoService>();
             kernel.Bind<IBaseService<EstadoCivil>>().To<EstadoCivilService>();
+            kernel.Bind<IBaseService<Feriado>>().To<FeriadoService>();
             kernel.Bind<IBaseService<FPgto>>().To<FPgtoService>();
             kernel.Bind<IBaseService<SistemaParametro>>().To<SistemaParametroService>();
             kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();

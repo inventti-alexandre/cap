@@ -16,8 +16,6 @@ namespace Cap.Domain.Models.Cap
         [StringLength(20, ErrorMessage = "A forma de pagamento é composta por no máximo 20 caracteres")]
         public string Descricao { get; set; }
 
-        public bool Imposto { get; set; }
-
         public bool Ativo { get; set; }
 
         [Required]

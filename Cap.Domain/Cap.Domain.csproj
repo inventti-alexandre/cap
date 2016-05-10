@@ -84,6 +84,7 @@
     <Compile Include="Common\NotEqualAttribute.cs" />
     <Compile Include="Models\Admin\Estado.cs" />
     <Compile Include="Models\Admin\EstadoCivil.cs" />
+    <Compile Include="Models\Admin\Feriado.cs" />
     <Compile Include="Models\Admin\SistemaParametro.cs" />
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Cap\Banco.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Respository\IBaseRepository.cs" />
     <Compile Include="Service\Admin\EstadoCivilService.cs" />
     <Compile Include="Service\Admin\EstadoService.cs" />
+    <Compile Include="Service\Admin\FeriadoService.cs" />
     <Compile Include="Service\Admin\SistemaParametroService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cap\BancoService.cs" />

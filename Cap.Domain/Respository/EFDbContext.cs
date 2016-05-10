@@ -20,8 +20,10 @@ namespace Cap.Domain.Respository
             //modelBuilder.Entity<CliGrupoPermissao>().HasKey(x => new { x.IdGrupo, x.IdPermissao });
         }
 
+        public DbSet<Banco> Banco { get; set; }
         public DbSet<Estado> Estado { get; set; }
         public DbSet<EstadoCivil> EstadoCivil { get; set; }
+        public DbSet<Feriado> Feriado { get; set; }
         public DbSet<FPgto> FPgto { get; set; }
         public DbSet<Pgto> Pgto { get; set; }
         public DbSet<SistemaParametro> SistemaParametro { get; set; }

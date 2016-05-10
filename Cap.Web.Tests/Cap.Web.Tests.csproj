@@ -94,7 +94,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\ParametroUnitTest.cs" />
+    <Compile Include="Admin\EstadoUnitTest.cs" />
+    <Compile Include="Admin\EstadoCivilUnitTest.cs" />
+    <Compile Include="Admin\FeriadoUnitTest.cs" />
     <Compile Include="Admin\UsuarioUnitTest.cs" />
+    <Compile Include="Cap\PgtoUnitTest.cs" />
+    <Compile Include="Cap\FPgtoUnitTest.cs" />
+    <Compile Include="Cap\BancoUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
