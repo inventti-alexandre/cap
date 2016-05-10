@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Cap.Domain.Abstract;
+﻿using Cap.Domain.Abstract;
 using Cap.Domain.Models.Admin;
 using Cap.Domain.Service.Admin;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cap.Web.Tests.Admin
 {

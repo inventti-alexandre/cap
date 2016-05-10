@@ -21,11 +21,14 @@ namespace Cap.Web.App_Start
 
             // mapeamento - interfaces x classes
             kernel.Bind<IBaseService<Banco>>().To<BancoService>();
+            kernel.Bind<IBaseService<Departamento>>().To<DepartamentoService>();
+            kernel.Bind<IBaseService<Empresa>>().To<EmpresaService>();
             kernel.Bind<IBaseService<Estado>>().To<EstadoService>();
             kernel.Bind<IBaseService<EstadoCivil>>().To<EstadoCivilService>();
             kernel.Bind<IBaseService<Feriado>>().To<FeriadoService>();
             kernel.Bind<IBaseService<FPgto>>().To<FPgtoService>();
             kernel.Bind<IBaseService<SistemaParametro>>().To<SistemaParametroService>();
+            kernel.Bind<IBaseService<Socio>>().To<SocioService>();
             kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();
 
             kernel.Bind<ITrocaSenha>().To<UsuarioService>();
