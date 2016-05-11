@@ -31,6 +31,8 @@ namespace Cap.Domain.Respository
         public DbSet<EstadoCivil> EstadoCivil { get; set; }
         public DbSet<Feriado> Feriado { get; set; }
         public DbSet<FPgto> FPgto { get; set; }
+        public DbSet<Material> Material { get; set; }
+        public DbSet<MatGrupo> MatGrupo { get; set; }
         public DbSet<Pgto> Pgto { get; set; }
         public DbSet<SistemaParametro> SistemaParametro { get; set; }
         public DbSet<Socio> Socio { get; set; }

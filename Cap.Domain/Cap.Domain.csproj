@@ -91,6 +91,8 @@
     <Compile Include="Models\Cap\Departamento.cs" />
     <Compile Include="Models\Cap\Empresa.cs" />
     <Compile Include="Models\Cap\FPgto.cs" />
+    <Compile Include="Models\Cap\Material.cs" />
+    <Compile Include="Models\Cap\MatGrupo.cs" />
     <Compile Include="Models\Cap\Pgto.cs" />
     <Compile Include="Models\Cap\Socio.cs" />
     <Compile Include="Models\Cap\Unidade.cs" />
@@ -111,6 +113,8 @@
     <Compile Include="Service\Cap\DepartamentoService.cs" />
     <Compile Include="Service\Cap\EmpresaService.cs" />
     <Compile Include="Service\Cap\FPgtoService.cs" />
+    <Compile Include="Service\Cap\MaterialService.cs" />
+    <Compile Include="Service\Cap\MatGrupoService.cs" />
     <Compile Include="Service\Cap\PgtoService.cs" />
     <Compile Include="Service\Cap\SocioService.cs" />
     <Compile Include="Service\Cap\UnidadeService.cs" />

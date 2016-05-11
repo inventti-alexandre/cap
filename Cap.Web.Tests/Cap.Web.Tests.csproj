@@ -105,6 +105,8 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Service\Cap\DepartamentoServiceTests.cs" />
     <Compile Include="Service\Cap\EmpresaServiceTests.cs" />
+    <Compile Include="Service\Cap\MaterialServiceTests.cs" />
+    <Compile Include="Service\Cap\MatGrupoServiceTests.cs" />
     <Compile Include="Service\Cap\SocioServiceTests.cs" />
     <Compile Include="Service\Cap\UnidadeServiceTests.cs" />
     <Compile Include="Service\Gen\AgendaEmailServiceTests.cs" />
