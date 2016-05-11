@@ -34,6 +34,7 @@ namespace Cap.Domain.Respository
         public DbSet<Pgto> Pgto { get; set; }
         public DbSet<SistemaParametro> SistemaParametro { get; set; }
         public DbSet<Socio> Socio { get; set; }
+        public DbSet<Unidade> Unidade { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
     }
 }

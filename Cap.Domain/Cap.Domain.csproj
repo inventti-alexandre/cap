@@ -93,6 +93,7 @@
     <Compile Include="Models\Cap\FPgto.cs" />
     <Compile Include="Models\Cap\Pgto.cs" />
     <Compile Include="Models\Cap\Socio.cs" />
+    <Compile Include="Models\Cap\Unidade.cs" />
     <Compile Include="Models\Email\EmailCredential.cs" />
     <Compile Include="Models\Gen\Agenda.cs" />
     <Compile Include="Models\Gen\AgendaEmail.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Service\Cap\FPgtoService.cs" />
     <Compile Include="Service\Cap\PgtoService.cs" />
     <Compile Include="Service\Cap\SocioService.cs" />
+    <Compile Include="Service\Cap\UnidadeService.cs" />
     <Compile Include="Service\Email\EnviarEmail.cs" />
     <Compile Include="Service\Gen\AgendaEmailService.cs" />
     <Compile Include="Service\Gen\AgendaService.cs" />

@@ -34,6 +34,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<FPgto>>().To<FPgtoService>();
             kernel.Bind<IBaseService<SistemaParametro>>().To<SistemaParametroService>();
             kernel.Bind<IBaseService<Socio>>().To<SocioService>();
+            kernel.Bind<IBaseService<Unidade>>().To<UnidadeService>();
             kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();
 
             kernel.Bind<ITrocaSenha>().To<UsuarioService>();
