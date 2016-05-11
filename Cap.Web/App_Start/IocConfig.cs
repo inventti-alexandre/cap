@@ -2,8 +2,10 @@
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Admin;
 using Cap.Domain.Models.Cap;
+using Cap.Domain.Models.Gen;
 using Cap.Domain.Service.Admin;
 using Cap.Domain.Service.Cap;
+using Cap.Domain.Service.Gen;
 using Ninject;
 using Ninject.Syntax;
 using System;
@@ -20,6 +22,9 @@ namespace Cap.Web.App_Start
             IKernel kernel = new StandardKernel();
 
             // mapeamento - interfaces x classes
+            kernel.Bind<IBaseService<Agenda>>().To<AgendaService>();
+            kernel.Bind<IBaseService<AgendaEmail>>().To<AgendaEmailService>();
+            kernel.Bind<IBaseService<AgendaTelefone>>().To<AgendaTelefoneService>();
             kernel.Bind<IBaseService<Banco>>().To<BancoService>();
             kernel.Bind<IBaseService<Departamento>>().To<DepartamentoService>();
             kernel.Bind<IBaseService<Empresa>>().To<EmpresaService>();

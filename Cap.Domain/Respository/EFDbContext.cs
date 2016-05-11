@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Models.Admin;
 using Cap.Domain.Models.Cap;
+using Cap.Domain.Models.Gen;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -20,6 +21,9 @@ namespace Cap.Domain.Respository
             //modelBuilder.Entity<CliGrupoPermissao>().HasKey(x => new { x.IdGrupo, x.IdPermissao });
         }
 
+        public DbSet<Agenda> Agenda { get; set; }
+        public DbSet<AgendaEmail> AgendaEmail { get; set; }
+        public DbSet<AgendaTelefone> AgendaTelefone { get; set; }
         public DbSet<Banco> Banco { get; set; }
         public DbSet<Departamento> Departamento { get; set; }
         public DbSet<Empresa> Empresa { get; set; }

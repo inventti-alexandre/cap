@@ -106,6 +106,10 @@
     <Compile Include="Service\Cap\DepartamentoServiceTests.cs" />
     <Compile Include="Service\Cap\EmpresaServiceTests.cs" />
     <Compile Include="Service\Cap\SocioServiceTests.cs" />
+    <Compile Include="Service\Gen\AgendaEmailServiceTests.cs" />
+    <Compile Include="Service\Gen\AgendaServiceTests.cs" />
+    <Compile Include="Service\Gen\AGendaTelefone.cs" />
+    <Compile Include="Service\Gen\AgendaTelefoneServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

@@ -94,6 +94,9 @@
     <Compile Include="Models\Cap\Pgto.cs" />
     <Compile Include="Models\Cap\Socio.cs" />
     <Compile Include="Models\Email\EmailCredential.cs" />
+    <Compile Include="Models\Gen\Agenda.cs" />
+    <Compile Include="Models\Gen\AgendaEmail.cs" />
+    <Compile Include="Models\Gen\AgendaTelefone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Respository\EFDbContext.cs" />
     <Compile Include="Respository\EFRepository.cs" />
@@ -110,6 +113,9 @@
     <Compile Include="Service\Cap\PgtoService.cs" />
     <Compile Include="Service\Cap\SocioService.cs" />
     <Compile Include="Service\Email\EnviarEmail.cs" />
+    <Compile Include="Service\Gen\AgendaEmailService.cs" />
+    <Compile Include="Service\Gen\AgendaService.cs" />
+    <Compile Include="Service\Gen\AgendaTelefoneService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
