@@ -1,6 +1,7 @@
 ﻿using Cap.Domain.Models.Admin;
 using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Gen;
+using Cap.Domain.Models.Requisicao;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -34,6 +35,7 @@ namespace Cap.Domain.Respository
         public DbSet<Material> Material { get; set; }
         public DbSet<MatGrupo> MatGrupo { get; set; }
         public DbSet<Pgto> Pgto { get; set; }
+        public DbSet<ReqRequisicao> ReqRequisicao { get; set; }
         public DbSet<SistemaParametro> SistemaParametro { get; set; }
         public DbSet<Socio> Socio { get; set; }
         public DbSet<Unidade> Unidade { get; set; }

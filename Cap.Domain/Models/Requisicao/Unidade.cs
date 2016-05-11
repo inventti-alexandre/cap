@@ -4,16 +4,17 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cap.Domain.Models.Cap
+namespace Cap.Domain.Models.Requisicao
+   
 {
-    public class MatGrupo
+    public class Unidade
     {
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage ="Informe o nome do grupo")]
-        [StringLength(40, ErrorMessage ="O nome do grupo é composto por no máximo 40 caracteres")]
-        [Display(Name ="Grupo")]
+        [Required(ErrorMessage ="Informe a unidade")]
+        [StringLength(3, ErrorMessage ="A unidade é composta por no máximo 3 caracteres", MinimumLength = 1)]
+        [Display(Name ="Unidade")]
         public string Descricao { get; set; }
 
         public bool Ativo { get; set; }

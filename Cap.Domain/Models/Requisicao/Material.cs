@@ -1,11 +1,11 @@
 ﻿using Cap.Domain.Models.Admin;
 using Cap.Domain.Service.Admin;
-using Cap.Domain.Service.Cap;
+using Cap.Domain.Service.Requisicao;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cap.Domain.Models.Cap
+namespace Cap.Domain.Models.Requisicao
 {
     public class Material
     {

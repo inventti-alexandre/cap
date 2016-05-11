@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Abstract;
-using Cap.Domain.Models.Cap;
+using Cap.Domain.Models.Requisicao;
+using Cap.Domain.Service.Requisicao;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cap.Domain.Service.Cap.Tests

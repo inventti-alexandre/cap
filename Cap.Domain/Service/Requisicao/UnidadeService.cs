@@ -1,21 +1,21 @@
 ﻿using Cap.Domain.Abstract;
-using Cap.Domain.Models.Cap;
+using Cap.Domain.Models.Requisicao;
 using Cap.Domain.Respository;
 using System;
 using System.Linq;
 
-namespace Cap.Domain.Service.Cap
+namespace Cap.Domain.Service.Requisicao
 {
-    public class MaterialService : IBaseService<Material>
+    public class UnidadeService : IBaseService<Unidade>
     {
-        private IBaseRepository<Material> repository;
+        private IBaseRepository<Unidade> repository;
 
-        public MaterialService()
+        public UnidadeService()
         {
-            repository = new EFRepository<Material>();
+            repository = new EFRepository<Unidade>();
         }
 
-        public Material Excluir(int id)
+        public Unidade Excluir(int id)
         {
             try
             {
@@ -23,32 +23,32 @@ namespace Cap.Domain.Service.Cap
             }
             catch (Exception)
             {
-                Material material = repository.Find(id);
+                Unidade unidade = repository.Find(id);
 
-                if (material != null)
+                if (unidade != null)
                 {
-                    material.Ativo = false;
-                    material.AlteradoEm = DateTime.Now;
-                    return repository.Alterar(material);
+                    unidade.Ativo = false;
+                    unidade.AlteradoEm = DateTime.Now;
+                    return repository.Alterar(unidade);
                 }
 
-                return material;
+                return unidade;
             }
         }
 
-        public Material Find(int id)
+        public Unidade Find(int id)
         {
             return repository.Find(id);
         }
 
-        public int Gravar(Material item)
+        public int Gravar(Unidade item)
         {
             item.Descricao = item.Descricao.ToUpper().Trim();
             item.AlteradoEm = DateTime.Now;
 
             if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)
             {
-                throw new ArgumentException("Já existe uma material cadastrado com esta descrição");
+                throw new ArgumentException("Unidade já cadastrada");
             }
 
             if (item.Id == 0)
@@ -60,7 +60,7 @@ namespace Cap.Domain.Service.Cap
             return repository.Alterar(item).Id;
         }
 
-        public IQueryable<Material> Listar()
+        public IQueryable<Unidade> Listar()
         {
             return repository.Listar();
         }
