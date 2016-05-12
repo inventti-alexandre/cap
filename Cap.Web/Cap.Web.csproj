@@ -174,6 +174,11 @@
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Erp\Controllers\basico\EstadoController.cs" />
+    <Compile Include="Areas\Erp\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Erp\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Erp\ErpAreaRegistration.cs" />
+    <Compile Include="Areas\Erp\Models\LoginUsuario.cs" />
     <Compile Include="Common\AreaAuthorizeAttribute.cs" />
     <Compile Include="Common\Bind\BindBancoHelper.cs" />
     <Compile Include="Common\Bind\BindDepartamentoHelper.cs" />
@@ -204,6 +209,16 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Erp\Views\web.config" />
+    <Content Include="Areas\Erp\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Erp\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Erp\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Login\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Estado\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Estado\Details.cshtml" />
+    <Content Include="Areas\Erp\Views\Estado\Create.cshtml" />
+    <Content Include="Areas\Erp\Views\Estado\Edit.cshtml" />
+    <Content Include="Areas\Erp\Views\Estado\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

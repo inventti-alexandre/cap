@@ -15,9 +15,9 @@ namespace Cap.Web.Common
         {
             string loginUrl = "";
 
-            if (area == "Controle")
+            if (area == "Erp")
             {
-                loginUrl = "~/Controle/Login";
+                loginUrl = "~/Erp/Login";
             }
 
             filterContext.Result = new RedirectResult(loginUrl + "?returnUrl=" + filterContext.HttpContext.Request.Url.PathAndQuery);
