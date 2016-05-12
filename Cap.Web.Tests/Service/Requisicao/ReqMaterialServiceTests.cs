@@ -1,12 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Cap.Domain.Service.Requisicao;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cap.Domain.Abstract;
 using Cap.Domain.Models.Requisicao;
-using Cap.Domain.Abstract;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cap.Domain.Service.Requisicao.Tests
 {

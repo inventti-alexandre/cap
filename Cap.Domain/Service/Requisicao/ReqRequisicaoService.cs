@@ -2,10 +2,7 @@
 using Cap.Domain.Models.Requisicao;
 using Cap.Domain.Respository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cap.Domain.Service.Requisicao
 {
