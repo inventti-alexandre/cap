@@ -10,6 +10,11 @@ namespace Cap.Domain.Service.Requisicao
     {
         private IBaseRepository<ReqMaterial> repository;
 
+        public ReqMaterialService()
+        {
+            repository = new EFRepository<ReqMaterial>();
+        }
+
         public ReqMaterial Excluir(int id)
         {
             try
@@ -38,6 +43,7 @@ namespace Cap.Domain.Service.Requisicao
         public int Gravar(ReqMaterial item)
         {
             item.Observ = string.IsNullOrEmpty(item.Observ) ? string.Empty : item.Observ.ToUpper().Trim();
+            item.AlteradoEm = DateTime.Now;
 
             if (repository.Listar().Where(x => x.IdMaterial == item.IdMaterial && x.IdReqRequisicao == item.IdReqRequisicao && x.Id != item.Id).Count() > 0)
             {

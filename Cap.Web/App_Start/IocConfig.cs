@@ -36,6 +36,8 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<FPgto>>().To<FPgtoService>();
             kernel.Bind<IBaseService<Material>>().To<MaterialService>();
             kernel.Bind<IBaseService<MatGrupo>>().To<MatGrupoService>();
+            kernel.Bind<IBaseService<ReqMaterial>>().To<ReqMaterialService>();
+            kernel.Bind<IBaseService<ReqRequisicao>>().To<ReqRequisicaoService>();
             kernel.Bind<IBaseService<SistemaParametro>>().To<SistemaParametroService>();
             kernel.Bind<IBaseService<Socio>>().To<SocioService>();
             kernel.Bind<IBaseService<Unidade>>().To<UnidadeService>();

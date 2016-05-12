@@ -114,6 +114,7 @@
     <Compile Include="Service\Gen\AGendaTelefone.cs" />
     <Compile Include="Service\Gen\AgendaTelefoneServiceTests.cs" />
     <Compile Include="Service\Requisicao\ReqMaterialServiceTests.cs" />
+    <Compile Include="Service\Requisicao\ReqRequisicaoServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

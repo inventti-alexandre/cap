@@ -30,7 +30,7 @@ namespace Cap.Domain.Service.Requisicao
 
                 if (item != null)
                 {
-                    item.Ativo = false;
+                    item.Situacao = Situacao.Cancelada;
                     return repository.Alterar(item);
                 }
 
@@ -47,13 +47,28 @@ namespace Cap.Domain.Service.Requisicao
         {
             item.LiberadoObserv = string.IsNullOrEmpty(item.LiberadoObserv) ? string.Empty : item.LiberadoObserv.ToUpper().Trim();
             item.Observ = string.IsNullOrEmpty(item.Observ) ? string.Empty : item.Observ.ToUpper().Trim();
-            
-            // TODO: parei aki - tem que ter data para entrega e tem que validar
+            if (item.CotarAte > item.EntregarDia)
+            {
+                if (item.EntregarDia > DateTime.Today.Date)
+                {
+                    item.CotarAte = item.EntregarDia.AddDays(-1);
+                }
+                else
+                {
+                    item.CotarAte = DateTime.Today.Date;
+                }
+            }
 
             if (item.Id == 0)
             {
-                item.Ativo = true;
                 item.SolicitadoEm = DateTime.Now;
+                item.Situacao = Situacao.EmDigitacao;
+                item.IdCotadoPor = 0;
+                item.CotadoEm = null;
+                item.LiberadoParaCompra = false;
+                item.LiberadoEm = null;
+                item.IdLiberadoPor = 0;
+                item.LiberadoObserv = string.Empty;
                 return repository.Incluir(item).Id;
             }
 
@@ -64,5 +79,9 @@ namespace Cap.Domain.Service.Requisicao
         {
             return repository.Listar();
         }
+
+        // TODO: enviar requisicao para cotacao
+        // TODO: enviar compra direta
+        // TODO: retira
     }
 }

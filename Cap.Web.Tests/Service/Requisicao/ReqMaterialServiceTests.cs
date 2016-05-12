@@ -24,7 +24,7 @@ namespace Cap.Domain.Service.Requisicao.Tests
         public void ReqMaterialGravarTest()
         {
             // Arrange
-            ReqMaterial item = new ReqMaterial { AlteradoPor = 1, IdMaterial = 2, IdReqRequisicao = 1, Qtde = 2 };
+            ReqMaterial item = new ReqMaterial { AlteradoPor = 1, IdMaterial = 2, IdReqRequisicao = 2, Qtde = 2 };
 
             // Act
             item.Id = service.Gravar(item);

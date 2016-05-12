@@ -10,11 +10,13 @@ namespace Cap.Domain.Models.Requisicao
 {
     public enum Situacao
     {
+        EmDigitacao,
         Cotar,
         EmCotacao,
         Cotado,
         Cancelada,
-        Aprovada
+        Aprovada,
+        Entregue
     }
 
     public class ReqRequisicao
@@ -37,6 +39,10 @@ namespace Cap.Domain.Models.Requisicao
         [Required(ErrorMessage ="Informe a data máxima para cotação")]
         [Display(Name = "Cotar até")]
         public DateTime CotarAte { get; set; }
+
+        [Required(ErrorMessage ="Informe a data de entrega")]
+        [Display(Name ="Entregar dia")]
+        public DateTime EntregarDia { get; set; }
 
         [Display(Name ="Observações")]
         public string Observ { get; set; }
@@ -63,8 +69,6 @@ namespace Cap.Domain.Models.Requisicao
 
         [Display(Name ="Observações da liberação")]
         public string LiberadoObserv { get; set; }
-
-        public bool Ativo { get; set; }
 
         [NotMapped]
         public virtual Departamento Departamento
