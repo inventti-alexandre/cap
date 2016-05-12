@@ -7,7 +7,7 @@ namespace Cap.Domain.Service.Cap.Tests
     [TestClass()]
     public class EmpresaServiceTests
     {
-        private IBaseService<Empresa> service;
+        private ILogin<Empresa> service;
 
         public EmpresaServiceTests()
         {

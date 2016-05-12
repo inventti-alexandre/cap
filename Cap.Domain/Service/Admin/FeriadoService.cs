@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Admin
 {
-    public class FeriadoService : IBaseService<Feriado>
+    public class FeriadoService : ILogin<Feriado>
     {
         private IBaseRepository<Feriado> repository;
 

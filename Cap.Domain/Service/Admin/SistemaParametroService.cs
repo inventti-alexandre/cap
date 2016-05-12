@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Admin
 {
-    public class SistemaParametroService : IBaseService<SistemaParametro>
+    public class SistemaParametroService : ILogin<SistemaParametro>
     {
         private IBaseRepository<SistemaParametro> repository;
 

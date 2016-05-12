@@ -8,7 +8,7 @@ namespace Cap.Web.Tests.Cap
     [TestClass]
     public class PgtoUnitTest
     {
-        private IBaseService<Pgto> service;
+        private ILogin<Pgto> service;
 
         public PgtoUnitTest()
         {

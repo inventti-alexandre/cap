@@ -8,7 +8,7 @@ namespace Cap.Web.Tests.Admin
     [TestClass]
     public class ParametroUnitTest
     {
-        private IBaseService<SistemaParametro> service;
+        private ILogin<SistemaParametro> service;
 
         public ParametroUnitTest()
         {

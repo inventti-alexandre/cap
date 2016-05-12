@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Requisicao
 {
-    public class ReqRequisicaoService : IBaseService<ReqRequisicao>
+    public class ReqRequisicaoService : ILogin<ReqRequisicao>
     {
         private IBaseRepository<ReqRequisicao> repository;
 

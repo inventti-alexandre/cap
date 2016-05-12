@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Requisicao
 {
-    public class UnidadeService : IBaseService<Unidade>
+    public class UnidadeService : ILogin<Unidade>
     {
         private IBaseRepository<Unidade> repository;
 

@@ -8,7 +8,7 @@ namespace Cap.Web.Tests.Admin
     [TestClass]
     public class EstadoCivilUnitTest
     {
-        private IBaseService<EstadoCivil> service;
+        private ILogin<EstadoCivil> service;
 
         public EstadoCivilUnitTest()
         {

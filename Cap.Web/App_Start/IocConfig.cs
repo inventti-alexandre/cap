@@ -24,24 +24,24 @@ namespace Cap.Web.App_Start
             IKernel kernel = new StandardKernel();
 
             // mapeamento - interfaces x classes
-            kernel.Bind<IBaseService<Agenda>>().To<AgendaService>();
-            kernel.Bind<IBaseService<AgendaEmail>>().To<AgendaEmailService>();
-            kernel.Bind<IBaseService<AgendaTelefone>>().To<AgendaTelefoneService>();
-            kernel.Bind<IBaseService<Banco>>().To<BancoService>();
-            kernel.Bind<IBaseService<Departamento>>().To<DepartamentoService>();
-            kernel.Bind<IBaseService<Empresa>>().To<EmpresaService>();
-            kernel.Bind<IBaseService<Estado>>().To<EstadoService>();
-            kernel.Bind<IBaseService<EstadoCivil>>().To<EstadoCivilService>();
-            kernel.Bind<IBaseService<Feriado>>().To<FeriadoService>();
-            kernel.Bind<IBaseService<FPgto>>().To<FPgtoService>();
-            kernel.Bind<IBaseService<Material>>().To<MaterialService>();
-            kernel.Bind<IBaseService<MatGrupo>>().To<MatGrupoService>();
-            kernel.Bind<IBaseService<ReqMaterial>>().To<ReqMaterialService>();
-            kernel.Bind<IBaseService<ReqRequisicao>>().To<ReqRequisicaoService>();
-            kernel.Bind<IBaseService<SistemaParametro>>().To<SistemaParametroService>();
-            kernel.Bind<IBaseService<Socio>>().To<SocioService>();
-            kernel.Bind<IBaseService<Unidade>>().To<UnidadeService>();
-            kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();
+            kernel.Bind<ILogin<Agenda>>().To<AgendaService>();
+            kernel.Bind<ILogin<AgendaEmail>>().To<AgendaEmailService>();
+            kernel.Bind<ILogin<AgendaTelefone>>().To<AgendaTelefoneService>();
+            kernel.Bind<ILogin<Banco>>().To<BancoService>();
+            kernel.Bind<ILogin<Departamento>>().To<DepartamentoService>();
+            kernel.Bind<ILogin<Empresa>>().To<EmpresaService>();
+            kernel.Bind<ILogin<Estado>>().To<EstadoService>();
+            kernel.Bind<ILogin<EstadoCivil>>().To<EstadoCivilService>();
+            kernel.Bind<ILogin<Feriado>>().To<FeriadoService>();
+            kernel.Bind<ILogin<FPgto>>().To<FPgtoService>();
+            kernel.Bind<ILogin<Material>>().To<MaterialService>();
+            kernel.Bind<ILogin<MatGrupo>>().To<MatGrupoService>();
+            kernel.Bind<ILogin<ReqMaterial>>().To<ReqMaterialService>();
+            kernel.Bind<ILogin<ReqRequisicao>>().To<ReqRequisicaoService>();
+            kernel.Bind<ILogin<SistemaParametro>>().To<SistemaParametroService>();
+            kernel.Bind<ILogin<Socio>>().To<SocioService>();
+            kernel.Bind<ILogin<Unidade>>().To<UnidadeService>();
+            kernel.Bind<ILogin<Usuario>>().To<UsuarioService>();
 
             kernel.Bind<ITrocaSenha>().To<UsuarioService>();
             kernel.Bind<ILogin>().To<UsuarioService>();

@@ -13,7 +13,7 @@ namespace Cap.Domain.Service.Gen.Tests
     [TestClass()]
     public class AgendaEmailServiceTests
     {
-        private IBaseService<AgendaEmail> service;
+        private ILogin<AgendaEmail> service;
 
         public AgendaEmailServiceTests()
         {

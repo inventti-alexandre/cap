@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cap.Domain.Service.Cap
 {
-    public class DepartamentoService : IBaseService<Departamento>
+    public class DepartamentoService : ILogin<Departamento>
     {
         private IBaseRepository<Departamento> repository;
 

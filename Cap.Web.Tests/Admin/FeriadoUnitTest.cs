@@ -9,7 +9,7 @@ namespace Cap.Web.Tests.Admin
     [TestClass]
     public class FeriadoUnitTest
     {
-        private IBaseService<Feriado> service;
+        private ILogin<Feriado> service;
 
         public FeriadoUnitTest()
         {

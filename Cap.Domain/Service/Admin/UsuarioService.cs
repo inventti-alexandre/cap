@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Admin
 {
-    public class UsuarioService : IBaseService<Usuario>, ILogin, ITrocaSenha
+    public class UsuarioService : ILogin<Usuario>, ILogin, ITrocaSenha
     {
         private IBaseRepository<Usuario> repository;
 
