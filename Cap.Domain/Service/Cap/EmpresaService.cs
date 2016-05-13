@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Cap
 {
-    public class EmpresaService : ILogin<Empresa>
+    public class EmpresaService : IBaseService<Empresa>
     {
         private IBaseRepository<Empresa> repository;
 

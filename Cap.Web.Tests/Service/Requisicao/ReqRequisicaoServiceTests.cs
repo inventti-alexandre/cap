@@ -8,7 +8,7 @@ namespace Cap.Domain.Service.Requisicao.Tests
     [TestClass()]
     public class ReqRequisicaoServiceTests
     {
-        private ILogin<ReqRequisicao> service;
+        private IBaseService<ReqRequisicao> service;
 
         public ReqRequisicaoServiceTests()
         {

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Cap
 {
-    public class FPgtoService : ILogin<FPgto>
+    public class FPgtoService : IBaseService<FPgto>
     {
         IBaseRepository<FPgto> repository;
 

@@ -2,7 +2,7 @@
 
 namespace Cap.Domain.Abstract
 {
-    public interface ILogin<T> where T : class
+    public interface IBaseService<T> where T : class
     {
         IQueryable<T> Listar();
         int Gravar(T item);

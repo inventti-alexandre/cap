@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Requisicao
 {
-    public class MatGrupoService : ILogin<MatGrupo>
+    public class MatGrupoService : IBaseService<MatGrupo>
     {
         private IBaseRepository<MatGrupo> repository;
 

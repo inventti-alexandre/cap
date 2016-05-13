@@ -6,8 +6,8 @@
 
 <h2>Estados</h2>
 
-<p class="text-info top20">
-    <h4>Confirma a exclusão deste Estado?</h4>
+<p class="alert alert-danger top20">
+    Confirma a exclusão deste Estado?
 </p>
 <div>
     <hr />
@@ -42,7 +42,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            <input type="submit" value="Excluir" class="btn btn-danger" /> |
             @Html.ActionLink("Voltar", "Index")
         </div>
     }

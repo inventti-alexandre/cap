@@ -8,7 +8,7 @@ namespace Cap.Domain.Service.Gen.Tests
     [TestClass()]
     public class AgendaTelefoneServiceTests
     {
-        private ILogin<AgendaTelefone> service;
+        private IBaseService<AgendaTelefone> service;
 
         public AgendaTelefoneServiceTests()
         {

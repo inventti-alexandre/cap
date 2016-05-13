@@ -12,7 +12,7 @@ namespace Cap.Web.Tests.Admin
     [TestClass]
     public class UsuarioUnitTest
     {
-        private ILogin<Usuario> service;
+        private IBaseService<Usuario> service;
 
         public UsuarioUnitTest()
         {

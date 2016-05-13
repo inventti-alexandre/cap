@@ -8,7 +8,7 @@ namespace Cap.Domain.Service.Cap.Tests
     [TestClass()]
     public class SocioServiceTests
     {
-        private ILogin<Socio> service;
+        private IBaseService<Socio> service;
 
         public SocioServiceTests()
         {

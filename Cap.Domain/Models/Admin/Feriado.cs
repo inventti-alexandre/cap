@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cap.Domain.Service.Admin;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,6 +12,7 @@ namespace Cap.Domain.Models.Admin
 
         [Required(ErrorMessage = "Informe a data do feriado")]
         [Display(Name = "Data do feriado")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Data { get; set; }
 
         [Required(ErrorMessage ="Informe o nome do feriado")]
@@ -32,9 +34,7 @@ namespace Cap.Domain.Models.Admin
         {
             get
             {
-                //return new Avanhandava.Domain.Service.Admin.UsuarioService().Find(AlteradoPor);
-                // TODO: retornar usuario
-                return new Usuario();
+                return new UsuarioService().Find(AlteradoPor);
             }
             set { }
         }

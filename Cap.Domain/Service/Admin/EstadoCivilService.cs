@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Admin
 {
-    public class EstadoCivilService : ILogin<EstadoCivil>
+    public class EstadoCivilService : IBaseService<EstadoCivil>
     {
         IBaseRepository<EstadoCivil> repository;
 

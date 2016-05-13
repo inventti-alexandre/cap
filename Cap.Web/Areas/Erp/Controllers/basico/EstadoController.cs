@@ -11,9 +11,9 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
     [AreaAuthorizeAttribute("Erp",Roles ="admin")]
     public class EstadoController : Controller
     {
-        private ILogin<Estado> service;
+        private IBaseService<Estado> service;
 
-        public EstadoController(ILogin<Estado> service)
+        public EstadoController(IBaseService<Estado> service)
         {
             this.service = service;
         }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Requisicao
 {
-    public class ReqMaterialService : ILogin<ReqMaterial>
+    public class ReqMaterialService : IBaseService<ReqMaterial>
     {
         private IBaseRepository<ReqMaterial> repository;
 

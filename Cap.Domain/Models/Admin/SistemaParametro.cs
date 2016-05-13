@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Cap.Domain.Service.Admin;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cap.Domain.Models.Admin
 {
@@ -44,9 +41,7 @@ namespace Cap.Domain.Models.Admin
         {
             get
             {
-                //return new Avanhandava.Domain.Service.Admin.UsuarioService().Find(AlteradoPor);
-                // TODO: retornar usuario
-                return new Usuario();
+                return new UsuarioService().Find(AlteradoPor);
             }
             set { }
         }

@@ -8,7 +8,7 @@ namespace Cap.Web.Tests.Cap
     [TestClass]
     public class FPgtoUnitTest
     {
-        private ILogin<FPgto> service;
+        private IBaseService<FPgto> service;
 
         public FPgtoUnitTest()
         {

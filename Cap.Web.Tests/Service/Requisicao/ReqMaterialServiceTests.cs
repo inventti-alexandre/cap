@@ -7,7 +7,7 @@ namespace Cap.Domain.Service.Requisicao.Tests
     [TestClass()]
     public class ReqMaterialServiceTests
     {
-        private ILogin<ReqMaterial> service;
+        private IBaseService<ReqMaterial> service;
 
         public ReqMaterialServiceTests()
         {

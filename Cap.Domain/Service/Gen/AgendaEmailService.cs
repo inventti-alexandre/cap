@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cap.Domain.Service.Gen
 {
-    public class AgendaEmailService : ILogin<AgendaEmail>
+    public class AgendaEmailService : IBaseService<AgendaEmail>
     {
         private IBaseRepository<AgendaEmail> repository;
 

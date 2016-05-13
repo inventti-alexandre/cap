@@ -8,7 +8,7 @@ namespace Cap.Domain.Service.Cap.Tests
     [TestClass()]
     public class MatGrupoServiceTests
     {
-        private ILogin<MatGrupo> service;
+        private IBaseService<MatGrupo> service;
 
         public MatGrupoServiceTests()
         {

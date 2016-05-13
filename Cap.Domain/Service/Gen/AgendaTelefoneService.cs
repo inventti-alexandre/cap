@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Gen
 {
-    public class AgendaTelefoneService : ILogin<AgendaTelefone>
+    public class AgendaTelefoneService : IBaseService<AgendaTelefone>
     {
         private IBaseRepository<AgendaTelefone> repository;
 

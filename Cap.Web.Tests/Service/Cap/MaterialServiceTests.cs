@@ -8,7 +8,7 @@ namespace Cap.Domain.Service.Cap.Tests
     [TestClass()]
     public class MaterialServiceTests
     {
-        private ILogin<Material> service;
+        private IBaseService<Material> service;
 
         public MaterialServiceTests()
         {

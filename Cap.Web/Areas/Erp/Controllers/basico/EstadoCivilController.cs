@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Cap.Web.Common;
-using Cap.Domain.Abstract;
-using Cap.Domain.Models.Admin;
+﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
-using System.Web.UI.WebControls;
+using Cap.Domain.Models.Admin;
+using Cap.Web.Common;
+using System;
+using System.Linq;
 using System.Net;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
     [AreaAuthorizeAttribute("Erp", Roles = "admin")]
     public class EstadoCivilController : Controller
     {
-        private ILogin<EstadoCivil> service;
+        private IBaseService<EstadoCivil> service;
         private ILogin login;
 
-        public EstadoCivilController(ILogin<EstadoCivil> service, ILogin login)
+        public EstadoCivilController(IBaseService<EstadoCivil> service, ILogin login)
         {
             this.service = service;
             this.login = login;
@@ -62,9 +60,14 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 estado.AlteradoEm = DateTime.Now;
                 estado.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(estado);
-                service.Gravar(estado);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(estado);
+                    return RedirectToAction("Index");
+                }
+
+                return View(estado);
             }
             catch (ArgumentException e)
             {
@@ -100,8 +103,14 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 estado.AlteradoEm = DateTime.Now;
                 estado.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(estado);
-                service.Gravar(estado);
-                return RedirectToAction("Index");
+
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(estado);
+                    return RedirectToAction("Index");
+                }
+
+                return View(estado);
             }
             catch (ArgumentException e)
             {

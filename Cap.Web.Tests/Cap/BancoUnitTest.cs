@@ -8,7 +8,7 @@ namespace Cap.Web.Tests.Cap
     [TestClass]
     public class BancoUnitTest
     {
-        private ILogin<Banco> service;
+        private IBaseService<Banco> service;
 
         public BancoUnitTest()
         {

@@ -8,7 +8,7 @@ namespace Cap.Domain.Service.Cap.Tests
     [TestClass()]
     public class UnidadeServiceTests
     {
-        private ILogin<Unidade> service;
+        private IBaseService<Unidade> service;
 
         public UnidadeServiceTests()
         {

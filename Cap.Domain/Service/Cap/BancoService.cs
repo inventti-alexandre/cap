@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Cap
 {
-    public class BancoService : ILogin<Banco>
+    public class BancoService : IBaseService<Banco>
     {
         IBaseRepository<Banco> repository;
 
