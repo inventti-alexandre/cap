@@ -48,6 +48,7 @@ namespace Cap.Domain.Service.Admin
             item.Email = item.Email.ToLower().Trim();
             item.Nome = item.Nome.ToUpper().Trim();
             item.Telefone = item.Telefone.ToUpper().Trim();
+            item.Ramal = string.IsNullOrEmpty(item.Ramal) ? string.Empty : item.Ramal.ToUpper().Trim();
             if (string.IsNullOrEmpty(item.Roles))
             {
                 item.Roles = "";

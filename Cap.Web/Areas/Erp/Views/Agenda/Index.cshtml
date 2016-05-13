@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Agenda";
+}
+
+<h2>Agenda</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <div class="container">
+            <div class="col-md-4">
+                Nome:<br />
+                @Html.TextBox("nome", (string)ViewBag.Nome, new { @class = "form-control" })
+            </div>
+            <div class="col-md-8 top20">
+                <input type="button" id="pesquisar" value="Pesquisar" class="btn btn-primary" />
+            </div>
+        </div>
+    </p>
+}
+
+<p class="top20">
+    @Html.ActionLink("Novo", "Create")
+</p>
+
+<div id="contatos">
+    @{  
+        Html.RenderAction("Contatos", "Agenda", new { nome = (string)ViewBag.Nome });
+    }
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#pesquisar").click(function () {
+            var nome = $("#nome").val();
+            $.ajax({
+                url: '@Url.Action("Contatos","Agenda")',
+                data: { 'nome': nome },
+                datatype: 'html',
+                cache: false,
+                success: function (result) {
+                    $("#contatos").html(result);
+                }
+            });
+        });
+    });
+</script>
+

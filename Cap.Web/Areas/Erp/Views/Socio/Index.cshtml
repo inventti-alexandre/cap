@@ -1,0 +1,55 @@
+﻿@using Cap.Domain.Models.Cap;
+@model IEnumerable<Cap.Domain.Models.Cap.Socio>
+
+@{
+    ViewBag.Title = "Sócios";
+}
+
+<h2>Sócios</h2>
+@ViewBag.Empresa.Razao
+
+<p class="top10">
+    @Html.ActionLink("Novo sócio", "Create", new { idEmpresa = ViewBag.Empresa.Id })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.ActionLink("Voltar", "Index", "Empresa", null, new { @class = "btn btn-default" })

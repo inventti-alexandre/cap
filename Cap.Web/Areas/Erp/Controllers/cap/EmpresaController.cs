@@ -137,17 +137,22 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
         // POST: Erp/Empresa/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                service.Excluir(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                var empresa = service.Find(id);
+                if (empresa == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(empresa);
             }
         }
     }

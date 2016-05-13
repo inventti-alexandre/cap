@@ -55,6 +55,7 @@ namespace Cap.Domain.Models.Cap
 
         [Required(ErrorMessage ="Informe a data de nascimento")]
         [Display(Name ="Data de nascimento")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Nascimento { get; set; }
 
         [StringLength(100, ErrorMessage ="O nome do conjuge é composto por no máximo 100 caracteres")]
