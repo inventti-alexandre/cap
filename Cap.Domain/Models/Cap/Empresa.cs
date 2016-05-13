@@ -65,6 +65,7 @@ namespace Cap.Domain.Models.Cap
         public bool ECnpj { get; set; }
 
         [Display(Name = "Vencimento do e-CNPJ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? ECnpjVencto { get; set; }
 
         public bool Ativo { get; set; }

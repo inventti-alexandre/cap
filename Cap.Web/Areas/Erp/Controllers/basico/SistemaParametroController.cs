@@ -1,6 +1,7 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Admin;
+using Cap.Web.Common;
 using System;
 using System.Linq;
 using System.Net;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
+    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
     public class SistemaParametroController : Controller
     {
         private IBaseService<SistemaParametro> service;

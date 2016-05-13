@@ -6,7 +6,7 @@ namespace Cap.Web.Common.Bind
 {
     public static class BindEstadoHelper
     {
-        public static MvcHtmlString SelectUF(this HtmlHelper html, int idEstado = 0)
+        public static MvcHtmlString SelectEstado(this HtmlHelper html, int idEstado = 0)
         {
             var estados = new EstadoService().Listar()
                 .Where(x => x.Ativo == true)
