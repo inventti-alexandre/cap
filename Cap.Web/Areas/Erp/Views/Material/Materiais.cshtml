@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.Material>
+
+<p class="top20">
+    @Html.ActionLink("Novo", "Create", new { pesquisa = ViewBag.Pesquisa })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdUnidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdMatGrupo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrazoMinimoEntrega)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstoqueAtual)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unidade.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MatGrupo.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrazoMinimoEntrega)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstoqueAtual)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id, pesquisa = (string)ViewBag.Pesquisa }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.Id, pesquisa = (string)ViewBag.Pesquisa }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id, pesquisa = (string)ViewBag.Pesquisa })
+        </td>
+    </tr>
+}
+
+</table>

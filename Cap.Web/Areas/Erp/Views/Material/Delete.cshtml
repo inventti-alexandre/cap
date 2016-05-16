@@ -1,0 +1,106 @@
+﻿@model Cap.Domain.Models.Requisicao.Material
+
+@{
+    ViewBag.Title = "Material";
+}
+
+<h2>Material</h2>
+
+<p class="alert alert-danger top20">
+    Confirma a exclusão deste material?
+</p>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdUnidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unidade.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdMatGrupo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MatGrupo.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrazoMinimoEntrega)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrazoMinimoEntrega)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstoqueAtual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstoqueAtual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompraAutomatica)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompraAutomatica)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QtdeMinimaPedido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QtdeMinimaPedido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoPor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlteradoEm)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Voltar", "Index", new { pesquisa = (string)ViewBag.Pesquisa })
+        </div>
+    }
+</div>

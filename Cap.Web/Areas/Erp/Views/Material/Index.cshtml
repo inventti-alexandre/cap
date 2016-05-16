@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Materiais";
+}
+
+<h2>Materiais</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <p>
+        Descrição do material:
+        @Html.TextBox("pesquisa", (string)ViewBag.Pesquisa)
+        <input type="button" value="Pesquisar" id="pesquisar" name="pesquisar" class="btn btn-primary" />
+    </p>
+}
+
+<div id="materiais">
+    @{ Html.RenderAction("Materiais", "Material", new { descricao = (string)ViewBag.Pesquisa }); }
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#pesquisar").click(function () {
+            var pesquisa = $("#pesquisa").val();
+            $.ajax({
+                url: '@Url.Action("Materiais","Material")',
+                data: { 'pesquisa': pesquisa },
+                datatype: 'html',
+                cache: false,
+                success: function (result) {
+                    $('#materiais').html(result);
+                }
+            });
+        });
+    });
+</script>

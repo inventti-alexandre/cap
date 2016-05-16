@@ -1,5 +1,7 @@
 ﻿using Cap.Domain.Models.Admin;
+using Cap.Domain.Models.Cap;
 using Cap.Domain.Service.Admin;
+using Cap.Domain.Service.Cap;
 using Cap.Domain.Service.Requisicao;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +13,11 @@ namespace Cap.Domain.Models.Requisicao
     {
         [Key]
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Empresa inválida")]
+        [Display(Name = "Empresa")]
+        [Range(1, double.MaxValue, ErrorMessage = "Empresa inválida")]
+        public int IdEmpresa { get; set; }
 
         [Required(ErrorMessage ="Informe o material")]
         [Display(Name ="Material")]
@@ -76,6 +83,18 @@ namespace Cap.Domain.Models.Requisicao
             get
             {
                 return new UsuarioService().Find(AlteradoPor);
+            }
+            set { }
+        }
+
+
+        [NotMapped]
+        [Display(Name = "Empresa")]
+        public virtual Empresa Empresa
+        {
+            get
+            {
+                return new EmpresaService().Find(IdEmpresa);
             }
             set { }
         }

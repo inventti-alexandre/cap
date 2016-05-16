@@ -115,13 +115,18 @@ namespace Cap.Web.Areas.Erp.Controllers
             {
                 contato.AlteradoEm = DateTime.Now;
 
-                // TODO: parei aki
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(contato);
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                return View(contato);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(contato);
             }
         }
 
@@ -145,17 +150,22 @@ namespace Cap.Web.Areas.Erp.Controllers
 
         // POST: Erp/Agenda/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                service.Excluir(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                var contato = service.Find(id);
+                if (contato == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(contato);
             }
         }
     }
