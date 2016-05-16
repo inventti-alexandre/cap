@@ -22,7 +22,11 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         // GET: Erp/FPgto
         public ActionResult Index()
         {
-            var formas = service.Listar().OrderBy(x => x.Descricao).ToList();
+            var idEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
+            var formas = service.Listar()
+                .Where(x => x.IdEmpresa == idEmpresa)
+                .OrderBy(x => x.Descricao)
+                .ToList();
 
             return View(formas);
         }
@@ -43,17 +47,17 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         // GET: Erp/FPgto/Create
         public ActionResult Create()
         {
-            return View(new FPgto());
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return View(new FPgto() { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id });
         }
 
         // POST: Erp/FPgto/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Descricao")] FPgto forma)
+        public ActionResult Create([Bind(Include ="Descricao,IdEmpresa,AlteradoPor")] FPgto forma)
         {
             try
             {
                 forma.AlteradoEm = DateTime.Now;
-                forma.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(forma);
 
                 if (ModelState.IsValid)
@@ -86,17 +90,17 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return HttpNotFound();
             }
 
+            forma.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             return View(forma);
         }
 
         // POST: Erp/FPgto/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Descricao,Ativo")] FPgto forma)
+        public ActionResult Edit([Bind(Include = "Id,Descricao,Ativo,IdEmpresa,AlteradoPor")] FPgto forma)
         {
             try
             {
                 forma.AlteradoEm = DateTime.Now;
-                forma.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(forma);
 
                 if (ModelState.IsValid)

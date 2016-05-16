@@ -19,12 +19,12 @@ namespace Cap.Web.Tests.Admin
         public void IncluirEstadosCivis()
         {
             // Arrange
-            var civil01 = new EstadoCivil { AlteradoPor = 1, Ativo = true, Descricao = "SOLTEIRO" };
-            var civil02 = new EstadoCivil { AlteradoPor = 1, Ativo = true, Descricao = "CASADO" };
-            var civil03 = new EstadoCivil { AlteradoPor = 1, Ativo = true, Descricao = "SEPARADO JUDICIALMENTE" };
-            var civil04 = new EstadoCivil { AlteradoPor = 1, Ativo = true, Descricao = "DIVORCIADO" };
-            var civil05 = new EstadoCivil { AlteradoPor = 1, Ativo = true, Descricao = "VIUVO" };
-            var civil06 = new EstadoCivil { AlteradoPor = 1, Ativo = true, Descricao = "OUTROS" };
+            var civil01 = new EstadoCivil { AlteradoPor = 2, Ativo = true, Descricao = "SOLTEIRO" };
+            var civil02 = new EstadoCivil { AlteradoPor = 2, Ativo = true, Descricao = "CASADO" };
+            var civil03 = new EstadoCivil { AlteradoPor = 2, Ativo = true, Descricao = "SEPARADO JUDICIALMENTE" };
+            var civil04 = new EstadoCivil { AlteradoPor = 2, Ativo = true, Descricao = "DIVORCIADO" };
+            var civil05 = new EstadoCivil { AlteradoPor = 2, Ativo = true, Descricao = "VIUVO" };
+            var civil06 = new EstadoCivil { AlteradoPor = 2, Ativo = true, Descricao = "OUTROS" };
 
             // Act
             civil01.Id = service.Gravar(civil01);

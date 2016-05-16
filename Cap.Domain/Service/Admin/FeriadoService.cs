@@ -37,7 +37,7 @@ namespace Cap.Domain.Service.Admin
             item.AlteradoEm = DateTime.Now;
             item.Descricao = item.Descricao.ToUpper().Trim();
 
-            if (repository.Listar().Where(x => x.Data == item.Data && x.Id != item.Id).Count() > 0)
+            if (repository.Listar().Where(x => x.Data == item.Data && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
             {
                 throw new ArgumentException("Já existe um feriado cadastrado nesta data");
             }

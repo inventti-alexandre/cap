@@ -46,7 +46,7 @@ namespace Cap.Domain.Service.Cap
             item.Razao = item.Razao.ToUpper().Trim();
             item.AlteradoEm = DateTime.Now;
 
-            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)
+            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
             {
                 throw new ArgumentException("Já existe um banco cadastrado com este nome fantasia");
             }

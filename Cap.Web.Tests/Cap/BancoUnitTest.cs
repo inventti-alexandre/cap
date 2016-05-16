@@ -19,7 +19,7 @@ namespace Cap.Web.Tests.Cap
         public void IncluirBanco()
         {
             // Arrange
-            Banco banco = new Banco { AlteradoPor = 1, Descricao = "ITAU", Razao = "ITAU UNIBANCO SA", NumFebraban = 341 };
+            Banco banco = new Banco { AlteradoPor = 2, IdEmpresa = 2, Descricao = "ITAU", Razao = "ITAU UNIBANCO SA", NumFebraban = 341 };
 
             // Act
             banco.Id = service.Gravar(banco);

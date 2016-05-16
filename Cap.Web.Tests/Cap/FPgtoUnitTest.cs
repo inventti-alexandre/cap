@@ -19,11 +19,11 @@ namespace Cap.Web.Tests.Cap
         public void IncluirFPgtos()
         {
             // Arrange
-            var fpgto01 = new FPgto { AlteradoPor = 1, Ativo = true, Descricao = "BANCO" };
-            var fpgto02 = new FPgto { AlteradoPor = 1, Ativo = true, Descricao = "CHEQUE" };
-            var fpgto03 = new FPgto { AlteradoPor = 1, Ativo = true, Descricao = "DEPOSITO" };
-            var fpgto04 = new FPgto { AlteradoPor = 1, Ativo = true, Descricao = "DINHEIRO" };
-            var fpgto05 = new FPgto { AlteradoPor = 1, Ativo = true, Descricao = "RETENCAO" };
+            var fpgto01 = new FPgto { AlteradoPor = 2, IdEmpresa = 2, Ativo = true, Descricao = "BANCO" };
+            var fpgto02 = new FPgto { AlteradoPor = 2, IdEmpresa = 2, Ativo = true, Descricao = "CHEQUE" };
+            var fpgto03 = new FPgto { AlteradoPor = 2, IdEmpresa = 2, Ativo = true, Descricao = "DEPOSITO" };
+            var fpgto04 = new FPgto { AlteradoPor = 2, IdEmpresa = 2, Ativo = true, Descricao = "DINHEIRO" };
+            var fpgto05 = new FPgto { AlteradoPor = 2, IdEmpresa = 2, Ativo = true, Descricao = "RETENCAO" };
 
             // Act
             fpgto01.Id = service.Gravar(fpgto01);

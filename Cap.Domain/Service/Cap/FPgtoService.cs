@@ -45,7 +45,7 @@ namespace Cap.Domain.Service.Cap
             item.Descricao = item.Descricao.ToUpper().Trim();
             item.AlteradoEm = DateTime.Now;
 
-            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)
+            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
             {
                 throw new ArgumentException("Já existe uma forma de pagamento cadastrada com esta descrição");
             }

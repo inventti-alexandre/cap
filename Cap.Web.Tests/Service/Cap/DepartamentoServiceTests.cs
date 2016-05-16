@@ -20,7 +20,7 @@ namespace Cap.Domain.Service.Cap.Tests
             // Arrange
             Departamento departamento = new Departamento
             {
-                AlteradoPor = 1,
+                AlteradoPor = 2,
                 Bairro = "PINHEIROS",
                 Cep = "05414012",
                 Cidade = "SAO PAULO",

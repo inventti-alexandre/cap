@@ -26,7 +26,9 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         // GET: Erp/Socio
         public ActionResult Index(int idEmpresa)
         {
-            var socios = service.Listar().Where(x => x.IdEmpresa == idEmpresa).OrderBy(x => x.Nome).ToList();
+            var socios = service.Listar()
+                .Where(x => x.IdEmpresa == idEmpresa)
+                .OrderBy(x => x.Nome).ToList();
 
             ViewBag.Empresa = empresa.Find(idEmpresa);
             return View(socios);
@@ -48,17 +50,16 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         // GET: Erp/Socio/Create
         public ActionResult Create(int idEmpresa)
         {
-            return View(new Socio { IdEmpresa = idEmpresa, Nacionalidade = "BRASILEIRA" });
+            return View(new Socio { IdEmpresa = idEmpresa, Nacionalidade = "BRASILEIRA", AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name) });
         }
 
         // POST: Erp/Socio/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="IdEmpresa,Nome,Endereco,Bairro,Cidade,IdEstado,Cep,Telefone,Email,Cpf,Nascimento,Conjuge,Profissao,Nacionalidade,IdEstadoCivil")] Socio socio)
+        public ActionResult Create([Bind(Include ="IdEmpresa,Nome,Endereco,Bairro,Cidade,IdEstado,Cep,Telefone,Email,Cpf,Nascimento,Conjuge,Profissao,Nacionalidade,IdEstadoCivil,AlteradoPor")] Socio socio)
         {
             try
             {
                 socio.AlteradoEm = DateTime.Now;
-                socio.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(socio);
 
                 if (ModelState.IsValid)
@@ -91,17 +92,17 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return HttpNotFound();
             }
 
+            socio.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             return View(socio);
         }
 
         // POST: Erp/Socio/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,IdEmpresa,Nome,Endereco,Bairro,Cidade,IdEstado,Cep,Telefone,Email,Cpf,Nascimento,Conjuge,Profissao,Nacionalidade,IdEstadoCivil,Ativo")] Socio socio)
+        public ActionResult Edit([Bind(Include = "Id,IdEmpresa,Nome,Endereco,Bairro,Cidade,IdEstado,Cep,Telefone,Email,Cpf,Nascimento,Conjuge,Profissao,Nacionalidade,IdEstadoCivil,Ativo,AlteradoPor")] Socio socio)
         {
             try
             {
                 socio.AlteradoEm = DateTime.Now;
-                socio.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(socio);
 
                 if (ModelState.IsValid)

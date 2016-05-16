@@ -1,4 +1,5 @@
 ﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Admin;
 using Cap.Web.Common;
 using System;
@@ -12,16 +13,21 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
     public class UsuarioController : Controller
     {
         IBaseService<Usuario> service;
+        ILogin login;
 
-        public UsuarioController(IBaseService<Usuario> service)
+        public UsuarioController(IBaseService<Usuario> service, ILogin login)
         {
             this.service = service;
+            this.login = login;
         }
 
         // GET: Erp/Usuario
         public ActionResult Index()
         {
-            var usuarios = service.Listar().OrderBy(x => x.Nome).ToList();
+            var idEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
+            var usuarios = service.Listar()
+                .Where(x => x.IdEmpresa == idEmpresa)
+                .OrderBy(x => x.Nome).ToList();
 
             return View(usuarios);
         }
@@ -42,15 +48,16 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         // GET: Erp/Usuario/Create
         public ActionResult Create()
         {
-            return View(new Usuario());
+            return View(new Usuario() { IdEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa });
         }
 
         // POST: Erp/Usuario/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Nome,Email,Login,Senha,Telefone,Ramal,Roles")] Usuario usuario)
+        public ActionResult Create([Bind(Include ="Nome,Email,Senha,Telefone,Ramal,Roles,IdEmpresa")] Usuario usuario)
         {
             try
             {
+                usuario.IdEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
                 usuario.CadastradoEm = DateTime.Now;
                 usuario.Ramal = usuario.Ramal == null ? string.Empty : usuario.Ramal;
                 TryUpdateModel(usuario);
@@ -90,7 +97,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/Usuario/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Email,Login,Telefone,Ramal,Roles,Ativo,CadastradoEm,ExcluidoEm,Senha")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Id,Nome,Email,Telefone,Ramal,Roles,Ativo,CadastradoEm,ExcluidoEm,Senha,IdEmpresa")] Usuario usuario)
         {
             try
             {

@@ -13,18 +13,18 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
     public class EmpresaController : Controller
     {
         IBaseService<Empresa> service;
-        ILogin login;
 
-        public EmpresaController(IBaseService<Empresa> service, ILogin login)
+        public EmpresaController(IBaseService<Empresa> service)
         {
             this.service = service;
-            this.login = login;
         }
 
         // GET: Erp/Empresa
         public ActionResult Index()
         {
-            var empresas = service.Listar().OrderBy(x => x.Fantasia).ToList();
+            var empresas = service.Listar()
+                .OrderBy(x => x.Fantasia)
+                .ToList();
 
             return View(empresas);
         }
@@ -55,7 +55,6 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             try
             {
                 empresa.AlteradoEm = DateTime.Now;
-                empresa.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name.ToUpper());
                 TryUpdateModel(empresa);
 
                 if (ModelState.IsValid)
@@ -98,7 +97,6 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             try
             {
                 empresa.AlteradoEm = DateTime.Now;
-                empresa.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name.ToUpper());
                 TryUpdateModel(empresa);
 
                 if (ModelState.IsValid)

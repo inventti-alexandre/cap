@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Abstract.Admin;
 using Cap.Web.Areas.Erp.Models;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -26,12 +27,13 @@ namespace Cap.Web.Areas.Erp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var usuario = service.ValidaLogin(loginUsuario.Login, loginUsuario.Senha);
+                var usuario = service.ValidaLogin(loginUsuario.Email, loginUsuario.Senha);
 
                 if (usuario != null)
                 {
-                    FormsAuthentication.SetAuthCookie(usuario.Login, false);
-                    Session["IdUsuario"] = usuario.Id;
+                    FormsAuthentication.SetAuthCookie(usuario.Email, false);
+                    //Session["IdUsuario"] = usuario.Id;
+                    //Session["IdEmpresa"] = usuario.IdEmpresa;
                     if (Url.IsLocalUrl(returnUrl)
                         && returnUrl.Length > 1
                         && returnUrl.StartsWith("/")

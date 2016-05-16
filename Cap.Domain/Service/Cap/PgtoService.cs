@@ -48,7 +48,7 @@ namespace Cap.Domain.Service.Cap
             item.AlteradoEm = DateTime.Now;
 
             // valida
-            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.Id != item.Id).Count() > 0)
+            if (repository.Listar().Where(x => x.Descricao == item.Descricao && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
             {
                 throw new ArgumentException("Já existe um pagamento cadastrado com esta descrição");
             }

@@ -19,12 +19,12 @@ namespace Cap.Web.Tests.Admin
         public void IncluirParametro()
         {
             // Arrange
-            var parametro1 = new SistemaParametro { AlteradoPor = 1, Codigo = "EMAIL_USESSL", Descricao = "UseSsl", Valor = "true" };
-            var parametro2 = new SistemaParametro { AlteradoPor = 1, Codigo = "EMAIL_SERVERSMTP", Descricao = "Smtp server", Valor = "smtp.gmail.com" };
-            var parametro3 = new SistemaParametro { AlteradoPor = 1, Codigo = "EMAIL_SERVERPORT", Descricao = "Porta smtp", Valor = "587" };
-            var parametro4 = new SistemaParametro { AlteradoPor = 1, Codigo = "EMAIL_SENDER", Descricao = "Sender (email)", Valor = "contact@scrumtopractice.com" };
-            var parametro5 = new SistemaParametro { AlteradoPor = 1, Codigo = "EMAIL_SENDERPASSWORD", Descricao = "Password", Valor = "senh@" };
-            var parametro6 = new SistemaParametro { AlteradoPor = 1, Codigo = "AG_ANTERIOR", Descricao = "Permite agendamento com data passada", Valor = "false" };
+            var parametro1 = new SistemaParametro { AlteradoPor = 2, IdEmpresa = 2, Codigo = "EMAIL_USESSL", Descricao = "UseSsl", Valor = "true" };
+            var parametro2 = new SistemaParametro { AlteradoPor = 2, IdEmpresa = 2, Codigo = "EMAIL_SERVERSMTP", Descricao = "Smtp server", Valor = "smtp.gmail.com" };
+            var parametro3 = new SistemaParametro { AlteradoPor = 2, IdEmpresa = 2, Codigo = "EMAIL_SERVERPORT", Descricao = "Porta smtp", Valor = "587" };
+            var parametro4 = new SistemaParametro { AlteradoPor = 2, IdEmpresa = 2, Codigo = "EMAIL_SENDER", Descricao = "Sender (email)", Valor = "contact@scrumtopractice.com" };
+            var parametro5 = new SistemaParametro { AlteradoPor = 2, IdEmpresa = 2, Codigo = "EMAIL_SENDERPASSWORD", Descricao = "Password", Valor = "senh@" };
+            var parametro6 = new SistemaParametro { AlteradoPor = 2, IdEmpresa = 2, Codigo = "AG_ANTERIOR", Descricao = "Permite agendamento com data passada", Valor = "false" };
 
             // Act
             int id1 = service.Gravar(parametro1);

@@ -50,7 +50,7 @@ namespace Cap.Domain.Service.Admin
             item.AlteradoEm = DateTime.Now;
 
             // valida
-            if (repository.Listar().Where(x => x.Codigo == item.Codigo && x.Id != item.Id).Count() > 0)
+            if (repository.Listar().Where(x => x.Codigo == item.Codigo && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
             {
                 throw new ArgumentException("Já existe um parâmetro cadastrado com este código");
             }

@@ -21,7 +21,7 @@ namespace Cap.Domain.Service.Cap.Tests
             // Arrange
             Socio socio = new Socio
             {
-                AlteradoPor = 1,
+                AlteradoPor = 2,
                 Bairro = "MIRANDOPOLIS",
                 Cep = "04043012",
                 Cidade = "SAO PAULO",

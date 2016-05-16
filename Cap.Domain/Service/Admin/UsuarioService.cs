@@ -56,15 +56,15 @@ namespace Cap.Domain.Service.Admin
             item.Roles = item.Roles.ToLower().Trim();
 
             // valida
-            if (repository.Listar().Where(x => x.Nome == item.Nome && x.Id != item.Id).Count() > 0)
+            if (repository.Listar().Where(x => x.Nome == item.Nome && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
             {
                 throw new ArgumentException("Usuário já cadastrado");
             }
 
-            if (repository.Listar().Where(x => x.Login == item.Login && x.Id != item.Id).Count() > 0)
-            {
-                throw new ArgumentException("Login já utilizado por outro usuário");
-            }
+            //if (repository.Listar().Where(x => x.Login == item.Login && x.Id != item.Id).Count() > 0)
+            //{
+            //    throw new ArgumentException("Login já utilizado por outro usuário");
+            //}
 
             if (repository.Listar().Where(x => x.Email == item.Email && x.Id != item.Id).Count() > 0)
             {
@@ -135,19 +135,26 @@ namespace Cap.Domain.Service.Admin
             email.Enviar(usuario.Nome, usuario.Email, "CAP - nova senha para acesso", mensagem.ToString());
         }
 
-        public Usuario ValidaLogin(string login, string senha)
+        public Usuario ValidaLogin(string email, string senha)
         {
-            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(senha))
+            if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(senha))
             {
-                return repository.Listar().Where(x => x.Ativo == true && x.Login == login && x.Senha == senha).FirstOrDefault();
+                email = email.ToLower().Trim();
+                return repository.Listar().Where(x => x.Ativo == true && x.Email == email && x.Senha == senha).FirstOrDefault();
             }
 
             return null;
         }
 
-        public int GetIdUsuario(string login)
+        public int GetIdUsuario(string email)
         {
-            var usuario = repository.Listar().Where(x => x.Ativo == true && x.Login == login).FirstOrDefault();
+            if (string.IsNullOrEmpty(email))
+            {
+                return 0;
+            }
+
+            email = email.ToLower().Trim();
+            var usuario = repository.Listar().Where(x => x.Ativo == true && x.Email == email).FirstOrDefault();
 
             if (usuario != null)
             {
@@ -155,6 +162,17 @@ namespace Cap.Domain.Service.Admin
             }
 
             return 0;
+        }
+
+        public Usuario GetUsuario(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return null;
+            }
+
+            email = email.ToLower().Trim();
+            return repository.Listar().Where(x => x.Email == email).FirstOrDefault();
         }
     }
 }

@@ -71,23 +71,8 @@ namespace Cap.Domain.Models.Cap
         public bool Ativo { get; set; }
 
         [Required]
-        [Display(Name = "Alterado por")]
-        public int AlteradoPor { get; set; }
-
-        [Required]
         [Display(Name = "Alterado em")]
         public DateTime AlteradoEm { get; set; }
-
-        [NotMapped]
-        [Display(Name = "Usuário")]
-        public virtual Usuario Usuario
-        {
-            get
-            {
-                return new UsuarioService().Find(AlteradoPor);
-            }
-            set { }
-        }
 
         [NotMapped]
         [Display(Name = "Estado")]

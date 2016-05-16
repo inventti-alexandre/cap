@@ -48,17 +48,16 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         // GET: Erp/EstadoCivil/Create
         public ActionResult Create()
         {
-            return View(new EstadoCivil() { Ativo = true });
+            return View(new EstadoCivil() { Ativo = true, AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name) });
         }
 
         // POST: Erp/EstadoCivil/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Descricao")] EstadoCivil estado)
+        public ActionResult Create([Bind(Include ="Descricao,AlteradoPor")] EstadoCivil estado)
         {
             try
             {
                 estado.AlteradoEm = DateTime.Now;
-                estado.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(estado);
 
                 if (ModelState.IsValid)
@@ -91,17 +90,17 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return HttpNotFound();
             }
 
+            estado.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             return View(estado);
         }
 
         // POST: Erp/EstadoCivil/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include ="Id,Descricao,Ativo")] EstadoCivil estado)
+        public ActionResult Edit([Bind(Include ="Id,Descricao,Ativo,AlteradoPor")] EstadoCivil estado)
         {
             try
             {
                 estado.AlteradoEm = DateTime.Now;
-                estado.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(estado);
 
                 if (ModelState.IsValid)

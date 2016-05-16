@@ -20,7 +20,6 @@ namespace Cap.Domain.Service.Cap.Tests
             // Arrange
             Empresa empresa = new Empresa
             {
-                AlteradoPor = 1,                                
                 Bairro = "PINHEIROS",
                 Cidade = "SAO PAULO",
                 Cep = "05414012",

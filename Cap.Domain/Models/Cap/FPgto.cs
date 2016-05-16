@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Models.Admin;
 using Cap.Domain.Service.Admin;
+using Cap.Domain.Service.Cap;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,6 +11,11 @@ namespace Cap.Domain.Models.Cap
     {
         [Key]
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Empresa inválida")]
+        [Display(Name = "Empresa")]
+        [Range(1, double.MaxValue, ErrorMessage = "Empresa inválida")]
+        public int IdEmpresa { get; set; }
 
         [Required(ErrorMessage = "Informe a descrição da forma de pagamento")]
         [Display(Name = "Forma prevista de pagamento")]
@@ -33,6 +39,17 @@ namespace Cap.Domain.Models.Cap
             get
             {
                 return new UsuarioService().Find(AlteradoPor);
+            }
+            set { }
+        }
+
+        [NotMapped]
+        [Display(Name = "Empresa")]
+        public virtual Empresa Empresa
+        {
+            get
+            {
+                return new EmpresaService().Find(IdEmpresa);
             }
             set { }
         }

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Cap.Domain.Models.Cap;
+using Cap.Domain.Service.Cap;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cap.Domain.Models.Admin
 {
@@ -19,10 +22,10 @@ namespace Cap.Domain.Models.Admin
         [Display(Name = "Email", Prompt = "nome@dominio.com.br")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Informe o login")]
-        [StringLength(20, ErrorMessage = "O login é composto por no mínimo 4 caracteres e no máximo 20 caracteres", MinimumLength = 4)]
-        [Display(Name = "Login")]
-        public string Login { get; set; }
+        //[Required(ErrorMessage = "Informe o login")]
+        //[StringLength(20, ErrorMessage = "O login é composto por no mínimo 4 caracteres e no máximo 20 caracteres", MinimumLength = 4)]
+        //[Display(Name = "Login")]
+        //public string Login { get; set; }
 
         [Required(ErrorMessage = "Informe a senha do usuário")]
         [StringLength(20, ErrorMessage = "A senha é composta por no mínimo 6 caracteres e no máximo 20 caracteres", MinimumLength = 6)]
@@ -52,5 +55,20 @@ namespace Cap.Domain.Models.Admin
 
         [Display(Name = "Regras", Prompt = "Ex: empresa_crud, permissao...")]
         public string Roles { get; set; }
+
+        [Display(Name = "Empresa")]
+        [Range(1,double.MaxValue, ErrorMessage ="Empresa inválida")]
+        public int IdEmpresa { get; set; }
+
+        [NotMapped]
+        public virtual Empresa Empresa
+        {
+            get
+            {
+                return new EmpresaService().Find(IdEmpresa);
+            }
+            set { }
+        }
+
     }
 }

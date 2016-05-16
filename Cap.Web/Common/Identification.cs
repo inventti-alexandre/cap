@@ -11,7 +11,7 @@ namespace Cap.Web.Common
             get
             {
                 return new UsuarioService().Listar()
-                    .FirstOrDefault(x => x.Login.ToUpper() == HttpContext.Current.User.Identity.Name.ToUpper()).Id;
+                    .FirstOrDefault(x => x.Email.ToUpper() == HttpContext.Current.User.Identity.Name.ToUpper()).Id;
             }
         }
 
@@ -20,7 +20,7 @@ namespace Cap.Web.Common
             get
             {
                 return new UsuarioService().Listar()
-                    .FirstOrDefault(x => x.Login.ToUpper() == HttpContext.Current.User.Identity.Name.ToUpper()).Nome;
+                    .FirstOrDefault(x => x.Email.ToUpper() == HttpContext.Current.User.Identity.Name.ToUpper()).Nome;
             }
         }
     }

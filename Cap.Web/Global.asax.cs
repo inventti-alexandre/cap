@@ -42,7 +42,7 @@ namespace Cap.Web
                         string username = FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
                         string roles = string.Empty;
 
-                        var usuario = new Cap.Domain.Service.Admin.UsuarioService().Listar().FirstOrDefault(x => x.Login == username);
+                        var usuario = new Cap.Domain.Service.Admin.UsuarioService().Listar().FirstOrDefault(x => x.Email == username);
                         if (usuario != null)
                         {
                             roles = usuario.Roles;

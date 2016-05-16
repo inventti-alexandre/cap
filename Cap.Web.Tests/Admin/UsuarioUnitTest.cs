@@ -50,12 +50,12 @@ namespace Cap.Web.Tests.Admin
                 Ativo = true,
                 CadastradoEm = DateTime.Now,
                 Email = "jb.alessandro@gmail.com",
-                Login = "jose",
+                IdEmpresa = 2,
                 Nome = "JOSE ALESSANDRO",
-                Ramal = "",
+                Ramal = "admin,master",
                 Roles = "",
                 Senha = "b8c7p2c6",
-                Telefone = "99721-8670"
+                Telefone = "99721-8670",
             };
 
             // Act

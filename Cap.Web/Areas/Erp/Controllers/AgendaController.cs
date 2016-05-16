@@ -34,8 +34,9 @@ namespace Cap.Web.Areas.Erp.Controllers
         {
             if (!string.IsNullOrEmpty(nome))
             {
+                var idEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
                 var contatos = service.Listar()
-                    .Where(x => x.Nome.Contains(nome))
+                    .Where(x => x.Nome.Contains(nome) && x.IdEmpresa == idEmpresa)
                     .ToList();
                 return PartialView(contatos);
             }
@@ -59,12 +60,13 @@ namespace Cap.Web.Areas.Erp.Controllers
         // GET: Erp/Agenda/Create
         public ActionResult Create()
         {
-            return View(new Agenda());
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return View(new Agenda() { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id });
         }
 
         // POST: Erp/Agenda/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Nome,Contato,Endereco,Bairro,Cidade,IdEstado,Cep,WebSite,Observ")]Agenda contato)
+        public ActionResult Create([Bind(Include ="Nome,Contato,Endereco,Bairro,Cidade,IdEstado,Cep,WebSite,Observ,AlteradoPor,IdEmpresa")]Agenda contato)
         {
             try
             {
@@ -101,16 +103,19 @@ namespace Cap.Web.Areas.Erp.Controllers
                 return HttpNotFound();
             }
 
+            contato.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             return View(contato);
         }
 
         // POST: Erp/Agenda/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include = "Nome,Contato,Endereco,Bairro,Cidade,IdEstado,Cep,WebSite,Observ,AlteradoPor,IdEmpresa")]Agenda contato)
         {
             try
             {
-                // TODO: Add update logic here
+                contato.AlteradoEm = DateTime.Now;
+
+                // TODO: parei aki
 
                 return RedirectToAction("Index");
             }

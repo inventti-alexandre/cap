@@ -9,6 +9,7 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.AlteradoPor)
     
     <div class="form-horizontal">
         <hr />

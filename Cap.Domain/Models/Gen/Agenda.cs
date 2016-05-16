@@ -1,5 +1,7 @@
 ﻿using Cap.Domain.Models.Admin;
+using Cap.Domain.Models.Cap;
 using Cap.Domain.Service.Admin;
+using Cap.Domain.Service.Cap;
 using Cap.Domain.Service.Gen;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,11 @@ namespace Cap.Domain.Models.Gen
     public class Agenda
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Empresa inválida")]
+        [Display(Name = "Empresa")]
+        [Range(1, double.MaxValue, ErrorMessage = "Empresa inválida")]
+        public int IdEmpresa { get; set; }
 
         [Required(ErrorMessage ="Informe o nome")]
         [StringLength(100, ErrorMessage ="O nome é composto por no máximo 100 caracteres")]
@@ -93,6 +100,17 @@ namespace Cap.Domain.Models.Gen
             get
             {
                 return new AgendaTelefoneService().Listar().Where(x => x.IdAgenda == Id).ToList();
+            }
+            set { }
+        }
+
+        [NotMapped]
+        [Display(Name = "Empresa")]
+        public virtual Empresa Empresa
+        {
+            get
+            {
+                return new EmpresaService().Find(IdEmpresa);
             }
             set { }
         }

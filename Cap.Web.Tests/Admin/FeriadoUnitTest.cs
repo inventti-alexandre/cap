@@ -20,7 +20,7 @@ namespace Cap.Web.Tests.Admin
         public void IncluirFeriado()
         {
             // Arrange
-            Feriado feriado = new Feriado { AlteradoPor = 1, Data = new DateTime(2015, 1, 1), Descricao = "CONFRATERNIZAÇÃO UNIVERSAO" };
+            Feriado feriado = new Feriado { AlteradoPor = 2, IdEmpresa = 2, Data = new DateTime(2015, 1, 1), Descricao = "CONFRATERNIZAÇÃO UNIVERSAO" };
 
             // Act
             feriado.Id = service.Gravar(feriado);

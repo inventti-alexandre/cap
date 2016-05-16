@@ -5,8 +5,9 @@ namespace Cap.Web.Areas.Erp.Models
     public class LoginUsuario
     {
         [Required]
-        [StringLength(20, ErrorMessage = "O login é composto por no máximo de 20 caracteres")]
-        public string Login { get; set; }
+        [StringLength(100, ErrorMessage = "O email é composto por no máximo de 100 caracteres")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

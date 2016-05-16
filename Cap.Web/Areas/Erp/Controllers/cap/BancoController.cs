@@ -10,74 +10,74 @@ using System.Web.Mvc;
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
     [AreaAuthorizeAttribute("Erp", Roles = "admin")]
-    public class PgtoController : Controller
+    public class BancoController : Controller
     {
-        private IBaseService<Pgto> service;
+        private IBaseService<Banco> service;
         private ILogin login;
 
-        public PgtoController(IBaseService<Pgto> service, ILogin login)
+        public BancoController(IBaseService<Banco> service, ILogin login)
         {
             this.service = service;
             this.login = login;
         }
 
-        // GET: Erp/Pgto
+        // GET: Erp/Banco
         public ActionResult Index()
         {
             var idEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
-            var pgtos = service.Listar()
+            var bancos = service.Listar()
                 .Where(x => x.IdEmpresa == idEmpresa)
                 .OrderBy(x => x.Descricao)
                 .ToList();
 
-            return View(pgtos);
+            return View(bancos);
         }
 
-        // GET: Erp/Pgto/Details/5
+        // GET: Erp/Banco/Details/5
         public ActionResult Details(int id)
         {
-            var pgto = service.Find(id);
+            var banco = service.Find(id);
 
-            if (pgto == null)
+            if (banco == null)
             {
                 return HttpNotFound();
             }
 
-            return View(pgto);
+            return View(banco);
         }
 
-        // GET: Erp/Pgto/Create
+        // GET: Erp/Banco/Create
         public ActionResult Create()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            return View(new Pgto() { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id });
+            return View(new Banco() { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id });
         }
 
-        // POST: Erp/Pgto/Create
+        // POST: Erp/Banco/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Descricao,Imposto,IdEmpresa,AlteradoPor")] Pgto pgto)
+        public ActionResult Create([Bind(Include = "Descricao,Razao,NumFebraban,AlteradoPor,IdEmpresa")] Banco banco)
         {
             try
             {
-                pgto.AlteradoEm = DateTime.Now;
-                TryUpdateModel(pgto);
+                banco.AlteradoEm = DateTime.Now;
+                TryUpdateModel(banco);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(pgto);
+                    service.Gravar(banco);
                     return RedirectToAction("Index");
                 }
 
-                return View(pgto);
+                return View(banco);                
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(pgto);
+                return View(banco);
             }
         }
 
-        // GET: Erp/Pgto/Edit/5
+        // GET: Erp/Banco/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -85,42 +85,45 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var pgto = service.Find((int)id);
+            var banco = service.Find((int)id);
 
-            if (pgto == null)
+            if (banco == null)
             {
                 return HttpNotFound();
             }
 
-            pgto.AlteradoPor = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).Id;
-            return View(pgto);
+            banco.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return View(banco);
         }
 
-        // POST: Erp/Pgto/Edit/5
+        // POST: Erp/Banco/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Descricao,Imposto,Ativo,IdEmpresa,AlteradoPor")] Pgto pgto)
+        public ActionResult Edit([Bind(Include = "Id,Descricao,Razao,NumFebraban,IdEmpresa,AlteradoPor")] Banco banco)
         {
             try
             {
-                pgto.AlteradoEm = DateTime.Now;
-                TryUpdateModel(pgto);
+                var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                banco.AlteradoEm = DateTime.Now;
+                banco.AlteradoPor = usuario.Id;
+                banco.IdEmpresa = usuario.IdEmpresa;
+                TryUpdateModel(banco);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(pgto);
+                    service.Gravar(banco);
                     return RedirectToAction("Index");
                 }
 
-                return View(pgto);
+                return View(banco);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(pgto);
+                return View(banco);
             }
         }
 
-        // GET: Erp/Pgto/Delete/5
+        // GET: Erp/Banco/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -128,17 +131,17 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var pgto = service.Find((int)id);
+            var banco = service.Find((int)id);
 
-            if (pgto == null)
+            if (banco == null)
             {
                 return HttpNotFound();
             }
 
-            return View(pgto);
+            return View(banco);
         }
 
-        // POST: Erp/Pgto/Delete/5
+        // POST: Erp/Banco/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -150,12 +153,12 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var pgto = service.Find(id);
-                if (pgto == null)
+                var banco = service.Find(id);
+                if (banco == null)
                 {
                     return HttpNotFound();
                 }
-                return View(pgto);
+                return View(banco);
             }
         }
     }

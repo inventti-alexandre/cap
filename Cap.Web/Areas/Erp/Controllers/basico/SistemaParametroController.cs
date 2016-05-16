@@ -24,7 +24,10 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         // GET: Erp/SistemaParametro
         public ActionResult Index()
         {
-            var parametros = service.Listar().OrderBy(x => x.Codigo).ToList();
+            var idEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
+            var parametros = service.Listar()
+                .Where(x => x.IdEmpresa == idEmpresa)
+                .OrderBy(x => x.Codigo).ToList();
 
             return View(parametros);
         }
@@ -45,17 +48,17 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         // GET: Erp/SistemaParametro/Create
         public ActionResult Create()
         {
-            return View(new SistemaParametro());
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return View(new SistemaParametro() { AlteradoPor = usuario.Id, IdEmpresa = usuario.IdEmpresa });
         }
 
         // POST: Erp/SistemaParametro/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Codigo,Valor,Descricao")] SistemaParametro parametro)
+        public ActionResult Create([Bind(Include ="Codigo,Valor,Descricao,IdEmpresa,AlteradoPor")] SistemaParametro parametro)
         {
             try
             {
                 parametro.AlteradoEm = DateTime.Now;
-                parametro.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(parametro);
 
                 if (ModelState.IsValid)
@@ -88,17 +91,17 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return HttpNotFound();
             }
 
+            parametro.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             return View(parametro);
         }
 
         // POST: Erp/SistemaParametro/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Codigo,Valor,Descricao,Ativo")] SistemaParametro parametro)
+        public ActionResult Edit([Bind(Include = "Id,Codigo,Valor,Descricao,Ativo,IdEmpresa,AlteradoPor")] SistemaParametro parametro)
         {
             try
             {
                 parametro.AlteradoEm = DateTime.Now;
-                parametro.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 TryUpdateModel(parametro);
 
                 if (ModelState.IsValid)

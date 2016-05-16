@@ -37,7 +37,10 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         public PartialViewResult Feriados(int ano)
         {
-            var feriados = service.Listar().Where(x => x.Data.Year == ano).OrderBy(x => x.Data).ToList();
+            var idEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
+            var feriados = service.Listar()
+                .Where(x => x.Data.Year == ano && x.IdEmpresa == idEmpresa)
+                .OrderBy(x => x.Data).ToList();
             ViewBag.AnoSelecionado = ano;
 
             return PartialView(feriados);
@@ -59,18 +62,21 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         // GET: Erp/Feriado/Create
         public ActionResult Create(int ano)
         {
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             ViewBag.Ano = ano;
-            return View(new Feriado());
+            return View(new Feriado() { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id });
         }
 
         // POST: Erp/Feriado/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Data,Descricao")] Feriado feriado)
+        public ActionResult Create([Bind(Include ="Data,Descricao,IdEmpresa,AlteradoPor")] Feriado feriado)
         {
             try
             {
+                var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 feriado.AlteradoEm = DateTime.Now;
-                feriado.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                feriado.AlteradoPor = usuario.Id;
+                feriado.IdEmpresa = usuario.IdEmpresa;
                 TryUpdateModel(feriado);
 
                 if (ModelState.IsValid)
@@ -119,18 +125,21 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return HttpNotFound();
             }
 
+            feriado.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             ViewBag.AnoSelecionado = feriado.Data.Year;
             return View(feriado);
         }
 
         // POST: Erp/Feriado/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include ="Id,Data,Descricao")] Feriado feriado)
+        public ActionResult Edit([Bind(Include ="Id,Data,Descricao,IdEmpresa,AlteradoPor")] Feriado feriado)
         {
             try
             {
+                var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 feriado.AlteradoEm = DateTime.Now;
-                feriado.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+                feriado.AlteradoPor = usuario.Id;
+                feriado.IdEmpresa = usuario.IdEmpresa;
                 TryUpdateModel(feriado);
 
                 if (ModelState.IsValid)
