@@ -27,12 +27,14 @@ namespace Cap.Domain.Respository
         public DbSet<AgendaTelefone> AgendaTelefone { get; set; }
         public DbSet<Banco> Banco { get; set; }
         public DbSet<Departamento> Departamento { get; set; }
+        public DbSet<Deposito> Deposito { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
         public DbSet<Estado> Estado { get; set; }
         public DbSet<EstadoCivil> EstadoCivil { get; set; }
         public DbSet<Feriado> Feriado { get; set; }
         public DbSet<FPgto> FPgto { get; set; }
         public DbSet<Material> Material { get; set; }
+        public DbSet<Moeda> Moeda { get; set; }
         public DbSet<MatGrupo> MatGrupo { get; set; }
         public DbSet<Pgto> Pgto { get; set; }
         public DbSet<ReqMaterial> ReqMaterial { get; set; }

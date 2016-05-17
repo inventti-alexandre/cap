@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Depósitos";
+}
+
+<h2>Depósitos</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <p>
+        Favorecido:
+        @Html.TextBox("pesquisa", (string)ViewBag.Pesquisa)
+        <input type="button" id="pesquisar" name="pesquisar" value="Pesquisar" class="btn btn-primary" />
+    </p>
+}
+
+<div id="depositos">
+    @{ Html.RenderAction("Depositos", new { pesquisa = ViewBag.Pesquisa }); }
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#pesquisar").click(function () {
+
+            var pesquisa = $("#pesquisa").val();
+
+            $.ajax({
+                url: '@Url.Action("Depositos", "Deposito")',
+                data: { 'pesquisa': pesquisa },
+                datatype: 'html',
+                cache: false,
+                success: function (result) {
+                    $("#depositos").html(result);
+                }
+            })
+        });
+    });
+</script>

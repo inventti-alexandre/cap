@@ -89,8 +89,10 @@
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Cap\Banco.cs" />
     <Compile Include="Models\Cap\Departamento.cs" />
+    <Compile Include="Models\Cap\Deposito.cs" />
     <Compile Include="Models\Cap\Empresa.cs" />
     <Compile Include="Models\Cap\FPgto.cs" />
+    <Compile Include="Models\Cap\Moeda.cs" />
     <Compile Include="Models\Requisicao\Material.cs" />
     <Compile Include="Models\Requisicao\MatGrupo.cs" />
     <Compile Include="Models\Cap\Pgto.cs" />
@@ -113,8 +115,10 @@
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cap\BancoService.cs" />
     <Compile Include="Service\Cap\DepartamentoService.cs" />
+    <Compile Include="Service\Cap\DepositoService.cs" />
     <Compile Include="Service\Cap\EmpresaService.cs" />
     <Compile Include="Service\Cap\FPgtoService.cs" />
+    <Compile Include="Service\Cap\MoedaService.cs" />
     <Compile Include="Service\Requisicao\MaterialService.cs" />
     <Compile Include="Service\Requisicao\MatGrupoService.cs" />
     <Compile Include="Service\Cap\PgtoService.cs" />

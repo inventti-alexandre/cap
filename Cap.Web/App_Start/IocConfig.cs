@@ -29,6 +29,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<AgendaTelefone>>().To<AgendaTelefoneService>();
             kernel.Bind<IBaseService<Banco>>().To<BancoService>();
             kernel.Bind<IBaseService<Departamento>>().To<DepartamentoService>();
+            kernel.Bind<IBaseService<Deposito>>().To<DepositoService>();
             kernel.Bind<IBaseService<Empresa>>().To<EmpresaService>();
             kernel.Bind<IBaseService<Estado>>().To<EstadoService>();
             kernel.Bind<IBaseService<EstadoCivil>>().To<EstadoCivilService>();
@@ -36,6 +37,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<FPgto>>().To<FPgtoService>();
             kernel.Bind<IBaseService<Material>>().To<MaterialService>();
             kernel.Bind<IBaseService<MatGrupo>>().To<MatGrupoService>();
+            kernel.Bind<IBaseService<Moeda>>().To<MoedaService>();
             kernel.Bind<IBaseService<Pgto>>().To<PgtoService>();
             kernel.Bind<IBaseService<ReqMaterial>>().To<ReqMaterialService>();
             kernel.Bind<IBaseService<ReqRequisicao>>().To<ReqRequisicaoService>();
