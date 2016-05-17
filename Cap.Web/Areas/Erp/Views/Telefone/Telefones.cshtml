@@ -1,7 +1,25 @@
 ﻿@model IEnumerable<Cap.Domain.Models.Gen.AgendaTelefone>
 
-@foreach (var item in Model)
-{
-    @Html.DisplayFor(modelItem => item.Numero) @Html.DisplayFor(modelItem => item.Contato)
-    <br />
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row top10">
+            <div class="col-md-8">
+                @Html.DisplayFor(modelItem => item.Numero) @Html.DisplayFor(modelItem => item.Contato)
+            </div>
+            <div class="col-md-4">
+                @if ((bool)ViewBag.Crud == true)
+                {
+                    @:&nbsp;
+                    @Html.ActionLink("Editar", "Edit", "Telefone", new { id = item.Id, idAgenda = item.IdAgenda, nome = (string)ViewBag.Nome }, null) @: |
+                    @Html.ActionLink("Excluir", "Delete", "Telefone", new { id = item.Id, idAgenda = item.IdAgenda, nome = (string)ViewBag.Nome }, null)
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<br />
+@if ((bool)ViewBag.Crud == true){
+    @Html.ActionLink("Novo telefone", "Create", new { idAgenda = (int)ViewBag.IdAgenda, nome = ViewBag.Nome })
 }

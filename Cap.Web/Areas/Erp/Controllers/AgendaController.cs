@@ -38,6 +38,8 @@ namespace Cap.Web.Areas.Erp.Controllers
                 var contatos = service.Listar()
                     .Where(x => x.Nome.Contains(nome) && x.IdEmpresa == idEmpresa)
                     .ToList();
+
+                ViewBag.Nome = nome;
                 return PartialView(contatos);
             }
 
@@ -45,7 +47,7 @@ namespace Cap.Web.Areas.Erp.Controllers
         }
 
         // GET: Erp/Agenda/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, string nome = "")
         {
             var contato = service.Find(id);
 
@@ -54,6 +56,7 @@ namespace Cap.Web.Areas.Erp.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.Nome = nome;
             return View(contato);
         }
 
@@ -89,7 +92,7 @@ namespace Cap.Web.Areas.Erp.Controllers
         }
 
         // GET: Erp/Agenda/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, string nome = "")
         {
             if (id == null)
             {
@@ -104,28 +107,48 @@ namespace Cap.Web.Areas.Erp.Controllers
             }
 
             contato.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            ViewBag.Nome = nome;
             return View(contato);
         }
 
         // POST: Erp/Agenda/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Nome,Contato,Endereco,Bairro,Cidade,IdEstado,Cep,WebSite,Observ,AlteradoPor,IdEmpresa")]Agenda contato)
+        public ActionResult Edit(FormCollection collection, string nomePesquisa)
         {
+            Agenda contato = new Agenda
+            {
+                AlteradoEm = DateTime.Now,
+                AlteradoPor = Convert.ToInt32(collection["AlteradoPor"]),
+                Ativo = collection["Ativo"].ToString() == "false" ? false : true,
+                Bairro = collection["Bairro"].ToString(),
+                Cep = collection["Cep"].ToString(),
+                Cidade = collection["Cidade"].ToString(),
+                Contato = collection["Contato"].ToString(),
+                Endereco = collection["Endereco"].ToString(),
+                Id = Convert.ToInt32(collection["Id"]),
+                IdEmpresa = Convert.ToInt32(collection["IdEmpresa"]),
+                IdEstado = Convert.ToInt32(collection["IdEstado"]),
+                Nome = collection["Nome"],
+                Observ = collection["Observ"],
+                WebSite = collection["WebSite"]
+            };
+
             try
             {
-                contato.AlteradoEm = DateTime.Now;
+
+                ViewBag.Nome = nomePesquisa;
 
                 if (ModelState.IsValid)
                 {
                     service.Gravar(contato);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", new { id = contato.Id, nome = nomePesquisa });
                 }
-
                 return View(contato);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
+                ViewBag.Nome = nomePesquisa;
                 return View(contato);
             }
         }

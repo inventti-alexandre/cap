@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Models.Admin;
 using Cap.Domain.Service.Admin;
+using Cap.Domain.Service.Gen;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,6 +36,17 @@ namespace Cap.Domain.Models.Gen
             get
             {
                 return new UsuarioService().Find(AlteradoPor);
+            }
+            set { }
+        }
+
+
+        [NotMapped]
+        public virtual Agenda Agenda
+        {
+            get
+            {
+                return new AgendaService().Find(IdAgenda);
             }
             set { }
         }

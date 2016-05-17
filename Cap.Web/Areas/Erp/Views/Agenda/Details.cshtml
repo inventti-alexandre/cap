@@ -1,13 +1,12 @@
 ﻿@model Cap.Domain.Models.Gen.Agenda
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Agenda";
 }
 
-<h2>Details</h2>
+<h2>Agenda</h2>
 
 <div>
-    <h4>Agenda</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -55,7 +54,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IdEstado)
+            @Html.DisplayFor(model => model.Estado.UF)
         </dd>
 
         <dt>
@@ -109,6 +108,15 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Voltar a lista", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id, nome = (string)ViewBag.Nome }) |
+    @Html.ActionLink("Voltar", "Index", new { nome = (string)ViewBag.Nome })
 </p>
+
+<hr />
+<h2>Telefones</h2>
+@{ Html.RenderAction("Telefones", "Telefone", new { idAgenda = Model.Id, crud = true }); }
+
+<hr />
+<h2>Email</h2>
+@{  Html.RenderAction("Emails", "Email", new { idAgenda = Model.Id, crud = true }); }
+

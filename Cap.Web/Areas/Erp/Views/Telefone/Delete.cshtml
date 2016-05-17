@@ -1,0 +1,74 @@
+﻿@model Cap.Domain.Models.Gen.AgendaTelefone
+
+@{
+    ViewBag.Title = "Telefone";
+}
+
+<h2>Telefone</h2>
+
+<p class="alert alert-danger top20">
+    Confirma a exclusão deste telefone?
+</p>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Agenda.Nome)    
+        </dt>
+        
+        <dd>
+            @Html.DisplayFor(model => model.Agenda.Nome)    
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoPor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlteradoEm)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Voltar", "Details", "Agenda", new { id = Model.IdAgenda, nome = (string)ViewBag.Nome }, null)
+        </div>
+    }
+</div>

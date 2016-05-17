@@ -44,6 +44,10 @@ textarea {
     color:#fff;
 }
 
+.borderless td, .borderless th {
+    border: none;
+}
+
 .left40 a .gray:focus {
     color:#fff;
 }

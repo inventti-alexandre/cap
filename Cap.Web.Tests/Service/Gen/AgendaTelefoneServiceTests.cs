@@ -19,7 +19,7 @@ namespace Cap.Domain.Service.Gen.Tests
         public void IncluirAgendaTelefoneTest()
         {
             // Arrange
-            AgendaTelefone telefone = new AgendaTelefone { AlteradoPor = 1, IdAgenda = 1, Numero = "99721-8670" };
+            AgendaTelefone telefone = new AgendaTelefone { AlteradoPor = 2, IdAgenda = 2, Numero = "99721-8670" };
 
             // Act
             telefone.Id = service.Gravar(telefone);

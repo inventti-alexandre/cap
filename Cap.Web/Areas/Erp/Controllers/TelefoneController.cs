@@ -23,91 +23,129 @@ namespace Cap.Web.Areas.Erp.Controllers
             this.login = login;
         }
 
-        // GET: Erp/Telefone
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public PartialViewResult Telefones(int idAgenda)
+        public PartialViewResult Telefones(int idAgenda, bool crud = false, string nome = "")
         {
             var telefones = service.Listar()
                 .Where(x => x.IdAgenda == idAgenda)
                 .ToList();
 
             ViewBag.IdAgenda = idAgenda;
+            ViewBag.Crud = crud;
+            ViewBag.Nome = nome;
             return PartialView(telefones);
         }
 
-        // GET: Erp/Telefone/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Erp/Telefone/Create
-        public ActionResult Create()
+        public ActionResult Create(int idAgenda, string nome = "")
         {
-            return View();
+            var telefone = new AgendaTelefone { IdAgenda = idAgenda, AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name) };
+
+            ViewBag.Nome = nome;
+            return View(telefone);
         }
 
         // POST: Erp/Telefone/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create([Bind(Include = "IdAgenda,Numero,Contato,AlteradoPor")]AgendaTelefone telefone, string nomePesquisa = "")
         {
+            ViewBag.Nome = nomePesquisa;
             try
             {
-                // TODO: Add insert logic here
+                telefone.AlteradoEm = DateTime.Now;
+                TryUpdateModel(telefone);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(telefone);
+                    return RedirectToAction("Details", "Agenda", new { id = telefone.IdAgenda, nomePesquisa });
+                }
+
+                return View(telefone);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(telefone);
             }
         }
 
         // GET: Erp/Telefone/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, int idAgenda, string nome = "")
         {
-            return View();
+            var telefone = service.Find(id);
+
+            if (telefone == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.Nome = nome;
+            return View(telefone);
         }
 
         // POST: Erp/Telefone/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include ="Id,IdAgenda,Numero,Contato,Ativo,AlteradoPor")] AgendaTelefone telefone, string nome)
         {
+            ViewBag.Nome = nome;
             try
             {
-                // TODO: Add update logic here
+                telefone.AlteradoEm = DateTime.Now;
+                TryUpdateModel(telefone);
 
-                return RedirectToAction("Index");
-            }
-            catch
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(telefone);
+                    return RedirectToAction("Details", "Agenda", new { id = telefone.IdAgenda, nome = nome });
+                }
+
+                return View(telefone);
+            } 
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(telefone);
             }
         }
 
         // GET: Erp/Telefone/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id, string nome = "")
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var telefone = service.Find((int)id);
+
+            if (telefone == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.Nome = nome;
+            return View(telefone);
         }
 
         // POST: Erp/Telefone/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, string nome = "")
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                var telefone = service.Excluir(id);
+                return RedirectToAction("Details", "Agenda", new { id = telefone.IdAgenda, nome = nome });
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                var telefone = service.Find(id);
+                if (telefone == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Nome = nome;
+                return View(telefone);
             }
         }
     }

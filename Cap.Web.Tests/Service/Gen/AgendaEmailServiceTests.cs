@@ -26,9 +26,9 @@ namespace Cap.Domain.Service.Gen.Tests
             // Arrange
             AgendaEmail email = new AgendaEmail
             {
-                AlteradoPor = 1,
+                AlteradoPor = 2,
                 Email = "jb.alessandro@gmail.com",
-                IdAgenda = 1
+                IdAgenda = 2,
             };
 
             // Act

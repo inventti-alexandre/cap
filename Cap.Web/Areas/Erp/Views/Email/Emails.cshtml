@@ -1,10 +1,26 @@
 ﻿@model IEnumerable<Cap.Domain.Models.Gen.AgendaEmail>
 
-@*<p>
-    @Html.ActionLink("Novo email", "Create", new { idAgenda = ViewBag.IdAgenda })
-</p>*@
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row top10">
+            <div class="col-md-8">
+                @Html.DisplayFor(modelItem => item.Email)
+            </div>
+            <div class="col-md-4">
+                @if ((bool)ViewBag.Crud == true)
+                {
+                    @:&nbsp;
+                    @Html.ActionLink("Editar", "Edit", "Email", new { id = item.Id, idAgenda = item.IdAgenda, nome = (string)ViewBag.Nome }, null) @: |
+                    @Html.ActionLink("Excluir", "Delete", "Email", new { id = item.Id, idAgenda = item.IdAgenda, nome = (string)ViewBag.Nome }, null)
+                }
+            </div>
+        </div>        
+    }
+</div>
 
-@foreach (var item in Model) {
-    @Html.DisplayFor(modelItem => item.Email)
-    <br />
+<br />
+@if ((bool)ViewBag.Crud == true)
+{
+    @Html.ActionLink("Novo email","Create", new { idAgenda = (int)ViewBag.IdAgenda })
 }
