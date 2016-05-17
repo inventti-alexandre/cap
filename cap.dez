@@ -12,7 +12,7 @@
 <PROJECTDESCRIPTION></PROJECTDESCRIPTION>
 <AUTHOR></AUTHOR>
 <COPYRIGHT></COPYRIGHT>
-<LASTGENERATEDFILES>C:\Users\ZE\Documents\create_mssqlserver.sql;C:\Users\ZE\Documents\drop_mssqlserver.sql;C:\Users\ZE\Documents\CreateDBLog_201605161.txt</LASTGENERATEDFILES>
+<LASTGENERATEDFILES>C:\Users\ale\Desktop\sql\create.sql;C:\Users\ale\Desktop\sql\drop.sql;C:\Users\ale\Documents\CreateDBLog_201605162.txt</LASTGENERATEDFILES>
 <PRINTORIENTATION>PORTRAIT</PRINTORIENTATION>
 <PRINTPAGETYPE>A4</PRINTPAGETYPE>
 <DEFTABLEOPTIONS></DEFTABLEOPTIONS>
@@ -50,8 +50,8 @@
 <ImpDB_Options>
 </ImpDB_Options>
 <GenDB_DBParams>
-<SQLCREATEFILE>C:\Users\ZE\Documents\create_mssqlserver.sql</SQLCREATEFILE>
-<SQLDROPFILE>C:\Users\ZE\Documents\drop_mssqlserver.sql</SQLDROPFILE>
+<SQLCREATEFILE>C:\Users\ale\Desktop\sql\create.sql</SQLCREATEFILE>
+<SQLDROPFILE>C:\Users\ale\Desktop\sql\drop.sql</SQLDROPFILE>
 <DBID>mssqlserver2008</DBID>
 </GenDB_DBParams>
 <GenDB_Options>

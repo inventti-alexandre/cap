@@ -9,15 +9,16 @@
             @Html.DisplayNameFor(model => model.Contato)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Endereco)
+            Telefones
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ativo)
+            Email
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Nome)
@@ -26,10 +27,10 @@
             @Html.DisplayFor(modelItem => item.Contato)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Endereco)
+            @{ Html.RenderAction("Telefones", "Telefone", new { idAgenda = item.Id }); }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
+            @{ Html.RenderAction("Emails", "Email", new { idAgenda = item.Id }); }
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |

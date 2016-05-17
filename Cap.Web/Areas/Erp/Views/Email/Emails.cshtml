@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Cap.Domain.Models.Gen.AgendaEmail>
+
+@*<p>
+    @Html.ActionLink("Novo email", "Create", new { idAgenda = ViewBag.IdAgenda })
+</p>*@
+
+@foreach (var item in Model) {
+    @Html.DisplayFor(modelItem => item.Email)
+    <br />
+}

@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Cap.Domain.Models.Gen.AgendaTelefone>
+
+@foreach (var item in Model)
+{
+    @Html.DisplayFor(modelItem => item.Numero) @Html.DisplayFor(modelItem => item.Contato)
+    <br />
+}
