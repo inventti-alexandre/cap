@@ -22,7 +22,7 @@
 }
 
 <p class="top20">
-    @Html.ActionLink("Novo", "Create")
+    @Html.ActionLink("Novo", "Create", new { nome = (string)ViewBag.Nome })
 </p>
 
 <div id="contatos">

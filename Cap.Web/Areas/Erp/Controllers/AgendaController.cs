@@ -61,25 +61,38 @@ namespace Cap.Web.Areas.Erp.Controllers
         }
 
         // GET: Erp/Agenda/Create
-        public ActionResult Create()
+        public ActionResult Create(string nome = "")
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            ViewBag.NomePesquisa = nome;
             return View(new Agenda() { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id });
         }
 
         // POST: Erp/Agenda/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Nome,Contato,Endereco,Bairro,Cidade,IdEstado,Cep,WebSite,Observ,AlteradoPor,IdEmpresa")]Agenda contato)
+        public ActionResult Create(FormCollection collection)
         {
+            Agenda contato = new Agenda
+            {
+                Nome = collection["Nome"],
+                Contato = collection["Contato"],
+                Endereco = collection["Endereco"],
+                Bairro = collection["Bairro"],
+                Cidade = collection["Cidade"],
+                IdEstado = Convert.ToInt32(collection["IdEstado"]),
+                Cep = collection["Cep"],
+                AlteradoEm = DateTime.Now,
+                WebSite = collection["WebSite"],
+                Observ = collection["Observ"],
+                AlteradoPor = Convert.ToInt32(collection["AlteradoPor"]),
+                IdEmpresa = Convert.ToInt32(collection["IdEmpresa"])
+            };
             try
             {
-                contato.AlteradoEm = DateTime.Now;
-                TryUpdateModel(contato);
-
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(contato);
-                    return RedirectToAction("Index");
+                    contato.Id = service.Gravar(contato);
+                    return RedirectToAction("Create", "Telefone", new { idAgenda = contato.Id, nome = contato.Nome });
                 }
 
                 return View(contato);
