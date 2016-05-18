@@ -10,7 +10,10 @@
     @Html.AntiForgeryToken()
     <p>
         Fornecedor:
-        @Html.TextBox("pesquisa", (string)ViewBag.Pesquisa, new { @class = "form-control"}) <input type="button" id="pesquisar" name="pesquisar" value="Pesquisar" class="btn btn-primary"/>
+        @Html.TextBox("pesquisa", (string)ViewBag.Pesquisa, new { @class = "form-control"})
+    </p>
+    <p>
+        <input type="button" id="pesquisar" name="pesquisar" value="Pesquisar" class="btn btn-primary" />
     </p>
 }
 

@@ -46,7 +46,7 @@ namespace Cap.Domain.Models.Cap
         public bool Imposto { get; set; }
 
         [Display(Name ="Forma de pagamento")]
-        public int IdFPgto { get; set; }
+        public int IdPgto { get; set; }
 
         public bool Ativo { get; set; }
 
@@ -84,11 +84,11 @@ namespace Cap.Domain.Models.Cap
 
         [NotMapped]
         [Display(Name ="Forma de pagamento")]
-        public virtual FPgto FPgto
+        public virtual Pgto FPgto
         {
             get
             {
-                return new FPgtoService().Find(IdFPgto);
+                return new PgtoService().Find(IdPgto);
            }
         }
 

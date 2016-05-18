@@ -8,6 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Cap.Web.Common;
+using Cap.Web.Areas.Erp.Models;
+using System.Net;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
@@ -66,68 +68,152 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Fornecedor/Create
-        public ActionResult Create()
+        public ActionResult Create(string pesquisa = "")
         {
-            return View();
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            var model = new FornecedorModel() { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id };
+
+            ViewBag.Pesquisa = pesquisa;
+            return View(model);
         }
 
         // POST: Erp/Fornecedor/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(FornecedorModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                ViewBag.Pesquisa = model.Fantasia;
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var agenda = new Agenda()
+                    {
+                        AlteradoEm = DateTime.Now,
+                        AlteradoPor = model.AlteradoPor,
+                        Ativo = true,
+                        Bairro = model.Bairro,
+                        Cidade = model.Cidade,
+                        Cep = model.Cep,
+                        Contato = model.Contato,
+                        Endereco = model.Endereco,
+                        IdEmpresa = model.IdEmpresa,
+                        IdEstado = model.IdEstado,
+                        Nome = model.Fantasia,
+                        WebSite = model.WebSite
+                    };
+                    model.IdAgenda = serviceAgenda.Gravar(agenda);
+
+                    var fornecedor = new Fornecedor()
+                    {
+                        AlteradoEm = DateTime.Now,
+                        AlteradoPor = model.AlteradoPor,
+                        Ativo = true,
+                        CNPJ = model.CNPJ,
+                        Concessionaria = model.Concessionaria,
+                        Contato = model.Contato,
+                        Fantasia = model.Fantasia,
+                        IdAgenda = model.IdAgenda,
+                        IdEmpresa = model.IdEmpresa,
+                        IdPgto = model.IdPgto,
+                        IE = model.IE,
+                        Imposto = model.Imposto,
+                        Observ = model.Observ,
+                        Razao = model.Razao
+                    };
+                    service.Gravar(fornecedor);
+                    return RedirectToAction("Edit", new { id = fornecedor.Id, pesquisa = model.Fantasia.ToUpper().Trim() });
+                }
+
+                return View(model);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(model);
             }
         }
 
         // GET: Erp/Fornecedor/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id, string pesquisa = "")
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var fornecedor = service.Find((int)id);
+
+            if (fornecedor == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.Pesquisa = pesquisa;
+            fornecedor.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return View(fornecedor);
         }
 
         // POST: Erp/Fornecedor/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Fornecedor fornecedor, string pesquisa = "")
         {
+            ViewBag.Pesquisa = pesquisa;
             try
             {
-                // TODO: Add update logic here
+                fornecedor.AlteradoEm = DateTime.Now;
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(fornecedor);
+                    return RedirectToAction("Index", new { pesquisa = pesquisa });
+                }
+
+                return View(fornecedor);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(pesquisa);
             }
         }
 
         // GET: Erp/Fornecedor/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id, string pesquisa = "")
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var fornecedor = service.Find((int)id);
+
+            if (fornecedor != null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(fornecedor);
         }
 
         // POST: Erp/Fornecedor/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, string pesquisa = "")
         {
             try
             {
-                // TODO: Add delete logic here
-
+                service.Excluir(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                var fornecedor = service.Find(id);
+                if (fornecedor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(fornecedor);
             }
         }
     }

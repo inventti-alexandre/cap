@@ -109,7 +109,16 @@
 </div>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.Id, nome = (string)ViewBag.Nome }) |
-    @Html.ActionLink("Voltar", "Index", new { nome = (string)ViewBag.Nome })
+    @{
+        if (Request.QueryString["stringUrl"] == null)
+        {
+            @Html.ActionLink("Voltar", "Index", new { nome = (string)ViewBag.Nome })
+        }
+        else
+        {
+            <a href='@Request.QueryString["stringUrl"]'>Voltar</a>
+        }
+    }
 </p>
 
 <hr />

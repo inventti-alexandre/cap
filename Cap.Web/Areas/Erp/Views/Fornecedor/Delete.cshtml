@@ -6,6 +6,9 @@
 
 <h2>Fornecedor</h2>
 
+<p class="alert alert-danger top20">
+    Confirma a exclusão deste fornecedor?
+</p>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -90,10 +93,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IdAgenda)
-        </dt>
-
-        <dt>
             @Html.DisplayNameFor(model => model.AlteradoPor)
         </dt>
 
@@ -110,10 +109,14 @@
         </dd>
 
     </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+    }
 </div>
-
-@{ Html.RenderPartial("~/Areas/Erp/Views/Shared/_Agenda.cshtml", Model.Agenda); }
-
-<p>
-    @Html.ActionLink("Voltar", "Index", new { pesquisa = (string)ViewBag.Pesquisa })
-</p>

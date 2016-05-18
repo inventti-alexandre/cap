@@ -333,6 +333,9 @@
     <Content Include="Areas\Erp\Views\Shared\_Agenda.cshtml" />
     <Content Include="Areas\Erp\Views\Shared\_Telefones.cshtml" />
     <Content Include="Areas\Erp\Views\Shared\_Emails.cshtml" />
+    <Content Include="Areas\Erp\Views\Fornecedor\Create.cshtml" />
+    <Content Include="Areas\Erp\Views\Fornecedor\Delete.cshtml" />
+    <Content Include="Areas\Erp\Views\Fornecedor\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
