@@ -37,7 +37,7 @@ namespace Cap.Domain.Models.Cap
         public string NF { get; set; }
 
         [Display(Name ="Data da nota fiscal")]
-        public DateTime DataNF { get; set; }
+        public DateTime? DataNF { get; set; }
 
         public bool Ativo { get; set; }
 

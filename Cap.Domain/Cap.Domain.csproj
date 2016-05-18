@@ -123,6 +123,7 @@
     <Compile Include="Service\Cap\FornecedorService.cs" />
     <Compile Include="Service\Cap\FPgtoService.cs" />
     <Compile Include="Service\Cap\MoedaService.cs" />
+    <Compile Include="Service\Cap\PedidoService.cs" />
     <Compile Include="Service\Requisicao\MaterialService.cs" />
     <Compile Include="Service\Requisicao\MatGrupoService.cs" />
     <Compile Include="Service\Cap\PgtoService.cs" />

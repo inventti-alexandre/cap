@@ -187,6 +187,7 @@
     <Compile Include="Areas\Erp\Controllers\cap\FornecedorController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\FPgtoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\MoedaController.cs" />
+    <Compile Include="Areas\Erp\Controllers\cap\PedidoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\PgtoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\SocioController.cs" />
     <Compile Include="Areas\Erp\Controllers\EmailController.cs" />
@@ -365,6 +366,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Erp\Views\Pedido\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
