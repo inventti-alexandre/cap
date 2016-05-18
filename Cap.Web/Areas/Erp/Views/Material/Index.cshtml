@@ -21,10 +21,13 @@
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
+
     $(document).ready(function () {
 
         $("#pesquisar").click(function () {
+
             var pesquisa = $("#pesquisa").val();
+
             $.ajax({
                 url: '@Url.Action("Materiais","Material")',
                 data: { 'pesquisa': pesquisa },
@@ -36,4 +39,5 @@
             });
         });
     });
+
 </script>

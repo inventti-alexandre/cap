@@ -24,7 +24,7 @@ namespace Cap.Domain.Service.Cap.Tests
         public void GravarTest()
         {
             // Arrange
-            var item = new Deposito { Agencia = "6241", AlteradoPor = 1, Conta = "00356-0", Favorecido = "JOSE ALESSANDRO", IdBanco = 1, IdEmpresa = 1 };
+            var item = new Deposito { Agencia = "6241", AlteradoPor = 2, Conta = "00356-0", Favorecido = "JOSE ALESSANDRO", IdBanco = 1, IdEmpresa = 2 };
 
             // Act
             item.Id = service.Gravar(item);

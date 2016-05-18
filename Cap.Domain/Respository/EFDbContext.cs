@@ -32,6 +32,7 @@ namespace Cap.Domain.Respository
         public DbSet<Estado> Estado { get; set; }
         public DbSet<EstadoCivil> EstadoCivil { get; set; }
         public DbSet<Feriado> Feriado { get; set; }
+        public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<FPgto> FPgto { get; set; }
         public DbSet<Material> Material { get; set; }
         public DbSet<Moeda> Moeda { get; set; }

@@ -27,6 +27,7 @@ namespace Cap.Domain.Models.Gen
         [StringLength(100, ErrorMessage ="O contato é composto por no máximo 100 caracteres")]
         public string Contato { get; set; }
 
+        [Display(Name ="Endereço")]
         [StringLength(100, ErrorMessage = "O endereço é composto por no máximo 100 caracteres")]
         public string Endereco { get; set; }
 

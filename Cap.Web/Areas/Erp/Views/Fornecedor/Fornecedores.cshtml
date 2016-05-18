@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Cap.Domain.Models.Cap.Fornecedor>
+
+<p>
+    @Html.ActionLink("Novo fornecedor", "Create", new { pesquisa = (string)ViewBag.Pesquisa})
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fantasia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th>
+            Telefone
+        </th>
+        <th>
+            Email
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fantasia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @{ 
+                string telefone = item?.Agenda?.Telefones?.Count() > 0 ? item.Agenda.Telefones.First().Numero : string.Empty;
+            }
+            @Html.DisplayFor(modelItem => telefone)
+        </td>
+        <td>
+            @{ 
+                string email = item?.Agenda?.Emails?.Count() > 0 ? item.Agenda.Emails.First().Email : string.Empty;
+            }
+            @Html.DisplayFor(modelItem => email)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id, pesquisa = (string)ViewBag.Pesquisa }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.Id, pesquisa = (string)ViewBag.Pesquisa }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id, pesquisa = (string)ViewBag.Pesquisa })
+        </td>
+    </tr>
+}
+
+</table>

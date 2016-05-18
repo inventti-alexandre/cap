@@ -34,6 +34,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<Estado>>().To<EstadoService>();
             kernel.Bind<IBaseService<EstadoCivil>>().To<EstadoCivilService>();
             kernel.Bind<IBaseService<Feriado>>().To<FeriadoService>();
+            kernel.Bind<IBaseService<Fornecedor>>().To<FornecedorService>();
             kernel.Bind<IBaseService<FPgto>>().To<FPgtoService>();
             kernel.Bind<IBaseService<Material>>().To<MaterialService>();
             kernel.Bind<IBaseService<MatGrupo>>().To<MatGrupoService>();

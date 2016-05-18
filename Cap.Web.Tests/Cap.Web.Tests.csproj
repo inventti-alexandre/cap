@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -107,6 +108,7 @@
     <Compile Include="Service\Cap\DepartamentoServiceTests.cs" />
     <Compile Include="Service\Cap\DepositoServiceTests.cs" />
     <Compile Include="Service\Cap\EmpresaServiceTests.cs" />
+    <Compile Include="Service\Cap\FornecedorServiceTests.cs" />
     <Compile Include="Service\Cap\MaterialServiceTests.cs" />
     <Compile Include="Service\Cap\MatGrupoServiceTests.cs" />
     <Compile Include="Service\Cap\MoedaServiceTests.cs" />

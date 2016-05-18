@@ -1,0 +1,119 @@
+﻿@model Cap.Domain.Models.Cap.Fornecedor
+
+@{
+    ViewBag.Title = "Fornecedor";
+}
+
+<h2>Fornecedor</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fantasia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fantasia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Razao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Razao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CNPJ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CNPJ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Concessionaria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Concessionaria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imposto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Imposto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdFPgto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FPgto.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAgenda)
+        </dt>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoPor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlteradoEm)
+        </dd>
+
+    </dl>
+</div>
+
+@{ Html.RenderPartial("~/Areas/Erp/Views/Shared/_Agenda.cshtml", Model.Agenda); }
+
+<p>
+    @Html.ActionLink("Voltar", "Index", new { pesquisa = (string)ViewBag.Pesquisa })
+</p>

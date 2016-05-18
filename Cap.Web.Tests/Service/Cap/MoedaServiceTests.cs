@@ -18,7 +18,7 @@ namespace Cap.Domain.Service.Cap.Tests
         public void GravarTest()
         {
             // Arrange
-            Moeda moeda = new Moeda { AlteradoPor = 1, IdEmpresa = 1, Descricao = "R$", Padrao = true };
+            Moeda moeda = new Moeda { AlteradoPor = 2, IdEmpresa = 2, Descricao = "R$", Padrao = true };
 
             // Act
             moeda.Id = service.Gravar(moeda);
