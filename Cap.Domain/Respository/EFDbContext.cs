@@ -26,6 +26,8 @@ namespace Cap.Domain.Respository
         public DbSet<AgendaEmail> AgendaEmail { get; set; }
         public DbSet<AgendaTelefone> AgendaTelefone { get; set; }
         public DbSet<Banco> Banco { get; set; }
+        public DbSet<Conta> Conta { get; set; }
+        public DbSet<ContaTipo> ContaTipo { get; set; }
         public DbSet<Departamento> Departamento { get; set; }
         public DbSet<Deposito> Deposito { get; set; }
         public DbSet<Empresa> Empresa { get; set; }

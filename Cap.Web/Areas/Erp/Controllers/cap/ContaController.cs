@@ -5,78 +5,92 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Cap.Web.Common;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    public class FPgtoController : Controller
+    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    public class ContaController : Controller
     {
-        IBaseService<FPgto> service;
+        IBaseService<Conta> service;
         ILogin login;
 
-        public FPgtoController(IBaseService<FPgto> service, ILogin login)
+        public ContaController(IBaseService<Conta> service, ILogin login)
         {
             this.service = service;
             this.login = login;
         }
 
-        // GET: Erp/FPgto
+        // GET: Erp/Conta
         public ActionResult Index()
         {
             var idEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
-            var formas = service.Listar()
+            var contas = service.Listar()
                 .Where(x => x.IdEmpresa == idEmpresa)
                 .OrderBy(x => x.Descricao)
                 .ToList();
 
-            return View(formas);
+            return View(contas);
         }
 
-        // GET: Erp/FPgto/Details/5
+        // GET: Erp/Conta/Details/5
         public ActionResult Details(int id)
         {
-            var forma = service.Find(id);
+            var conta = service.Find(id);
 
-            if (forma == null)
+            if (conta == null)
             {
                 return HttpNotFound();
             }
 
-            return View(forma);
+            return View(conta);
         }
 
-        // GET: Erp/FPgto/Create
+        // GET: Erp/Conta/Create
         public ActionResult Create()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            return View(new FPgto() { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id });
+
+            var conta = new Conta
+            {
+                AlteradoPor = usuario.Id,
+                IdEmpresa = usuario.IdEmpresa,
+                ChequeAtual = 1,
+                DataSaldo = DateTime.Today.Date,
+                DataSaldoAnterior = DateTime.Today.Date.AddDays(-1),
+                Saldo = 0,
+                SaldoAnterior = 0
+            };
+
+            return View(conta);
         }
 
-        // POST: Erp/FPgto/Create
+        // POST: Erp/Conta/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Descricao,IdEmpresa,AlteradoPor")] FPgto forma)
+        public ActionResult Create(Conta conta)
         {
             try
             {
-                forma.AlteradoEm = DateTime.Now;
-                TryUpdateModel(forma);
+                conta.AlteradoEm = DateTime.Now;
+                TryUpdateModel(conta);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(forma);
+                    service.Gravar(conta);
                     return RedirectToAction("Index");
                 }
 
-                return View(forma);
+                return View(conta);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(forma);
+                return View(conta);
             }
         }
 
-        // GET: Erp/FPgto/Edit/5
+        // GET: Erp/Conta/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -84,42 +98,41 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var forma = service.Find((int)id);
+            var conta = service.Find((int)id);
 
-            if (forma == null)
+            if (conta == null)
             {
                 return HttpNotFound();
             }
 
-            forma.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            return View(forma);
+            return View(conta);
         }
 
-        // POST: Erp/FPgto/Edit/5
+        // POST: Erp/Conta/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Descricao,Ativo,IdEmpresa,AlteradoPor")] FPgto forma)
+        public ActionResult Edit(Conta conta)
         {
             try
             {
-                forma.AlteradoEm = DateTime.Now;
-                TryUpdateModel(forma);
+                conta.AlteradoEm = DateTime.Now;
+                TryUpdateModel(conta);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(forma);
+                    service.Gravar(conta);
                     return RedirectToAction("Index");
                 }
 
-                return View(forma);
+                return View(conta);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(forma);
+                return View(conta);
             }
         }
 
-        // GET: Erp/FPgto/Delete/5
+        // GET: Erp/Conta/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -127,17 +140,17 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var forma = service.Find((int)id);
+            var conta = service.Find((int)id);
 
-            if (forma == null)
+            if (conta == null)
             {
                 return HttpNotFound();
             }
 
-            return View(forma);
+            return View(conta);
         }
 
-        // POST: Erp/FPgto/Delete/5
+        // POST: Erp/Conta/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -149,12 +162,12 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var forma = service.Find(id);
-                if (forma == null)
+                var conta = service.Find(id);
+                if (conta == null)
                 {
                     return HttpNotFound();
                 }
-                return View(forma);
+                return View(conta);
             }
         }
     }

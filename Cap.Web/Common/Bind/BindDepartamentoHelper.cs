@@ -1,4 +1,5 @@
-﻿using Cap.Domain.Service.Cap;
+﻿using Cap.Domain.Service.Admin;
+using Cap.Domain.Service.Cap;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -8,8 +9,10 @@ namespace Cap.Web.Common.Bind
     {
         public static MvcHtmlString SelectDepartamento(this HtmlHelper html, int idDepartamento = 0)
         {
+            var idEmpresa = new UsuarioService().GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
+
             var departamentos = new DepartamentoService().Listar()
-                .Where(x => x.Ativo == true)
+                .Where(x => x.Ativo == true && x.IdEmpresa == idEmpresa)
                 .OrderBy(x => x.Descricao)
                 .ToList();
 

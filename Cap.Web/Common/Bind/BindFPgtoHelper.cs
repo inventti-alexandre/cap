@@ -1,4 +1,5 @@
-﻿using Cap.Domain.Service.Cap;
+﻿using Cap.Domain.Service.Admin;
+using Cap.Domain.Service.Cap;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -8,8 +9,10 @@ namespace Cap.Web.Common.Bind
     {
         public static MvcHtmlString SelectFPgto(this HtmlHelper html, int idFpgto = 0)
         {
+            var idEmpresa = new UsuarioService().GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
+
             var fpgtos = new FPgtoService().Listar()
-                .Where(x => x.Ativo == true)
+                .Where(x => x.Ativo == true && x.IdEmpresa == idEmpresa)
                 .OrderBy(x => x.Descricao)
                 .ToList();
 

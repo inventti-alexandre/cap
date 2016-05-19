@@ -1,31 +1,32 @@
 ﻿using Cap.Domain.Service.Admin;
 using Cap.Domain.Service.Cap;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Cap.Web.Common.Bind
 {
-    public static class BindPgtoHelper
+    public static class BindContaTipoHelper
     {
-        public static MvcHtmlString SelectPgto(this HtmlHelper html, int idPgto = 0)
+        public static MvcHtmlString SelectContaTipo(this HtmlHelper html, int idContaTipo = 0)
         {
             var idEmpresa = new UsuarioService().GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
-            var pgtos = new PgtoService().Listar()
-                .Where(x => x.Ativo == true && x.IdEmpresa == idEmpresa)
+            var tipos = new ContaTipoService().Listar()
+                .Where(x => x.IdEmpresa == idEmpresa)
                 .OrderBy(x => x.Descricao)
                 .ToList();
 
             TagBuilder tag = new TagBuilder("select");
-            tag.MergeAttribute("id", "IdPgto");
-            tag.MergeAttribute("name", "IdPgto");
+            tag.MergeAttribute("id", "IdContaTipo");
+            tag.MergeAttribute("name", "IdContaTipo");
             tag.MergeAttribute("class", "form-control");
 
-            foreach (var item in pgtos)
+            foreach (var item in tipos)
             {
                 TagBuilder itemTag = new TagBuilder("option");
                 itemTag.MergeAttribute("value", item.Id.ToString());
-                if (item.Id == idPgto)
+                if (item.Id == idContaTipo)
                 {
                     itemTag.MergeAttribute("selected", "selected");
                 }

@@ -89,6 +89,8 @@
     <Compile Include="Models\Admin\SistemaParametro.cs" />
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Cap\Banco.cs" />
+    <Compile Include="Models\Cap\Conta.cs" />
+    <Compile Include="Models\Cap\ContaTipo.cs" />
     <Compile Include="Models\Cap\Departamento.cs" />
     <Compile Include="Models\Cap\Deposito.cs" />
     <Compile Include="Models\Cap\Empresa.cs" />
@@ -117,6 +119,8 @@
     <Compile Include="Service\Admin\SistemaParametroService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cap\BancoService.cs" />
+    <Compile Include="Service\Cap\ContaService.cs" />
+    <Compile Include="Service\Cap\ContaTipoService.cs" />
     <Compile Include="Service\Cap\DepartamentoService.cs" />
     <Compile Include="Service\Cap\DepositoService.cs" />
     <Compile Include="Service\Cap\EmpresaService.cs" />

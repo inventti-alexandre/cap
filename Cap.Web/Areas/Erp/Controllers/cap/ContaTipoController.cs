@@ -8,75 +8,82 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    public class FPgtoController : Controller
+    public class ContaTipoController : Controller
     {
-        IBaseService<FPgto> service;
+        IBaseService<ContaTipo> service;
         ILogin login;
 
-        public FPgtoController(IBaseService<FPgto> service, ILogin login)
+        public ContaTipoController(IBaseService<ContaTipo> service, ILogin login)
         {
             this.service = service;
             this.login = login;
         }
 
-        // GET: Erp/FPgto
+        // GET: Erp/ContaTipo
         public ActionResult Index()
         {
             var idEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
-            var formas = service.Listar()
+            var tipos = service.Listar()
                 .Where(x => x.IdEmpresa == idEmpresa)
                 .OrderBy(x => x.Descricao)
                 .ToList();
 
-            return View(formas);
+            return View(tipos);
         }
 
-        // GET: Erp/FPgto/Details/5
+        // GET: Erp/ContaTipo/Details/5
         public ActionResult Details(int id)
         {
-            var forma = service.Find(id);
+            var tipo = service.Find(id);
 
-            if (forma == null)
+            if (tipo == null)
             {
                 return HttpNotFound();
             }
 
-            return View(forma);
+            return View(tipo);
         }
 
-        // GET: Erp/FPgto/Create
+        // GET: Erp/ContaTipo/Create
         public ActionResult Create()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            return View(new FPgto() { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id });
+
+            var tipo = new ContaTipo
+            {
+                AlteradoPor = usuario.Id,
+                IdEmpresa = usuario.IdEmpresa
+            };
+
+            return View(tipo);
         }
 
-        // POST: Erp/FPgto/Create
+        // POST: Erp/ContaTipo/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Descricao,IdEmpresa,AlteradoPor")] FPgto forma)
+        public ActionResult Create([Bind(Include = "IdEmpresa,Descricao,AlteradoPor")] ContaTipo tipo)
         {
             try
             {
-                forma.AlteradoEm = DateTime.Now;
-                TryUpdateModel(forma);
+                tipo.AlteradoEm = DateTime.Now;
+                TryUpdateModel(tipo);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(forma);
+                    service.Gravar(tipo);
                     return RedirectToAction("Index");
                 }
 
-                return View(forma);
+                return View(tipo);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(forma);
+                return View(tipo);
             }
         }
 
-        // GET: Erp/FPgto/Edit/5
+        // GET: Erp/ContaTipo/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -84,42 +91,42 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var forma = service.Find((int)id);
+            var tipo = service.Find((int)id);
 
-            if (forma == null)
+            if (tipo == null)
             {
                 return HttpNotFound();
             }
 
-            forma.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            return View(forma);
+            tipo.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return View(tipo);
         }
 
-        // POST: Erp/FPgto/Edit/5
+        // POST: Erp/ContaTipo/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Descricao,Ativo,IdEmpresa,AlteradoPor")] FPgto forma)
+        public ActionResult Edit([Bind(Include = "Id,IdEmpresa,Descricao,AlteradoPor")] ContaTipo tipo)
         {
             try
             {
-                forma.AlteradoEm = DateTime.Now;
-                TryUpdateModel(forma);
+                tipo.AlteradoEm = DateTime.Now;
+                TryUpdateModel(tipo);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(forma);
+                    service.Gravar(tipo);
                     return RedirectToAction("Index");
                 }
 
-                return View(forma);
+                return View(tipo);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(forma);
+                return View(tipo);
             }
         }
 
-        // GET: Erp/FPgto/Delete/5
+        // GET: Erp/ContaTipo/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -127,17 +134,17 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var forma = service.Find((int)id);
+            var tipo = service.Find((int)id);
 
-            if (forma == null)
+            if (tipo == null)
             {
                 return HttpNotFound();
             }
 
-            return View(forma);
+            return View(tipo);
         }
 
-        // POST: Erp/FPgto/Delete/5
+        // POST: Erp/ContaTipo/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -149,12 +156,12 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                var forma = service.Find(id);
-                if (forma == null)
+                var tipo = service.Find(id);
+                if (tipo == null)
                 {
                     return HttpNotFound();
                 }
-                return View(forma);
+                return View(tipo);
             }
         }
     }

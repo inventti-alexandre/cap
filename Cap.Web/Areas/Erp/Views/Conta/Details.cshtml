@@ -1,0 +1,137 @@
+﻿@model Cap.Domain.Models.Cap.Conta
+
+@{
+    ViewBag.Title = "Conta";
+}
+
+<h2>Conta</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SaldoAnterior)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SaldoAnterior)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataSaldoAnterior)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataSaldoAnterior)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Saldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Saldo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataSaldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataSaldo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChequeAtual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChequeAtual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdBanco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Banco.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Agencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Agencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AgenciaNome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgenciaNome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContaNumero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContaNumero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdContaTipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContaTipo.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoPor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlteradoEm)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>
