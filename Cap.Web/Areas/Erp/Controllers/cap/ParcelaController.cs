@@ -9,36 +9,46 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    public class PedidoController : Controller
+    public class ParcelaController : Controller
     {
-        private IBaseService<Pedido> service;
-        private ILogin login;
-        
-        public PedidoController(IBaseService<Pedido> service, ILogin login)
+        IBaseService<Parcela> service;
+        ILogin login;
+
+        public ParcelaController(IBaseService<Parcela> service, ILogin login)
         {
             this.service = service;
             this.login = login;
         }
 
-        // GET: Erp/Pedido
+        // GET: Erp/Parcela
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Erp/Pedido/Details/5
+        public PartialViewResult Parcelas(int idPedido, bool soAtivos = true)
+        {
+            var parcelas = service.Listar()
+                .Where(x => x.IdPedido == idPedido
+                        && (soAtivos == false || (soAtivos == true && x.Ativo == true)))
+                .ToList();
+
+            return PartialView(parcelas);
+        }
+
+        // GET: Erp/Parcela/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Erp/Pedido/Create
+        // GET: Erp/Parcela/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Erp/Pedido/Create
+        // POST: Erp/Parcela/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -54,13 +64,13 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             }
         }
 
-        // GET: Erp/Pedido/Edit/5
+        // GET: Erp/Parcela/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Erp/Pedido/Edit/5
+        // POST: Erp/Parcela/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -76,13 +86,13 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             }
         }
 
-        // GET: Erp/Pedido/Delete/5
+        // GET: Erp/Parcela/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Erp/Pedido/Delete/5
+        // POST: Erp/Parcela/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

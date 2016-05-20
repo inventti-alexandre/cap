@@ -41,6 +41,8 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<Material>>().To<MaterialService>();
             kernel.Bind<IBaseService<MatGrupo>>().To<MatGrupoService>();
             kernel.Bind<IBaseService<Moeda>>().To<MoedaService>();
+            kernel.Bind<IBaseService<Parcela>>().To<ParcelaService>();
+            kernel.Bind<IBaseService<Pedido>>().To<PedidoService>();
             kernel.Bind<IBaseService<Pgto>>().To<PgtoService>();
             kernel.Bind<IBaseService<ReqMaterial>>().To<ReqMaterialService>();
             kernel.Bind<IBaseService<ReqRequisicao>>().To<ReqRequisicaoService>();
@@ -48,9 +50,9 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<Socio>>().To<SocioService>();
             kernel.Bind<IBaseService<Unidade>>().To<UnidadeService>();
             kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();
-
-            kernel.Bind<ITrocaSenha>().To<UsuarioService>();
+            
             kernel.Bind<ILogin>().To<UsuarioService>();
+            kernel.Bind<ITrocaSenha>().To<UsuarioService>();
 
             // registro das dependencias
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));

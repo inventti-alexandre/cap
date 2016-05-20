@@ -1,5 +1,5 @@
 ﻿@using Cap.Web.Common.Bind;
-@model Cap.Web.Areas.Erp.Models.PesquisaModel
+@model Cap.Domain.Models.Cap.PesquisaModel
 
 @{
     ViewBag.Title = "Pesquisa";
@@ -55,7 +55,7 @@
 
             <div class="col-md-3">
                 @Html.LabelFor(model => model.IdPgto, htmlAttributes: new { @class = "control-label" })
-                @Html.SelectPgto(Model.IdPgto)
+                @Html.SelectPgto(Model.IdPgto, true)
             </div>
 
             <div class="col-md-3">
@@ -125,6 +125,9 @@
         </div>
     </div>
     
+    <div id="parcelas">
+    </div>
+
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
         $("document").ready(function () {
@@ -138,7 +141,7 @@
                 var inicial = $("#Inicial").val();
                 var final = $("#Final").val();
                 var idPgto = $("#IdPgto").val();
-                var pedido = $("#IdPedido").val();
+                var idPedido = $("#IdPedido").val();
                 var idFPgto = $("#IdFPgto").val();
                 var idBanco = $("#IdBanco").val();
                 var idconta = $("#IdConta").val();
@@ -156,7 +159,7 @@
                         'Inicial' : inicial,
                         'Final': final,
                         'IdPgto': idPgto,
-                        'Pedido': pedido,
+                        'IdPedido': idPedido,
                         'IdFPgto': idFPgto,
                         'IdBanco': idBanco,
                         'IdConta': idconta,
@@ -169,7 +172,7 @@
                     datatype: 'html',
                     cache: false,
                     success: function (result) {
-                        alert(result);
+                        $("#parcelas").html(result);
                     },
                     error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
                 })

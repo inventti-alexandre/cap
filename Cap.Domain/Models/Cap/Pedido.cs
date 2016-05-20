@@ -16,6 +16,11 @@ namespace Cap.Domain.Models.Cap
         [Key]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Empresa inválida")]
+        [Display(Name = "Empresa")]
+        [Range(1, double.MaxValue, ErrorMessage = "Empresa inválida")]
+        public int IdEmpresa { get; set; }
+
         [Range(1,Double.MaxValue,ErrorMessage ="Selecione o departamento")]
         [Display(Name ="Departamento")]
         public int IdDepartamento { get; set; }
@@ -57,7 +62,6 @@ namespace Cap.Domain.Models.Cap
             {
                 return new UsuarioService().Find(AlteradoPor);
             }
-            set { }
         }
 
         [NotMapped]
@@ -69,6 +73,26 @@ namespace Cap.Domain.Models.Cap
                 return new DepartamentoService().Find(IdDepartamento);
             }
             set { }
+        }
+
+        [NotMapped]
+        [Display(Name = "Empresa")]
+        public virtual Empresa Empresa
+        {
+            get
+            {
+                return new EmpresaService().Find(IdEmpresa);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Parcelas")]
+        public List<Parcela> Parcelas
+        {
+            get
+            {
+                return new ParcelaService().Listar().Where(x => x.IdPedido == Id).ToList();
+            }
         }
     }
 }

@@ -45,10 +45,19 @@ namespace Cap.Domain.Service.Cap
         {
             item.AlteradoEm = DateTime.Now;
             item.DataNF = item.DataNF == DateTime.MinValue ? null : item.DataNF;
-            item.NF = item.NF.ToUpper().Trim();
+            item.NF = (item.NF == null ? string.Empty : item.NF.ToUpper().Trim());
             if (string.IsNullOrEmpty(item.NF) && item.DataNF == DateTime.MinValue)
             {
                 throw new ArgumentException("Informe a data de emissão da Nota Fiscal");
+            }
+
+            if (item.NF.Length > 0)
+            {
+                var pedido = repository.Listar().Where(x => x.IdEmpresa == item.IdEmpresa && x.NF == item.NF && x.IdFornecedor == item.IdFornecedor && x.Id != item.Id).First();
+                if (pedido != null)
+                {
+                    throw new ArgumentException($"Já existe uma nota fiscal com este número lançada para este fornecedor no pedido {pedido.Id}");
+                }                
             }
 
             if (item.Id == 0)

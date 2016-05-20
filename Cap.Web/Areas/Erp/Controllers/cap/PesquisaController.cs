@@ -5,12 +5,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Cap.Web.Common;
+using Cap.Domain.Models.Cap;
+using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Service.Cap;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
     [AreaAuthorizeAttribute("Erp", Roles = "admin")]
     public class PesquisaController : Controller
     {
+        IBaseService<Parcela> service;
+        ILogin login;
+
+        public PesquisaController(IBaseService<Parcela> service, ILogin login)
+        {
+            this.service = service;
+            this.login = login;
+        }
+
         // GET: Erp/Pesquisa
         public ActionResult Index()
         {
@@ -19,9 +32,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
         public ActionResult Pesquisar(PesquisaModel pesquisa)
         {
-            // TODO: retorna lista de parcelas
-
-            return View(pesquisa);
+            return PartialView("~/Areas/Erp/Views/Parcela/Parcelas.cshtml", new PesquisaService().Pesquisar(pesquisa));
         }
 
     }

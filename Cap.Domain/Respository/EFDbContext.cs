@@ -39,6 +39,8 @@ namespace Cap.Domain.Respository
         public DbSet<Material> Material { get; set; }
         public DbSet<Moeda> Moeda { get; set; }
         public DbSet<MatGrupo> MatGrupo { get; set; }
+        public DbSet<Parcela> Parcela { get; set; }
+        public DbSet<Pedido> Pedido { get; set; }
         public DbSet<Pgto> Pgto { get; set; }
         public DbSet<ReqMaterial> ReqMaterial { get; set; }
         public DbSet<ReqRequisicao> ReqRequisicao { get; set; }

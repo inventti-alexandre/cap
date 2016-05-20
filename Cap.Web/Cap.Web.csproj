@@ -189,6 +189,7 @@
     <Compile Include="Areas\Erp\Controllers\cap\FornecedorController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\FPgtoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\MoedaController.cs" />
+    <Compile Include="Areas\Erp\Controllers\cap\ParcelaController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\PedidoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\PesquisaController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\PgtoController.cs" />
@@ -203,7 +204,6 @@
     <Compile Include="Areas\Erp\ErpAreaRegistration.cs" />
     <Compile Include="Areas\Erp\Models\FornecedorModel.cs" />
     <Compile Include="Areas\Erp\Models\LoginUsuario.cs" />
-    <Compile Include="Areas\Erp\Models\PesquisaModel.cs" />
     <Compile Include="Common\AreaAuthorizeAttribute.cs" />
     <Compile Include="Common\Bind\BindBancoHelper.cs" />
     <Compile Include="Common\Bind\BindContaHelper.cs" />
@@ -356,6 +356,7 @@
     <Content Include="Areas\Erp\Views\ContaTipo\Create.cshtml" />
     <Content Include="Areas\Erp\Views\ContaTipo\Edit.cshtml" />
     <Content Include="Areas\Erp\Views\ContaTipo\Delete.cshtml" />
+    <Content Include="Areas\Erp\Views\Parcela\Parcelas.cshtml" />
     <Content Include="Areas\Erp\Views\Pesquisa\Pesquisar.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

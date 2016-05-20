@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Cap.Web.Areas.Erp.Models
+namespace Cap.Domain.Models.Cap
 {
     public enum SituacaoPagamento
     {
@@ -17,7 +18,7 @@ namespace Cap.Web.Areas.Erp.Models
         [Display(Name = "Departamento")]
         public int IdDepartamento { get; set; }
 
-        [Display(Name ="Fornecedor")]
+        [Display(Name = "Fornecedor")]
         public int IdFornecedor { get; set; }
 
         [Display(Name = "Nota fiscal")]
