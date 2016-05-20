@@ -4,7 +4,7 @@ namespace Cap.Web.Common.Bind
 {
     public static class BindSituacaoPagamentoHelper
     {
-        public static MvcHtmlString SelectSituacaoPagamento(this HtmlHelper html, int idSituacao)
+        public static MvcHtmlString SelectSituacaoPagamento(this HtmlHelper html, int idSituacao, bool selecione = false)
         {
             // 0 - em aberto
             // 1 - pago
@@ -13,6 +13,14 @@ namespace Cap.Web.Common.Bind
             tag.MergeAttribute("id", "IdSituacaoPagamento");
             tag.MergeAttribute("name", "IdSituacaoPagamento");
             tag.MergeAttribute("class", "form-control");
+
+            if (selecione == true)
+            {
+                TagBuilder itemSel = new TagBuilder("option");
+                itemSel.MergeAttribute("value", "0");
+                itemSel.SetInnerText("");
+                tag.InnerHtml += itemSel.ToString();
+            }
 
             TagBuilder emAberto = new TagBuilder("select");
             emAberto.MergeAttribute("value", "0");

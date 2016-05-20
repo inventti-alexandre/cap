@@ -6,7 +6,7 @@ namespace Cap.Web.Common.Bind
 {
     public static class BindEmpresaHelper
     {
-        public static MvcHtmlString SelectEmpresa(this HtmlHelper html, int idEmpresa = 0)
+        public static MvcHtmlString SelectEmpresa(this HtmlHelper html, int idEmpresa = 0, bool selecione = false)
         {
             var empresas = new EmpresaService().Listar()
                 .Where(x => x.Ativo == true)
@@ -17,6 +17,14 @@ namespace Cap.Web.Common.Bind
             tag.MergeAttribute("id", "IdEmpresa");
             tag.MergeAttribute("name", "IdEmpresa");
             tag.MergeAttribute("class", "form-control");
+
+            if (selecione == true)
+            {
+                TagBuilder itemSel = new TagBuilder("option");
+                itemSel.MergeAttribute("value", "0");
+                itemSel.SetInnerText("");
+                tag.InnerHtml += itemSel.ToString();
+            }
 
             foreach (var item in empresas)
             {

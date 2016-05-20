@@ -7,7 +7,7 @@ namespace Cap.Web.Common.Bind
 {
     public static class BindDepartamentoHelper
     {
-        public static MvcHtmlString SelectDepartamento(this HtmlHelper html, int idDepartamento = 0)
+        public static MvcHtmlString SelectDepartamento(this HtmlHelper html, int idDepartamento = 0, bool selecione = false)
         {
             var idEmpresa = new UsuarioService().GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
@@ -20,6 +20,14 @@ namespace Cap.Web.Common.Bind
             tag.MergeAttribute("id", "IdDepartamento");
             tag.MergeAttribute("name", "IdDepartamento");
             tag.MergeAttribute("class", "form-control");
+
+            if (selecione == true)
+            {
+                TagBuilder itemSel = new TagBuilder("option");
+                itemSel.MergeAttribute("value", "0");
+                itemSel.SetInnerText("");
+                tag.InnerHtml += itemSel.ToString();
+            }
 
             foreach (var item in departamentos)
             {

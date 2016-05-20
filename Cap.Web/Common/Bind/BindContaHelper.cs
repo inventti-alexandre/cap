@@ -7,7 +7,7 @@ namespace Cap.Web.Common.Bind
 {
     public static class BindContaHelper
     {
-        public static MvcHtmlString SelectConta(this HtmlHelper html, int idConta)
+        public static MvcHtmlString SelectConta(this HtmlHelper html, int idConta, bool selecione = false)
         {
             var idEmpresa = new UsuarioService().GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
@@ -20,6 +20,14 @@ namespace Cap.Web.Common.Bind
             tag.MergeAttribute("id", "IdConta");
             tag.MergeAttribute("name", "IdConta");
             tag.MergeAttribute("class", "form-control");
+
+            if (selecione == true)
+            {
+                TagBuilder itemSel = new TagBuilder("option");
+                itemSel.MergeAttribute("value", "0");
+                itemSel.SetInnerText("");
+                tag.InnerHtml += itemSel.ToString();
+            }
 
             foreach (var item in contas)
             {

@@ -6,7 +6,7 @@ namespace Cap.Web.Common.Bind
 {
     public static class BindEstadoCivilHelper
     {
-        public static MvcHtmlString SelectEstadoCivil(this HtmlHelper html, int idEstadoCivil = 0)
+        public static MvcHtmlString SelectEstadoCivil(this HtmlHelper html, int idEstadoCivil = 0, bool selecione = false)
         {
             var estados = new EstadoCivilService().Listar()
                 .Where(x => x.Ativo == true)
@@ -17,6 +17,14 @@ namespace Cap.Web.Common.Bind
             tag.MergeAttribute("id", "IdEstadoCivil");
             tag.MergeAttribute("name", "IdEstadoCivil");
             tag.MergeAttribute("class", "form-control");
+
+            if (selecione == true)
+            {
+                TagBuilder itemSel = new TagBuilder("option");
+                itemSel.MergeAttribute("value", "0");
+                itemSel.SetInnerText("");
+                tag.InnerHtml += itemSel.ToString();
+            }
 
             foreach (var item in estados)
             {
