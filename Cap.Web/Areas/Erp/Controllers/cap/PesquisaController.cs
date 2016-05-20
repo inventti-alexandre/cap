@@ -17,11 +17,11 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             return View(new PesquisaModel());
         }
 
-        public ActionResult Pesquisa(PesquisaModel pesquisa)
+        public ActionResult Pesquisar(PesquisaModel pesquisa)
         {
             // TODO: retorna lista de parcelas
 
-            return View();
+            return View(pesquisa);
         }
 
     }

@@ -90,26 +90,26 @@
 
         <div class="row">
             <div class="col-md-3">
-                @Html.LabelFor(model => model.Observ, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Observ, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.Observ, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Observ, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-3">
-                @Html.LabelFor(model => model.PesquisarPorDataPagamento, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.PesquisarPorDataPagamento, htmlAttributes: new { @class = "control-label" })
                 <div class="checkbox">
                     @Html.EditorFor(model => model.PesquisarPorDataPagamento)
                     @Html.ValidationMessageFor(model => model.PesquisarPorDataPagamento, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-3">
-                @Html.LabelFor(model => model.MaiorQue, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.MaiorQue, htmlAttributes: new { @class = "control-label" })
                 <div class="checkbox">
                     @Html.EditorFor(model => model.MaiorQue)
                     @Html.ValidationMessageFor(model => model.MaiorQue, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-3">
-                @Html.LabelFor(model => model.MenorQue, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.MenorQue, htmlAttributes: new { @class = "control-label" })
                 <div class="checkbox">
                     @Html.EditorFor(model => model.MenorQue)
                     @Html.ValidationMessageFor(model => model.MenorQue, "", new { @class = "text-danger" })
@@ -119,9 +119,61 @@
 
         <div class="row">
             <div class="col-md-12">
-                <input type="submit" value="Pesquisar" class="btn btn-default" />
-                @Html.ActionLink("Limpar", "Index", "Pesquisa", null, null);
+                <input type="button" value="Pesquisar" id="pesquisar" name="pesquisar" class="btn btn-primary" />
+                @Html.ActionLink("Limpar", "Index", "Pesquisa", null, new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>
+    
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        $("document").ready(function () {
+            
+            $("#pesquisar").click(function () {
+
+                var idDepartamento = $("#IdDepartamento").val();
+                var idFornecedor = $("#IdFornecedor").val();
+                var nf = $("#NF").val();
+                var nn = $("#NN").val();
+                var inicial = $("#Inicial").val();
+                var final = $("#Final").val();
+                var idPgto = $("#IdPgto").val();
+                var pedido = $("#IdPedido").val();
+                var idFPgto = $("#IdFPgto").val();
+                var idBanco = $("#IdBanco").val();
+                var idconta = $("#IdConta").val();
+                var cheque = $("#Cheque").val();
+                var observ = $("#Observ").val();
+                var pesquisarPorDataPagamento = $("#PesquisarPorDataPagamento").is(":checked");
+                var maiorQue = $("#MaiorQue").is(":checked");
+                var menorQue = $("#MenorQue").is(":checked");
+
+                $.ajax({
+                    url: '@Url.Action("Pesquisar","Pesquisa")',
+                    data: { 'IdDepartamento' : idDepartamento, 
+                        'IdFornecedor': idFornecedor,
+                        'NF' : nf,
+                        'Inicial' : inicial,
+                        'Final': final,
+                        'IdPgto': idPgto,
+                        'Pedido': pedido,
+                        'IdFPgto': idFPgto,
+                        'IdBanco': idBanco,
+                        'IdConta': idconta,
+                        'Cheque': cheque,
+                        'Observ': observ,
+                        'PesquisarPorDataPagamento': pesquisarPorDataPagamento,
+                        'MaiorQue': maiorQue,
+                        'menorQue': menorQue
+                    },
+                    datatype: 'html',
+                    cache: false,
+                    success: function (result) {
+                        alert(result);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+                })
+            });
+        });
+    </script>
 }
