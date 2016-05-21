@@ -26,7 +26,7 @@ namespace Cap.Domain.Service.Cap.Tests
                 Cidade = "SAO PAULO",
                 Descricao = "JOAO MOURA",
                 Endereco = "RUA JOAO MOURA 123",
-                IdEmpresa = 2,
+                IdEmpresa = 1,
                 IdEstado = 1
             };
 

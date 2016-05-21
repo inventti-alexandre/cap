@@ -19,11 +19,11 @@ namespace Cap.Web.Tests.Cap
         public void IncluirPgtos()
         {
             // Arrange
-            var pgto01 = new Pgto { AlteradoPor = 2, IdEmpresa = 2, Ativo = true, Descricao = "BANCO", Imposto = false };
-            var pgto02 = new Pgto { AlteradoPor = 2, IdEmpresa = 2, Ativo = true, Descricao = "RETIRA", Imposto = false };
-            var pgto03 = new Pgto { AlteradoPor = 2, IdEmpresa = 2, Ativo = true, Descricao = "DEPOSITO", Imposto = false };
-            var pgto04 = new Pgto { AlteradoPor = 2, IdEmpresa = 2, Ativo = true, Descricao = "DINHEIRO", Imposto = false };
-            var pgto05 = new Pgto { AlteradoPor = 2, IdEmpresa = 2, Ativo = true, Descricao = "DEBITO AUT.", Imposto = false };
+            var pgto01 = new Pgto { AlteradoPor = 2, IdEmpresa = 1, Ativo = true, Descricao = "BANCO", Imposto = false };
+            var pgto02 = new Pgto { AlteradoPor = 2, IdEmpresa = 1, Ativo = true, Descricao = "RETIRA", Imposto = false };
+            var pgto03 = new Pgto { AlteradoPor = 2, IdEmpresa = 1, Ativo = true, Descricao = "DEPOSITO", Imposto = false };
+            var pgto04 = new Pgto { AlteradoPor = 2, IdEmpresa = 1, Ativo = true, Descricao = "DINHEIRO", Imposto = false };
+            var pgto05 = new Pgto { AlteradoPor = 2, IdEmpresa = 1, Ativo = true, Descricao = "DEBITO AUT.", Imposto = false };
 
             // Act
             pgto01.Id = service.Gravar(pgto01);

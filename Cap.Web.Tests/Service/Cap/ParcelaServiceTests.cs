@@ -29,7 +29,7 @@ namespace Cap.Domain.Service.Cap.Tests
                 AlteradoPor = 2,
                 CriadoEm = DateTime.Now,
                 CriadoPor = 2,
-                IdEmpresa = 2,
+                IdEmpresa = 1,
                 IdPgto = 2,
                 IdMoeda = 1,
                 IdPedido = 1,

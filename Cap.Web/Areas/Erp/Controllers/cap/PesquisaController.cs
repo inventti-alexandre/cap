@@ -15,12 +15,10 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
     [AreaAuthorizeAttribute("Erp", Roles = "admin")]
     public class PesquisaController : Controller
     {
-        IBaseService<Parcela> service;
         ILogin login;
 
-        public PesquisaController(IBaseService<Parcela> service, ILogin login)
+        public PesquisaController(ILogin login)
         {
-            this.service = service;
             this.login = login;
         }
 
