@@ -8,18 +8,10 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title">Parcela</h4>
+            <h4 class="modal-title">Parcela do pedido n<sup>o</sup> @Model.IdPedido</h4>
         </div>
         <div class="modal-body">
             <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.IdPedido)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.IdPedido)
-                </dd>
-
                 <dt>
                     @Html.DisplayNameFor(model => model.Vencto)
                 </dt>
@@ -33,6 +25,7 @@
                 </dt>
 
                 <dd>
+                    @Html.DisplayFor(model => model.Moeda.Descricao)
                     @Html.DisplayFor(model => model.Valor)
                 </dd>
 
@@ -41,15 +34,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.IdPgto)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.IdDeposito)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.IdDeposito)
+                    @Html.DisplayFor(model => model.Pgto.Descricao)
                 </dd>
 
                 <dt>
@@ -74,22 +59,6 @@
 
                 <dd>
                     @Html.DisplayFor(model => model.NNData)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.NNPor)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.NNPor)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.IdFpgto)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.IdFpgto)
                 </dd>
 
                 <dt>
@@ -125,14 +94,6 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.IdMoeda)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.IdMoeda)
-                </dd>
-
-                <dt>
                     @Html.DisplayNameFor(model => model.CriadoEm)
                 </dt>
 
@@ -145,7 +106,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.CriadoPor)
+                    @Html.DisplayFor(model => model.CriadoPorUsuario.Nome)
                 </dd>
 
                 <dt>
@@ -161,7 +122,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.LibMasterPor)
+                    @Html.DisplayFor(model => model.LibMasterPorUsuario.Nome)
                 </dd>
 
                 <dt>
@@ -185,7 +146,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.AlteradoPor)
+                    @Html.DisplayFor(model => model.Usuario.Nome)
                 </dd>
 
                 <dt>

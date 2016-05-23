@@ -119,3 +119,12 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
     display: none;
+}
+
+.modal-dialog {
+    left: 50% !important;
+    top: 50% !important;
+    margin-top: 60px !important;
+    /*margin-left: -175px !important; 
+    margin-top: -175px !important;*/ 
+}

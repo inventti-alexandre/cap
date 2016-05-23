@@ -180,5 +180,37 @@ namespace Cap.Domain.Models.Cap
                 return new PgtoService().Find(IdPgto);
             }
         }
+
+        [NotMapped]
+        [Display(Name = "Moeda")]
+        public virtual Moeda Moeda
+        {
+            get
+            {
+                return new MoedaService().Find(IdMoeda);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "FPgto")]
+        public virtual FPgto Fpgto
+        {
+            get
+            {
+                if (IdFpgto == null || IdFpgto == 0)
+                {
+                    return new FPgto();
+                }
+
+                var fpgto = new FPgtoService().Find((int)IdFpgto);
+
+                if (fpgto == null)
+                {
+                    return new FPgto();
+                }
+
+                return fpgto;
+            }
+        }
     }
 }
