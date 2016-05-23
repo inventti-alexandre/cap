@@ -124,59 +124,62 @@
             </div>
         </div>
     </div>
-    
+
     <div id="parcelas">
     </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript">
-        $("document").ready(function () {
-            
-            $("#pesquisar").click(function () {
-
-                var idDepartamento = $("#IdDepartamento").val();
-                var idFornecedor = $("#IdFornecedor").val();
-                var nf = $("#NF").val();
-                var nn = $("#NN").val();
-                var inicial = $("#Inicial").val();
-                var final = $("#Final").val();
-                var idPgto = $("#IdPgto").val();
-                var idPedido = $("#IdPedido").val();
-                var idFPgto = $("#IdFPgto").val();
-                var idBanco = $("#IdBanco").val();
-                var idconta = $("#IdConta").val();
-                var cheque = $("#Cheque").val();
-                var observ = $("#Observ").val();
-                var pesquisarPorDataPagamento = $("#PesquisarPorDataPagamento").is(":checked");
-                var maiorQue = $("#MaiorQue").is(":checked");
-                var menorQue = $("#MenorQue").is(":checked");
-
-                $.ajax({
-                    url: '@Url.Action("Pesquisar","Pesquisa")',
-                    data: { 'IdDepartamento' : idDepartamento, 
-                        'IdFornecedor': idFornecedor,
-                        'NF' : nf,
-                        'Inicial' : inicial,
-                        'Final': final,
-                        'IdPgto': idPgto,
-                        'IdPedido': idPedido,
-                        'IdFPgto': idFPgto,
-                        'IdBanco': idBanco,
-                        'IdConta': idconta,
-                        'Cheque': cheque,
-                        'Observ': observ,
-                        'PesquisarPorDataPagamento': pesquisarPorDataPagamento,
-                        'MaiorQue': maiorQue,
-                        'menorQue': menorQue
-                    },
-                    datatype: 'html',
-                    cache: false,
-                    success: function (result) {
-                        $("#parcelas").html(result);
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
-                })
-            });
-        });
-    </script>
 }
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $("document").ready(function () {
+
+        $("#pesquisar").click(function () {
+
+            var idDepartamento = $("#IdDepartamento").val();
+            var idFornecedor = $("#IdFornecedor").val();
+            var nf = $("#NF").val();
+            var nn = $("#NN").val();
+            var inicial = $("#Inicial").val();
+            var final = $("#Final").val();
+            var idPgto = $("#IdPgto").val();
+            var idPedido = $("#IdPedido").val();
+            var idFPgto = $("#IdFPgto").val();
+            var idBanco = $("#IdBanco").val();
+            var idconta = $("#IdConta").val();
+            var cheque = $("#Cheque").val();
+            var observ = $("#Observ").val();
+            var pesquisarPorDataPagamento = $("#PesquisarPorDataPagamento").is(":checked");
+            var maiorQue = $("#MaiorQue").is(":checked");
+            var menorQue = $("#MenorQue").is(":checked");
+
+            $.ajax({
+                url: '@Url.Action("Pesquisar", "Pesquisa")',
+                data: {
+                    'IdDepartamento': idDepartamento,
+                    'IdFornecedor': idFornecedor,
+                    'NF': nf,
+                    'Inicial': inicial,
+                    'Final': final,
+                    'IdPgto': idPgto,
+                    'IdPedido': idPedido,
+                    'IdFPgto': idFPgto,
+                    'IdBanco': idBanco,
+                    'IdConta': idconta,
+                    'Cheque': cheque,
+                    'Observ': observ,
+                    'PesquisarPorDataPagamento': pesquisarPorDataPagamento,
+                    'MaiorQue': maiorQue,
+                    'menorQue': menorQue
+                },
+                datatype: 'html',
+                cache: false,
+                success: function (result) {
+                    $("#parcelas").html(result);
+                }//,
+                //error: function (xhr, ajaxOptions, thrownError) { alert(xhr.responseText); }
+            })
+        });
+
+    });
+</script>

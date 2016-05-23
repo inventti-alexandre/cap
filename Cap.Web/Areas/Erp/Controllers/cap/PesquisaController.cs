@@ -15,10 +15,12 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
     [AreaAuthorizeAttribute("Erp", Roles = "admin")]
     public class PesquisaController : Controller
     {
+        IBaseService<Parcela> service;
         ILogin login;
 
-        public PesquisaController(ILogin login)
+        public PesquisaController(IBaseService<Parcela> service,ILogin login)
         {
+            this.service = service;
             this.login = login;
         }
 
@@ -30,7 +32,22 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
         public ActionResult Pesquisar(PesquisaModel pesquisa)
         {
-            return PartialView("~/Areas/Erp/Views/Parcela/Parcelas.cshtml", new PesquisaService().Pesquisar(pesquisa));
+            try
+            {
+                //return PartialView("~/Areas/Erp/Views/Pesquisa/Pesquisar.cshtml", new PesquisaService().Pesquisar(pesquisa));
+                return PartialView(new PesquisaService().Pesquisar(pesquisa));
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(pesquisa);
+            }
+        }
+
+        public ActionResult Details(int id)
+        {
+            var parcela = service.Find(id);
+            return View(parcela);
         }
 
     }

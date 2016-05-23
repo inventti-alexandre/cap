@@ -80,86 +80,111 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdEmpresa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdPedido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Vencto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Valor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdPgto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdDeposito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmissaoPre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NNData)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NNPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdFpgto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Observ)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Liberado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LiberadoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LiberadoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdMoeda)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CriadoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CriadoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMaster)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMasterPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMasterEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlteradoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlteradoEm)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEmpresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vencto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPgto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdDeposito)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmissaoPre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NNData)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NNPor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdFpgto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Observ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Liberado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiberadoPor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiberadoEm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdMoeda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CriadoEm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CriadoPor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LibMaster)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LibMasterPor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LibMasterEm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlteradoPor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlteradoEm)
+            </td>
+            <td>
+                <button class="btn btn-default details" data-id="@item.Id"><i class="glyphicon glyphicon-file"></i></button>
+                <button class="btn btn-danger delete" data-id="@item.Id"><i class="glyphicon glyphicon-trash"></i></button>
+                <button class="btn btn-primary edit" data-id="@item.Id"><i class="glyphicon glyphicon-edit"></i></button>
+                <input type="button" class="btn btn-default details" data-id="@item.Id" value="teste" />
+                <br />
+                <div class="details">Teste</div>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="modal" id="modal">
+    
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $(".details").click(function () {
+            var id = $(this).attr("data-id");
+            $("#modal").load("Details?id=" + id, function () {
+                $("#modal").modal({
+                    position: ['middle', 120]
+                });
+            })            
+        });
+        
+    });
+</script>
