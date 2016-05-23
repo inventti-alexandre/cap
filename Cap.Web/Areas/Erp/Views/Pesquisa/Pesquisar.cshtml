@@ -64,9 +64,8 @@
                 @Html.DisplayFor(modelItem => item.Ativo)
             </td>
             <td>
-                <a href="@Url.Action("Edit", new { id = item.Id })"><i class="glyphicon glyphicon-edit"></i></a>
-                <button type="button" class="btn btn-default details" data-id="@item.Id"><i class="glyphicon glyphicon-file"></i></button>
-                <a href="@Url.Action("Delete", new { id = item.Id })"><i class="glyphicon glyphicon-trash text-danger"></i></a>
+                <a href="@Url.Action("Edit", new { id = item.Id })" title="Editar a parcela"><i class="glyphicon glyphicon-edit"></i></a>
+                <button type="button" class="btn btn-default details" title="Detalhes da parcela" data-id="@item.Id"><i class="glyphicon glyphicon-file"></i></button>
             </td>
         </tr>
     }
@@ -84,12 +83,7 @@
         $(".details").click(function () {
             var id = $(this).attr("data-id");
             $("#modal").load("Details?id=" + id, function () {
-                $("#modal").modal({
-                    position: {
-                        my: 'center',
-                        at: 'middle'
-                    }
-                });
+                $("#modal").modal();
             })
         });
 
