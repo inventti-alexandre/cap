@@ -95,7 +95,14 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         // GET: Erp/Parcela/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var parcela = service.Find(id);
+
+            if (parcela == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(parcela);
         }
 
         // POST: Erp/Parcela/Delete/5
@@ -104,13 +111,18 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                var parcela = service.Excluir(id);
+                return RedirectToAction("Edit", "Pedido", new { id = parcela.IdPedido });
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                var parcela = service.Find(id);
+                if (parcela == null)
+                {
+                    return HttpNotFound();
+                }
+                return PartialView(parcela);
             }
         }
 
@@ -126,7 +138,8 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             });
         }
 
-        public PartialViewResult AdicionarParcelas(ParcelaAdicionaModel model, int idPedido)
+        [HttpPost]
+        public ActionResult ParcelaAdiciona(ParcelaAdicionaModel model, int idPedido)
         {
             try
             {
@@ -156,14 +169,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                         service.Gravar(parcela);
                     }
 
-                    // retorna parcelas
-                    var parcelas = service.Listar()
-                        .Where(x => x.IdPedido == idPedido && x.Ativo == true)
-                        .OrderBy(x => x.Vencto)
-                        .ToList();
-
-                    ViewBag.IdPedido = idPedido;
-                    return PartialView("/Erp/Views/Parcela/Parcelas.cshtml", parcelas);
+                    return RedirectToAction("Edit", "Pedido", new { id = idPedido });
                 }
 
                 return PartialView(model);

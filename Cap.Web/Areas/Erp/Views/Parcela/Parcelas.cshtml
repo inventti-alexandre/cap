@@ -81,6 +81,7 @@
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
+
     $(document).ready(function () {
 
         $("#incluirParcela").click(function () {
@@ -94,16 +95,15 @@
             })
         });
 
-        //$("#gravarParcelas").click(function () {
-        //    var idPedido = $("#IdPedido").val();
-        //    $("#parcelas").load("/Erp/Parcela/AdicionarParcelas?idPedido=" + idPedido, function () {
-        //        $("#modal").toggle();
-        //    });
+        $(".delete").click(function () {
+            var idParcela = $(this).attr("data-id");
+            $("#modal").load("/Erp/Parcela/Delete?id=" + idParcela, function () {
+                $("#modal").toggle();
+            });
+        });
 
-        //    $('#modal').on('shown.bs.modal', function () {
-        //        $('#Valor').focus();
-        //    })
-        //});
-
+        $(".close-modal").click(function () {
+            $("#modal").toggle();
+        });
     });
 </script>

@@ -7,7 +7,7 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
             <h4 class="modal-title">Adicionar parcelas no pedido n<sup>o</sup> @ViewBag.IdPedido</h4>
         </div>
         <div class="modal-body">
@@ -47,8 +47,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Vencto, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @*@Html.EditorFor(model => model.Vencto, new { htmlAttributes = new { @class = "form-control" } })*@
-                            <input type="date" value="@Model.Vencto" class="form-control" id="incVencto" />
+                            @Html.EditorFor(model => model.Vencto, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Vencto, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -63,53 +62,14 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="button" id="gravarParcelas" value="Gravar" class="btn btn-primary" />
+                            <input type="submit" value="Incluir" class="btn btn-default" />
                         </div>
                     </div>
                 </div>
             }
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
         </div>
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            $("#gravarParcelas").click(function () {
-
-                var idPedido = $("#IdPedido").val();
-                var idMoeda = $("#IdMoeda").val();
-                var valor = $("#Valor").val();
-                var idPgto = $("#IdPgto").val();
-                var parcelas = $("#Parcelas").val();
-                var vencto = $("#incVencto").val();
-                //var periodicidade = $("#Periodicidade").val();
-                var observ = $("#Observ").val()
-
-                $.ajax({
-                    url: '@Url.Action("AdicionarParcelas", "Parcela")',
-                    data: {
-                        "IdPedido": idPedido,
-                        "IdMoeda": idMoeda,
-                        "Valor": valor,
-                        "IdPgto": idPgto,
-                        "Parcelas": parcelas,
-                        "Vencto": vencto,
-                        "Periodicidade": 30,
-                        "Observ": observ
-                    },
-                    datatype: 'html',
-                    cache: false,
-                    success: function (result) {
-                        $("#parcelas").html(result);
-                        $("#modal").toggle();
-                    }
-                });
-            });
-
-        });
-    </script>
