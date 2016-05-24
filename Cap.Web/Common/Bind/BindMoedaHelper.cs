@@ -20,6 +20,7 @@ namespace Cap.Web.Common.Bind
             tag.MergeAttribute("id", "IdMoeda");
             tag.MergeAttribute("name", "IdMoeda");
             tag.MergeAttribute("class", "form-control");
+            tag.MergeAttribute("style", "width:80px;");
 
             if (selecione == true)
             {

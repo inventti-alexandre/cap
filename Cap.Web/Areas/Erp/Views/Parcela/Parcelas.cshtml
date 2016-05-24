@@ -75,11 +75,7 @@
 
 </table>
 
-<div class="modal" id="modalIncluirParcela">
-
-</div>
-
-<div class="modal" id="modalDelete">
+<div class="modal" id="modal">
 
 </div>
 
@@ -90,19 +86,19 @@
 
         $("#incluirParcela").click(function () {
             var idPedido = $(this).attr("data-id");
-            $("#modalIncluirParcela").load("/Erp/Parcela/ParcelaAdiciona?idPedido=" + idPedido, function () {
-                $("#modalIncluirParcela").toggle();
+            $("#modal").load("/Erp/Parcela/ParcelaAdiciona?idPedido=" + idPedido, function () {
+                $("#modal").modal('show');
             });
 
-            $('#modalIncluirParcela').on('shown.bs.modal', function () {
+            $('#modal').on('shown.bs.modal', function () {
                 $('#Valor').focus();
             })
         });
 
         $(".delete").click(function () {
             var idParcela = $(this).attr("data-id");
-            $("#modalDelete").load("/Erp/Parcela/Delete?id=" + idParcela, function () {
-                $("#modalDelete").modal("toggle");
+            $("#modal").load("/Erp/Parcela/Delete?id=" + idParcela, function () {
+                $("#modal").modal('show');
             });
         });
     });

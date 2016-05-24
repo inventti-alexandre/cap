@@ -27,6 +27,7 @@ namespace Cap.Domain.Models.Cap
 
         [Required(ErrorMessage ="Informe o valor da parcela")]
         [Range(0.01,double.MaxValue, ErrorMessage ="O valor da parcela não pode ser negativo")]
+        [DataType(DataType.Currency)]
         public decimal Valor { get; set; }
 
         [Display(Name ="Forma pagamento")]
@@ -39,6 +40,7 @@ namespace Cap.Domain.Models.Cap
 
         [Display(Name ="Vencimento")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime Vencto { get; set; }
 
         public Periodicidade Periodicidade { get; set; }
