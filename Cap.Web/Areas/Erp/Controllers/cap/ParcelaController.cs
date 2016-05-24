@@ -169,14 +169,17 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                         service.Gravar(parcela);
                     }
 
+                    ViewBag.IdPedido = idPedido;
                     return RedirectToAction("Edit", "Pedido", new { id = idPedido });
                 }
 
+                ViewBag.IdPedido = idPedido;
                 return PartialView(model);
             }
             catch (Exception e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
+                ViewBag.IdPedido = idPedido;
                 return PartialView(model);
             }
         }

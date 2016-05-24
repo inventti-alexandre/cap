@@ -75,7 +75,7 @@
 
 </table>
 
-<div class="modal" id="modal">
+<div class="modal" id="modalIncluirParcela">
 
 </div>
 
@@ -90,11 +90,11 @@
 
         $("#incluirParcela").click(function () {
             var idPedido = $(this).attr("data-id");
-            $("#modal").load("/Erp/Parcela/ParcelaAdiciona?idPedido=" + idPedido, function () {
-                $("#modal").toggle();
+            $("#modalIncluirParcela").load("/Erp/Parcela/ParcelaAdiciona?idPedido=" + idPedido, function () {
+                $("#modalIncluirParcela").toggle();
             });
 
-            $('#modal').on('shown.bs.modal', function () {
+            $('#modalIncluirParcela').on('shown.bs.modal', function () {
                 $('#Valor').focus();
             })
         });
