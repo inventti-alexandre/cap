@@ -79,6 +79,10 @@
 
 </div>
 
+<div class="modal" id="modalDelete">
+
+</div>
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
 
@@ -97,13 +101,9 @@
 
         $(".delete").click(function () {
             var idParcela = $(this).attr("data-id");
-            $("#modal").load("/Erp/Parcela/Delete?id=" + idParcela, function () {
-                $("#modal").toggle();
+            $("#modalDelete").load("/Erp/Parcela/Delete?id=" + idParcela, function () {
+                $("#modalDelete").modal("toggle");
             });
-        });
-
-        $(".close-modal").click(function () {
-            $("#modal").toggle();
         });
     });
 </script>
