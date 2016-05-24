@@ -98,6 +98,7 @@
     <Compile Include="Models\Cap\FPgto.cs" />
     <Compile Include="Models\Cap\Moeda.cs" />
     <Compile Include="Models\Cap\Parcela.cs" />
+    <Compile Include="Models\Cap\ParcelaAdicionaModel.cs" />
     <Compile Include="Models\Cap\Pedido.cs" />
     <Compile Include="Models\Cap\PesquisaModel.cs" />
     <Compile Include="Models\Requisicao\Material.cs" />

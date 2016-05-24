@@ -215,6 +215,7 @@
     <Compile Include="Common\Bind\BindFornecedorHelper.cs" />
     <Compile Include="Common\Bind\BindFPgtoHelper.cs" />
     <Compile Include="Common\Bind\BindMatGrupoHelper.cs" />
+    <Compile Include="Common\Bind\BindMoedaHelper.cs" />
     <Compile Include="Common\Bind\BindPgtoHelper.cs" />
     <Compile Include="Common\Bind\BindSituacaoPagamentoHelper.cs" />
     <Compile Include="Common\Bind\BindUnidadeHelper.cs" />
@@ -359,6 +360,9 @@
     <Content Include="Areas\Erp\Views\Parcela\Parcelas.cshtml" />
     <Content Include="Areas\Erp\Views\Pesquisa\Pesquisar.cshtml" />
     <Content Include="Areas\Erp\Views\Pesquisa\Details.cshtml" />
+    <Content Include="Areas\Erp\Views\Pedido\Create.cshtml" />
+    <Content Include="Areas\Erp\Views\Pedido\Edit.cshtml" />
+    <Content Include="Areas\Erp\Views\Parcela\ParcelaAdiciona.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -388,7 +392,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Erp\Views\Pedido\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

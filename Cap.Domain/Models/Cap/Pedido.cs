@@ -19,6 +19,7 @@ namespace Cap.Domain.Models.Cap
         [Required(ErrorMessage = "Empresa inválida")]
         [Display(Name = "Empresa")]
         [Range(1, double.MaxValue, ErrorMessage = "Empresa inválida")]
+        [System.Web.Mvc.HiddenInput(DisplayValue = false)]
         public int IdEmpresa { get; set; }
 
         [Range(1,Double.MaxValue,ErrorMessage ="Selecione o departamento")]
@@ -31,6 +32,7 @@ namespace Cap.Domain.Models.Cap
 
         [Required(ErrorMessage ="Data da criação do pedido inválida")]
         [Display(Name ="Criado em")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime CriadoEm { get; set; }
 
         [Range(1,double.MaxValue, ErrorMessage ="Não há usuário responsável pela criação do pedido")]
@@ -42,6 +44,7 @@ namespace Cap.Domain.Models.Cap
         public string NF { get; set; }
 
         [Display(Name ="Data da nota fiscal")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataNF { get; set; }
 
         public bool Ativo { get; set; }
@@ -61,6 +64,16 @@ namespace Cap.Domain.Models.Cap
             get
             {
                 return new UsuarioService().Find(AlteradoPor);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name ="Criado por")]
+        public virtual Usuario CriadoPorUsuario
+        {
+            get
+            {
+                return new UsuarioService().Find(CriadoPor);
             }
         }
 

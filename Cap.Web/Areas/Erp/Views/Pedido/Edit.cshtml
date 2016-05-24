@@ -1,0 +1,92 @@
+﻿@using Cap.Web.Common.Bind;
+@model Cap.Domain.Models.Cap.Pedido
+
+@{
+    ViewBag.Title = "Pedido";
+}
+
+<h2>Pedido @Html.DisplayFor(model => model.Id)</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @{
+            if (!string.IsNullOrEmpty((string)ViewBag.Message))
+            {
+                <div class="text-info">
+                    @ViewBag.Message
+                </div>
+            }
+        }
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IdEmpresa)
+        @Html.HiddenFor(model => model.CriadoPor)
+        @Html.HiddenFor(model => model.CriadoEm)
+        @Html.HiddenFor(model => model.AlteradoPor)
+
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.IdDepartamento, htmlAttributes: new { @class = "control-label" })
+                    @Html.SelectDepartamento(Model.IdDepartamento)
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.IdFornecedor, htmlAttributes: new { @class = "control-label" })
+                    @Html.SelectFornecedor(Model.IdFornecedor)
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CriadoEm, htmlAttributes: new { @class = "control-label" })<br />
+                    @Html.DisplayFor(model => model.CriadoEm, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CriadoPor, htmlAttributes: new { @class = "control-label" })<br />
+                    @Html.DisplayFor(model => model.CriadoPorUsuario.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.NF, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NF, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NF, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.DataNF, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.DataNF, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DataNF, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label" })
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Ativo)
+                        @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 top20">
+                    <input type="submit" value="Gravar" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="parcelas" class="container">
+    <div class="row">
+        <div class="col-md-12 top30">
+            @{
+                Html.RenderAction("Parcelas", "Parcela", new { idPedido = Model.Id });
+            }
+        </div>
+    </div>
+</div>

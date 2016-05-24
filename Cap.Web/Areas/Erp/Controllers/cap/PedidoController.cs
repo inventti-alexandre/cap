@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Cap.Web.Common;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
+    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
     public class PedidoController : Controller
     {
         private IBaseService<Pedido> service;
@@ -35,44 +37,74 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         // GET: Erp/Pedido/Create
         public ActionResult Create()
         {
-            return View();
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            var pedido = new Pedido { AlteradoPor = usuario.Id, IdEmpresa = usuario.IdEmpresa, CriadoPor = usuario.Id, DataNF = DateTime.Today.Date };
+
+            return View(pedido);
         }
 
         // POST: Erp/Pedido/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Pedido pedido)
         {
             try
             {
-                // TODO: Add insert logic here
+                pedido.CriadoEm = DateTime.Now;
+                pedido.AlteradoEm = DateTime.Now;
+                TryUpdateModel(pedido);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    pedido.Id = service.Gravar(pedido);
+                    return RedirectToAction("Edit", new { id = pedido.Id });
+                }
+
+                return View(pedido);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(pedido);
             }
         }
 
         // GET: Erp/Pedido/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var pedido = service.Find(id);
+
+            if (pedido == null || (pedido.IdEmpresa != login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa))
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.Message = string.Empty;
+            return View(pedido);
         }
 
         // POST: Erp/Pedido/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Pedido pedido)
         {
             try
             {
-                // TODO: Add update logic here
+                pedido.AlteradoEm = DateTime.Now;
+                TryUpdateModel(pedido);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    ViewBag.Message = "Pedido gravado";
+                    service.Gravar(pedido);
+                    return View(pedido);
+                }
+
+                ViewBag.Message = string.Empty;
+                return View(pedido);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(pedido);
             }
         }
 

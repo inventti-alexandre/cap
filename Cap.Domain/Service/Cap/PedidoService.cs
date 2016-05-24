@@ -63,6 +63,7 @@ namespace Cap.Domain.Service.Cap
             if (item.Id == 0)
             {
                 item.CriadoEm = DateTime.Now;
+                item.Ativo = true;
                 return repository.Incluir(item).Id;
             }
 
