@@ -26,6 +26,8 @@ namespace Cap.Domain.Respository
         public DbSet<AgendaEmail> AgendaEmail { get; set; }
         public DbSet<AgendaTelefone> AgendaTelefone { get; set; }
         public DbSet<Banco> Banco { get; set; }
+        public DbSet<CentroCusto> CentroCusto { get; set; }
+        public DbSet<CentroLucro> CentroLucro { get; set; }
         public DbSet<Conta> Conta { get; set; }
         public DbSet<ContaTipo> ContaTipo { get; set; }
         public DbSet<Departamento> Departamento { get; set; }
@@ -36,6 +38,8 @@ namespace Cap.Domain.Respository
         public DbSet<Feriado> Feriado { get; set; }
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<FPgto> FPgto { get; set; }
+        public DbSet<GrupoCusto> GrupoCusto { get; set; }
+        public DbSet<GrupoLucro> GrupoLucro { get; set; }
         public DbSet<Material> Material { get; set; }
         public DbSet<Moeda> Moeda { get; set; }
         public DbSet<MatGrupo> MatGrupo { get; set; }
