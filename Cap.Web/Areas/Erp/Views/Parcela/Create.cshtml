@@ -61,7 +61,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Incluir" class="btn btn-default" />
+                            <input type="button" value="Incluir" id="incluirparcela" class="btn btn-default" />
                         </div>
                     </div>
                 </div>
@@ -72,3 +72,24 @@
         </div>
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
+
+<script type="text/javascript">
+
+    $("#incluirparcela").click(function () {
+        var self = $(this);
+        $.ajax({
+            url: '/Erp/Parcela/Create',
+            type: 'POST',
+            data: self.closest('form').serialize(),
+            success: function (data) {
+                if (data.success == true) {
+                    $("#modal").modal('hide');
+                    location.reload(false);
+                } else {
+                    $("#modal").html(data);
+                }
+            }
+        });
+    });
+
+</script>

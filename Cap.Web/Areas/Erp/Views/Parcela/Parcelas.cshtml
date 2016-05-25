@@ -65,10 +65,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.Ativo)
         </td>
-        <td>
-            <button class="btn btn-default details" data-id="@item.Id"><i class="glyphicon glyphicon-file"></i></button>
-            <button class="btn btn-danger delete" data-id="@item.Id"><i class="glyphicon glyphicon-trash"></i></button>
-            <button class="btn btn-primary edit" data-id="@item.Id"><i class="glyphicon glyphicon-edit"></i></button>
+        <td>            
+            @{ 
+                // TODO: se ja foi pago nao permite exclusao (basta adicionar disabled na tag)
+            }
+            <button class="btn btn-default details" data-id="@item.Id" title="Detalhes"><i class="glyphicon glyphicon-file"></i></button>
+            <button class="btn btn-danger delete" data-id="@item.Id" title="Excluir"><i class="glyphicon glyphicon-trash"></i></button>
+            <button class="btn btn-primary edit" data-id="@item.Id" title="Alterar"><i class="glyphicon glyphicon-edit"></i></button>
         </td>
     </tr>
 }
@@ -86,7 +89,7 @@
 
         $("#incluirParcela").click(function () {
             var idPedido = $(this).attr("data-id");
-            $("#modal").load("/Erp/Parcela/ParcelaAdiciona?idPedido=" + idPedido, function () {
+            $("#modal").load("/Erp/Parcela/Create?idPedido=" + idPedido, function () {
                 $("#modal").modal('show');
             });
 
@@ -98,6 +101,20 @@
         $(".delete").click(function () {
             var idParcela = $(this).attr("data-id");
             $("#modal").load("/Erp/Parcela/Delete?id=" + idParcela, function () {
+                $("#modal").modal('show');
+            });
+        });
+
+        $(".details").click(function () {
+            var idParcela = $(this).attr("data-id");
+            $("#modal").load("/Erp/Parcela/Details?id=" + idParcela, function () {
+                $("#modal").modal('show');
+            });
+        });
+
+        $(".edit").click(function () {
+            var idParcela = $(this).attr("data-id");
+            $("#modal").load("/Erp/Parcela/Edit?id=" + idParcela, function () {
                 $("#modal").modal('show');
             });
         });

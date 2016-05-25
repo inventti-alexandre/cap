@@ -1,12 +1,11 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Cap;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using Cap.Web.Common;
+using System;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
@@ -24,12 +23,6 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             this.login = login;
         }
 
-        // GET: Erp/Parcela
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public PartialViewResult Parcelas(int idPedido, bool soAtivos = true)
         {
             var parcelas = service.Listar()
@@ -45,50 +38,116 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         // GET: Erp/Parcela/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var parcela = service.Find(id);
+
+            return PartialView(parcela);
+        }
+
+        // GET: Erp/Parcela/Create/5
+        public PartialViewResult Create(int idPedido)
+        {
+            ViewBag.IdPedido = idPedido;
+            return PartialView(new ParcelaAdicionaModel
+            {
+                Parcelas = 1,
+                IdMoeda = moedaService.Listar().Where(x => x.Padrao == true).FirstOrDefault().Id,
+                Periodicidade = Periodicidade.Mensal,
+                Vencto = DateTime.Today.Date.AddMonths(1)
+            });
         }
 
         // GET: Erp/Parcela/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Erp/Parcela/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ParcelaAdicionaModel model, int idPedido)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
 
-                return RedirectToAction("Index");
+                    for (int i = 0; i < model.Parcelas; i++)
+                    {
+                        // TODO: deposito....
+                        var parcela = new Parcela
+                        {
+                            AlteradoEm = DateTime.Now,
+                            AlteradoPor = usuario.Id,
+                            Ativo = true,
+                            CriadoEm = DateTime.Now,
+                            CriadoPor = usuario.Id,
+                            IdEmpresa = usuario.IdEmpresa,
+                            IdPgto = model.IdPgto,
+                            IdPedido = idPedido,
+                            IdMoeda = model.IdMoeda,
+                            Observ = (model.Observ == null ? string.Empty : model.Observ),
+                            Valor = model.Valor,
+                            Vencto = model.Vencto
+                        };
+                        // grava nova parcela
+                        service.Gravar(parcela);
+                    }
+
+                    ViewBag.IdPedido = idPedido;
+                    return Json(new { success = true });
+                    //return RedirectToAction("Edit", "Pedido", new { id = idPedido });
+                }
+
+                ViewBag.IdPedido = idPedido;
+                return PartialView(model);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                ViewBag.IdPedido = idPedido;
+                return PartialView(model);
             }
         }
-
+        
         // GET: Erp/Parcela/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var parcela = service.Find((int)id);
+            parcela.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+
+            if (parcela == null)
+            {
+                return HttpNotFound();
+            }
+
+            // TODO: parcela paga tem que ter view diferenciada
+
+            return PartialView(parcela);
         }
 
         // POST: Erp/Parcela/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Parcela parcela)
         {
             try
             {
-                // TODO: Add update logic here
+                parcela.AlteradoEm = DateTime.Now;
+                parcela.NN = (parcela.NN == null ? "" : parcela.NN);
+                TryUpdateModel(parcela);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(parcela);
+                    return Json(new { success = true });
+                }
+
+                // TODO: parcela paga tem que ter view diferenciada
+                return PartialView(parcela);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return PartialView(parcela);
             }
         }
 
@@ -123,64 +182,6 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                     return HttpNotFound();
                 }
                 return PartialView(parcela);
-            }
-        }
-
-        public PartialViewResult ParcelaAdiciona(int idPedido)
-        {
-            ViewBag.IdPedido = idPedido;
-            return PartialView(new ParcelaAdicionaModel
-            {
-                Parcelas = 1,
-                IdMoeda = moedaService.Listar().Where(x => x.Padrao == true).FirstOrDefault().Id,
-                Periodicidade = Periodicidade.Mensal,
-                Vencto = DateTime.Today.Date.AddMonths(1)
-            });
-        }
-
-        [HttpPost]
-        public ActionResult ParcelaAdiciona(ParcelaAdicionaModel model, int idPedido)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-
-                    for (int i = 0; i < model.Parcelas; i++)
-                    {
-                        // TODO: deposito....
-                        var parcela = new Parcela
-                        {
-                            AlteradoEm = DateTime.Now,
-                            AlteradoPor = usuario.Id,
-                            Ativo = true,
-                            CriadoEm = DateTime.Now,
-                            CriadoPor = usuario.Id,
-                            IdEmpresa = usuario.IdEmpresa,
-                            IdPgto = model.IdPgto,
-                            IdPedido = idPedido,
-                            IdMoeda = model.IdMoeda,
-                            Observ = (model.Observ == null ? string.Empty :  model.Observ),
-                            Valor = model.Valor,
-                            Vencto = model.Vencto                             
-                        };
-                        // grava nova parcela
-                        service.Gravar(parcela);
-                    }
-
-                    ViewBag.IdPedido = idPedido;
-                    return RedirectToAction("Edit", "Pedido", new { id = idPedido });
-                }
-
-                ViewBag.IdPedido = idPedido;
-                return PartialView(model);
-            }
-            catch (Exception e)
-            {
-                ModelState.AddModelError(string.Empty, e.Message);
-                ViewBag.IdPedido = idPedido;
-                return PartialView(model);
             }
         }
     }

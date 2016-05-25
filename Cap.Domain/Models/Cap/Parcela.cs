@@ -26,7 +26,7 @@ namespace Cap.Domain.Models.Cap
 
         [Required(ErrorMessage ="Informe a data de vencimento da parcela")]
         [Display(Name ="Vencimento")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime Vencto { get; set; }
 
         [Required(ErrorMessage ="Informe o valor da parcela")]
@@ -42,14 +42,16 @@ namespace Cap.Domain.Models.Cap
         public int? IdDeposito { get; set; }
 
         [Display(Name ="Emissão cheque pré-datado")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy")]
+        [DataType(DataType.Date)]
         public DateTime? EmissaoPre { get; set; }
 
-        [Required(AllowEmptyStrings = true)]
         [Display(Name = "Nosso número")]
         public string NN { get; set; }
 
         [Display(Name = "Data nosso número")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime)]
         public DateTime? NNData { get; set; }
 
         [Display(Name = "Nosso número atribuído por")]
@@ -68,6 +70,7 @@ namespace Cap.Domain.Models.Cap
 
         [Display(Name ="Liberado em")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime)]
         public DateTime? LiberadoEm { get; set; }
 
         [Display(Name = "Moeda")]
@@ -77,6 +80,7 @@ namespace Cap.Domain.Models.Cap
         [Required]
         [Display(Name ="Data cadastro")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.DateTime)]
         public DateTime CriadoEm { get; set; }
 
         [Required]
@@ -91,6 +95,8 @@ namespace Cap.Domain.Models.Cap
         public int? LibMasterPor { get; set; }
 
         [Display(Name ="Liberado master em")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime? LibMasterEm { get; set; }
 
         public bool Ativo { get; set; }
@@ -101,6 +107,7 @@ namespace Cap.Domain.Models.Cap
 
         [Required]
         [Display(Name = "Alterado em")]
+        [DataType(DataType.DateTime)]
         public DateTime AlteradoEm { get; set; }
 
         [NotMapped]
