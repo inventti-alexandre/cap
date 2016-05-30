@@ -1,13 +1,13 @@
-﻿@model IEnumerable<Cap.Domain.Models.Cap.GrupoCusto>
+﻿@model IEnumerable<Cap.Domain.Models.Cap.GrupoLucro>
 
 @{
-    ViewBag.Title = "Grupos de custos";
+    ViewBag.Title = "Grupos de lucros";
 }
 
-<h2>Grupos de custos</h2>
+<h2>Grupos de lucros</h2>
 
 <p>
-    @Html.ActionLink("Novo grupo de custo", "Create")
+    @Html.ActionLink("Novo grupo de lucro", "Create")
 </p>
 <table class="table">
     <tr>
@@ -31,8 +31,7 @@
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Centro de custos", "Index", "CentroCusto", new { id=item.Id }, null)
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

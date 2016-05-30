@@ -1,6 +1,7 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Cap;
+using Cap.Web.Common;
 using System;
 using System.Linq;
 using System.Net;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
+    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
     public class GrupoLucroController : Controller
     {
         private IBaseService<GrupoLucro> service;

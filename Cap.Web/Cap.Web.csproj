@@ -182,6 +182,8 @@
     <Compile Include="Areas\Erp\Controllers\basico\SistemaParametroController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\UsuarioController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\BancoController.cs" />
+    <Compile Include="Areas\Erp\Controllers\cap\CentroCustoController.cs" />
+    <Compile Include="Areas\Erp\Controllers\cap\CentroLucroController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\ContaController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\ContaTipoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\DepositoController.cs" />
@@ -372,6 +374,17 @@
     <Content Include="Areas\Erp\Views\GrupoCusto\Create.cshtml" />
     <Content Include="Areas\Erp\Views\GrupoCusto\Edit.cshtml" />
     <Content Include="Areas\Erp\Views\GrupoCusto\Delete.cshtml" />
+    <Content Include="Areas\Erp\Views\GrupoLucro\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\GrupoLucro\Details.cshtml" />
+    <Content Include="Areas\Erp\Views\GrupoLucro\Create.cshtml" />
+    <Content Include="Areas\Erp\Views\GrupoLucro\Edit.cshtml" />
+    <Content Include="Areas\Erp\Views\GrupoLucro\Delete.cshtml" />
+    <Content Include="Areas\Erp\Views\CentroCusto\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\CentroCusto\Details.cshtml" />
+    <Content Include="Areas\Erp\Views\CentroCusto\Create.cshtml" />
+    <Content Include="Areas\Erp\Views\CentroCusto\Edit.cshtml" />
+    <Content Include="Areas\Erp\Views\CentroCusto\Delete.cshtml" />
+    <Content Include="Areas\Erp\Views\CentroLucro\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -401,7 +414,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Erp\Views\GrupoLucro\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
