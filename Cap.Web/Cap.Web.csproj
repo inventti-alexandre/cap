@@ -224,6 +224,7 @@
     <Compile Include="Common\Bind\BindMoedaHelper.cs" />
     <Compile Include="Common\Bind\BindPgtoHelper.cs" />
     <Compile Include="Common\Bind\BindSituacaoPagamentoHelper.cs" />
+    <Compile Include="Common\Bind\BindTipoContaHelper.cs" />
     <Compile Include="Common\Bind\BindUnidadeHelper.cs" />
     <Compile Include="Common\EnumDescription.cs" />
     <Compile Include="Common\Identification.cs" />
