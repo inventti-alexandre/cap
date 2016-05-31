@@ -1,4 +1,5 @@
 ﻿@using System.ComponentModel.DataAnnotations;
+@using Cap.Domain.Models.Cap;
 @model Cap.Domain.Models.Cap.ContaFinanceira
 
 @{
@@ -31,7 +32,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TipoConta)
+            @{
+                var type = typeof(TipoConta);
+                var enumAtual = (TipoConta)Model.TipoConta;
+                var member = type.GetMember(enumAtual.ToString());
+                var attributes = member[0].GetCustomAttributes(typeof(DisplayAttribute), false);
+                var name = ((DisplayAttribute)attributes[0]).Name;
+            }
+            @Html.DisplayFor(t => name)
         </dd>
 
         <dt>

@@ -9,9 +9,9 @@ namespace Cap.Domain.Models.Cap
 {
     public enum TipoConta
     {
-        [Display(Name = "Débito")]
+        [Display(Name = "DÉBITO")]
         Debito = 0,
-        [Display(Name = "Crédito")]
+        [Display(Name = "CRÉDITO")]
         Credito = 1
     }
 
