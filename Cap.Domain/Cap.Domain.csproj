@@ -92,6 +92,7 @@
     <Compile Include="Models\Cap\CentroCusto.cs" />
     <Compile Include="Models\Cap\CentroLucro.cs" />
     <Compile Include="Models\Cap\Conta.cs" />
+    <Compile Include="Models\Cap\ContaFinanceira.cs" />
     <Compile Include="Models\Cap\ContaTipo.cs" />
     <Compile Include="Models\Cap\Departamento.cs" />
     <Compile Include="Models\Cap\Deposito.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Models\Cap\Fornecedor.cs" />
     <Compile Include="Models\Cap\FPgto.cs" />
     <Compile Include="Models\Cap\GrupoCusto.cs" />
+    <Compile Include="Models\Cap\GrupoFinanceiro.cs" />
     <Compile Include="Models\Cap\GrupoLucro.cs" />
     <Compile Include="Models\Cap\Moeda.cs" />
     <Compile Include="Models\Cap\Parcela.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="Service\Cap\BancoService.cs" />
     <Compile Include="Service\Cap\CentroCustoService.cs" />
     <Compile Include="Service\Cap\CentroLucroService.cs" />
+    <Compile Include="Service\Cap\ContaFinanceiraService.cs" />
     <Compile Include="Service\Cap\ContaService.cs" />
     <Compile Include="Service\Cap\ContaTipoService.cs" />
     <Compile Include="Service\Cap\DepartamentoService.cs" />
@@ -136,6 +139,7 @@
     <Compile Include="Service\Cap\FornecedorService.cs" />
     <Compile Include="Service\Cap\FPgtoService.cs" />
     <Compile Include="Service\Cap\GrupoCustoService.cs" />
+    <Compile Include="Service\Cap\GrupoFinanceiroService.cs" />
     <Compile Include="Service\Cap\GrupoLucroService.cs" />
     <Compile Include="Service\Cap\MoedaService.cs" />
     <Compile Include="Service\Cap\ParcelaService.cs" />

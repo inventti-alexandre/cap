@@ -29,6 +29,7 @@ namespace Cap.Domain.Respository
         public DbSet<CentroCusto> CentroCusto { get; set; }
         public DbSet<CentroLucro> CentroLucro { get; set; }
         public DbSet<Conta> Conta { get; set; }
+        public DbSet<ContaFinanceira> ContaFinanceira { get; set; }
         public DbSet<ContaTipo> ContaTipo { get; set; }
         public DbSet<Departamento> Departamento { get; set; }
         public DbSet<Deposito> Deposito { get; set; }
@@ -39,6 +40,7 @@ namespace Cap.Domain.Respository
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<FPgto> FPgto { get; set; }
         public DbSet<GrupoCusto> GrupoCusto { get; set; }
+        public DbSet<GrupoFinanceiro> GrupoFinanceiro { get; set; }
         public DbSet<GrupoLucro> GrupoLucro { get; set; }
         public DbSet<Material> Material { get; set; }
         public DbSet<Moeda> Moeda { get; set; }

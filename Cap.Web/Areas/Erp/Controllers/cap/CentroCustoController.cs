@@ -26,8 +26,10 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         {
             var centros = service.Listar()
                 .Where(x => x.IdGrupoCusto == id)
-                .OrderBy(x => x.Descricao)
-                .ToList();
+                .ToList()
+                .OrderBy(x => x.GrupoCusto.Descricao)
+                .ThenBy(x => x.Descricao)
+                .AsEnumerable();
 
             ViewBag.IdGrupoCusto = id;
             return View(centros);
@@ -50,7 +52,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         public ActionResult Create(int idGrupoCusto)
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            var centro = new CentroCusto {  IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id, IdGrupoCusto = idGrupoCusto });
+            var centro = new CentroCusto {  IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id, IdGrupoCusto = idGrupoCusto };
             return View(centro);
         }
 

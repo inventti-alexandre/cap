@@ -1,21 +1,24 @@
-﻿@model IEnumerable<Cap.Domain.Models.Cap.CentroCusto>
+﻿@model IEnumerable<Cap.Domain.Models.Cap.ContaFinanceira>
 
 @{
-    ViewBag.Title = "Centros de custos";
+    ViewBag.Title = "Contas financeiras";
 }
 
-<h2>Centros de custos</h2>
+<h2>Contas financeiras</h2>
 
 <p>
-    @Html.ActionLink("Novo centro de custo", "Create", new { idGrupoCusto = (int)ViewBag.IdGrupoCusto })
+    @Html.ActionLink("Nova conta financeira", "Create", new { idGrupoFinanceiro = (int)ViewBag.IdGrupoFinanceiro })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.IdGrupoCusto)
+            @Html.DisplayNameFor(model => model.IdGrupoFinanceiro)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Credito)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Ativo)
@@ -26,7 +29,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.GrupoCusto.Descricao)
+            @Html.DisplayFor(modelItem => item.GrupoFinanceiro.Descricao)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descricao)
@@ -44,4 +47,4 @@
 
 </table>
 
-@Html.ActionLink("Voltar", "Index", "GrupoCusto");
+@Html.ActionLink("Voltar", "Index", "GrupoFinanceiro")

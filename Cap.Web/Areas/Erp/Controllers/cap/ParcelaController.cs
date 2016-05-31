@@ -90,7 +90,6 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
                     ViewBag.IdPedido = idPedido;
                     return Json(new { success = true });
-                    //return RedirectToAction("Edit", "Pedido", new { id = idPedido });
                 }
 
                 ViewBag.IdPedido = idPedido;
