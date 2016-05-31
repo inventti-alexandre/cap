@@ -39,6 +39,7 @@ namespace Cap.Domain.Models.Cap
         [Display(Name ="Contabilizar esta conta nos relatórios?")]
         public bool Contabiliza { get; set; }
 
+        [Required(ErrorMessage = "Selecione o tipo de conta")]
         [Display(Name = "Tipo de conta")]
         [EnumDataType(typeof(TipoConta),ErrorMessage ="Tipo de conta inválido")]
         public TipoConta TipoConta { get; set; }

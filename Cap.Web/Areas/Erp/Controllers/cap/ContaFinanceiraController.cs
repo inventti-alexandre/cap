@@ -5,9 +5,11 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Cap.Web.Common;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
+    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
     public class ContaFinanceiraController : Controller
     {
         private IBaseService<ContaFinanceira> service;
@@ -50,7 +52,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         public ActionResult Create(int idGrupoFinanceiro)
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            var conta = new ContaFinanceira { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id, IdGrupoFinanceiro = idGrupoFinanceiro };
+            var conta = new ContaFinanceira { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id, IdGrupoFinanceiro = idGrupoFinanceiro, TipoConta = TipoConta.Debito };
 
             return View(conta);
         }

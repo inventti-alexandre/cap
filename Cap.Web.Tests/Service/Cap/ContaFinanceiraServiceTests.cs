@@ -24,7 +24,7 @@ namespace Cap.Domain.Service.Cap.Tests
         public void ContaFinanceiraGravarTest()
         {
             // Arrange
-            var item = new ContaFinanceira { AlteradoPor = 2, Descricao = "PAPELARIA", IdEmpresa = 2, IdGrupoFinanceiro = 1 };
+            var item = new ContaFinanceira { AlteradoPor = 2, Descricao = "INFORMATICA", IdEmpresa = 2, IdGrupoFinanceiro = 1, Contabiliza = true, TipoConta = TipoConta.Debito };
 
             // Act
             item.Id = service.Gravar(item);
