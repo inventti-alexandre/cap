@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Models.Admin;
 using Cap.Domain.Service.Admin;
+using Cap.Domain.Service.Cap;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -68,6 +69,9 @@ namespace Cap.Domain.Models.Cap
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? ECnpjVencto { get; set; }
 
+        [Display(Name ="Regime tributário")]
+        public int IdRegimeTributario { get; set; }
+
         public bool Ativo { get; set; }
 
         [Required]
@@ -82,7 +86,16 @@ namespace Cap.Domain.Models.Cap
             {
                 return new EstadoService().Find(IdEstado);
             }
-            set { }
+        }
+
+        [NotMapped]
+        [Display(Name = "Regime tributário")]
+        public virtual RegimeTributario RegimeTributario
+        {
+            get
+            {
+                return new RegimeTributarioService().Find(IdRegimeTributario);
+            }
         }
     }
 }

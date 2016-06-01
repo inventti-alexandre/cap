@@ -1,77 +1,82 @@
 ﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Cap;
-using Cap.Web.Common;
 using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Cap.Web.Common;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
     [AreaAuthorizeAttribute("Erp", Roles = "admin")]
-    public class EmpresaController : Controller
+    public class RegimeTributarioController : Controller
     {
-        IBaseService<Empresa> service;
+        private IBaseService<RegimeTributario> service;
+        private ILogin login;
 
-        public EmpresaController(IBaseService<Empresa> service)
+        public RegimeTributarioController(IBaseService<RegimeTributario> service, ILogin login)
         {
             this.service = service;
+            this.login = login;
         }
 
-        // GET: Erp/Empresa
+        // GET: Erp/RegimeTributario
         public ActionResult Index()
         {
-            var empresas = service.Listar()
-                .OrderBy(x => x.Fantasia)
-                .ToList();
+            var regimes = service.Listar()
+                .OrderBy(x => x.Descricao)
+                .AsEnumerable();
 
-            return View(empresas);
+            return View(regimes);
         }
 
-        // GET: Erp/Empresa/Details/5
+        // GET: Erp/RegimeTributario/Details/5
         public ActionResult Details(int id)
         {
-            var empresa = service.Find(id);
+            var regime = service.Find(id);
 
-            if (empresa == null)
+            if (regime == null)
             {
                 return HttpNotFound();
             }
 
-            return View(empresa);
+            return View(regime);
         }
 
-        // GET: Erp/Empresa/Create
+        // GET: Erp/RegimeTributario/Create
         public ActionResult Create()
         {
-            return View(new Empresa());
+            var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+
+            return View(new RegimeTributario { AlteradoPor = idUsuario });
         }
 
-        // POST: Erp/Empresa/Create
+        // POST: Erp/RegimeTributario/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Fantasia,Razao,Cnpj,IE,Endereco,Bairro,Cidade,IdEstado,Cep,Email,Telefone,ECnpj,ECnpjVencto,IdRegimeTributario")]Empresa empresa)
+        public ActionResult Create(RegimeTributario regime)
         {
             try
             {
-                empresa.AlteradoEm = DateTime.Now;
-                TryUpdateModel(empresa);
+                regime.AlteradoEm = DateTime.Now;
+                TryUpdateModel(regime);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(empresa);
+                    service.Gravar(regime);
                     return RedirectToAction("Index");
                 }
 
-                return View(empresa);
+                return View(regime);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(empresa);
+                return View(regime);
             }
         }
 
-        // GET: Erp/Empresa/Edit/5
+        // GET: Erp/RegimeTributario/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,42 +84,41 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var empresa = service.Find((int)id);
+            var regime = service.Find((int)id);
 
-            if (empresa == null)
+            if (regime == null)
             {
                 return HttpNotFound();
             }
 
-            return View(empresa);
+            return View(regime);
         }
 
-        // POST: Erp/Empresa/Edit/5
+        // POST: Erp/RegimeTributario/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "Id,Fantasia,Razao,Cnpj,IE,Endereco,Bairro,Cidade,IdEstado,Cep,Email,Telefone,ECnpj,ECnpjVencto,Ativo,IdRegimeTributario")]Empresa empresa)
+        public ActionResult Edit(RegimeTributario regime)
         {
             try
             {
-                empresa.AlteradoEm = DateTime.Now;
-                TryUpdateModel(empresa);
+                regime.AlteradoEm = DateTime.Now;
+                TryUpdateModel(regime);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(empresa);
+                    service.Gravar(regime);
                     return RedirectToAction("Index");
                 }
 
-                return View(empresa);
-
+                return View(regime);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(empresa);
+                return View(regime);
             }
         }
 
-        // GET: Erp/Empresa/Delete/5
+        // GET: Erp/RegimeTributario/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -122,17 +126,17 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var empresa = service.Find((int)id);
+            var regime = service.Find((int)id);
 
-            if (empresa == null)
+            if (regime == null)
             {
                 return HttpNotFound();
             }
 
-            return View(empresa);
+            return View(regime);
         }
 
-        // POST: Erp/Empresa/Delete/5
+        // POST: Erp/RegimeTributario/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -143,13 +147,13 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             }
             catch (ArgumentException e)
             {
-                ModelState.AddModelError(string.Empty, e.Message);
-                var empresa = service.Find(id);
-                if (empresa == null)
+                var regime = service.Find(id);
+                if (regime == null)
                 {
                     return HttpNotFound();
                 }
-                return View(empresa);
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(regime);
             }
         }
     }

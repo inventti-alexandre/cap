@@ -48,6 +48,7 @@ namespace Cap.Domain.Respository
         public DbSet<Parcela> Parcela { get; set; }
         public DbSet<Pedido> Pedido { get; set; }
         public DbSet<Pgto> Pgto { get; set; }
+        public DbSet<RegimeTributario> RegimeTributario { get; set; }
         public DbSet<ReqMaterial> ReqMaterial { get; set; }
         public DbSet<ReqRequisicao> ReqRequisicao { get; set; }
         public DbSet<SistemaParametro> SistemaParametro { get; set; }

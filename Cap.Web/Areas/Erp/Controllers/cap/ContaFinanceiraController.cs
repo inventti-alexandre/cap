@@ -52,7 +52,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         public ActionResult Create(int idGrupoFinanceiro)
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            var conta = new ContaFinanceira { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id, IdGrupoFinanceiro = idGrupoFinanceiro, TipoConta = TipoConta.Debito };
+            var conta = new ContaFinanceira { IdEmpresa = usuario.IdEmpresa, AlteradoPor = usuario.Id, IdGrupoFinanceiro = idGrupoFinanceiro, TipoConta = TipoConta.Debito, Contabiliza = true };
 
             return View(conta);
         }

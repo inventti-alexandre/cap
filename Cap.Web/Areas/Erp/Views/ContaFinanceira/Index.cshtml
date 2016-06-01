@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Cap.Domain.Models.Cap.ContaFinanceira>
+﻿@using System.ComponentModel.DataAnnotations;
+@using Cap.Domain.Models.Cap;
+@model IEnumerable<Cap.Domain.Models.Cap.ContaFinanceira>
 
 @{
     ViewBag.Title = "Contas financeiras";
@@ -38,7 +40,14 @@
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TipoConta)
+            @{ 
+                var enumAtual = (TipoConta)item.TipoConta;
+                var type = typeof(TipoConta);
+                var member = type.GetMember(enumAtual.ToString());
+                var attributes = member[0].GetCustomAttributes(typeof(DisplayAttribute), false);
+                var name = ((DisplayAttribute)attributes[0]).Name;
+            }
+            @Html.DisplayFor(t => name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Contabiliza)

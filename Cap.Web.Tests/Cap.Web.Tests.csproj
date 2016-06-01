@@ -120,6 +120,7 @@
     <Compile Include="Service\Cap\MoedaServiceTests.cs" />
     <Compile Include="Service\Cap\ParcelaServiceTests.cs" />
     <Compile Include="Service\Cap\PedidoServiceTests.cs" />
+    <Compile Include="Service\Cap\RegimeTributarioServiceTests.cs" />
     <Compile Include="Service\Cap\SocioServiceTests.cs" />
     <Compile Include="Service\Cap\UnidadeServiceTests.cs" />
     <Compile Include="Service\Gen\AgendaEmailServiceTests.cs" />

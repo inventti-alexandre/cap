@@ -122,6 +122,13 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.RegimeTributario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.SelectRegimeTributario(Model.IdRegimeTributario)
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
