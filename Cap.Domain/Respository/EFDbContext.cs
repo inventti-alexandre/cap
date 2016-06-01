@@ -39,6 +39,7 @@ namespace Cap.Domain.Respository
         public DbSet<Feriado> Feriado { get; set; }
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<FPgto> FPgto { get; set; }
+        public DbSet<Grupo> Grupo { get; set; }
         public DbSet<GrupoCusto> GrupoCusto { get; set; }
         public DbSet<GrupoFinanceiro> GrupoFinanceiro { get; set; }
         public DbSet<GrupoLucro> GrupoLucro { get; set; }

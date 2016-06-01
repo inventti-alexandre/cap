@@ -179,6 +179,7 @@
     <Compile Include="Areas\Erp\Controllers\basico\EstadoCivilController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\EstadoController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\FeriadoController.cs" />
+    <Compile Include="Areas\Erp\Controllers\basico\GrupoController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\SistemaParametroController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\UsuarioController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\BancoController.cs" />
@@ -439,6 +440,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Erp\Views\Grupo\" />
     <Folder Include="Areas\Erp\Views\Menu\" />
     <Folder Include="Models\" />
   </ItemGroup>
