@@ -204,6 +204,7 @@
     <Compile Include="Areas\Erp\Controllers\EmailController.cs" />
     <Compile Include="Areas\Erp\Controllers\HomeController.cs" />
     <Compile Include="Areas\Erp\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Erp\Controllers\MenuController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\MaterialController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\MatGrupoController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\UnidadeController.cs" />
@@ -438,6 +439,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Erp\Views\Menu\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

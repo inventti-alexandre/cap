@@ -51,7 +51,9 @@ namespace Cap.Domain.Respository
         public DbSet<RegimeTributario> RegimeTributario { get; set; }
         public DbSet<ReqMaterial> ReqMaterial { get; set; }
         public DbSet<ReqRequisicao> ReqRequisicao { get; set; }
+        public DbSet<SistemaArea> SistemaArea { get; set; }
         public DbSet<SistemaParametro> SistemaParametro { get; set; }
+        public DbSet<SistemaRegra> SistemaRegra { get; set; }
         public DbSet<Socio> Socio { get; set; }
         public DbSet<Unidade> Unidade { get; set; }
         public DbSet<Usuario> Usuario { get; set; }

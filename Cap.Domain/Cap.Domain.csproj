@@ -86,7 +86,10 @@
     <Compile Include="Models\Admin\Estado.cs" />
     <Compile Include="Models\Admin\EstadoCivil.cs" />
     <Compile Include="Models\Admin\Feriado.cs" />
+    <Compile Include="Models\Admin\SistemaArea.cs" />
     <Compile Include="Models\Admin\SistemaParametro.cs" />
+    <Compile Include="Models\Admin\SistemaRegra.cs" />
+    <Compile Include="Models\Admin\SistemaTela.cs" />
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Cap\Banco.cs" />
     <Compile Include="Models\Cap\CentroCusto.cs" />
@@ -126,7 +129,9 @@
     <Compile Include="Service\Admin\EstadoCivilService.cs" />
     <Compile Include="Service\Admin\EstadoService.cs" />
     <Compile Include="Service\Admin\FeriadoService.cs" />
+    <Compile Include="Service\Admin\SistemaAreaService.cs" />
     <Compile Include="Service\Admin\SistemaParametroService.cs" />
+    <Compile Include="Service\Admin\SistemaRegraService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cap\BancoService.cs" />
     <Compile Include="Service\Cap\CentroCustoService.cs" />
