@@ -16,11 +16,60 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Erp", "Index", "Home", new { area = "Erp" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
+
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/Erp/Usuario">Usuários</a></li>
+                                <li><a href="/Erp/Empresa">Empresa</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/Erp/EstadoCivil">Estado civil</a></li>
+                                <li><a href="/Erp/Estado">Estados da união</a></li>
+                                <li><a href="/Erp/Feriado">Feriados</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/Erp/Banco">Bancos</a></li>
+                                <li><a href="/Erp/ContaTipo">Tipo de conta</a></li>
+                                <li><a href="/Erp/Conta">Contas bancárias</a></li>
+                                <li><a href="/Erp/GrupoLucro">Grupos de lucros</a></li>
+                                <li><a href="/Erp/GrupoCusto">Grupos de custos</a></li>
+                                <li><a href="/Erp/Pgto">Formas previstas de pagamentos</a></li>
+                                <li><a href="/Erp/FPgto">Formas de pagamento</a></li>
+                                <li><a href="/Erp/RegimeTributario">Regimes tributários</a></li>
+                                <li><a href="/Erp/Moeda">Moeda</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/Erp/Fornecedor">Fornecedores</a></li>
+                            </ul>
+                        </li>
+
+                        @*<li class="dropdown"></li>*@
+
+                    </ul>
+
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user gray" aria-hidden="true"></span>
+                                <span class="gray">@User.Identity.Name</span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/Erp/Usuario/TrocaSenha">Trocar senha</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="pull-right top15">
+                                <span class="left20"><a href="/Erp/Login/Logout" class="gray">Sair</a></span>
+                            </div>
+                        </li>
+                    </ul>
+                }
             </div>
         </div>
     </div>
@@ -35,6 +84,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
 </body>
 </html>
