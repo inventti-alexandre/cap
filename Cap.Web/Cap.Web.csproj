@@ -411,6 +411,11 @@
     <Content Include="Areas\Erp\Views\RegimeTributario\Edit.cshtml" />
     <Content Include="Areas\Erp\Views\RegimeTributario\Create.cshtml" />
     <Content Include="Areas\Erp\Views\RegimeTributario\Delete.cshtml" />
+    <Content Include="Areas\Erp\Views\Grupo\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Grupo\Details.cshtml" />
+    <Content Include="Areas\Erp\Views\Grupo\Create.cshtml" />
+    <Content Include="Areas\Erp\Views\Grupo\Edit.cshtml" />
+    <Content Include="Areas\Erp\Views\Grupo\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -440,7 +445,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Erp\Views\Grupo\" />
     <Folder Include="Areas\Erp\Views\Menu\" />
     <Folder Include="Models\" />
   </ItemGroup>
