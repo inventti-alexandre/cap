@@ -57,6 +57,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<SistemaArea>>().To<SistemaAreaService>();
             kernel.Bind<IBaseService<SistemaParametro>>().To<SistemaParametroService>();
             kernel.Bind<IBaseService<SistemaRegra>>().To<SistemaRegraService>();
+            kernel.Bind<IBaseService<SistemaTela>>().To<SistemaTelaService>();
             kernel.Bind<IBaseService<Socio>>().To<SocioService>();
             kernel.Bind<IBaseService<Unidade>>().To<UnidadeService>();
             kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();

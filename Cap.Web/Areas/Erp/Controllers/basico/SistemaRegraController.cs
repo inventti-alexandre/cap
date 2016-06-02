@@ -10,76 +10,75 @@ using System.Web.Mvc;
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
     [AreaAuthorizeAttribute("Erp", Roles = "admin")]
-    public class GrupoController : Controller
+    public class SistemaRegraController : Controller
     {
-        private IBaseService<Grupo> service;
+        private IBaseService<SistemaRegra> service;
         private ILogin login;
 
-        public GrupoController(IBaseService<Grupo> service, ILogin login)
+        public SistemaRegraController(IBaseService<SistemaRegra> service, ILogin login)
         {
             this.service = service;
             this.login = login;
         }
 
-        // GET: Erp/Grupo
+        // GET: Erp/SistemaRegra
         public ActionResult Index()
         {
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-
-            var grupos = service.Listar()
-                .Where(x => x.IdEmpresa == usuario.IdEmpresa)
+            var regras = service.Listar()
                 .OrderBy(x => x.Descricao)
                 .AsEnumerable();
 
-            return View(grupos);
+            return View(regras);
         }
 
-        // GET: Erp/Grupo/Details/5
+        // GET: Erp/SistemaRegra/Details/5
         public ActionResult Details(int id)
         {
-            var grupo = service.Find(id);
+            var regra = service.Find(id);
 
-            if (grupo == null)
+            if (regra != null)
             {
                 return HttpNotFound();
             }
 
-            return View(grupo);
+            return View(regra);
         }
 
-        // GET: Erp/Grupo/Create
+        // GET: Erp/SistemaRegra/Create
         public ActionResult Create()
         {
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            var regra = new SistemaRegra { AlteradoPor = idUsuario, Observ = string.Empty };
 
-            return View(new Grupo { AlteradoPor = usuario.Id, IdEmpresa = usuario.IdEmpresa });
+            return View(regra);
         }
 
-        // POST: Erp/Grupo/Create
+        // POST: Erp/SistemaRegra/Create
         [HttpPost]
-        public ActionResult Create(Grupo grupo)
+        public ActionResult Create(SistemaRegra regra)
         {
             try
             {
-                grupo.AlteradoEm = DateTime.Now;
-                TryUpdateModel(grupo);
+                regra.AlteradoEm = DateTime.Now;
+                regra.Observ = regra.Observ == null ? string.Empty : regra.Observ;
+                TryUpdateModel(regra);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(grupo);
+                    service.Gravar(regra);
                     return RedirectToAction("Index");
                 }
 
-                return View(grupo);
+                return View(regra);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(grupo);
+                return View(regra);
             }
         }
 
-        // GET: Erp/Grupo/Edit/5
+        // GET: Erp/SistemaRegra/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,43 +86,43 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var grupo = service.Find((int)id);
+            var regra = service.Find((int)id);
 
-            if (grupo == null)
+            if (regra == null)
             {
                 return HttpNotFound();
             }
 
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            grupo.AlteradoPor = usuario.Id;
-            return View(grupo);
+            regra.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return View(regra);
         }
 
-        // POST: Erp/Grupo/Edit/5
+        // POST: Erp/SistemaRegra/Edit/5
         [HttpPost]
-        public ActionResult Edit(Grupo grupo)
+        public ActionResult Edit(SistemaRegra regra)
         {
             try
             {
-                grupo.AlteradoEm = DateTime.Now;
-                TryUpdateModel(grupo);
+                regra.AlteradoEm = DateTime.Now;
+                regra.Observ = regra.Observ == null ? string.Empty : regra.Observ;
+                TryUpdateModel(regra);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(grupo);
+                    service.Gravar(regra);
                     return RedirectToAction("Index");
                 }
 
-                return View(grupo);
+                return View(regra);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(grupo);
+                return View(regra);
             }
         }
 
-        // GET: Erp/Grupo/Delete/5
+        // GET: Erp/SistemaRegra/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -131,19 +130,17 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var grupo = service.Find((int)id);
+            var regra = service.Find((int)id);
 
-            if (grupo == null)
+            if (regra == null)
             {
                 return HttpNotFound();
             }
 
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            grupo.AlteradoPor = usuario.Id;
-            return View(grupo);
+            return View(regra);
         }
 
-        // POST: Erp/Grupo/Delete/5
+        // POST: Erp/SistemaRegra/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -154,13 +151,13 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
             }
             catch (ArgumentException e)
             {
-                var grupo = service.Find(id);
-                if (grupo == null)
+                var regra = service.Find(id);
+                if (regra == null)
                 {
                     return HttpNotFound();
                 }
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(grupo);
+                return View(regra);
             }
         }
     }

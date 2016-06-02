@@ -134,6 +134,7 @@
     <Compile Include="Service\Admin\SistemaAreaService.cs" />
     <Compile Include="Service\Admin\SistemaParametroService.cs" />
     <Compile Include="Service\Admin\SistemaRegraService.cs" />
+    <Compile Include="Service\Admin\SistemaTelaService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cap\BancoService.cs" />
     <Compile Include="Service\Cap\CentroCustoService.cs" />

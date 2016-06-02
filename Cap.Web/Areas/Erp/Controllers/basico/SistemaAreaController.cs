@@ -10,76 +10,74 @@ using System.Web.Mvc;
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
     [AreaAuthorizeAttribute("Erp", Roles = "admin")]
-    public class GrupoController : Controller
+    public class SistemaAreaController : Controller
     {
-        private IBaseService<Grupo> service;
+        private IBaseService<SistemaArea> service;
         private ILogin login;
 
-        public GrupoController(IBaseService<Grupo> service, ILogin login)
+        public SistemaAreaController(IBaseService<SistemaArea> service, ILogin login)
         {
             this.service = service;
             this.login = login;
         }
 
-        // GET: Erp/Grupo
+        // GET: Erp/SistemaArea
         public ActionResult Index()
         {
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-
-            var grupos = service.Listar()
-                .Where(x => x.IdEmpresa == usuario.IdEmpresa)
+            var areas = service.Listar()
                 .OrderBy(x => x.Descricao)
                 .AsEnumerable();
 
-            return View(grupos);
+            return View(areas);
         }
 
-        // GET: Erp/Grupo/Details/5
+        // GET: Erp/SistemaArea/Details/5
         public ActionResult Details(int id)
         {
-            var grupo = service.Find(id);
+            var area = service.Find(id);
 
-            if (grupo == null)
+            if (area == null)
             {
                 return HttpNotFound();
             }
 
-            return View(grupo);
+            return View(area);
         }
 
-        // GET: Erp/Grupo/Create
+        // GET: Erp/SistemaArea/Create
         public ActionResult Create()
         {
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            var area = new SistemaArea { AlteradoPor = idUsuario };
 
-            return View(new Grupo { AlteradoPor = usuario.Id, IdEmpresa = usuario.IdEmpresa });
+            return View(area);
         }
 
-        // POST: Erp/Grupo/Create
+        // POST: Erp/SistemaArea/Create
         [HttpPost]
-        public ActionResult Create(Grupo grupo)
+        public ActionResult Create(SistemaArea area)
         {
             try
             {
-                grupo.AlteradoEm = DateTime.Now;
-                TryUpdateModel(grupo);
+                area.AlteradoEm = DateTime.Now;
+                TryUpdateModel(area);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(grupo);
+                    service.Gravar(area);
                     return RedirectToAction("Index");
                 }
 
-                return View(grupo);
+                return View(area);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(grupo);
+                return View(area);
             }
         }
 
-        // GET: Erp/Grupo/Edit/5
+        // GET: Erp/SistemaArea/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,43 +85,42 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var grupo = service.Find((int)id);
+            var area = service.Find((int)id);
 
-            if (grupo == null)
+            if (area == null)
             {
                 return HttpNotFound();
             }
 
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            grupo.AlteradoPor = usuario.Id;
-            return View(grupo);
+            area.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return View(area);
         }
 
-        // POST: Erp/Grupo/Edit/5
+        // POST: Erp/SistemaArea/Edit/5
         [HttpPost]
-        public ActionResult Edit(Grupo grupo)
+        public ActionResult Edit(SistemaArea area)
         {
             try
             {
-                grupo.AlteradoEm = DateTime.Now;
-                TryUpdateModel(grupo);
+                area.AlteradoEm = DateTime.Now;
+                TryUpdateModel(area);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(grupo);
+                    service.Gravar(area);
                     return RedirectToAction("Index");
                 }
 
-                return View(grupo);
+                return View(area);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(grupo);
+                return View(area);
             }
         }
 
-        // GET: Erp/Grupo/Delete/5
+        // GET: Erp/SistemaArea/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -131,19 +128,17 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var grupo = service.Find((int)id);
+            var area = service.Find((int)id);
 
-            if (grupo == null)
+            if (area == null)
             {
                 return HttpNotFound();
             }
 
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            grupo.AlteradoPor = usuario.Id;
-            return View(grupo);
+            return View(area);
         }
 
-        // POST: Erp/Grupo/Delete/5
+        // POST: Erp/SistemaArea/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -154,13 +149,13 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
             }
             catch (ArgumentException e)
             {
-                var grupo = service.Find(id);
-                if (grupo == null)
+                var area = service.Find(id);
+                if (area == null)
                 {
                     return HttpNotFound();
                 }
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(grupo);
+                return View(area);
             }
         }
     }

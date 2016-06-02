@@ -10,76 +10,74 @@ using System.Web.Mvc;
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
     [AreaAuthorizeAttribute("Erp", Roles = "admin")]
-    public class GrupoController : Controller
+    public class SistemaTelaController : Controller
     {
-        private IBaseService<Grupo> service;
+        private IBaseService<SistemaTela> service;
         private ILogin login;
 
-        public GrupoController(IBaseService<Grupo> service, ILogin login)
+        public SistemaTelaController(IBaseService<SistemaTela> service, ILogin login)
         {
             this.service = service;
             this.login = login;
         }
 
-        // GET: Erp/Grupo
+        // GET: Erp/SistemaTela
         public ActionResult Index()
         {
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-
-            var grupos = service.Listar()
-                .Where(x => x.IdEmpresa == usuario.IdEmpresa)
+            var telas = service.Listar()
                 .OrderBy(x => x.Descricao)
                 .AsEnumerable();
 
-            return View(grupos);
+            return View(telas);
         }
 
-        // GET: Erp/Grupo/Details/5
+        // GET: Erp/SistemaTela/Details/5
         public ActionResult Details(int id)
         {
-            var grupo = service.Find(id);
+            var tela = service.Find(id);
 
-            if (grupo == null)
+            if (tela == null)
             {
                 return HttpNotFound();
             }
 
-            return View(grupo);
+            return View(tela);
         }
 
-        // GET: Erp/Grupo/Create
+        // GET: Erp/SistemaTela/Create
         public ActionResult Create()
         {
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            var tela = new SistemaTela { AlteradoPor = idUsuario };
 
-            return View(new Grupo { AlteradoPor = usuario.Id, IdEmpresa = usuario.IdEmpresa });
+            return View(tela);
         }
 
-        // POST: Erp/Grupo/Create
+        // POST: Erp/SistemaTela/Create
         [HttpPost]
-        public ActionResult Create(Grupo grupo)
+        public ActionResult Create(SistemaTela tela)
         {
             try
             {
-                grupo.AlteradoEm = DateTime.Now;
-                TryUpdateModel(grupo);
+                tela.AlteradoEm = DateTime.Now;
+                TryUpdateModel(tela);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(grupo);
+                    service.Gravar(tela);
                     return RedirectToAction("Index");
                 }
 
-                return View(grupo);
+                return View(tela);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(grupo);
+                return View(tela);
             }
         }
 
-        // GET: Erp/Grupo/Edit/5
+        // GET: Erp/SistemaTela/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,43 +85,41 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var grupo = service.Find((int)id);
+            var tela = service.Find((int)id);
 
-            if (grupo == null)
+            if (tela == null)
             {
                 return HttpNotFound();
             }
 
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            grupo.AlteradoPor = usuario.Id;
-            return View(grupo);
+            return View(tela);
         }
 
-        // POST: Erp/Grupo/Edit/5
+        // POST: Erp/SistemaTela/Edit/5
         [HttpPost]
-        public ActionResult Edit(Grupo grupo)
+        public ActionResult Edit(SistemaTela tela)
         {
             try
             {
-                grupo.AlteradoEm = DateTime.Now;
-                TryUpdateModel(grupo);
+                tela.AlteradoEm = DateTime.Now;
+                TryUpdateModel(tela);
 
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(grupo);
+                    service.Gravar(tela);
                     return RedirectToAction("Index");
                 }
 
-                return View(grupo);
+                return View(tela);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(grupo);
+                return View(tela);
             }
         }
 
-        // GET: Erp/Grupo/Delete/5
+        // GET: Erp/SistemaTela/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -131,19 +127,17 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var grupo = service.Find((int)id);
+            var tela = service.Find((int)id);
 
-            if (grupo == null)
+            if (tela == null)
             {
                 return HttpNotFound();
             }
 
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            grupo.AlteradoPor = usuario.Id;
-            return View(grupo);
+            return View(tela);
         }
 
-        // POST: Erp/Grupo/Delete/5
+        // POST: Erp/SistemaTela/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -154,13 +148,15 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
             }
             catch (ArgumentException e)
             {
-                var grupo = service.Find(id);
-                if (grupo == null)
+                var tela = service.Find(id);
+
+                if (tela == null)
                 {
                     return HttpNotFound();
                 }
+
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(grupo);
+                return View(tela);
             }
         }
     }

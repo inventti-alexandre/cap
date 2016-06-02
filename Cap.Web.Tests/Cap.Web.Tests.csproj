@@ -106,6 +106,7 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Service\Admin\SistemaAreaServiceTests.cs" />
     <Compile Include="Service\Admin\SistemaRegraServiceTests.cs" />
+    <Compile Include="Service\Admin\SistemaTelaServiceTests.cs" />
     <Compile Include="Service\Cap\BancoServiceTests.cs" />
     <Compile Include="Service\Cap\ContaFinanceiraServiceTests.cs" />
     <Compile Include="Service\Cap\ContaServiceTests.cs" />
