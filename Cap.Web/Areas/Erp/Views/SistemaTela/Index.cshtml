@@ -7,7 +7,7 @@
 <h2>Telas do sistema</h2>
 
 <p>
-    @Html.ActionLink("Nova tela", "Create")
+    <a href="#" class="create-tela">Nova tela</a>
 </p>
 <table class="table">
     <tr>
@@ -53,11 +53,49 @@
             @Html.DisplayFor(modelItem => item.Ativo)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+            <a href="#" class="edit-tela" data-id="@item.Id">Editar</a> |
+            <a href="#" class="details-tela" data-id="@item.Id">Detalhes</a> |
+            <a href="#" class="delete-tela" data-id="@item.Id">Excluir</a> |
         </td>
     </tr>
 }
 
 </table>
+
+<div class="modal" id="modal">
+
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $('.create-tela').click(function () {
+            $('#modal').load('/Erp/SistemaTela/Create', function () {
+                $('#modal').modal('show');
+            });
+        });
+
+        $('.edit-tela').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/SistemaTela/Edit/' + id, function () {
+                $('#modal').modal('show');
+            });
+        });
+
+        $('.details-tela').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/SistemaTela/Details/' + id, function () {
+                $('#modal').modal('show');
+            });
+        });
+
+        $('.delete-tela').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/SistemaTela/Delete/' + id, function () {
+                $('#modal').modal('show');
+            });
+        });
+    });
+</script>

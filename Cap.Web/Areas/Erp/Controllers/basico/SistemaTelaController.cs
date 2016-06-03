@@ -32,16 +32,9 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaTela/Details/5
-        public ActionResult Details(int id)
-        {
-            var tela = service.Find(id);
-
-            if (tela == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(tela);
+        public PartialViewResult Details(int id)
+        {            
+            return PartialView(service.Find(id));
         }
 
         // GET: Erp/SistemaTela/Create
@@ -50,7 +43,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
             var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             var tela = new SistemaTela { AlteradoPor = idUsuario };
 
-            return View(tela);
+            return PartialView(tela);
         }
 
         // POST: Erp/SistemaTela/Create
@@ -65,15 +58,16 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 if (ModelState.IsValid)
                 {
                     service.Gravar(tela);
-                    return RedirectToAction("Index");
+                    return Json(new { success = true });
+                    //return RedirectToAction("Index");
                 }
 
-                return View(tela);
+                return PartialView(tela);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(tela);
+                return PartialView(tela);
             }
         }
 
@@ -92,7 +86,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return HttpNotFound();
             }
 
-            return View(tela);
+            return PartialView(tela);
         }
 
         // POST: Erp/SistemaTela/Edit/5
@@ -107,15 +101,16 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 if (ModelState.IsValid)
                 {
                     service.Gravar(tela);
-                    return RedirectToAction("Index");
+                    return Json(new { success = true });
+                    //return RedirectToAction("Index");
                 }
 
-                return View(tela);
+                return PartialView(tela);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(tela);
+                return PartialView(tela);
             }
         }
 
@@ -134,7 +129,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return HttpNotFound();
             }
 
-            return View(tela);
+            return PartialView(tela);
         }
 
         // POST: Erp/SistemaTela/Delete/5
@@ -144,7 +139,8 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
             try
             {
                 service.Excluir(id);
-                return RedirectToAction("Index");
+                return Json(new { success = true });
+                //return RedirectToAction("Index");
             }
             catch (ArgumentException e)
             {
@@ -156,7 +152,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 }
 
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(tela);
+                return PartialView(tela);
             }
         }
     }

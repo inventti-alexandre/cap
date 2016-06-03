@@ -31,7 +31,7 @@ namespace Cap.Web.Common.Bind
             foreach (var item in regras)
             {
                 TagBuilder itemTag = new TagBuilder("option");
-                itemTag.MergeAttribute("id", item.Id.ToString());
+                itemTag.MergeAttribute("value", item.Id.ToString());
                 if (item.Id == idSistemaRegra)
                 {
                     itemTag.MergeAttribute("select", "select");
