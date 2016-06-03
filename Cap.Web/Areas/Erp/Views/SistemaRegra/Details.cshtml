@@ -1,57 +1,61 @@
 ﻿@model Cap.Domain.Models.Admin.SistemaRegra
 
-@{
-    ViewBag.Title = "Regra do sistema";
-}
 
-<h2>Regra do sistema</h2>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Regra do sistema</h4>
+        </div>
+        <div class="modal-body">
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Descricao)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Descricao)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Observ)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Observ)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Observ)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Observ)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ativo)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ativo)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Ativo)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AlteradoPor)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AlteradoPor)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Usuario.Nome)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Usuario.Nome)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AlteradoEm)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AlteradoEm)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AlteradoEm)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.AlteradoEm)
+                    </dd>
 
-    </dl>
+                </dl>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Voltar", "Index")
-</p>

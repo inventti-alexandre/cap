@@ -32,25 +32,18 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaRegra/Details/5
-        public ActionResult Details(int id)
+        public PartialViewResult Details(int id)
         {
-            var regra = service.Find(id);
-
-            if (regra != null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(regra);
+            return PartialView(service.Find(id));
         }
 
         // GET: Erp/SistemaRegra/Create
-        public ActionResult Create()
+        public PartialViewResult Create()
         {
             var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             var regra = new SistemaRegra { AlteradoPor = idUsuario, Observ = string.Empty };
 
-            return View(regra);
+            return PartialView(regra);
         }
 
         // POST: Erp/SistemaRegra/Create
@@ -66,15 +59,17 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 if (ModelState.IsValid)
                 {
                     service.Gravar(regra);
-                    return RedirectToAction("Index");
+                    return Json(new { success = true });
+                    //return RedirectToAction("Index");
                 }
 
-                return View(regra);
+                
+                return PartialView(regra);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(regra);
+                return PartialView(regra);
             }
         }
 
@@ -94,7 +89,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
             }
 
             regra.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            return View(regra);
+            return PartialView(regra);
         }
 
         // POST: Erp/SistemaRegra/Edit/5
@@ -110,15 +105,16 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 if (ModelState.IsValid)
                 {
                     service.Gravar(regra);
-                    return RedirectToAction("Index");
+                    return Json(new { success = true });
+                    //return RedirectToAction("Index");
                 }
 
-                return View(regra);
+                return PartialView(regra);
             }
             catch (ArgumentException e)
             {
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(regra);
+                return PartialView(regra);
             }
         }
 
@@ -137,7 +133,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return HttpNotFound();
             }
 
-            return View(regra);
+            return PartialView(regra);
         }
 
         // POST: Erp/SistemaRegra/Delete/5
@@ -147,7 +143,8 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
             try
             {
                 service.Excluir(id);
-                return RedirectToAction("Index");
+                return Json(new { success = true });
+                //return RedirectToAction("Index");
             }
             catch (ArgumentException e)
             {
@@ -157,7 +154,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                     return HttpNotFound();
                 }
                 ModelState.AddModelError(string.Empty, e.Message);
-                return View(regra);
+                return PartialView(regra);
             }
         }
     }

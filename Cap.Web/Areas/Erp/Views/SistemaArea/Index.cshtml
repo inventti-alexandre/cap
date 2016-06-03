@@ -7,7 +7,7 @@
 <h2>Áreas do sistema</h2>
 
 <p>
-    @Html.ActionLink("Nova área", "Create")
+    <a href="#" class="area-create">Nova área</a>
 </p>
 <table class="table">
     <tr>
@@ -29,11 +29,50 @@
             @Html.DisplayFor(modelItem => item.Ativo)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+            <a href="#" class="area-edit" data-id="@item.Id">Editar</a> |
+            <a href="#" class="area-details" data-id="@item.Id">Detalhes</a> |
+            <a href="#" class="area-delete" data-id="@item.Id">Excluir</a>
         </td>
     </tr>
 }
 
 </table>
+
+<div class="modal" id="modal">
+
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.area-create').click(function () {
+            $('#modal').load('/Erp/SistemaArea/Create', function () {
+                $('#modal').modal('show');
+            });
+        })
+
+        $('.area-edit').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/SistemaArea/Edit/' + id, function () {
+                $("#modal").modal('show');
+            });
+        })
+
+        $('.area-details').click(function () {
+            var id = $(this).attr("data-id");
+            $('#modal').load('/Erp/SistemaArea/Details/' + id, function () {
+                $('#modal').modal('show');
+            });
+        });
+
+        $('.area-delete').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/SistemaArea/Delete/' + id, function () {
+                $('#modal').modal('show');
+            })
+        });
+
+    });
+</script>

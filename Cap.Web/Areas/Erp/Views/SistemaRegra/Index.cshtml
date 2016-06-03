@@ -7,7 +7,8 @@
 <h2>Regras do sistema</h2>
 
 <p>
-    @Html.ActionLink("Nova regra", "Create")
+    @*@Html.ActionLink("Nova regra", "Create")*@
+    <a href="#" class="new-role">Nova regra</a>
 </p>
 <table class="table">
     <tr>
@@ -35,11 +36,60 @@
             @Html.DisplayFor(modelItem => item.Ativo)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+            <a href="#" class="edit" data-id="@item.Id">Editar</a> |
+            <a href="#" class="details" data-id="@item.Id">Detalhes</a> |
+            <a href="#" class="delete" data-id="@item.Id">Excluir</a>
+
         </td>
     </tr>
 }
 
 </table>
+
+<div id="modal" class="modal">
+
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.new-role').click(function () {
+            $('#modal').load('/Erp/SistemaRegra/Create', function () {
+                $('#modal').modal('show');
+            });
+
+            $('#modal').on('show.bs.modal', function () {
+                $('#Descricao').focus();
+            });
+        });
+
+        $('.delete').click(function () {
+
+            var id = $(this).attr('data-id');
+
+            $('#modal').load('/Erp/SistemaRegra/Delete/' + id, function () {
+                $('#modal').modal('show');
+            });
+        })
+
+        $('.edit').click(function () {
+
+            var id = $(this).attr('data-id');
+
+            $('#modal').load('/Erp/SistemaRegra/Edit/' + id, function () {
+                $('#modal').modal('show');
+            });
+        });
+
+        $('.details').click(function () {
+
+            var id = $(this).attr('data-id');
+
+            $('#modal').load('/Erp/SistemaRegra/Details/' + id, function () {
+                $('#modal').modal('show');
+            });
+        });
+    });
+
+</script>
