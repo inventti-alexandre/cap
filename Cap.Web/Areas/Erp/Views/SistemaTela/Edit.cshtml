@@ -50,12 +50,23 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.IdSistemaRegra, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Regra, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.SelectSistemaRegra()
+                            @Html.EditorFor(model => model.Regra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Regra, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Menu, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Menu)
+                                @Html.ValidationMessageFor(model => model.Menu, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
                         @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">

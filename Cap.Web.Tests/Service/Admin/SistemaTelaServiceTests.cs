@@ -19,7 +19,7 @@ namespace Cap.Domain.Service.Admin.Tests
         public void SistemaTelaGravarTest()
         {
             // Arrange
-            SistemaTela item = new SistemaTela { AlteradoEm = DateTime.Now, AlteradoPor = 2, Descricao = "GRUPOS DE USUÁRIOS", IdSistemaArea = 2, IdSistemaRegra = 1, Link = "/ERP/GRUPO", TextoMenu = "Grupos de usuários" };
+            SistemaTela item = new SistemaTela { AlteradoEm = DateTime.Now, AlteradoPor = 2, Descricao = "GRUPOS DE USUÁRIOS", IdSistemaArea = 2, Menu = true, Regra = "grupo", Link = "/ERP/GRUPO", TextoMenu = "Grupos de usuários" };
 
             // Act
             item.Id = service.Gravar(item);

@@ -44,7 +44,7 @@ namespace Cap.Domain.Service.Admin
         public int Gravar(SistemaRegra item)
         {
             item.Descricao = item.Descricao.ToUpper().Trim();
-            item.Observ = item.Observ.ToUpper().Trim();
+            item.Sufixo = item.Sufixo.ToLower().Trim();
             item.AlteradoEm = DateTime.Now;
 
             if (repository.Listar().Where(x => x.Descricao == item.Descricao && item.Id != x.Id).Count() > 0)

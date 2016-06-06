@@ -29,10 +29,13 @@ namespace Cap.Domain.Models.Admin
         [Range(1,double.MaxValue, ErrorMessage ="Selecione a área do sistema")]
         public int IdSistemaArea { get; set; }
 
+        [Display(Name ="Exibir no menu")]
+        public bool Menu { get; set; }
 
         [Display(Name = "Regra")]
-        [Range(1, double.MaxValue, ErrorMessage ="Selecione a regra")]
-        public int IdSistemaRegra { get; set; }
+        [Required(ErrorMessage ="Regra de acesso")]
+        [StringLength(40, ErrorMessage ="A regra é composta por no máximo 40 caracteres")]
+        public string Regra { get; set; }
 
         public bool Ativo { get; set; }
 
@@ -61,16 +64,6 @@ namespace Cap.Domain.Models.Admin
             get
             {
                 return new SistemaAreaService().Find(IdSistemaArea);
-            }
-        }
-
-        [NotMapped]
-        [Display(Name = "Regra")]
-        public virtual SistemaRegra SistemaRegra
-        {
-            get
-            {
-                return new SistemaRegraService().Find(IdSistemaArea);
             }
         }
     }

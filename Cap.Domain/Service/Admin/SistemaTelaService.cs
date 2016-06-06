@@ -46,10 +46,16 @@ namespace Cap.Domain.Service.Admin
             item.Descricao = item.Descricao.ToUpper().Trim();
             item.TextoMenu = item.TextoMenu.Trim();
             item.AlteradoEm = DateTime.Now;
+            item.Regra = item.Regra.ToLower().Trim();
 
             if (repository.Listar().Where(x => x.TextoMenu == item.TextoMenu && x.Id != item.Id).Count() > 0)
             {
                 throw new ArgumentException("Já existe uma tela cadastrada com esta descrição");
+            }
+
+            if (repository.Listar().Where(x => x.Regra == item.Regra && x.Id != item.Id).Count() > 0)
+            {
+                throw new ArgumentException("Já existe uma regra cadastrada com esta descrição");
             }
 
             if (item.Id == 0)

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "sistematela-r")]
     public class SistemaTelaController : Controller
     {
         private IBaseService<SistemaTela> service;
@@ -22,6 +22,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaTela
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-r")]
         public ActionResult Index()
         {
             var telas = service.Listar()
@@ -32,12 +33,14 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaTela/Details/5
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-r")]
         public PartialViewResult Details(int id)
         {            
             return PartialView(service.Find(id));
         }
 
         // GET: Erp/SistemaTela/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-c")]
         public ActionResult Create()
         {
             var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -48,6 +51,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/SistemaTela/Create
         [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-c")]
         public ActionResult Create(SistemaTela tela)
         {
             try
@@ -72,6 +76,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaTela/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -91,6 +96,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/SistemaTela/Edit/5
         [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-u")]
         public ActionResult Edit(SistemaTela tela)
         {
             try
@@ -115,6 +121,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaTela/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -134,6 +141,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/SistemaTela/Delete/5
         [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-d")]
         public ActionResult Delete(int id)
         {
             try

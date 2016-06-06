@@ -12,13 +12,13 @@ namespace Cap.Domain.Models.Admin
 
         [Required(ErrorMessage = "Informe a área")]
         [Display(Name = "Regra")]
-        [StringLength(10, ErrorMessage = "A regra é composta por no máximo 10 caracteres")]
+        [StringLength(100, ErrorMessage = "A regra é composta por no máximo 100 caracteres")]
         public string Descricao { get; set; }
 
-        [Required(ErrorMessage = "Informe uma breve descrição da regra")]
-        [Display(Name ="Breve descrição")]
-        [StringLength(100,ErrorMessage ="A breve descrição é composta por no máximo 100 caracteres")]
-        public string Observ { get; set; }
+        [Required(ErrorMessage = "Informe o sufixo")]
+        [Display(Name ="Sufixo")]
+        [StringLength(3,ErrorMessage ="O sufixo é composto por no máximo 100 caracteres")]
+        public string Sufixo { get; set; }
 
         public bool Ativo { get; set; }
 

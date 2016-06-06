@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "grupo-r")]
     public class GrupoController : Controller
     {
         private IBaseService<Grupo> service;
@@ -22,6 +22,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Grupo
+        [AreaAuthorizeAttribute("Erp", Roles = "grupo-r")]
         public ActionResult Index()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -35,6 +36,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Grupo/Details/5
+        [AreaAuthorizeAttribute("Erp", Roles = "grupo-r")]
         public ActionResult Details(int id)
         {
             var grupo = service.Find(id);
@@ -48,6 +50,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Grupo/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "grupo-c")]
         public ActionResult Create()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -57,6 +60,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/Grupo/Create
         [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "grupo-c")]
         public ActionResult Create(Grupo grupo)
         {
             try
@@ -80,6 +84,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Grupo/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "grupo-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -101,6 +106,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/Grupo/Edit/5
         [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "grupo-u")]
         public ActionResult Edit(Grupo grupo)
         {
             try
@@ -124,6 +130,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Grupo/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "grupo-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -145,6 +152,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/Grupo/Delete/5
         [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "grupo-d")]
         public ActionResult Delete(int id)
         {
             try

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "sistematela-r")]
     public class SistemaRegraController : Controller
     {
         private IBaseService<SistemaRegra> service;
@@ -22,6 +22,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaRegra
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-r")]
         public ActionResult Index()
         {
             var regras = service.Listar()
@@ -32,28 +33,30 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaRegra/Details/5
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-r")]
         public PartialViewResult Details(int id)
         {
             return PartialView(service.Find(id));
         }
 
         // GET: Erp/SistemaRegra/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-c")]
         public PartialViewResult Create()
         {
             var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            var regra = new SistemaRegra { AlteradoPor = idUsuario, Observ = string.Empty };
+            var regra = new SistemaRegra { AlteradoPor = idUsuario };
 
             return PartialView(regra);
         }
 
         // POST: Erp/SistemaRegra/Create
         [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-c")]
         public ActionResult Create(SistemaRegra regra)
         {
             try
             {
                 regra.AlteradoEm = DateTime.Now;
-                regra.Observ = regra.Observ == null ? string.Empty : regra.Observ;
                 TryUpdateModel(regra);
 
                 if (ModelState.IsValid)
@@ -62,7 +65,6 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                     return Json(new { success = true });
                     //return RedirectToAction("Index");
                 }
-
                 
                 return PartialView(regra);
             }
@@ -74,6 +76,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaRegra/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -94,12 +97,12 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/SistemaRegra/Edit/5
         [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-u")]
         public ActionResult Edit(SistemaRegra regra)
         {
             try
             {
                 regra.AlteradoEm = DateTime.Now;
-                regra.Observ = regra.Observ == null ? string.Empty : regra.Observ;
                 TryUpdateModel(regra);
 
                 if (ModelState.IsValid)
@@ -119,6 +122,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaRegra/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -138,6 +142,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/SistemaRegra/Delete/5
         [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-d")]
         public ActionResult Delete(int id)
         {
             try

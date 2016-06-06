@@ -20,36 +20,54 @@
             </div>
             <div class="navbar-collapse collapse">
 
-
                 @if (User.Identity.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro<span class="caret"></span></a>
                             <ul class="dropdown-menu">
+                                <li><a href="/Erp/Grupo">Grupos de usuários</a></li>
                                 <li><a href="/Erp/Usuario">Usuários</a></li>
-                                <li><a href="/Erp/Empresa">Empresa</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="/Erp/EstadoCivil">Estado civil</a></li>
                                 <li><a href="/Erp/Estado">Estados da união</a></li>
                                 <li><a href="/Erp/Feriado">Feriados</a></li>
                                 <li role="separator" class="divider"></li>
+                                <li><a href="/Erp/Empresa">Empresa</a></li>
+                                <li><a href="/Erp/Departamento">Departamentos</a></li>
                                 <li><a href="/Erp/Banco">Bancos</a></li>
                                 <li><a href="/Erp/ContaTipo">Tipo de conta</a></li>
                                 <li><a href="/Erp/Conta">Contas bancárias</a></li>
+                                <li><a href="/Erp/Empresa">Empresa</a></li>
                                 <li><a href="/Erp/GrupoLucro">Grupos de lucros</a></li>
                                 <li><a href="/Erp/GrupoCusto">Grupos de custos</a></li>
+                                <li><a href="/Erp/GrupoFinanceiro">Grupo financeiro</a></li>
                                 <li><a href="/Erp/Pgto">Formas previstas de pagamentos</a></li>
                                 <li><a href="/Erp/FPgto">Formas de pagamento</a></li>
                                 <li><a href="/Erp/RegimeTributario">Regimes tributários</a></li>
                                 <li><a href="/Erp/Moeda">Moeda</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="/Erp/Fornecedor">Fornecedores</a></li>
+                                <li><a href="/Erp/Unidade">Unidades</a></li>
+                                <li><a href="/Erp/MatGrupo">Grupos dos materiais</a></li>
+                                <li><a href="/Erp/Material">Materiais</a></li>
                             </ul>
                         </li>
 
-                        @*<li class="dropdown"></li>*@
+                        <li>
+                            <a href="/Erp/Agenda">Agenda</a>
+                        </li>
 
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configurações<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/Erp/Grupo">Parâmetros do sistema</a></li>
+                                <li><a href="/Erp/SistemaArea">Áreas do sistema</a></li>
+                                <li><a href="/Erp/SistemaRegra">Regras do sistema</a></li>
+                                <li><a href="/Erp/SistemaTela">Telas do sistema</a></li>
+                                <li><a href="/Erp/Email">Configurações para envio de email</a></li>
+                            </ul>
+                        </li>                        
                     </ul>
 
                     <ul class="nav navbar-nav pull-right">

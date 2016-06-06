@@ -24,13 +24,22 @@ namespace Cap.Domain.Service.Admin.Tests
         public void GravarTest()
         {
             // Arrange
-            SistemaRegra regra = new SistemaRegra { AlteradoPor = 2, Descricao = "admin", Observ = "Administrador do sistema" };
+            SistemaRegra regraUsuarioC = new SistemaRegra { AlteradoPor = 2, Descricao = "incluir usuario", Sufixo = "c" };
+            SistemaRegra regraUsuarioR = new SistemaRegra { AlteradoPor = 2, Descricao = "ler usuario", Sufixo = "r" };
+            SistemaRegra regraUsuarioU = new SistemaRegra { AlteradoPor = 2, Descricao = "alterar usuario", Sufixo = "u" };
+            SistemaRegra regraUsuarioD = new SistemaRegra { AlteradoPor = 2, Descricao = "excluir usuario", Sufixo = "d" };
 
             // Act
-            regra.Id = service.Gravar(regra);
+            regraUsuarioC.Id = service.Gravar(regraUsuarioC);
+            regraUsuarioR.Id = service.Gravar(regraUsuarioR);
+            regraUsuarioU.Id = service.Gravar(regraUsuarioU);
+            regraUsuarioD.Id = service.Gravar(regraUsuarioD);
 
             // Assert
-            Assert.IsTrue(regra.Id > 0);
+            Assert.IsTrue(regraUsuarioC.Id > 0);
+            Assert.IsTrue(regraUsuarioR.Id > 0);
+            Assert.IsTrue(regraUsuarioU.Id > 0);
+            Assert.IsTrue(regraUsuarioD.Id > 0);
         }
     }
 }
