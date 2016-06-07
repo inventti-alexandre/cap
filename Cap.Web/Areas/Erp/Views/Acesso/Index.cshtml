@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Cap.Domain.Models.Admin.UsuarioRegraModel>
+
+@{
+    ViewBag.Title = "Regras de acesso";
+}
+
+<h4 class="top20">
+    Regras de acesso para: @ViewBag.Nome
+</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.Hidden("IdUsuario", ((int)ViewBag.IdUsuario).ToString())
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SistemaTela)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SistemaRegra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sufixo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Selecionado)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SistemaTela.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SistemaRegra.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sufixo)
+                </td>
+                <td>
+                    <input type="checkbox" id="selecionado" name="selecionado" value='@string.Format("{0}|{1}", item.IdTela, item.IdRegra)' checked="@item.Selecionado" />
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-12">
+            <input type="submit" value="Gravar" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<p class="top20">
+    @Html.ActionLink("Voltar", "Index", "Usuario")
+</p>

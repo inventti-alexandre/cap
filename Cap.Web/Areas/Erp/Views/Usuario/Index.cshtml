@@ -29,9 +29,6 @@
         <th>
             @Html.DisplayNameFor(model => model.ExcluidoEm)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Roles)
-        </th>
         <th></th>
     </tr>
 
@@ -56,12 +53,10 @@
             @Html.DisplayFor(modelItem => item.ExcluidoEm)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Roles)
-        </td>
-        <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
             @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+            @Html.ActionLink("Permissões", "Acesso", new { id=item.Id })
         </td>
     </tr>
 }

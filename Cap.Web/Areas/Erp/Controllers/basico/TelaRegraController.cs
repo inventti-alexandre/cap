@@ -1,12 +1,8 @@
-﻿using Cap.Domain.Abstract.Admin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Cap.Web.Common;
-using Cap.Domain.Abstract;
+﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Admin;
+using Cap.Web.Common;
+using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {

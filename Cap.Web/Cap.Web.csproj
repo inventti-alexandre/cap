@@ -176,6 +176,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Erp\Controllers\AgendaController.cs" />
+    <Compile Include="Areas\Erp\Controllers\basico\AcessoController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\EstadoCivilController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\EstadoController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\FeriadoController.cs" />
@@ -438,6 +439,7 @@
     <Content Include="Areas\Erp\Views\SistemaTela\Edit.cshtml" />
     <Content Include="Areas\Erp\Views\SistemaTela\Delete.cshtml" />
     <Content Include="Areas\Erp\Views\TelaRegra\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Acesso\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

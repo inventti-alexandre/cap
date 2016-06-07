@@ -66,6 +66,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<ILogin>().To<UsuarioService>();
             kernel.Bind<ITelaRegra>().To<TelaRegraService>();
             kernel.Bind<ITrocaSenha>().To<UsuarioService>();
+            kernel.Bind<IUsuarioRegra>().To<UsuarioService>();
 
             // registro das dependencias
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));

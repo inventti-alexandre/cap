@@ -204,7 +204,7 @@ namespace Cap.Domain.Service.Admin
             EFDbContext ctx = new EFDbContext();
             List<string> roles = new List<string>();
 
-            for (int i = 0; i < idTelas.Length - 1; i++)
+            for (int i = 0; i < idTelas.Length; i++)
             {
                 roles.Add(string.Format("{0}-{1}",
                         ctx.SistemaTela.Find(idTelas[i]).Regra,
