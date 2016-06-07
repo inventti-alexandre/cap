@@ -26,7 +26,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         public ActionResult Index()
         {
             var telas = service.Listar()
-                .OrderBy(x => x.Descricao)
+                .OrderBy(x => x.Link)
                 .AsEnumerable();
 
             return View(telas);

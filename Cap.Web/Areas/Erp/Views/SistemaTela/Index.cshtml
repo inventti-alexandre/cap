@@ -21,10 +21,10 @@
             @Html.DisplayNameFor(model => model.Descricao)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdSistemaArea)
+            @Html.DisplayNameFor(model => model.Regra)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdSistemaRegra)
+            @Html.DisplayNameFor(model => model.Menu)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Ativo)
@@ -44,10 +44,10 @@
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SistemaArea.Descricao)
+            @Html.DisplayFor(modelItem => item.Regra)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SistemaRegra.Descricao)
+            @Html.DisplayFor(modelItem => item.Menu)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Ativo)
@@ -56,6 +56,7 @@
             <a href="#" class="edit-tela" data-id="@item.Id">Editar</a> |
             <a href="#" class="details-tela" data-id="@item.Id">Detalhes</a> |
             <a href="#" class="delete-tela" data-id="@item.Id">Excluir</a> |
+            @Html.ActionLink("Regras", "Index", "TelaRegra",new { idTela = item.Id }, null)
         </td>
     </tr>
 }

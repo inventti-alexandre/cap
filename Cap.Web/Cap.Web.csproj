@@ -184,6 +184,7 @@
     <Compile Include="Areas\Erp\Controllers\basico\SistemaParametroController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\SistemaRegraController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\SistemaTelaController.cs" />
+    <Compile Include="Areas\Erp\Controllers\basico\TelaRegraController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\UsuarioController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\BancoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\CentroCustoController.cs" />
@@ -436,6 +437,7 @@
     <Content Include="Areas\Erp\Views\SistemaTela\Create.cshtml" />
     <Content Include="Areas\Erp\Views\SistemaTela\Edit.cshtml" />
     <Content Include="Areas\Erp\Views\SistemaTela\Delete.cshtml" />
+    <Content Include="Areas\Erp\Views\TelaRegra\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

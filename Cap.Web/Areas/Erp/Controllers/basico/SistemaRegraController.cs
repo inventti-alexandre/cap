@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "sistematela-r")]
+    [AreaAuthorizeAttribute("Erp", Roles = "sistemaregra-r")]
     public class SistemaRegraController : Controller
     {
         private IBaseService<SistemaRegra> service;
@@ -22,7 +22,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaRegra
-        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-r")]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaregra-r")]
         public ActionResult Index()
         {
             var regras = service.Listar()
@@ -33,14 +33,14 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaRegra/Details/5
-        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-r")]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaregra-r")]
         public PartialViewResult Details(int id)
         {
             return PartialView(service.Find(id));
         }
 
         // GET: Erp/SistemaRegra/Create
-        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-c")]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaregra-c")]
         public PartialViewResult Create()
         {
             var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -51,7 +51,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/SistemaRegra/Create
         [HttpPost]
-        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-c")]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaregra-c")]
         public ActionResult Create(SistemaRegra regra)
         {
             try
@@ -76,7 +76,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaRegra/Edit/5
-        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-u")]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaregra-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -97,7 +97,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/SistemaRegra/Edit/5
         [HttpPost]
-        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-u")]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaregra-u")]
         public ActionResult Edit(SistemaRegra regra)
         {
             try
@@ -122,7 +122,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaRegra/Delete/5
-        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-d")]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaregra-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -142,7 +142,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/SistemaRegra/Delete/5
         [HttpPost]
-        [AreaAuthorizeAttribute("Erp", Roles = "sistematela-d")]
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaregra-d")]
         public ActionResult Delete(int id)
         {
             try

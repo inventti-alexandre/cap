@@ -4,10 +4,11 @@ using Cap.Domain.Models.Admin;
 using Cap.Domain.Respository;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Cap.Domain.Service.Admin
 {
-    public class UsuarioService : IBaseService<Usuario>, ILogin, ITrocaSenha
+    public class UsuarioService : IBaseService<Usuario>, ILogin, ITrocaSenha, IUsuarioRegra
     {
         private IBaseRepository<Usuario> repository;
 
@@ -173,6 +174,46 @@ namespace Cap.Domain.Service.Admin
 
             email = email.ToLower().Trim();
             return repository.Listar().Where(x => x.Email == email).FirstOrDefault();
+        }
+
+        public IEnumerable<UsuarioRegraModel> GetRegras(int idUsuario)
+        {
+            EFDbContext ctx = new EFDbContext();
+
+            // lista TelaRegra
+            var regrasTelas = ctx.TelaRegra.ToList();
+            var regrasUsuario = repository.Find(idUsuario).Roles;
+
+            var lista = new List<UsuarioRegraModel>();
+            foreach (var item in regrasTelas)
+            {
+                lista.Add(new UsuarioRegraModel
+                {
+                    IdRegra = item.IdRegra,
+                    IdTela = item.IdTela,
+                    IdUsuario = idUsuario,
+                    Sufixo = item.Role,
+                    Selecionado = regrasUsuario.Contains(item.Role)
+                });
+            }
+            return lista;
+        }
+
+        public void SetRegras(int idUsuario, int[] idTelas, int[] idRegras)
+        {
+            EFDbContext ctx = new EFDbContext();
+            List<string> roles = new List<string>();
+
+            for (int i = 0; i < idTelas.Length - 1; i++)
+            {
+                roles.Add(string.Format("{0}-{1}",
+                        ctx.SistemaTela.Find(idTelas[i]).Regra,
+                        ctx.SistemaRegra.Find(idRegras[i]).Sufixo));
+            }
+
+            var usuario = repository.Find(idUsuario);
+            usuario.Roles = string.Join(";", roles);
+            Gravar(usuario);
         }
     }
 }

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Cap.Domain.Models.Admin.TelaRegraModel>
+
+@{
+    ViewBag.Title = "Regras da tela";
+}
+
+<h2>Regras das tela</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class= "text-danger" })
+    @Html.Hidden("IdTela", ((int)ViewBag.IdTela).ToString())
+
+    <h4>Regras da tela @ViewBag.Tela</h4>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdRegra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Selecionado)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SistemaRegra.Descricao)
+                </td>
+                <td>
+                    <div class="checkbox">
+                        <input type="checkbox" name="selecionado" id="selecionado" value="@item.IdRegra" checked="@item.Selecionado"/>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2" col-md-10">
+            <input type="submit" value="Gravar" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Voltar", "Index", "SistemaTela")
+</p>

@@ -79,7 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\Admin\ILogin.cs" />
+    <Compile Include="Abstract\Admin\ITelaRegra.cs" />
     <Compile Include="Abstract\Admin\ITrocaSenha.cs" />
+    <Compile Include="Abstract\Admin\IUsuarioRegra.cs" />
     <Compile Include="Abstract\Email\IEmail.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
     <Compile Include="Common\NotEqualAttribute.cs" />
@@ -91,7 +93,10 @@
     <Compile Include="Models\Admin\SistemaParametro.cs" />
     <Compile Include="Models\Admin\SistemaRegra.cs" />
     <Compile Include="Models\Admin\SistemaTela.cs" />
+    <Compile Include="Models\Admin\TelaRegra.cs" />
+    <Compile Include="Models\Admin\TelaRegraModel.cs" />
     <Compile Include="Models\Admin\Usuario.cs" />
+    <Compile Include="Models\Admin\UsuarioRegraModel.cs" />
     <Compile Include="Models\Cap\Banco.cs" />
     <Compile Include="Models\Cap\CentroCusto.cs" />
     <Compile Include="Models\Cap\CentroLucro.cs" />
@@ -135,6 +140,7 @@
     <Compile Include="Service\Admin\SistemaParametroService.cs" />
     <Compile Include="Service\Admin\SistemaRegraService.cs" />
     <Compile Include="Service\Admin\SistemaTelaService.cs" />
+    <Compile Include="Service\Admin\TelaRegraService.cs" />
     <Compile Include="Service\Admin\UsuarioService.cs" />
     <Compile Include="Service\Cap\BancoService.cs" />
     <Compile Include="Service\Cap\CentroCustoService.cs" />

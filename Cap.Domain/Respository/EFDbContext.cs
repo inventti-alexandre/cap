@@ -57,6 +57,7 @@ namespace Cap.Domain.Respository
         public DbSet<SistemaRegra> SistemaRegra { get; set; }
         public DbSet<SistemaTela> SistemaTela { get; set; }
         public DbSet<Socio> Socio { get; set; }
+        public DbSet<TelaRegra> TelaRegra { get; set; }
         public DbSet<Unidade> Unidade { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
     }

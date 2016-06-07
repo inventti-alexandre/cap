@@ -59,10 +59,12 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<SistemaRegra>>().To<SistemaRegraService>();
             kernel.Bind<IBaseService<SistemaTela>>().To<SistemaTelaService>();
             kernel.Bind<IBaseService<Socio>>().To<SocioService>();
+            kernel.Bind<IBaseService<TelaRegra>>().To<TelaRegraService>();            
             kernel.Bind<IBaseService<Unidade>>().To<UnidadeService>();
             kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();
             
             kernel.Bind<ILogin>().To<UsuarioService>();
+            kernel.Bind<ITelaRegra>().To<TelaRegraService>();
             kernel.Bind<ITrocaSenha>().To<UsuarioService>();
 
             // registro das dependencias
