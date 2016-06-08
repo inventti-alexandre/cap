@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Cap.Domain.Models.Gen.Indice>
+
+@{
+    ViewBag.Title = "Índices";
+}
+
+<h2>Índices</h2>
+
+<p>
+    <a href="#" class="create-indice">Novo índice</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            <a href="#" class="edit-indice" data-id="@item.Id">Editar</a> |
+            <a href="#" class="details-indice" data-id="@item.Id">Detalhes</a> |
+            <a href="#" class="delete-indice" data-id="@item.Id">Excluir</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="modal" id="modal">
+
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $('.create-indice').click(function () {
+            $('#modal').load('/Erp/Indice/Create', function () {
+                $('#modal').modal('show');
+            });
+        });
+
+        $('.edit-indice').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/Indice/Edit/' + id, function () {
+                $('#modal').modal('show');
+            });
+        })
+
+        $('.details-indice').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/Indice/Details/' + id, function () {
+                $('#modal').modal('show');
+            });
+        })
+
+        $('.delete-indice').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/Indice/Delete/' + id, function () {
+                $('#modal').modal('show');
+            });
+        });
+    })
+</script>

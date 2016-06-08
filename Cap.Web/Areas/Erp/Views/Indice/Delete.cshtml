@@ -1,31 +1,17 @@
-﻿@model Cap.Domain.Models.Admin.SistemaTela
+﻿@model Cap.Domain.Models.Gen.Indice
 
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title">Regra</h4>
+            <h4 class="modal-title">Excluir tela</h4>
         </div>
         <div class="modal-body">
 
+            <h4 class="text-danger">Confirma a exclusão deste índice?</h4>
+
             <div>
                 <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.TextoMenu)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.TextoMenu)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Link)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Link)
-                    </dd>
-
                     <dt>
                         @Html.DisplayNameFor(model => model.Descricao)
                     </dt>
@@ -35,27 +21,11 @@
                     </dd>
 
                     <dt>
-                        @Html.DisplayNameFor(model => model.IdSistemaArea)
+                        @Html.DisplayNameFor(model => model.Nome)
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.SistemaArea.Descricao)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Regra)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Regra)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Menu)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Regra)
+                        @Html.DisplayFor(model => model.Nome)
                     </dd>
 
                     <dt>
@@ -71,7 +41,7 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Usuario.Nome)
+                        @Html.DisplayFor(model => model.AlteradoPor)
                     </dd>
 
                     <dt>
@@ -83,6 +53,15 @@
                     </dd>
 
                 </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="button" value="Excluir" data-id="@Model.Id" class="btn btn-default indice-delete" />
+                    </div>
+                }
             </div>
         </div>
         <div class="modal-footer">
@@ -90,3 +69,25 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    $('.indice-delete').click(function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/Erp/Indice/Delete/',
+            type: 'POST',
+            data: { 'id': id },
+            datatype: 'html',
+            success: function (data) {
+                if (data.success == true) {
+                    $('#modal').modal('hide');
+                    location.reload(false);
+                } else {
+                    $('#modal').html(data);
+                }
+            }
+        })
+    })
+
+</script>

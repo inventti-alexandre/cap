@@ -181,6 +181,7 @@
     <Compile Include="Areas\Erp\Controllers\basico\EstadoController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\FeriadoController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\GrupoController.cs" />
+    <Compile Include="Areas\Erp\Controllers\basico\IndiceController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\SistemaAreaController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\SistemaParametroController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\SistemaRegraController.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="Common\Bind\BindEstadoHelper.cs" />
     <Compile Include="Common\Bind\BindFornecedorHelper.cs" />
     <Compile Include="Common\Bind\BindFPgtoHelper.cs" />
+    <Compile Include="Common\Bind\BindIndiceHelper.cs" />
     <Compile Include="Common\Bind\BindMatGrupoHelper.cs" />
     <Compile Include="Common\Bind\BindMoedaHelper.cs" />
     <Compile Include="Common\Bind\BindPgtoHelper.cs" />
@@ -440,6 +442,11 @@
     <Content Include="Areas\Erp\Views\SistemaTela\Delete.cshtml" />
     <Content Include="Areas\Erp\Views\TelaRegra\Index.cshtml" />
     <Content Include="Areas\Erp\Views\Acesso\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Indice\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Indice\Details.cshtml" />
+    <Content Include="Areas\Erp\Views\Indice\Create.cshtml" />
+    <Content Include="Areas\Erp\Views\Indice\Edit.cshtml" />
+    <Content Include="Areas\Erp\Views\Indice\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

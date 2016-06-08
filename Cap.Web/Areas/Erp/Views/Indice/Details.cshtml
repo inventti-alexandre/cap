@@ -1,31 +1,14 @@
-﻿@model Cap.Domain.Models.Admin.SistemaTela
+﻿@model Cap.Domain.Models.Gen.Indice
 
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title">Regra</h4>
+            <h4 class="modal-title">Índice</h4>
         </div>
         <div class="modal-body">
-
             <div>
                 <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.TextoMenu)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.TextoMenu)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Link)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Link)
-                    </dd>
-
                     <dt>
                         @Html.DisplayNameFor(model => model.Descricao)
                     </dt>
@@ -35,27 +18,11 @@
                     </dd>
 
                     <dt>
-                        @Html.DisplayNameFor(model => model.IdSistemaArea)
+                        @Html.DisplayNameFor(model => model.Nome)
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.SistemaArea.Descricao)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Regra)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Regra)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Menu)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Regra)
+                        @Html.DisplayFor(model => model.Nome)
                     </dd>
 
                     <dt>

@@ -18,6 +18,7 @@ namespace Cap.Domain.Respository
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<IndVariacao>().Property(x => x.Variacao).HasPrecision(12, 2);
 
             //modelBuilder.Entity<CliGrupoPermissao>().HasKey(x => new { x.IdGrupo, x.IdPermissao });
         }
@@ -43,6 +44,8 @@ namespace Cap.Domain.Respository
         public DbSet<GrupoCusto> GrupoCusto { get; set; }
         public DbSet<GrupoFinanceiro> GrupoFinanceiro { get; set; }
         public DbSet<GrupoLucro> GrupoLucro { get; set; }
+        public DbSet<Indice> Indice { get; set; }
+        public DbSet<IndVariacao> IndVariacao { get; set; }
         public DbSet<Material> Material { get; set; }
         public DbSet<Moeda> Moeda { get; set; }
         public DbSet<MatGrupo> MatGrupo { get; set; }
