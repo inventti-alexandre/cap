@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers
 {
-    [AreaAuthorizeAttribute("Erp", Roles ="erp")]
+    [AreaAuthorizeAttribute("Erp", Roles ="erp-r")]
     public class HomeController : Controller
     {
         // GET: Erp/Home

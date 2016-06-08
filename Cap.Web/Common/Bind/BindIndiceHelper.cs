@@ -38,7 +38,7 @@ namespace Cap.Web.Common.Bind
                     itemTag.MergeAttribute("selected", "selected");
                 }
                 itemTag.SetInnerText(item.Descricao);
-                tag.InnerHtml += tag.ToString();
+                tag.InnerHtml += itemTag.ToString();
             }
             return new MvcHtmlString(tag.ToString());
         }

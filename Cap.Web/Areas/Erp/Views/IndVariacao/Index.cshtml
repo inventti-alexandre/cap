@@ -1,0 +1,50 @@
+﻿@using Cap.Web.Common.Bind;
+@model IEnumerable<Cap.Domain.Models.Gen.Indice>
+
+@{
+    ViewBag.Title = "Variações do índice";
+}
+
+<h4>Variações do índice @ViewBag.Indice</h4>
+
+<p>
+    Índice:
+    @Html.SelectIndice((int)ViewBag.IdIndice, true)
+</p>
+
+<div id="variacao"></div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        if ($('#variacao').val().trim().length <= 1) {
+            var id = parseInt($('#IdIndice').val());
+            if (id > 0) {
+                variacoes(id);
+            }
+        }
+
+        $('#IdIndice').change(function () {
+            var id = parseInt($(this).val());
+            
+            if (id > 0) {
+                variacoes(id);
+            }
+        })
+
+        function variacoes(id) {
+            $.ajax({
+                url: '/Erp/IndVariacao/Variacoes',
+                type: 'POST',
+                data: { 'idIndice': id },
+                datatype: 'html',
+                success: function (data) {
+                    $('#variacao').html(data);
+                }
+            });
+        }
+    });
+
+</script>

@@ -37,7 +37,8 @@
         <td>
             <a href="#" class="edit-indice" data-id="@item.Id">Editar</a> |
             <a href="#" class="details-indice" data-id="@item.Id">Detalhes</a> |
-            <a href="#" class="delete-indice" data-id="@item.Id">Excluir</a>
+            <a href="#" class="delete-indice" data-id="@item.Id">Excluir</a> |
+            @Html.ActionLink("Variações", "Index", "IndVariacao", new { id = item.Id }, null)
         </td>
     </tr>
 }
