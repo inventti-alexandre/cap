@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "socio-r")]
     public class SocioController : Controller
     {
         IBaseService<Socio> service;
@@ -48,6 +48,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Socio/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "socio-c")]
         public ActionResult Create(int idEmpresa)
         {
             return View(new Socio { IdEmpresa = idEmpresa, Nacionalidade = "BRASILEIRA", AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name) });
@@ -78,6 +79,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Socio/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "socio-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -121,6 +123,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Socio/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "socio-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

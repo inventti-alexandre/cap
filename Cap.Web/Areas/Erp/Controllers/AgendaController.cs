@@ -11,7 +11,7 @@ using Cap.Domain.Abstract.Admin;
 
 namespace Cap.Web.Areas.Erp.Controllers
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "agenda-r")]
     public class AgendaController : Controller
     {
         IBaseService<Agenda> service;
@@ -61,6 +61,7 @@ namespace Cap.Web.Areas.Erp.Controllers
         }
 
         // GET: Erp/Agenda/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "agenda-c")]
         public ActionResult Create(string nome = "")
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -105,6 +106,7 @@ namespace Cap.Web.Areas.Erp.Controllers
         }
 
         // GET: Erp/Agenda/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "agenda-u")]
         public ActionResult Edit(int? id, string nome = "")
         {
             if (id == null)
@@ -167,6 +169,7 @@ namespace Cap.Web.Areas.Erp.Controllers
         }
 
         // GET: Erp/Agenda/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "agenda-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

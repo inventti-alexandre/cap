@@ -1,6 +1,7 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Cap;
+using Cap.Web.Common;
 using System;
 using System.Linq;
 using System.Net;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
+    [AreaAuthorizeAttribute("Erp", Roles = "contatipo-r")]
     public class ContaTipoController : Controller
     {
         IBaseService<ContaTipo> service;
@@ -46,6 +48,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/ContaTipo/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "contatipo-c")]
         public ActionResult Create()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -84,6 +87,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/ContaTipo/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "contatipo-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -127,6 +131,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/ContaTipo/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "contatipo-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

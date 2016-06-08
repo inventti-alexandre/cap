@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "sistemaparametro-r")]
     public class SistemaParametroController : Controller
     {
         private IBaseService<SistemaParametro> service;
@@ -46,6 +46,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaParametro/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaparametro-c")]
         public ActionResult Create()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -77,6 +78,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaParametro/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaparametro-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -120,6 +122,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/SistemaParametro/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "sistemaparametro-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

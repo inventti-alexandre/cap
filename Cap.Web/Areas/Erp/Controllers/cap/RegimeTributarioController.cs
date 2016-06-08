@@ -9,7 +9,7 @@ using Cap.Web.Common;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "regimetributario-r")]
     public class RegimeTributarioController : Controller
     {
         private IBaseService<RegimeTributario> service;
@@ -45,6 +45,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/RegimeTributario/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "regimetributario-c")]
         public ActionResult Create()
         {
             var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -77,6 +78,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/RegimeTributario/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "regimetributario-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -119,6 +121,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/RegimeTributario/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "regimetributario-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

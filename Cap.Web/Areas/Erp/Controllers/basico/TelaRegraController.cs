@@ -28,6 +28,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/TelaRegra
         [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "telaregra-u")]
         public ActionResult Index(int idTela, int[] selecionado)
         {
             service.SetRegras(idTela, selecionado);

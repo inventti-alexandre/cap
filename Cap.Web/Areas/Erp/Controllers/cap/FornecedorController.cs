@@ -13,7 +13,7 @@ using System.Net;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "fornecedor-r")]
     public class FornecedorController : Controller
     {
         private IBaseService<Fornecedor> service;
@@ -68,6 +68,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Fornecedor/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "fornecedor-c")]
         public ActionResult Create(string pesquisa = "")
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -135,6 +136,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Fornecedor/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "fornecedor-u")]
         public ActionResult Edit(int? id, string pesquisa = "")
         {
             if (id == null)
@@ -179,6 +181,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Fornecedor/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "fornecedor-d")]
         public ActionResult Delete(int? id, string pesquisa = "")
         {
             if (id == null)

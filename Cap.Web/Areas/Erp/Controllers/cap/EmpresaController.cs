@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "empresa-r")]
     public class EmpresaController : Controller
     {
         IBaseService<Empresa> service;
@@ -42,6 +42,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Empresa/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "empresa-c")]
         public ActionResult Create()
         {
             return View(new Empresa());
@@ -72,6 +73,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Empresa/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "empresa-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -115,6 +117,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Empresa/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "empresa-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

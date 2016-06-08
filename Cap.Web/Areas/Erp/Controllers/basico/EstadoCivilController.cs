@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "estadocivil-r")]
     public class EstadoCivilController : Controller
     {
         private IBaseService<EstadoCivil> service;
@@ -23,6 +23,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/EstadoCivil
+        [AreaAuthorizeAttribute("Erp", Roles = "estadocivil-r")]
         public ActionResult Index()
         {
             var estados = service.Listar()
@@ -33,6 +34,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/EstadoCivil/Details/5
+        [AreaAuthorizeAttribute("Erp", Roles = "estadocivil-r")]
         public ActionResult Details(int? id)
         {
             var estado = service.Find((int)id);
@@ -46,6 +48,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/EstadoCivil/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "estadocivil-c")]
         public ActionResult Create()
         {
             return View(new EstadoCivil() { Ativo = true, AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name) });
@@ -76,6 +79,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/EstadoCivil/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "estadocivil-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -119,6 +123,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/EstadoCivil/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "estadocivil-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

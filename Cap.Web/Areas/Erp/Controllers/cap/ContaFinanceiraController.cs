@@ -9,7 +9,7 @@ using Cap.Web.Common;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "contafinanceira-r")]
     public class ContaFinanceiraController : Controller
     {
         private IBaseService<ContaFinanceira> service;
@@ -49,6 +49,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/ContaFinanceira/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "contafinanceira-c")]
         public ActionResult Create(int idGrupoFinanceiro)
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -82,6 +83,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/ContaFinanceira/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "contafinanceira-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -125,6 +127,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/ContaFinanceira/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "contafinanceira-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

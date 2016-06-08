@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
-    [AreaAuthorizeAttribute("Erp",Roles ="admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "feriado-r")]
     public class FeriadoController : Controller
     {
         private IBaseService<Feriado> service;
@@ -60,6 +60,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Feriado/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "feriado-c")]
         public ActionResult Create(int ano)
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -111,6 +112,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Feriado/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "feriado-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -174,6 +176,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Feriado/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "feriado-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

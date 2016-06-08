@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "pgto-r")]
     public class PgtoController : Controller
     {
         private IBaseService<Pgto> service;
@@ -47,6 +47,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Pgto/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "pgto-c")]
         public ActionResult Create()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -78,6 +79,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Pgto/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "pgto-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -121,6 +123,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Pgto/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "pgto-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

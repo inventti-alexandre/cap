@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
-    [AreaAuthorizeAttribute("Erp",Roles ="admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "estado-r")]
     public class EstadoController : Controller
     {
         private IBaseService<Estado> service;
@@ -43,6 +43,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Estado/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "estado-c")]
         public ActionResult Create()
         {
             return View(new Estado() { Ativo = true });
@@ -69,6 +70,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Estado/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "estado-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -107,6 +109,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
         }
 
         // GET: Erp/Estado/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "estado-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

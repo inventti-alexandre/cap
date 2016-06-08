@@ -12,7 +12,7 @@ using Cap.Domain.Service.Cap;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "pesquisa-r")]
     public class PesquisaController : Controller
     {
         IBaseService<Parcela> service;

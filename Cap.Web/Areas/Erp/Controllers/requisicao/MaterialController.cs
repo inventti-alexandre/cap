@@ -11,7 +11,7 @@ using Cap.Domain.Abstract.Admin;
 
 namespace Cap.Web.Areas.Erp.Controllers.requisicao
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "material-r")]
     public class MaterialController : Controller
     {
         IBaseService<Material> service;
@@ -64,6 +64,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         }
 
         // GET: Erp/Material/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "material-c")]
         public ActionResult Create(string pesquisa = "")
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -99,6 +100,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         }
 
         // GET: Erp/Material/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "material-u")]
         public ActionResult Edit(int? id, string pesquisa = "")
         {
             if (id == null)
@@ -140,6 +142,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         }
 
         // GET: Erp/Material/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "material-d")]
         public ActionResult Delete(int? id, string pesquisa = "")
         {
             if (id == null)

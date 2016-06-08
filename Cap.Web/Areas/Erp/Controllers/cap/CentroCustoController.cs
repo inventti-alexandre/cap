@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "centrocusto-r")]
     public class CentroCustoController : Controller
     {
         private IBaseService<CentroCusto> service;
@@ -49,6 +49,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/CentroCusto/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "centrocusto-c")]
         public ActionResult Create(int idGrupoCusto)
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -81,6 +82,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/CentroCusto/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "centrocusto-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -124,6 +126,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/CentroCusto/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "centrocusto-d")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
