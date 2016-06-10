@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.basico
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "telaregra-r")]
+    //[AreaAuthorizeAttribute("Erp", Roles = "telaregra-r")]
     public class TelaRegraController : Controller
     {
         private ITelaRegra service;
@@ -28,7 +28,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
 
         // POST: Erp/TelaRegra
         [HttpPost]
-        [AreaAuthorizeAttribute("Erp", Roles = "telaregra-u")]
+        //[AreaAuthorizeAttribute("Erp", Roles = "telaregra-r")]
         public ActionResult Index(int idTela, int[] selecionado)
         {
             service.SetRegras(idTela, selecionado);

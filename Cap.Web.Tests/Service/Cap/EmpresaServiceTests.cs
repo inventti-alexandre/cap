@@ -30,7 +30,8 @@ namespace Cap.Domain.Service.Cap.Tests
                 IdEstado = 1,
                 IE = "104942855114",
                 Razao = "CONSTR E INCORP ATLANTICA LTDA",
-                Telefone = "3146-1212"
+                Telefone = "3146-1212",
+                IdRegimeTributario = 2
             };
 
             // Act

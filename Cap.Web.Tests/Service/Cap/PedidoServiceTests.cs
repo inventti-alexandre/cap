@@ -29,7 +29,7 @@ namespace Cap.Domain.Service.Cap.Tests
                 AlteradoPor = 2,
                 CriadoPor = 2,
                 IdDepartamento = 1,
-                IdEmpresa = 1,
+                IdEmpresa = 2,
                 IdFornecedor = 2
             };
 

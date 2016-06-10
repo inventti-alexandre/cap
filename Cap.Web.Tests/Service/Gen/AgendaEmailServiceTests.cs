@@ -28,7 +28,7 @@ namespace Cap.Domain.Service.Gen.Tests
             {
                 AlteradoPor = 2,
                 Email = "jb.alessandro@gmail.com",
-                IdAgenda = 2,
+                IdAgenda = 1,
             };
 
             // Act

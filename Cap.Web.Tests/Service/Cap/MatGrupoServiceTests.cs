@@ -19,7 +19,7 @@ namespace Cap.Domain.Service.Cap.Tests
         public void GravarTest()
         {
             // Arrange
-            MatGrupo mat = new MatGrupo { Descricao = "ELETRICA", AlteradoPor = 1 };
+            MatGrupo mat = new MatGrupo { Descricao = "ELETRICA", AlteradoPor = 2, IdEmpresa = 2 };
 
             // Act
             mat.Id = service.Gravar(mat);

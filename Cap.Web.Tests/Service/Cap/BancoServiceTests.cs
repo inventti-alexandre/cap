@@ -18,7 +18,7 @@ namespace Cap.Domain.Service.Cap.Tests
         public void GravarTest()
         {
             // Arrange
-            var item = new Banco { AlteradoPor = 1, Descricao = "ITAU", IdEmpresa = 1, NumFebraban = 341, Razao = "BANCO ITAU UNIBANCO SA" };
+            var item = new Banco { AlteradoPor = 2, Descricao = "ITAU", IdEmpresa = 2, NumFebraban = 341, Razao = "BANCO ITAU UNIBANCO SA" };
 
             // Act
             item.Id = service.Gravar(item);

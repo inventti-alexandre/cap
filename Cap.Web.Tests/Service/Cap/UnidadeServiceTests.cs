@@ -19,7 +19,7 @@ namespace Cap.Domain.Service.Cap.Tests
         public void GravarTest()
         {
             // Arrange
-            Unidade unidade = new Unidade { AlteradoPor = 1, Descricao = "M2" };
+            Unidade unidade = new Unidade { AlteradoPor = 2, Descricao = "M2", IdEmpresa = 2 };
 
             // Act
             unidade.Id = service.Gravar(unidade);

@@ -24,7 +24,7 @@ namespace Cap.Domain.Service.Gen.Tests
         public void GravarTest()
         {
             // Arrange
-            Agenda agenda = new Agenda { AlteradoPor = 2, IdEstado = 1, IdEmpresa = 2, Nome = "JOSE ALESSANDRO" };
+            Agenda agenda = new Agenda { AlteradoPor = 2, IdEstado = 2, IdEmpresa = 2, Nome = "JOSE ALESSANDRO" };
 
             // Act
             agenda.Id = service.Gravar(agenda);
