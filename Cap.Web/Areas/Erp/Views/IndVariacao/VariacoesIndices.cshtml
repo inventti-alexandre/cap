@@ -1,0 +1,36 @@
+﻿@model Cap.Web.Areas.Erp.Models.IndicesVariacoes
+
+<table class="table">
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <th>DATA BASE</th>
+                </tr>
+                @foreach (var item in Model.DatasBases)
+                {
+                    <tr>
+                        <td>@string.Format("{0:MM/yyyy}", item)</td>
+                    </tr>
+                }
+            </table>
+        </td>
+        @foreach (var item in Model.Indices)
+        {
+            <td style="vertical-align:top;">                
+                <table>
+                    <tr>
+                        <th>@item.Indice.Descricao</th>
+                    </tr>
+                    @foreach (var v in item.Variacao)
+                    {
+                        <tr>
+                            <td>@string.Format("{0:N2}", v.Variacao)</td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        }
+    </tr>
+
+</table>

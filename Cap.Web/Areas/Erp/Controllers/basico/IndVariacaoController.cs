@@ -1,8 +1,10 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Gen;
+using Cap.Web.Areas.Erp.Models;
 using Cap.Web.Common;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -34,7 +36,6 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 .AsEnumerable());
         }
 
-        [HttpPost]
         public PartialViewResult Variacoes(int idIndice, DateTime? inicial)
         {
             if (inicial == null)
@@ -50,6 +51,45 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
             ViewBag.IdIndice = idIndice;
             ViewBag.Indice = serviceIndice.Find(idIndice).Descricao;
             return PartialView(variacoes);
+        }
+
+        public PartialViewResult VariacoesIndices(DateTime inicial, DateTime? final)
+        {
+            if (final == null)
+            {
+                final = DateTime.Today.Date;
+            }
+
+            // periodo
+            int meses = ((((DateTime)final).Year - inicial.Year) * 12) + (((DateTime)final).Month - inicial.Month);
+            var datas = new List<DateTime>();
+            for (int i = 0; i < meses-1; i++)
+            {
+                datas.Add(inicial.AddMonths(i));
+            }
+
+            // retorno
+            IndicesVariacoes indVar = new IndicesVariacoes();
+            indVar.DatasBases = datas;
+
+            // lista de indices
+            var indices = serviceIndice.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList();
+
+            var inds = new List<Indices>();
+            foreach (var item in indices)
+            {
+                var itemIndice = new Indices();
+                itemIndice.Indice = item;
+                itemIndice.Variacao = service.Listar().Where(x => x.IdIndice == item.Id && x.DataVariacao >= inicial && x.DataVariacao <= (DateTime)final)
+                    .OrderBy(x => x.DataVariacao)
+                    .ToList();
+                inds.Add(itemIndice);
+            }
+
+            indVar.Indices = inds;
+
+            return PartialView(indVar);
+
         }
 
         // GET: Erp/IndVariacao/Create

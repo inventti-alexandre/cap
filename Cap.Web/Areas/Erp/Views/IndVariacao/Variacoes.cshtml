@@ -1,19 +1,24 @@
 ﻿@model IEnumerable<Cap.Domain.Models.Gen.IndVariacao>
-<hr />
-<h4 class="top20">
-    @ViewBag.Indice
-</h4>
 
-<p class="top20">
-    <a href="#" id="incluir-variacao" data-id="@ViewBag.IdIndice">Incluir variação</a>
+<p>
+    <a href="#" id="variacao-create" data-id="@ViewBag.IdIndice">Nova variação</a>
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdIndice)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.DataVariacao)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Variacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlteradoPor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
         </th>
         <th></th>
     </tr>
@@ -30,6 +35,12 @@
             @Html.DisplayFor(modelItem => item.Variacao)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.AlteradoPor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlteradoEm)
+        </td>
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
@@ -39,18 +50,15 @@
 
 </table>
 
-<div class="modal" id="modal"></div>
-
 <script type="text/javascript">
-
     $(function () {
 
-        $('#incluir-variacao').click(function () {
+        $('#variacao-create').click(function () {
             var id = $(this).attr('data-id');
-            $('#modal').load('/Erp/IndVariacao/Create?IdIndice=' + id, function () {
+            $('#modal').load('/Erp/IndVariacao/Create?idIndice=' + id, function () {
                 $('#modal').modal('show');
-            });
+            })
         });
-    });
 
+    });
 </script>
