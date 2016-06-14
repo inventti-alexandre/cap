@@ -83,6 +83,7 @@
     <Compile Include="Abstract\Admin\ITrocaSenha.cs" />
     <Compile Include="Abstract\Admin\IUsuarioRegra.cs" />
     <Compile Include="Abstract\Email\IEmail.cs" />
+    <Compile Include="Abstract\Gen\IIndVariacaoCalculo.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
     <Compile Include="Common\NotEqualAttribute.cs" />
     <Compile Include="Models\Admin\Estado.cs" />

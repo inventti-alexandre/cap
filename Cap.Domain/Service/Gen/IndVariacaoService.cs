@@ -1,4 +1,5 @@
 ﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Gen;
 using Cap.Domain.Models.Gen;
 using Cap.Domain.Respository;
 using System;
@@ -6,13 +7,32 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Gen
 {
-    public class IndVariacaoService : IBaseService<IndVariacao>
+    public class IndVariacaoService : IBaseService<IndVariacao>, IIndVariacaoCalculo
     {
         private IBaseRepository<IndVariacao> repository;
 
         public IndVariacaoService()
         {
             repository = new EFRepository<IndVariacao>();
+        }
+
+        public decimal CalcularVariacao(int idIndice, DateTime inicial, DateTime final)
+        {
+            // variacoes para o indice no periodo
+            var variacoes = repository.Listar()
+                .Where(x => x.IdIndice == idIndice
+                && x.DataVariacao >= inicial && x.DataVariacao <= final)
+                .ToList();
+
+            // calculo do acumulado
+            decimal acumulado = 1;
+
+            foreach (var item in variacoes)
+            {
+                acumulado = (acumulado * (1 + (item.Variacao / 100)));
+            }
+
+            return ((acumulado - 1) * 100);
         }
 
         public IndVariacao Excluir(int id)

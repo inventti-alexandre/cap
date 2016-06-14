@@ -1,0 +1,75 @@
+﻿@using Cap.Web.Common.Bind;
+<hr />
+<div class="alert alert-info">
+    <div class="container">
+        <div class="col-md-8">
+            <h4>Acumulado para o período</h4>
+            <div class="row top20">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            Índice:
+                        </div>
+                        <div class="col-md-4">
+                            @Html.SelectIndice()
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            Início:
+                        </div>
+                        <div class="col-md-4">
+                            @Html.SelectMes((int)ViewBag.MenorMes, false, "MesInicial")
+                        </div>
+                        <div class="col-md-2">
+                            @Html.DropDownList("AnoInicial", (SelectList)ViewBag.AnosInicial, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            Fim:
+                        </div>
+                        <div class="col-md-4">
+                            @Html.SelectMes((int)ViewBag.MaiorMes, false, "MesFinal")
+                        </div>
+                        <div class="col-md-2">
+                            @Html.DropDownList("AnoFinal", (SelectList)ViewBag.AnosFinal, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div>
+                        <input type="button" value="Calcular" id="calcular" class="btn btn-primary col-md-offset-2" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="calculo"></div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+
+    $('#calcular').click(function () {
+        var idIndice = parseInt($('#IdIndice').val());
+        var anoInicial = parseInt($('#AnoInicial').val());
+        var anoFinal = parseInt($('#AnoFinal').val());
+        var mesInicial = parseInt($('#MesInicial').val());
+        var mesFinal = parseInt($("#MesFinal").val());
+        var action = '/Erp/IndVariacao/CalculoAcumulado';
+        $.ajax({
+            url: action,
+            type: 'GET',
+            data: { 'idIndice': idIndice, 'anoInicial': anoInicial, 'anoFinal': anoFinal, 'mesInicial': mesInicial, 'mesFinal': mesFinal },
+            datatype: 'html',
+            success: function (result) {
+                $('#calculo').html(result);
+            }
+        });
+    });
+
+</script>

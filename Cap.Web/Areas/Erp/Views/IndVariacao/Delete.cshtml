@@ -1,0 +1,70 @@
+﻿@model Cap.Domain.Models.Gen.IndVariacao
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Variação @Model.Indice.Descricao</h4>
+        </div>
+        <div class="modal-body">
+
+            <h4 class="text-danger">Confirma a exclusão desta variação?</h4>
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @{
+                            string dataVariacao = string.Format("{0:MM/yyyy}", Model.DataVariacao);
+                        }
+                        @Html.DisplayFor(x => dataVariacao)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DataVariacao)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Variacao)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Variacao)%
+                    </dd>
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="button" data-id="@Model.Id" id="delete-variacao" value="Excluir" class="btn btn-danger" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#delete-variacao').click(function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/Erp/IndVariacao/Delete/',
+            type: 'POST',
+            data: { 'id': id },
+            datatype: 'html',
+            success: function (result) {
+                if (result.success == true) {
+                    $('#modal').modal('hide');
+                    location.reload();
+                } else {
+                    $('#modal').html(result);
+                }
+            }
+        })
+    });
+
+</script>

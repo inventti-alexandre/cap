@@ -7,10 +7,18 @@
 
 <h4>Variações do índice @ViewBag.Indice</h4>
 
-<p>
-    Índice:
-    @Html.SelectIndice((int)ViewBag.IdIndice, true)
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            Índice:
+            @Html.SelectIndice((int)ViewBag.IdIndice, true)
+        </div>
+        <div class="col-md-8">
+            Ano:
+            @Html.DropDownList("Ano", (SelectList)ViewBag.Anos, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
 
 <div id="variacao"></div>
 
@@ -22,30 +30,31 @@
     $(function () {
 
         if ($('#variacao').val().trim().length <= 1) {
-            var id = parseInt($('#IdIndice').val());
-            if (id > 0) {
-                variacoes(id);
-            }
+            variacoes();
         }
 
         $('#IdIndice').change(function () {
-            var id = parseInt($(this).val());
-            
-            if (id > 0) {
-                variacoes(id);
-            }
-        })
+            variacoes();
+        });
 
-        function variacoes(id) {
-            $.ajax({
-                url: '/Erp/IndVariacao/Variacoes',
-                type: 'POST',
-                data: { 'idIndice': id },
-                datatype: 'html',
-                success: function (data) {
-                    $('#variacao').html(data);
-                }
-            });
+        $('#Ano').change(function () {
+            variacoes();
+        });
+
+        function variacoes() {
+            var id = parseInt($('#IdIndice').val());
+            var ano = parseInt($('#Ano').val());
+            if (id > 0 && ano > 0) {
+                $.ajax({
+                    url: '/Erp/IndVariacao/Variacoes',
+                    type: 'POST',
+                    data: { 'idIndice': id, 'ano': ano },
+                    datatype: 'html',
+                    success: function (data) {
+                        $('#variacao').html(data);
+                    }
+                });
+            }
         }
     });
 

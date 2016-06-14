@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Abstract.Gen;
 using Cap.Domain.Models.Gen;
 using Cap.Web.Areas.Erp.Models;
 using Cap.Web.Common;
@@ -16,19 +17,31 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
     {
         private IBaseService<IndVariacao> service;
         private IBaseService<Indice> serviceIndice;
+        private IIndVariacaoCalculo calc;
         private ILogin login;
 
-        public IndVariacaoController(IBaseService<IndVariacao> service, IBaseService<Indice> serviceIndice, ILogin login)
+        public IndVariacaoController(IBaseService<IndVariacao> service, IBaseService<Indice> serviceIndice, ILogin login, IIndVariacaoCalculo calc)
         {
             this.service = service;
             this.serviceIndice = serviceIndice;
             this.login = login;
+            this.calc = calc;
         }
 
         // GET: Erp/IndVariacao
         public ActionResult Index(int id)
         {
             ViewBag.IdIndice = id;
+            var menorAno = service.Listar().Min(x => x.DataVariacao.Year);
+            var maiorAno = service.Listar().Max(x => x.DataVariacao.Year);
+
+            int[] anos = new int[(maiorAno - menorAno) + 1];
+            for (int i = 0; i < ((maiorAno - menorAno) + 1); i++)
+            {
+                anos[i] = maiorAno - i;
+            }
+
+            ViewBag.Ano = new SelectList(anos, DateTime.Today.Date.Year);
 
             return View(serviceIndice.Listar()
                 .Where(x => x.Ativo == true)
@@ -36,60 +49,72 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 .AsEnumerable());
         }
 
-        public PartialViewResult Variacoes(int idIndice, DateTime? inicial)
+        // GET: Erp/IndVariacao/Details/5
+        public ActionResult Details(int id)
         {
-            if (inicial == null)
+            var variacao = service.Find(id);
+
+            if (variacao == null)
             {
-                inicial = DateTime.Today.Date.AddYears(-1);
+                return HttpNotFound();
             }
 
-            var variacoes = service.Listar()
-                .Where(x => x.IdIndice == idIndice
-                && x.DataVariacao >= (DateTime)inicial)
-                .AsEnumerable();
+            return PartialView(variacao);
+        }
+
+        public PartialViewResult Variacoes(int idIndice, DateTime? inicial, int? ano)
+        {
+            IEnumerable<IndVariacao> variacoes;
+
+            if (inicial != null)
+            {
+                variacoes = service.Listar()
+                    .Where(x => x.IdIndice == idIndice
+                    && x.DataVariacao >= (DateTime)inicial)
+                    .OrderBy(x => x.DataVariacao)
+                    .AsEnumerable();
+            } else {
+                if (ano == null)
+                {
+                    ano = DateTime.Today.Year;
+                }
+                variacoes = service.Listar()
+                    .Where(x => x.IdIndice == idIndice
+                    && x.DataVariacao.Year == (int)ano)
+                    .OrderBy(x => x.DataVariacao)
+                    .AsEnumerable();
+            }
 
             ViewBag.IdIndice = idIndice;
             ViewBag.Indice = serviceIndice.Find(idIndice).Descricao;
             return PartialView(variacoes);
         }
 
-        public PartialViewResult VariacoesIndices(DateTime inicial, DateTime? final)
+        public ActionResult VariacoesIndices(DateTime? inicial, DateTime? final)
         {
+            if (inicial == null)
+            {
+                DateTime dataTemp = DateTime.Today.Date.AddYears(-1);
+                inicial = new DateTime(dataTemp.Year, dataTemp.Month, 1);
+            }
+
             if (final == null)
             {
                 final = DateTime.Today.Date;
             }
-
-            // periodo
-            int meses = ((((DateTime)final).Year - inicial.Year) * 12) + (((DateTime)final).Month - inicial.Month);
-            var datas = new List<DateTime>();
-            for (int i = 0; i < meses-1; i++)
-            {
-                datas.Add(inicial.AddMonths(i));
-            }
-
-            // retorno
-            IndicesVariacoes indVar = new IndicesVariacoes();
-            indVar.DatasBases = datas;
-
-            // lista de indices
-            var indices = serviceIndice.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao).ToList();
-
-            var inds = new List<Indices>();
+  
+            var indices = serviceIndice.Listar().Where(x => x.Ativo == true).OrderBy(x => x.Descricao);
+            var lista = new List<List<IndVariacao>>();
             foreach (var item in indices)
             {
-                var itemIndice = new Indices();
-                itemIndice.Indice = item;
-                itemIndice.Variacao = service.Listar().Where(x => x.IdIndice == item.Id && x.DataVariacao >= inicial && x.DataVariacao <= (DateTime)final)
+                lista.Add(service.Listar()
+                    .Where(x => x.IdIndice == item.Id
+                    && x.DataVariacao >= inicial && x.DataVariacao <= final)
                     .OrderBy(x => x.DataVariacao)
-                    .ToList();
-                inds.Add(itemIndice);
+                    .ToList());
             }
 
-            indVar.Indices = inds;
-
-            return PartialView(indVar);
-
+            return View(lista);
         }
 
         // GET: Erp/IndVariacao/Create
@@ -149,6 +174,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return HttpNotFound();
             }
 
+            ViewBag.Indice = serviceIndice.Find(item.IdIndice).Descricao;
             return PartialView(item);
         }
 
@@ -214,6 +240,43 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 }
                 return PartialView(item);
             }
+        }
+
+        // GET: Erp/IndVariacao/Acumulado
+        public PartialViewResult Acumulado(int? idIndice)
+        {
+            if (idIndice == null)
+            {
+                idIndice = 0;
+            }
+
+            var menorAno = service.Listar().Min(x => x.DataVariacao.Year);
+            var maiorAno = service.Listar().Max(x => x.DataVariacao.Year);
+            List<int> anos = new List<int>();
+            for (int i = 0; i < ((maiorAno - menorAno) + 1); i++)
+            {
+                anos.Add(menorAno + i);
+            }
+
+            ViewBag.MaiorAno = maiorAno;
+            ViewBag.MenorAno = maiorAno - 1;
+            ViewBag.MaiorMes = DateTime.Today.Date.AddMonths(-1).Month;
+            ViewBag.MenorMes = DateTime.Today.Date.AddYears(-1).Month;
+            ViewBag.AnosInicial = new SelectList(anos, menorAno);
+            ViewBag.AnosFinal = new SelectList(anos, maiorAno);
+
+            return PartialView();
+        }
+
+        public ActionResult CalculoAcumulado(int idIndice, int anoInicial, int anoFinal, int mesInicial, int mesFinal)
+        {
+            DateTime inicial = new DateTime(anoInicial, mesInicial, 1);
+            DateTime final = new DateTime(anoFinal, mesFinal, 1);
+            ViewBag.Indice = serviceIndice.Find(idIndice).Descricao;
+            ViewBag.Acumulado = string.Format("{0:N4}%", calc.CalcularVariacao(idIndice, inicial, final));
+            ViewBag.Inicial = string.Format("{0:MM/yyyy}", inicial);
+            ViewBag.Final = string.Format("{0:MM/yyyy}", final);
+            return PartialView();
         }
     }
 }

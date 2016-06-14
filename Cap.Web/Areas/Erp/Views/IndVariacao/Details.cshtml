@@ -1,0 +1,57 @@
+﻿@model Cap.Domain.Models.Gen.IndVariacao
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Variação @Model.Indice.Descricao</h4>
+        </div>
+        <div class="modal-body">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DataVariacao)
+                    </dt>
+
+                    <dd>
+                        @{
+                            string dataVariacao = string.Format("{0:MM/yyyy}", Model.DataVariacao);
+                        }
+                        @Html.DisplayFor(x => dataVariacao)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Variacao)
+                    </dt>
+
+                    <dd>
+                        @{
+                            string variacao = string.Format("{0:N2}%", Model.Variacao);
+                        }
+                        @Html.DisplayFor(model => variacao)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AlteradoPor)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Usuario.Nome)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AlteradoEm)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AlteradoEm)
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>

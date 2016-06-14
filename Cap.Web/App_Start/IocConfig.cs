@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Abstract.Gen;
 using Cap.Domain.Models.Admin;
 using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Gen;
@@ -64,7 +65,8 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<TelaRegra>>().To<TelaRegraService>();            
             kernel.Bind<IBaseService<Unidade>>().To<UnidadeService>();
             kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();
-            
+
+            kernel.Bind<IIndVariacaoCalculo>().To<IndVariacaoService>();
             kernel.Bind<ILogin>().To<UsuarioService>();
             kernel.Bind<ITelaRegra>().To<TelaRegraService>();
             kernel.Bind<ITrocaSenha>().To<UsuarioService>();

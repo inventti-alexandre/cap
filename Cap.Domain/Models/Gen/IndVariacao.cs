@@ -18,6 +18,7 @@ namespace Cap.Domain.Models.Gen
         [Required(ErrorMessage ="Informe a data base")]
         [Display(Name ="Data base")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataVariacao { get; set; }
 
         [RegularExpression(@"^\d+.\d{0,2}$")]

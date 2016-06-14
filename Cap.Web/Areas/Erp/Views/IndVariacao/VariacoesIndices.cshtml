@@ -1,36 +1,30 @@
-﻿@model Cap.Web.Areas.Erp.Models.IndicesVariacoes
+﻿@using System.Collections.Generic;
+@model IEnumerable<IEnumerable<Cap.Domain.Models.Gen.IndVariacao>>
 
-<table class="table">
+@{
+    ViewBag.Title = "VariacoesIndices";
+}
+
+<h2>Variações dos índices</h2>
+
+<table class="table table-condensed table-striped top20">    
     <tr>
-        <td>
-            <table>
-                <tr>
-                    <th>DATA BASE</th>
-                </tr>
-                @foreach (var item in Model.DatasBases)
-                {
-                    <tr>
-                        <td>@string.Format("{0:MM/yyyy}", item)</td>
-                    </tr>
-                }
-            </table>
-        </td>
-        @foreach (var item in Model.Indices)
+        <th>ÍNDICE</th>
+        @foreach (var ind in Model.First())
         {
-            <td style="vertical-align:top;">                
-                <table>
-                    <tr>
-                        <th>@item.Indice.Descricao</th>
-                    </tr>
-                    @foreach (var v in item.Variacao)
-                    {
-                        <tr>
-                            <td>@string.Format("{0:N2}", v.Variacao)</td>
-                        </tr>
-                    }
-                </table>
-            </td>
+            <th class="text-center">@ind.DataVariacao.ToString("MM/yyyy")</th>
         }
     </tr>
-
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td><strong>@item.First().Indice.Descricao</strong></td>
+            @foreach(var v in item)
+            {
+                <td class="text-center">@v.Variacao.ToString("n2")%</td>
+            }
+        </tr>
+    }
 </table>
+
+@Html.Action("Acumulado")

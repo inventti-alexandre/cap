@@ -1,24 +1,16 @@
 ﻿@model IEnumerable<Cap.Domain.Models.Gen.IndVariacao>
 
-<p>
+<p class="top20">
     <a href="#" id="variacao-create" data-id="@ViewBag.IdIndice">Nova variação</a>
 </p>
+
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdIndice)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.DataVariacao)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Variacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlteradoPor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlteradoEm)
         </th>
         <th></th>
     </tr>
@@ -26,29 +18,25 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.IdIndice)
+            @{ 
+                string dataVariacao = string.Format("{0:MM/yyyy}", item.DataVariacao);
+            }
+            @Html.DisplayFor(x => dataVariacao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataVariacao)
+            @Html.DisplayFor(modelItem => item.Variacao)%
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Variacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlteradoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlteradoEm)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            <a href="#" class="variacao-edit" data-id="@item.Id">Editar</a> |
+            <a href="#" class="variacao-details" data-id="@item.Id">Detalhes</a> |
+            <a href="#" class="variacao-delete" data-id="@item.Id">Excluir</a>
         </td>
     </tr>
 }
 
 </table>
+
+@Html.ActionLink("Voltar", "Index","Indice")
 
 <script type="text/javascript">
     $(function () {
@@ -58,6 +46,27 @@
             $('#modal').load('/Erp/IndVariacao/Create?idIndice=' + id, function () {
                 $('#modal').modal('show');
             })
+        });
+
+        $('.variacao-edit').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/IndVariacao/Edit/' + id, function () {
+                $('#modal').modal('show');
+            });
+        });
+
+        $('.variacao-details').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/IndVariacao/Details/' + id, function () {
+                $('#modal').modal('show');
+            });
+        });
+
+        $('.variacao-delete').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/IndVariacao/Delete/' + id, function () {
+                $('#modal').modal('show');
+            });
         });
 
     });

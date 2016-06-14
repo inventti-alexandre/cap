@@ -1,0 +1,71 @@
+﻿@model Cap.Domain.Models.Gen.IndVariacao
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Variação @ViewBag.Indice</h4>
+        </div>
+        <div class="modal-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.IdIndice)
+                    @Html.HiddenFor(model => model.AlteradoPor)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataVariacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.DataVariacao, "{0:dd/MM/yyyy}", new { @class = "form-control", @type = "text" })
+                            @Html.ValidationMessageFor(model => model.DataVariacao, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Variacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Variacao, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Variacao, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="Gravar" id="edit-variacao" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#edit-variacao').click(function () {
+        var self = $(this);
+        $.ajax({
+            url: '/Erp/IndVariacao/Edit',
+            type: 'POST',
+            data: self.closest('form').serialize(),
+            datatype: 'html',
+            success: function (result) {
+                if (result.success == true) {
+                    $('#modal').modal('hide');
+                    location.reload(false);
+                } else {
+                    $('#modal').html(result);
+                }
+            }            
+        })
+    });
+</script>
