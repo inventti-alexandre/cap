@@ -91,7 +91,8 @@
             var idFornecedor = $("#IdFornecedor").val();
             var nf = $("#NF").val();
             var nn = $("#NN").val();
-            var inicial = $("#Inicial").val();
+            var inicial = Date.parse($("#Inicial").val(), "dd/MM/yyyy");
+            alert(inicial);
             var final = $("#Final").val();
             var idPgto = $("#IdPgto").val();
             var idPedido = $("#IdPedido").val();
