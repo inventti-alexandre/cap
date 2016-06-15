@@ -34,7 +34,6 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         {
             try
             {
-                //return PartialView("~/Areas/Erp/Views/Pesquisa/Pesquisar.cshtml", new PesquisaService().Pesquisar(pesquisa));
                 return PartialView(new PesquisaService().Pesquisar(pesquisa));
             }
             catch (Exception e)
@@ -47,7 +46,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         public ActionResult Details(int id)
         {
             var parcela = service.Find(id);
-            return View(parcela);
+            return PartialView(parcela);
         }
 
     }

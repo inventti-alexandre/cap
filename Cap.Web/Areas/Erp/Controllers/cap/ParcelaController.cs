@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "parcela-r")]
     public class ParcelaController : Controller
     {
         IBaseService<Parcela> service;
@@ -44,6 +44,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Parcela/Create/5
+        [AreaAuthorizeAttribute("Erp", Roles = "parcela-c")]
         public PartialViewResult Create(int idPedido)
         {
             ViewBag.IdPedido = idPedido;
@@ -102,8 +103,9 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 return PartialView(model);
             }
         }
-        
+
         // GET: Erp/Parcela/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "parcela-u")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -151,6 +153,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Parcela/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "parcela-d")]
         public ActionResult Delete(int id)
         {
             var parcela = service.Find(id);

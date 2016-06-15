@@ -10,7 +10,7 @@ using Cap.Web.Common;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
-    [AreaAuthorizeAttribute("Erp", Roles = "admin")]
+    [AreaAuthorizeAttribute("Erp", Roles = "pedido-r")]
     public class PedidoController : Controller
     {
         private IBaseService<Pedido> service;
@@ -35,6 +35,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Pedido/Create
+        [AreaAuthorizeAttribute("Erp", Roles = "pedido-c")]
         public ActionResult Create()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -69,6 +70,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Pedido/Edit/5
+        [AreaAuthorizeAttribute("Erp", Roles = "pedido-u")]
         public ActionResult Edit(int id)
         {
             var pedido = service.Find(id);
@@ -109,6 +111,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Pedido/Delete/5
+        [AreaAuthorizeAttribute("Erp", Roles = "pedido-d")]
         public ActionResult Delete(int id)
         {
             return View();

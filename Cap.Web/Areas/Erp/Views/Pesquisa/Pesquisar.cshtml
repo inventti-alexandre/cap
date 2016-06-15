@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Cap.Domain.Models.Cap.Parcela>
 
-<table class="table">
+<table class="table table-condensed table-striped top20">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Vencto)
@@ -64,8 +64,9 @@
                 @Html.DisplayFor(modelItem => item.Ativo)
             </td>
             <td>
-                <a href="@Url.Action("Edit", new { id = item.Id })" title="Editar a parcela"><i class="glyphicon glyphicon-edit"></i></a>
-                <button type="button" class="btn btn-default details" title="Detalhes da parcela" data-id="@item.Id"><i class="glyphicon glyphicon-file"></i></button>
+                @*<a href="@Url.Action("Edit", new { id = item.Id })" title="Editar a parcela"><i class="glyphicon glyphicon-edit"></i></a>*@
+                <a href="/Erp/Pedido/Edit/@item.IdPedido" title="Editar a parcela no pedido" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
+                <a href="#" data-id="@item.Id" title="Detalhes da parcela" class="details"><i class="glyphicon glyphicon-info-sign"></i></a>
             </td>
         </tr>
     }
@@ -76,16 +77,22 @@
 
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
         $(".details").click(function () {
             var id = $(this).attr("data-id");
-            $("#modal").load("Details?id=" + id, function () {
-                $("#modal").modal();
+            $("#modal").load("/Erp/Pesquisa/Details?id=" + id, function () {
+                $('#modal').modal('show');
             })
         });
+
+        $(".edit").click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/Parcela/Edit?id=' + id, function () {
+                $('#modal').modal('show');
+            })
+        })
 
     });
 </script>

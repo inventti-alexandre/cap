@@ -3,7 +3,7 @@
 <p>
     <a href="#" id="incluirParcela" data-id="@ViewBag.IdPedido">Incluir parcelas</a>
 </p>
-<table class="table">
+<table class="table table-condensed table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Vencto)
@@ -69,9 +69,9 @@
             @{ 
                 // TODO: se ja foi pago nao permite exclusao (basta adicionar disabled na tag)
             }
-            <button class="btn btn-default details" data-id="@item.Id" title="Detalhes"><i class="glyphicon glyphicon-file"></i></button>
-            <button class="btn btn-danger delete" data-id="@item.Id" title="Excluir"><i class="glyphicon glyphicon-trash"></i></button>
-            <button class="btn btn-primary edit" data-id="@item.Id" title="Alterar"><i class="glyphicon glyphicon-edit"></i></button>
+            <a href="#" class="details" data-id="@item.Id" title="Detalhes"><i class="glyphicon glyphicon-file"></i></a>
+            <a href="#" class="delete" data-id="@item.Id" title="Excluir"><i class="glyphicon glyphicon-trash"></i></a>
+            <a href="#" class="edit" data-id="@item.Id" title="Detalhes"><i class="glyphicon glyphicon-edit"></i></a>
         </td>
     </tr>
 }
