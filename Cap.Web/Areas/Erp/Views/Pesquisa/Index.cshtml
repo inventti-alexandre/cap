@@ -159,6 +159,7 @@
 
             $.ajax({
                 url: '@Url.Action("Pesquisar", "Pesquisa")',
+                contentType: 'application/json; charset=utf-8',
                 data: {
                     'IdDepartamento': idDepartamento,
                     'IdFornecedor': idFornecedor,
@@ -176,7 +177,7 @@
                     'MaiorQue': maiorQue,
                     'menorQue': menorQue
                 },
-                datatype: 'html',
+                datatype: 'json',
                 cache: false,
                 success: function (result) {
                     $("#parcelas").html(result);

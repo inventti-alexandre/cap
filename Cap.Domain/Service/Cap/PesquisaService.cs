@@ -39,6 +39,16 @@ namespace Cap.Domain.Service.Cap
             pesquisa.NF = (pesquisa.NF == null ? string.Empty : pesquisa.NF.ToUpper().Trim());
             pesquisa.Observ = (pesquisa.Observ ==  null ? string.Empty : pesquisa.Observ.ToUpper().Trim());
             pesquisa.NN = (pesquisa.NN == null ? string.Empty : pesquisa.NN);
+            DateTime inicial;
+            if (!DateTime.TryParse(pesquisa.Inicial, out inicial))
+            {
+                inicial = DateTime.MinValue;
+            }
+            DateTime final;
+            if (!DateTime.TryParse(pesquisa.Final, out final))
+            {
+                final = DateTime.MinValue;
+            }
 
             // TODO: pesquisar formas de pagamento
             // IdBanco
@@ -48,7 +58,8 @@ namespace Cap.Domain.Service.Cap
             var parcelas = (from par in ctx.Parcela
                             join ped in ctx.Pedido on par.IdPedido equals ped.Id
                             where
-                            ((pesquisa.IdPedido == 0 || ped.Id == pesquisa.IdPedido) &&
+                            (ped.Ativo == true && par.Ativo == true &&
+                            (pesquisa.IdPedido == 0 || ped.Id == pesquisa.IdPedido) &&
                             (pesquisa.IdFornecedor == 0 || ped.IdFornecedor == pesquisa.IdFornecedor) &&
                             (pesquisa.NF == "" || ped.NF == pesquisa.NF) &&
                             (pesquisa.IdPgto == 0 || par.IdPgto == pesquisa.IdPgto) &&
@@ -60,13 +71,13 @@ namespace Cap.Domain.Service.Cap
 
             if (pesquisa.PesquisarPorDataPagamento == false)
             {
-                if (pesquisa.Inicial != null)
+                if (inicial != DateTime.MinValue)
                 {
-                    parcelas = parcelas.Where(x => x.Vencto >= pesquisa.Inicial);
+                    parcelas = parcelas.Where(x => x.Vencto >= inicial);
                 }
-                if (pesquisa.Final != null)
+                if (final != null)
                 {
-                    parcelas = parcelas.Where(x => x.Vencto <= pesquisa.Final);
+                    parcelas = parcelas.Where(x => x.Vencto <= final);
                 }
             }
             else

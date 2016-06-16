@@ -30,8 +30,8 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 IdDepartamento = 0,
                 IdFornecedor = 0,
                 IdPgto = 0,
-                Inicial = DateTime.Today.Date,
-                Final = DateTime.Today.Date.AddMonths(1),
+                Inicial = DateTime.Today.Date.ToShortDateString(),
+                Final = DateTime.Today.Date.AddMonths(1).ToShortDateString(),
                 Observ = string.Empty
             };
 
@@ -43,6 +43,11 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         {
             try
             {
+                if (string.IsNullOrEmpty(pesquisa.Inicial))
+                {
+                    pesquisa.Inicial = DateTime.Today.Date.ToShortDateString();
+                }
+
                 var parcelas = new PesquisaService().Pesquisar(pesquisa);
 
                 return PartialView(parcelas);

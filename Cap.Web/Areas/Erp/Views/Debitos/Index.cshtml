@@ -5,13 +5,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h3>AGENDAMENTOS FUTUROS</h3>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+
+    <div class="form-inline top20">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.NF)
         @Html.HiddenFor(model => model.PesquisarPorDataPagamento)
@@ -25,61 +25,65 @@
         @Html.HiddenFor(model => model.IdBanco)
         @Html.HiddenFor(model => model.Cheque)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdDepartamento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.SelectDepartamento(0, true)
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.IdDepartamento, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-10">
+                    @Html.SelectDepartamento(0, true)
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.IdFornecedor, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-10">
+                    @Html.SelectFornecedor(0, true)
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.IdPgto, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-10">
+                    @Html.SelectPgto(0, true)
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdFornecedor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.SelectFornecedor(0, true)
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Inicial, htmlAttributes: new { @class = "control-label col-md-10" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Inicial, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Inicial, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Final, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Final, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Final, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Observ, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Observ, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Observ, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Inicial, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-12 top20">
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Inicial, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Inicial, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Final, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Final, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Final, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdPgto, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.SelectPgto(0, true)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Observ, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Observ, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Observ, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="button" id="pesquisar" value="Pesquisar" class="btn btn-default" />
+                <input type="button" id="pesquisar" value="Pesquisar" class="btn btn-primary" />
             </div>
         </div>
     </div>
+    <br /><br />
 }
 
-<div id="parcelas">
+<div id="parcelas" class="top20">
 
 </div>
 <script type="text/javascript">
@@ -87,45 +91,11 @@
     $(function () {
 
         $('#pesquisar').click(function () {
-            var idDepartamento = $("#IdDepartamento").val();
-            var idFornecedor = $("#IdFornecedor").val();
-            var nf = $("#NF").val();
-            var nn = $("#NN").val();
-            var inicial = Date.parse($("#Inicial").val(), "dd/MM/yyyy");
-            alert(inicial);
-            var final = $("#Final").val();
-            var idPgto = $("#IdPgto").val();
-            var idPedido = $("#IdPedido").val();
-            var idFPgto = $("#IdFPgto").val();
-            var idBanco = $("#IdBanco").val();
-            var idconta = $("#IdConta").val();
-            var cheque = $("#Cheque").val();
-            var observ = $("#Observ").val();
-            var pesquisarPorDataPagamento = $("#PesquisarPorDataPagamento").is(":checked");
-            var maiorQue = $("#MaiorQue").is(":checked");
-            var menorQue = $("#MenorQue").is(":checked");
-
             $.ajax({
-                url: '/Erp/Debitos/Pesquisar/',
+                url: '@Url.Action("Pesquisar", "Debitos")',
                 type: 'GET',
-                data: {
-                    'IdDepartamento': idDepartamento,
-                    'IdFornecedor': idFornecedor,
-                    'NF': nf,
-                    'Inicial': inicial,
-                    'Final': final,
-                    'IdPgto': idPgto,
-                    'IdPedido': idPedido,
-                    'IdFPgto': idFPgto,
-                    'IdBanco': idBanco,
-                    'IdConta': idconta,
-                    'Cheque': cheque,
-                    'Observ': observ,
-                    'PesquisarPorDataPagamento': pesquisarPorDataPagamento,
-                    'MaiorQue': maiorQue,
-                    'menorQue': menorQue
-                },
-                datatype: 'html',
+                data: $(this).closest('form').serialize(),
+                datatype: 'application/json; charset=utf-8',
                 success: function (result) {
                     $('#parcelas').html(result);
                     $('#parcelas').show();

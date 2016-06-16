@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<Cap.Domain.Models.Cap.Parcela>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<div class="top20">
+    <h4>AGENDAMENTOS FUTUROS - DÉBITOS</h4>
+</div>
+<table class="table table-condensed table-striped top20">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdEmpresa)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.IdPedido)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Vencto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdMoeda)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Valor)
@@ -21,19 +21,7 @@
             @Html.DisplayNameFor(model => model.IdPgto)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdDeposito)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmissaoPre)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.NN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NNData)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NNPor)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.IdFpgto)
@@ -45,51 +33,21 @@
             @Html.DisplayNameFor(model => model.Liberado)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LiberadoPor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LiberadoEm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdMoeda)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CriadoEm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CriadoPor)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.LibMaster)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LibMasterPor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LibMasterEm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlteradoPor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlteradoEm)
-        </th>
-        <th></th>
+        <th class="hidden-print"></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.IdEmpresa)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.IdPedido)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Vencto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Moeda.Descricao)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Valor)
@@ -98,19 +56,7 @@
             @Html.DisplayFor(modelItem => item.IdPgto)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IdDeposito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmissaoPre)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.NN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NNData)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NNPor)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IdFpgto)
@@ -122,44 +68,27 @@
             @Html.DisplayFor(modelItem => item.Liberado)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LiberadoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LiberadoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdMoeda)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CriadoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CriadoPor)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.LibMaster)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMasterPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMasterEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlteradoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlteradoEm)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        <td class="hidden-print">
+            <a href="/Erp/Pedido/Edit/@item.IdPedido" title="Editar a parcela no pedido" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
+            <a href="#" data-id="@item.Id" title="Detalhes da parcela" class="details"><i class="glyphicon glyphicon-info-sign"></i></a>
         </td>
     </tr>
 }
 
 </table>
+
+<div class="modal" id="modal">
+
+</div>
+
+<script type="text/javascript">
+    
+    $('.details').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Parcela/Details/' + id, function () {
+            $('#modal').modal('show');
+        });
+    })
+</script>

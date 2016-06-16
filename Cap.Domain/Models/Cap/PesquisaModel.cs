@@ -25,12 +25,12 @@ namespace Cap.Domain.Models.Cap
         public string NF { get; set; }
 
         [Display(Name = "Vencto inicial")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime? Inicial { get; set; }
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public string Inicial { get; set; }
 
         [Display(Name = "Vencto final")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime? Final { get; set; }
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public string Final { get; set; }
 
         [Display(Name = "Pesquisar por data de pagamento")]
         public bool PesquisarPorDataPagamento { get; set; }
