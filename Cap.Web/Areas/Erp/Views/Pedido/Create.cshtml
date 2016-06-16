@@ -2,14 +2,14 @@
 @model Cap.Domain.Models.Cap.Pedido
 
 @{
-    ViewBag.Title = "Novo pedido"
+    ViewBag.Title = "Novo pedido";
 }
 
 <h2>Novo Pedido</h2>
 
 @using (Html.BeginForm()) 
 {
-    @Html.AntiForgeryToken()
+    @*@Html.AntiForgeryToken()*@
     
     <div class="form-horizontal">
         <hr />
@@ -28,10 +28,24 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IdFornecedor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.SelectFornecedor(Model.IdFornecedor, true);
+                @Html.SelectFornecedor(Model.IdFornecedor, true)
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdGrupoCusto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.SelectGrupoCusto(Model.IdGrupoCusto)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdCentroCusto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div id="centroCusto" class="col-md-10">
+                @Html.SelectCentroCusto(Model.IdGrupoCusto, Model.IdCentroCusto)
+            </div>
+        </div>
+                
         <div class="form-group">
             @Html.LabelFor(model => model.NF, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -59,3 +73,12 @@
 <div>
     @Html.ActionLink("Voltar", "Index", "Pesquisa")
 </div>
+
+<script type="text/javascript">
+
+    $('#IdGrupoCusto').change(function () {
+        var idGrupoCusto = $(this).val();
+        $('#centroCusto').load('/Erp/CentroCusto/DropDown?idGrupoCusto=' + idGrupoCusto);
+    });
+
+</script>

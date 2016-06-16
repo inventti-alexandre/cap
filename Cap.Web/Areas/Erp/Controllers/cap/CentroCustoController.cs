@@ -48,6 +48,14 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             return View(centro);
         }
 
+        // GET: Erp/CentroCusto/DropDown/5
+        public ActionResult DropDown(int idGrupoCusto, int idCentroCusto = 0)
+        {
+            ViewBag.IdGrupoCusto = idGrupoCusto;
+            ViewBag.IdCentroCusto = idCentroCusto;
+            return PartialView();
+        }
+
         // GET: Erp/CentroCusto/Create
         [AreaAuthorizeAttribute("Erp", Roles = "centrocusto-c")]
         public ActionResult Create(int idGrupoCusto)

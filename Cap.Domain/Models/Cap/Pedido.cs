@@ -30,6 +30,14 @@ namespace Cap.Domain.Models.Cap
         [Display(Name ="Fornecedor")]
         public int IdFornecedor { get; set; }
 
+        [Range(1, double.MaxValue, ErrorMessage ="Selecione o grupo de custo")]
+        [Display(Name ="Grupo de custo")]
+        public int IdGrupoCusto { get; set; }
+
+        [Range(1,double.MaxValue,ErrorMessage ="Selecione o centro de custo")]
+        [Display(Name = "Centro de custo")]
+        public int IdCentroCusto { get; set; }
+
         [Required(ErrorMessage ="Data da criação do pedido inválida")]
         [Display(Name ="Criado em")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
@@ -105,6 +113,26 @@ namespace Cap.Domain.Models.Cap
             get
             {
                 return new ParcelaService().Listar().Where(x => x.IdPedido == Id).ToList();
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Grupo de custo")]
+        public GrupoCusto GrupoCusto
+        {
+            get
+            {
+                return new GrupoCustoService().Find(IdGrupoCusto);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "Centro de custo")]
+        public CentroCusto CentroCusto
+        {
+            get
+            {
+                return new CentroCustoService().Find(IdCentroCusto);
             }
         }
     }

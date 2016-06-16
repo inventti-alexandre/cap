@@ -53,7 +53,7 @@ namespace Cap.Domain.Service.Cap
 
             if (item.NF.Length > 0)
             {
-                var pedido = repository.Listar().Where(x => x.IdEmpresa == item.IdEmpresa && x.NF == item.NF && x.IdFornecedor == item.IdFornecedor && x.Id != item.Id).First();
+                var pedido = repository.Listar().Where(x => x.IdEmpresa == item.IdEmpresa && x.NF == item.NF && x.IdFornecedor == item.IdFornecedor && x.Id != item.Id).FirstOrDefault();
                 if (pedido != null)
                 {
                     throw new ArgumentException($"Já existe uma nota fiscal com este número lançada para este fornecedor no pedido {pedido.Id}");

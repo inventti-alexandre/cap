@@ -14,11 +14,15 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
     public class PedidoController : Controller
     {
         private IBaseService<Pedido> service;
+        private IBaseService<GrupoCusto> serviceGrupoCusto;
+        private IBaseService<CentroCusto> serviceCentroCusto;
         private ILogin login;
         
-        public PedidoController(IBaseService<Pedido> service, ILogin login)
+        public PedidoController(IBaseService<Pedido> service, IBaseService<GrupoCusto> serviceGrupoCusto, IBaseService<CentroCusto> serviceCentroCusto, ILogin login)
         {
             this.service = service;
+            this.serviceGrupoCusto = serviceGrupoCusto;
+            this.serviceCentroCusto = serviceCentroCusto;
             this.login = login;
         }
 
@@ -39,7 +43,10 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         public ActionResult Create()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            var pedido = new Pedido { AlteradoPor = usuario.Id, IdEmpresa = usuario.IdEmpresa, CriadoPor = usuario.Id, DataNF = DateTime.Today.Date };
+            var idGrupoCusto = serviceGrupoCusto.Listar().Where(x => x.Ativo == true && x.IdEmpresa == usuario.IdEmpresa).OrderBy(x => x.Descricao).First().Id;
+            var idCentroCusto = 0;
+
+            var pedido = new Pedido { AlteradoPor = usuario.Id, IdEmpresa = usuario.IdEmpresa, CriadoPor = usuario.Id, DataNF = DateTime.Today.Date, IdGrupoCusto = idGrupoCusto, IdCentroCusto = idCentroCusto };
 
             return View(pedido);
         }
