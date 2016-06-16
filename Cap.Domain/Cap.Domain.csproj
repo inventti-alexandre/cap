@@ -82,6 +82,7 @@
     <Compile Include="Abstract\Admin\ITelaRegra.cs" />
     <Compile Include="Abstract\Admin\ITrocaSenha.cs" />
     <Compile Include="Abstract\Admin\IUsuarioRegra.cs" />
+    <Compile Include="Abstract\Cap\ILiberacao.cs" />
     <Compile Include="Abstract\Email\IEmail.cs" />
     <Compile Include="Abstract\Gen\IIndVariacaoCalculo.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Service\Cap\GrupoCustoService.cs" />
     <Compile Include="Service\Cap\GrupoFinanceiroService.cs" />
     <Compile Include="Service\Cap\GrupoLucroService.cs" />
+    <Compile Include="Service\Cap\LiberacaoService.cs" />
     <Compile Include="Service\Cap\MoedaService.cs" />
     <Compile Include="Service\Cap\ParcelaService.cs" />
     <Compile Include="Service\Cap\PedidoService.cs" />

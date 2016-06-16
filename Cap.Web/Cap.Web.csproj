@@ -203,6 +203,7 @@
     <Compile Include="Areas\Erp\Controllers\cap\GrupoCustoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\GrupoFinanceiroController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\GrupoLucroController.cs" />
+    <Compile Include="Areas\Erp\Controllers\cap\LiberacaoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\MoedaController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\ParcelaController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\PedidoController.cs" />
@@ -500,6 +501,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Erp\Views\Liberacao\" />
     <Folder Include="Areas\Erp\Views\Menu\" />
     <Folder Include="Models\" />
   </ItemGroup>
