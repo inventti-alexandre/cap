@@ -15,6 +15,7 @@ namespace Cap.Domain.Service.Admin
             repository = new EFRepository<EstadoCivil>();
         }
 
+
         public EstadoCivil Excluir(int id)
         {
             try
