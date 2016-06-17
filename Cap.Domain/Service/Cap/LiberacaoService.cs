@@ -24,7 +24,7 @@ namespace Cap.Domain.Service.Cap
 
             if (parcela != null)
             {
-                if (parcela.IdFpgto != 0)
+                if (parcela.IdFpgto != null)
                 {
                     throw new ArgumentException("Esta parcela já foi paga");
                 }
@@ -44,7 +44,7 @@ namespace Cap.Domain.Service.Cap
 
                 if (parcela != null)
                 {
-                    if (parcela.IdFpgto != 0)
+                    if (parcela.IdFpgto == null)
                     {
                         parcela.Liberado = true;
                         parcela.LiberadoEm = DateTime.Now;
@@ -53,6 +53,28 @@ namespace Cap.Domain.Service.Cap
                     }
                 }
             }
+        }
+
+        public List<Parcela> ParcelasACancelar(int idUsuario, DateTime? final)
+        {
+            if (final == null)
+            {
+                final = DateTime.Today.Date.AddDays(7);
+            }
+
+            var parcelas = (from p in ctx.Parcela
+                            join ped in ctx.Pedido on p.IdPedido equals ped.Id
+                            where ped.CriadoPor == idUsuario
+                            && p.Vencto > DateTime.Today.Date
+                            && p.Vencto <= final
+                            && p.LibMaster == false
+                            && p.Liberado == true
+                            && p.IdFpgto == null
+                            select p)
+                            .OrderBy(x => x.Vencto)
+                            .ToList();
+
+            return parcelas;
         }
 
         public List<Parcela> ParcelasALiberar(int idUsuario, DateTime? final)
@@ -66,7 +88,7 @@ namespace Cap.Domain.Service.Cap
                             join ped in ctx.Pedido on p.IdPedido equals ped.Id
                             where ped.CriadoPor == idUsuario
                             && p.Vencto > DateTime.Today.Date
-                            && p.Vencto < final
+                            && p.Vencto <= final
                             && p.LibMaster == false
                             && p.Liberado == false
                             && p.IdFpgto == null

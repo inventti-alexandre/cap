@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Cap.Domain.Models.Cap.Parcela>
+
+@{
+    if (!string.IsNullOrEmpty((string)ViewBag.Message))
+    {
+        <div class="alert alert-info">
+            @ViewBag.Message
+        </div>
+    }
+}
+
+<table class="table table-condensed table-striped top20">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPedido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vencto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdMoeda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPgto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LiberadoPor)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vencto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Moeda.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pgto.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Observ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiberadoPorUsuario.Nome)
+            </td>
+            <td>
+                <input type="button" data-id="@item.Id" value="Cancelar pré liberação" class="btn btn-danger btn-xs cancelar" />
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script type="text/javascript">
+
+    $('.cancelar').click(function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/Erp/Liberacao/Cancelar?idParcela=' + id + '&final=' + $('#final').val(),
+            type: 'POST',
+            traditional: true,
+            success: function (result) {
+                $('#parcelas').html(result);
+            },
+            error: function (data) {
+                alert('Não foi possível cancelar esta liberação: ' + data);
+            }
+        });
+    });
+
+</script>

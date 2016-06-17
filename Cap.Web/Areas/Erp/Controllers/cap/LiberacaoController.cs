@@ -1,15 +1,15 @@
 ﻿using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Abstract.Cap;
 using Cap.Domain.Models.Cap;
+using Cap.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
+    [AreaAuthorizeAttribute("Erp", Roles = "liberacao-r")]
     public class LiberacaoController : Controller
     {
         private ILiberacao service;
@@ -29,7 +29,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             ViewBag.Final = final;
             return View();
         }
-        
+
         public PartialViewResult ParcelasALiberar(DateTime? final)
         {
             final = getFinal(final);
@@ -38,7 +38,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
             if (parcelas.Count == 0)
             {
-                ViewBag.Message = $"Nenhuma parcela carente de liberação até dia {((DateTime)final).ToShortDateString() }";
+                ViewBag.Message = $"Nenhuma parcela carente de pré liberação até dia {((DateTime)final).ToShortDateString() }";
             }
             else
             {
@@ -48,6 +48,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             return PartialView(parcelas);
         }
 
+        [AreaAuthorizeAttribute("Erp", Roles = "liberacao-l")]
         public ActionResult LiberarParcelas(int[] selecionado, DateTime? final)
         {
             var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -58,13 +59,24 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             return RedirectToAction("ParcelasALiberar", new { final = final });
         }
 
-        public ActionResult CancelarLiberacao(int idParcela)
+        [AreaAuthorizeAttribute("Erp", Roles = "liberacao-d")]
+        public ActionResult Cancelar(DateTime? final)
+        {
+            final = getFinal(final);
+
+            ViewBag.Final = final;
+            return View();
+        }
+
+        [AreaAuthorizeAttribute("Erp", Roles = "liberacao-d")]
+        [HttpPost]
+        public ActionResult Cancelar(int idParcela, DateTime? final)
         {
             try
             {
                 var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
                 service.CancelarLiberacao(idParcela, idUsuario);
-                return View();
+                return RedirectToAction("ParcelasACancelar", new { final = final });
             }
             catch (Exception e)
             {
@@ -72,10 +84,34 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             }
         }
 
+        public PartialViewResult ParcelasACancelar(DateTime? final)
+        {
+            final = getFinal(final);
+
+            var parcelas = getParcelasACancelar((DateTime)final);
+
+            if (parcelas.Count == 0)
+            {
+                ViewBag.Message = $"Nenhuma parcela passível de cancelamento de pré liberação até dia {((DateTime)final).ToShortDateString() }";
+            }
+            else
+            {
+                ViewBag.Message = string.Empty;
+            }
+
+            return PartialView(parcelas);
+        }
+
         private List<Parcela> getParcelas(DateTime final)
         {
             var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             return service.ParcelasALiberar(idUsuario, final);
+        }
+
+        private List<Parcela> getParcelasACancelar(DateTime final)
+        {
+            var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return service.ParcelasACancelar(idUsuario, final);
         }
 
         private DateTime getFinal(DateTime? final)
