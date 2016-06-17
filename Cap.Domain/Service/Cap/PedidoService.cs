@@ -1,4 +1,5 @@
 ﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Cap;
 using Cap.Domain.Models.Cap;
 using Cap.Domain.Respository;
 using System;
@@ -9,31 +10,44 @@ namespace Cap.Domain.Service.Cap
     public class PedidoService : IBaseService<Pedido>
     {
         private IBaseRepository<Pedido> repository;
+        private IBaseService<Parcela> serviceParcela;
 
         public PedidoService()
         {
             repository = new EFRepository<Pedido>();
+            serviceParcela = new ParcelaService();
         }
 
         public Pedido Excluir(int id)
         {
-            try
-            {
-                return repository.Excluir(id);
-            }
-            catch (Exception)
-            {
-                Pedido pedido = repository.Find(id);
+            var pedido = repository.Find(id);
 
-                if (pedido != null)
+            if (pedido == null)
+            {
+                throw new ArgumentException("Pedido inexistente");
+            }
+
+            var parcelasEmAberto = pedido.Parcelas.Where(x => x.IdFpgto == null).ToList();
+
+            foreach (var item in parcelasEmAberto)
+            {
+                serviceParcela.Excluir(item.Id);
+            }
+
+            if (pedido.Parcelas.Count == 0)
+            {
+                try
+                {
+                    return repository.Excluir(id);
+                }
+                catch (Exception)
                 {
                     pedido.Ativo = false;
                     pedido.AlteradoEm = DateTime.Now;
                     return repository.Alterar(pedido);
                 }
-
-                return pedido;
             }
+            return pedido;
         }
 
         public Pedido Find(int id)

@@ -1,12 +1,11 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Cap;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using Cap.Web.Common;
+using System;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
@@ -40,7 +39,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
         // GET: Erp/Pedido/Create
         [AreaAuthorizeAttribute("Erp", Roles = "pedido-c")]
-        public ActionResult Create()
+        public ActionResult Create(string message = "")
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             var idGrupoCusto = serviceGrupoCusto.Listar().Where(x => x.Ativo == true && x.IdEmpresa == usuario.IdEmpresa).OrderBy(x => x.Descricao).First().Id;
@@ -48,6 +47,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
             var pedido = new Pedido { AlteradoPor = usuario.Id, IdEmpresa = usuario.IdEmpresa, CriadoPor = usuario.Id, DataNF = DateTime.Today.Date, IdGrupoCusto = idGrupoCusto, IdCentroCusto = idCentroCusto };
 
+            ViewBag.Message = message;
             return View(pedido);
         }
 
@@ -119,24 +119,38 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
         // GET: Erp/Pedido/Delete/5
         [AreaAuthorizeAttribute("Erp", Roles = "pedido-d")]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var pedido = service.Find((int)id);
+
+            if (pedido == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.IdPedido = id;
+            return PartialView();
         }
 
         // POST: Erp/Pedido/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [AreaAuthorizeAttribute("Erp", Roles = "pedido-d")]
+        public JsonResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                service.Excluir(id);
+                //return RedirectToAction("Index");
+                return Json(new { success = true });
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                return Json(new { success = false, message = e.ToString() });
             }
         }
     }

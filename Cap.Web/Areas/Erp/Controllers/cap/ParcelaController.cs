@@ -31,6 +31,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                         .OrderBy(x => x.Vencto)
                         .ToList();
 
+            ViewBag.ValorTotal = parcelas.Sum(x => x.Valor).ToString("c2");
             ViewBag.IdPedido = idPedido;
             return PartialView(parcelas);
         }

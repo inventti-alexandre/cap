@@ -68,6 +68,7 @@
         <td>            
             @{ 
                 // TODO: se ja foi pago nao permite exclusao (basta adicionar disabled na tag)
+                // se ja foi liberado....
             }
             <a href="#" class="details" data-id="@item.Id" title="Detalhes"><i class="glyphicon glyphicon-file"></i></a>
             <a href="#" class="delete" data-id="@item.Id" title="Excluir"><i class="glyphicon glyphicon-trash"></i></a>
@@ -77,6 +78,10 @@
 }
 
 </table>
+
+<div>
+    <strong>Total agendado: @ViewBag.ValorTotal</strong>
+</div>
 
 <div class="modal" id="modal">
 

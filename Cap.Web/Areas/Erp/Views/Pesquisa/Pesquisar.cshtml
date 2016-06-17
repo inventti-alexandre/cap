@@ -3,6 +3,9 @@
 <table class="table table-condensed table-striped top20">
     <tr>
         <th>
+            #
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Vencto)
         </th>
         <th>
@@ -35,6 +38,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Vencto)
             </td>

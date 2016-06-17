@@ -3,6 +3,13 @@
 
 @{
     ViewBag.Title = "Novo pedido";
+
+    if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <div class="alert alert-info top20">
+            @ViewBag.Message
+        </div>
+    }
 }
 
 <h2>Novo Pedido</h2>
