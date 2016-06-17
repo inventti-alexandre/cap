@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Cap.Domain.Models.Cap.Parcela>
+
+@{ 
+    if (!string.IsNullOrEmpty((string)ViewBag.Message))
+    {
+        <div class="alert alert-info">
+            @ViewBag.Message
+        </div>
+    }
+}
+
+<table class="table table-condensed table-striped top20">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Liberado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPedido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vencto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdMoeda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPgto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CriadoPor)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <input type="checkbox" id="selecionado" name="selecionado" value="@item.Id" title="selecione para liberar a parcela" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdPedido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vencto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Moeda.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pgto.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observ)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CriadoPorUsuario.Nome)
+        </td>
+        <td>
+            <a href="/Erp/Pedido/Edit/@item.IdPedido" title="Editar a parcela no pedido" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
+            <a href="#" data-id="@item.Id" title="Detalhes da parcela" class="details"><i class="glyphicon glyphicon-info-sign"></i></a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="top20">
+    <input type="button" value="Gravar" class="btn btn-primary" id="liberar" />
+</div>
+
+<div class="modal" id="modal">
+
+</div>
+
+<script type="text/javascript">
+
+    $('#liberar').click(function () {
+        var n = $('input:checked').length;
+        if (n == 0) {
+            alert('Nenhuma parcela selecionada para liberação');
+        }
+        else
+        {
+            var selecionados = new Array();
+            $('input:checked').each(function () {
+                selecionados.push($(this).val());
+            });
+            $.ajax({
+                url: '/Erp/Liberacao/LiberarParcelas/',
+                type: 'GET',
+                data: { 'selecionado': selecionados, 'final': $('#final').val() },
+                datatype: 'json',
+                traditional: true,
+                success: function (result) {
+                    $('#parcelas').html(result);
+                    alert('Parcelas liberadas');
+                }
+            });
+        }
+    });
+
+    $(".details").click(function () {
+        var id = $(this).attr("data-id");
+        $("#modal").load("/Erp/Pesquisa/Details?id=" + id, function () {
+            $('#modal').modal('show');
+        })
+    });
+
+    $(".edit").click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Parcela/Edit?id=' + id, function () {
+            $('#modal').modal('show');
+        })
+    })
+</script>

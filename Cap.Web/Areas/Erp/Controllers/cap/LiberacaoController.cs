@@ -24,39 +24,38 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         // GET: Erp/Liberacao
         public ActionResult Index(DateTime? final)
         {
-            if (final == null)
-            {
-                // TODO: parametro do sistema (o certo eh alterar em LiberacaoService)
-                final = DateTime.Today.Date.AddDays(7);
-            }
-
-            if (final < DateTime.Today.Date)
-            {
-                final = DateTime.Today.Date.AddDays(7);
-            }
+            final = getFinal(final);
 
             ViewBag.Final = final;
             return View();
         }
         
-        public PartialViewResult ParcelasALiberar(DateTime final)
+        public PartialViewResult ParcelasALiberar(DateTime? final)
         {
-            if (final < DateTime.Today.Date)
-            {
-                final = DateTime.Today.Date.AddDays(7);
-            }
+            final = getFinal(final);
 
-            var parcelas = getParcelas(final);
+            var parcelas = getParcelas((DateTime)final);
+
+            if (parcelas.Count == 0)
+            {
+                ViewBag.Message = $"Nenhuma parcela carente de liberação até dia {((DateTime)final).ToShortDateString() }";
+            }
+            else
+            {
+                ViewBag.Message = string.Empty;
+            }
 
             return PartialView(parcelas);
         }
 
-        public ActionResult LiberarParcelas(int[] selecionado, DateTime final)
+        public ActionResult LiberarParcelas(int[] selecionado, DateTime? final)
         {
             var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             service.LiberarParcelas(selecionado.ToList(), idUsuario);
 
-            return PartialView(getParcelas(final));    
+            final = getFinal(final);
+
+            return RedirectToAction("ParcelasALiberar", new { final = final });
         }
 
         public ActionResult CancelarLiberacao(int idParcela)
@@ -77,6 +76,23 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         {
             var idUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             return service.ParcelasALiberar(idUsuario, final);
+        }
+
+        private DateTime getFinal(DateTime? final)
+        {
+            // TODO: parametro do sistema (o certo eh alterar em LiberacaoService)
+
+            if (final == null)
+            {
+                final = DateTime.Today.Date.AddDays(7);
+            }
+
+            if (final < DateTime.Today.Date)
+            {
+                final = DateTime.Today.Date.AddDays(7);
+            }
+
+            return (DateTime)final;
         }
     }
 }

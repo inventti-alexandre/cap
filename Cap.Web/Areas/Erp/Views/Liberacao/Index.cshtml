@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Liberações de pagamentos";
+}
+
+<h2>Liberações de pagamentos</h2>
+
+<div class="container">
+    Parcelas à liberar até dia
+    <div class="row">
+        <div class="col-md-3">
+            <input type="date" value="@ViewBag.Final" id="final" class="form-control col-md-3" />
+        </div>
+        <div class="col-md-9">
+            <input type="button" value="Pesquisar" id="pesquisar" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+
+<div id="parcelas" class="top20">
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        listarParcelas();
+    });
+
+    $('#pesquisar').click(function () {
+        listarParcelas();
+    })
+
+    function listarParcelas() {
+        $.ajax({
+            url: '/Erp/Liberacao/ParcelasALiberar?final=' + $('#final').val(),
+            type: 'GET',
+            success: function (result) {
+                $('#parcelas').html(result);
+            },
+            error: function (data) {
+                $('parcelas').html(data);
+            }
+        });
+    };
+</script>

@@ -472,6 +472,8 @@
     <Content Include="Areas\Erp\Views\Debitos\Pesquisar.cshtml" />
     <Content Include="Areas\Erp\Views\CentroCusto\DropDown.cshtml" />
     <Content Include="Areas\Erp\Views\CentroLucro\DropDown.cshtml" />
+    <Content Include="Areas\Erp\Views\Liberacao\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Liberacao\ParcelasALiberar.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -501,7 +503,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Erp\Views\Liberacao\" />
     <Folder Include="Areas\Erp\Views\Menu\" />
     <Folder Include="Models\" />
   </ItemGroup>

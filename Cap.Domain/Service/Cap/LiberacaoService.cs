@@ -69,7 +69,7 @@ namespace Cap.Domain.Service.Cap
                             && p.Vencto < final
                             && p.LibMaster == false
                             && p.Liberado == false
-                            && p.IdFpgto == 0
+                            && p.IdFpgto == null
                             select p)
                             .OrderBy(x => x.Vencto)
                             .ToList();
