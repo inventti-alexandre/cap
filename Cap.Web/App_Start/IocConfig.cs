@@ -69,6 +69,7 @@ namespace Cap.Web.App_Start
 
             kernel.Bind<IIndVariacaoCalculo>().To<IndVariacaoService>();
             kernel.Bind<ILiberacao>().To<LiberacaoService>();
+            kernel.Bind<ILiberacaoPagamento>().To<LiberacaoPagamentoService>();
             kernel.Bind<ILogin>().To<UsuarioService>();
             kernel.Bind<ITelaRegra>().To<TelaRegraService>();
             kernel.Bind<ITrocaSenha>().To<UsuarioService>();

@@ -23,7 +23,8 @@ namespace Cap.Web.Areas.Erp.Controllers
             this.login = login;
         }
 
-        public PartialViewResult Emails(int idAgenda, bool crud = false, string nome = "")
+        [AllowAnonymous]
+        public ActionResult Emails(int idAgenda, bool crud = false, string nome = "")
         {
             var emails = service.Listar()
                 .Where(x => x.IdAgenda == idAgenda)

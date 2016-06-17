@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Cap
 {
-    public class LiberacaoService : ILiberacao
+    public class LiberacaoPagamentoService : ILiberacaoPagamento
     {
         EFDbContext ctx;
         EFRepository<Parcela> repository;
 
-        public LiberacaoService()
+        public LiberacaoPagamentoService()
         {
             ctx = new EFDbContext();
             repository = new EFRepository<Parcela>();
@@ -30,9 +30,9 @@ namespace Cap.Domain.Service.Cap
                 }
             }
 
-            parcela.Liberado = false;
-            parcela.LiberadoEm = null;
-            parcela.LiberadoPor = null;
+            parcela.LibMaster = false;
+            parcela.LibMasterEm = null;
+            parcela.LibMasterPor = null;
             repository.Alterar(parcela);
         }
 
@@ -53,16 +53,16 @@ namespace Cap.Domain.Service.Cap
                 {
                     if (parcela.IdFpgto == null)
                     {
-                        parcela.Liberado = true;
-                        parcela.LiberadoEm = DateTime.Now;
-                        parcela.LiberadoPor = idUsuario;
+                        parcela.LibMaster = true;
+                        parcela.LibMasterEm = DateTime.Now;
+                        parcela.LibMasterPor = idUsuario;
                         repository.Alterar(parcela);
                     }
                 }
             }
         }
 
-        public List<Parcela> ParcelasACancelar(int idUsuario, DateTime? final)
+        public List<Parcela> ParcelasACancelar(DateTime? final)
         {
             if (final == null)
             {
@@ -71,11 +71,10 @@ namespace Cap.Domain.Service.Cap
 
             var parcelas = (from p in ctx.Parcela
                             join ped in ctx.Pedido on p.IdPedido equals ped.Id
-                            where ped.CriadoPor == idUsuario
-                            && p.Vencto >= DateTime.Today.Date
+                            where
+                            p.Vencto >= DateTime.Today.Date
                             && p.Vencto <= final
-                            && p.LibMaster == false
-                            && p.Liberado == true
+                            && p.LibMaster == true
                             && p.IdFpgto == null
                             select p)
                             .OrderBy(x => x.Vencto)
@@ -84,7 +83,7 @@ namespace Cap.Domain.Service.Cap
             return parcelas;
         }
 
-        public List<Parcela> ParcelasALiberar(int idUsuario, DateTime? final)
+        public List<Parcela> ParcelasALiberar(DateTime? final)
         {
             if (final == null)
             {
@@ -93,18 +92,16 @@ namespace Cap.Domain.Service.Cap
 
             var parcelas = (from p in ctx.Parcela
                             join ped in ctx.Pedido on p.IdPedido equals ped.Id
-                            where ped.CriadoPor == idUsuario
-                            && p.Vencto >= DateTime.Today.Date
+                            where
+                            p.Vencto >= DateTime.Today.Date
                             && p.Vencto <= final
                             && p.LibMaster == false
-                            && p.Liberado == false
                             && p.IdFpgto == null
                             select p)
                             .OrderBy(x => x.Vencto)
                             .ToList();
 
-            return parcelas;                            
+            return parcelas;
         }
-     
     }
 }

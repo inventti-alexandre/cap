@@ -1,12 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "Pré liberações de pagamentos";
+    ViewBag.Title = "Liberações para pagamentos";
 }
 
-<h2>Pré liberações de pagamentos</h2>
+<h2>Liberações para pagamentos</h2>
 
 <div class="container">
-    Parcelas à pré liberar até dia
+    Parcelas à liberar até dia
     <div class="row">
         <div class="col-md-3">
             <input type="date" value="@ViewBag.Final" id="final" class="form-control col-md-3" />
@@ -29,11 +29,11 @@
 
     $('#pesquisar').click(function () {
         listarParcelas();
-    })
+    });
 
     function listarParcelas() {
         $.ajax({
-            url: '/Erp/Liberacao/ParcelasALiberar?final=' + $('#final').val(),
+            url: '/Erp/LiberacaoPagamento/ParcelasALiberar?final=' + $('#final').val(),
             type: 'GET',
             success: function (result) {
                 $('#parcelas').html(result);

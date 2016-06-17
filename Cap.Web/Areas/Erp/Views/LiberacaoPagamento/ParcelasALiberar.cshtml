@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Cap.Domain.Models.Cap.Parcela>
 
-@{ 
+@{
     if (!string.IsNullOrEmpty((string)ViewBag.Message))
     {
         <div class="alert alert-info">
@@ -11,6 +11,9 @@
 
 <table class="table table-condensed table-striped top20">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LibMaster)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Liberado)
         </th>
@@ -38,38 +41,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <input type="checkbox" id="selecionado" name="selecionado" value="@item.Id" title="selecione para liberar a parcela" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdPedido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Vencto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Moeda.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Valor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pgto.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Observ)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CriadoPorUsuario.Nome)
-        </td>
-        <td>
-            <a href="/Erp/Pedido/Edit/@item.IdPedido" title="Editar a parcela no pedido" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
-            <a href="#" data-id="@item.Id" title="Detalhes da parcela" class="details"><i class="glyphicon glyphicon-info-sign"></i></a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <input type="checkbox" id="selecionado" name="selecionado" value="@item.Id" title="selecione para liberar a parcela" />
+            </td>
+            <td>
+                @{ 
+                    string preLiberadoPor = item.Liberado == true ? item.LiberadoPorUsuario.Nome : string.Empty;
+                }
+                @Html.DisplayFor(x => preLiberadoPor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPedido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vencto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Moeda.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pgto.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Observ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CriadoPorUsuario.Nome)
+            </td>
+            <td>
+                <a href="/Erp/Pedido/Edit/@item.IdPedido" title="Editar a parcela no pedido" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
+                <a href="#" data-id="@item.Id" title="Detalhes da parcela" class="details"><i class="glyphicon glyphicon-info-sign"></i></a>
+            </td>
+        </tr>
+    }
 
 </table>
 
@@ -86,7 +96,7 @@
     $('#liberar').click(function () {
         var n = $('input:checked').length;
         if (n == 0) {
-            alert('Nenhuma parcela selecionada para pré liberação');
+            alert('Nenhuma parcela selecionada para liberação');
         }
         else
         {
@@ -95,14 +105,14 @@
                 selecionados.push($(this).val());
             });
             $.ajax({
-                url: '/Erp/Liberacao/LiberarParcelas/',
+                url: '/Erp/LiberacaoPagamento/LiberarParcelas/',
                 type: 'GET',
                 data: { 'selecionado': selecionados, 'final': $('#final').val() },
                 datatype: 'json',
                 traditional: true,
                 success: function (result) {
                     $('#parcelas').html(result);
-                    alert('Parcelas pré liberadas');
+                    alert('Parcelas liberadas');
                 }
             });
         }
