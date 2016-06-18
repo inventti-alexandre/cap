@@ -6,7 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
     <script src="~/Scripts/angular.min.js"></script>
 </head>
 <body>
@@ -87,7 +88,7 @@
                                 <li><a href="/Erp/SistemaTela">Telas do sistema</a></li>
                                 <li><a href="/Erp/Email">Configurações para envio de email</a></li>
                             </ul>
-                        </li>                        
+                        </li>
                     </ul>
 
                     <ul class="nav navbar-nav pull-right">
@@ -123,5 +124,18 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @*<script src="http://code.jquery.com/jquery-1.10.2.js"></script>*@
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('.datepicker').datepicker({
+                    format: 'dd/mm/yyyy',
+                    language: 'pt-BR',
+                    daysOfWeekHighlighted: '0'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
