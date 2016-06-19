@@ -6,9 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="~/scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
-    <script src="~/Scripts/angular.min.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -125,14 +123,18 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @*<script src="http://code.jquery.com/jquery-1.10.2.js"></script>*@
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $(function () {
                 $('.datepicker').datepicker({
                     format: 'dd/mm/yyyy',
                     language: 'pt-BR',
-                    daysOfWeekHighlighted: '0'
+                    daysOfWeekHighlighted: '0',
+                    orientation: 'bottom left'
                 });
             });
         });

@@ -28,7 +28,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Vencto, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <input value="@Model.Vencto.ToString("dd/MM/yyyy")" name="Vencto" id="Vencto" class="form-control" />
+                            <input value="@Model.Vencto.ToString("dd/MM/yyyy")" name="Vencto" id="Vencto" class="form-control datepicker" />
                             @Html.ValidationMessageFor(model => model.Vencto, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.EmissaoPre, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.EmissaoPre, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.EmissaoPre, new { htmlAttributes = new { @class = "form-control datepicker" } })
                             @Html.ValidationMessageFor(model => model.EmissaoPre, "", new { @class = "text-danger" })
                         </div>
                     </div>
