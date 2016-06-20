@@ -120,6 +120,7 @@
     <Compile Include="Models\Cap\Pedido.cs" />
     <Compile Include="Models\Cap\PesquisaModel.cs" />
     <Compile Include="Models\Cap\RegimeTributario.cs" />
+    <Compile Include="Models\Email\EmailConfig.cs" />
     <Compile Include="Models\Gen\Indice.cs" />
     <Compile Include="Models\Gen\IndVariacao.cs" />
     <Compile Include="Models\Requisicao\Material.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Service\Cap\PedidoService.cs" />
     <Compile Include="Service\Cap\PesquisaService.cs" />
     <Compile Include="Service\Cap\RegimeTributarioService.cs" />
+    <Compile Include="Service\Email\EmailConfigService.cs" />
     <Compile Include="Service\Gen\IndiceService.cs" />
     <Compile Include="Service\Gen\IndVariacaoService.cs" />
     <Compile Include="Service\Requisicao\MaterialService.cs" />
