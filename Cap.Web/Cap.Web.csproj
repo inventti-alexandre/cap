@@ -243,6 +243,7 @@
     <Compile Include="Common\Bind\BindIndiceHelper.cs" />
     <Compile Include="Common\Bind\BindMatGrupoHelper.cs" />
     <Compile Include="Common\Bind\BindMoedaHelper.cs" />
+    <Compile Include="Common\Bind\BindPeriodicidadeHelper.cs" />
     <Compile Include="Common\Bind\BindPgtoHelper.cs" />
     <Compile Include="Common\Bind\BindRegimeTributarioHelper.cs" />
     <Compile Include="Common\Bind\BindSistemaAreaHelper.cs" />
@@ -504,6 +505,8 @@
     <Content Include="Content\bootstrap-datepicker.css.map" />
     <Content Include="Areas\Erp\Views\Configuracoes\Index.cshtml" />
     <Content Include="Areas\Erp\Views\EmailConfig\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Usuario\TrocarSenha.cshtml" />
+    <Content Include="Areas\Erp\Views\Usuario\RedefinirSenha.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -638,6 +641,8 @@
           <DevelopmentServerPort>55202</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:55202/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:55202/Erp/Home</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

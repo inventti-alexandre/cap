@@ -219,5 +219,15 @@ namespace Cap.Domain.Models.Cap
                 return fpgto;
             }
         }
+
+        [NotMapped]
+        [Display(Name = "Pago")]
+        public virtual bool Pago
+        {
+            get
+            {
+                return (IdFpgto != null);
+            }
+        }
     }
 }

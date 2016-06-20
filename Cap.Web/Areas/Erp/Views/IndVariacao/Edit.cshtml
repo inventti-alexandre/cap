@@ -21,7 +21,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.DataVariacao, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.DataVariacao, "{0:dd/MM/yyyy}", new { @class = "form-control", @type = "text" })
+                            @Html.TextBoxFor(model => model.DataVariacao, "{0:dd/MM/yyyy}", new { @class = "form-control", @type = "text", @autofocus = "autofocus" })
                             @Html.ValidationMessageFor(model => model.DataVariacao, "", new { @class = "text-danger" })
                         </div>
                     </div>

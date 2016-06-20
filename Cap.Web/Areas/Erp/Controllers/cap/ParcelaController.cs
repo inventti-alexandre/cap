@@ -83,9 +83,39 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                             IdPedido = idPedido,
                             IdMoeda = model.IdMoeda,
                             Observ = (model.Observ == null ? string.Empty : model.Observ),
-                            Valor = model.Valor,
-                            Vencto = model.Vencto
+                            Valor = model.Valor
                         };
+
+                        switch (model.Periodicidade)
+                        {
+                            case Periodicidade.Mensal:
+                                parcela.Vencto = model.Vencto.AddMonths(i * (int)model.Periodicidade);
+                                break;
+                            case Periodicidade.Semanal:
+                                parcela.Vencto = model.Vencto.AddDays(i * (int)model.Periodicidade);
+                                break;
+                            case Periodicidade.Quinzenal:
+                                parcela.Vencto = model.Vencto.AddDays(i * (int)model.Periodicidade);
+                                break;
+                            case Periodicidade.Bimestral:
+                                parcela.Vencto = model.Vencto.AddMonths(i * (int)model.Periodicidade);
+                                break;
+                            case Periodicidade.Trimestral:
+                                parcela.Vencto = model.Vencto.AddMonths(i * (int)model.Periodicidade);
+                                break;
+                            case Periodicidade.Semestral:
+                                parcela.Vencto = model.Vencto.AddMonths(i * (int)model.Periodicidade);
+                                break;
+                            case Periodicidade.Anual:
+                                parcela.Vencto = model.Vencto.AddMonths(i * (int)model.Periodicidade);
+                                break;
+                            case Periodicidade.Nenhuma:
+                                parcela.Vencto = model.Vencto;
+                                break;
+                            default:
+                                break;
+                        }
+
                         // grava nova parcela
                         service.Gravar(parcela);
                     }

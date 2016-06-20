@@ -98,6 +98,7 @@
     <Compile Include="Models\Admin\SistemaTela.cs" />
     <Compile Include="Models\Admin\TelaRegra.cs" />
     <Compile Include="Models\Admin\TelaRegraModel.cs" />
+    <Compile Include="Models\Admin\TrocaSenha.cs" />
     <Compile Include="Models\Admin\Usuario.cs" />
     <Compile Include="Models\Admin\UsuarioRegraModel.cs" />
     <Compile Include="Models\Cap\Banco.cs" />

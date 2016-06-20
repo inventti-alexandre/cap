@@ -12,7 +12,7 @@
         <div class="container">
             <div class="col-md-4">
                 Nome:<br />
-                @Html.TextBox("nome", (string)ViewBag.Nome, new { @class = "form-control" })
+                @Html.TextBox("nome", (string)ViewBag.Nome, new { @class = "form-control", @autofocus = "autofocus" })
             </div>
             <div class="col-md-8 top20">
                 <input type="button" id="pesquisar" name="pesquisar" value="Pesquisar" class="btn btn-primary" />

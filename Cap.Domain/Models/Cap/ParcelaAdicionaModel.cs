@@ -9,13 +9,13 @@ namespace Cap.Domain.Models.Cap
 {
     public enum Periodicidade
     {
-        Mensal = 30,
+        Mensal = 1,
         Semanal = 7,
         Quinzenal = 15,
-        Bimestral = 60,
-        Trimestral = 90,
-        Semetral = 180,
-        Anual = 365,
+        Bimestral = 2,
+        Trimestral = 3,
+        Semestral = 6,
+        Anual = 12,
         Nenhuma = 0
     }
 

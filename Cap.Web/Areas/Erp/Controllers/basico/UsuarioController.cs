@@ -14,11 +14,13 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
     {
         IBaseService<Usuario> service;
         ILogin login;
+        ITrocaSenha senhaService;
 
-        public UsuarioController(IBaseService<Usuario> service, ILogin login)
+        public UsuarioController(IBaseService<Usuario> service, ILogin login, ITrocaSenha senhaService)
         {
             this.service = service;
             this.login = login;
+            this.senhaService = senhaService;
         }
 
         // GET: Erp/Usuario
@@ -161,5 +163,84 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 return View(usuario);
             }
         }
+
+        // GET: Erp/Usuario/TrocarSenha
+        public ActionResult TrocarSenha()
+        {
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+
+            var troca = new TrocaSenha { IdUsuario = usuario.Id };
+            return View(troca);
+        }
+
+        // POST: Erp/Usuario/TrocarSenha
+        [HttpPost]
+        public ActionResult TrocarSenha(TrocaSenha troca)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    senhaService.TrocarSenha(troca.IdUsuario, troca.SenhaAtual, troca.NovaSenha, false);
+                    ViewBag.Message = "Senha alterada";
+                }
+
+                return View(troca);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(troca);
+            }
+        }
+
+
+        // GET: Erp/Usuario/RedefinirSenha
+        public ActionResult RedefinirSenha(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var usuario = service.Find((int)id);
+
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(usuario);
+        }
+
+        // POST: Erp/Usuario/RedefinirSenha
+        [HttpPost]
+        public ActionResult RedefinirSenha(int id)
+        {
+            var usuario = service.Find(id);
+
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+
+            try
+            {
+                senhaService.RedefinirSenha(id);
+                ViewBag.Message = "Senha redefinida - um email foi enviado para o usuário";
+                return View(usuario);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(usuario);
+            }
+        }
+
     }
 }

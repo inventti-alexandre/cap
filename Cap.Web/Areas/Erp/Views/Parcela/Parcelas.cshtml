@@ -12,6 +12,9 @@
             @Html.DisplayNameFor(model => model.Valor)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Pago)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.IdPgto)
         </th>
         <th>
@@ -45,6 +48,9 @@
             @Html.DisplayFor(modelItem => item.Valor)
         </td>
         <td>
+            <span class="glyphicon glyphicon glyphicon-ok text-info" aria-hidden="true" style="visibility:@(item.Pago == true ? "visible" : "hidden") "/>
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Pgto.Descricao)
         </td>
         <td>
@@ -71,8 +77,8 @@
                 // se ja foi liberado....
             }
             <a href="#" class="details" data-id="@item.Id" title="Detalhes"><i class="glyphicon glyphicon-file"></i></a>
-            <a href="#" class="delete" data-id="@item.Id" title="Excluir"><i class="glyphicon glyphicon-trash"></i></a>
-            <a href="#" class="edit" data-id="@item.Id" title="Detalhes"><i class="glyphicon glyphicon-edit"></i></a>
+            <a href="#" class="edit" data-id="@item.Id" title="Editar"><i class="glyphicon glyphicon-edit"></i></a>
+            <a href="#" class="delete" data-id="@item.Id" title="Excluir"  style="visibility:@(item.Pago == true ? "hidden" : "visible")"><i class="glyphicon glyphicon-trash text-danger"></i></a>
         </td>
     </tr>
 }
