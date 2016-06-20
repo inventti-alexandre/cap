@@ -38,7 +38,7 @@ namespace Cap.Domain.Models.Email
         [Display(Name ="SMTP", Description ="Endereço do serviço de envio de mensagens do seu provedor de emails", Prompt ="smtp.suaempresa.com.br")]
         [Required(ErrorMessage ="Informe o endereço SMTP")]
         [StringLength(100, ErrorMessage ="O endereço SMTP é composto por no máximo 100 caracteres")]
-        public string SenderSmtp { get; set; }
+        public string ServerSmtp { get; set; }
 
         [Display(Name ="Usar SSL")]
         public bool UseSSL { get; set; }

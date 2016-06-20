@@ -1,6 +1,7 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Email;
+using Cap.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers
 {
+    [AreaAuthorizeAttribute("Erp", Roles = "configuracoes-r")]
     public class EmailConfigController : Controller
     {
         IBaseService<EmailConfig> service;
@@ -21,8 +23,6 @@ namespace Cap.Web.Areas.Erp.Controllers
         }
 
         // GET: Erp/EmailConfig
-        [ChildActionOnly]
-        [HttpPost]
         public ActionResult Index()
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
@@ -32,10 +32,12 @@ namespace Cap.Web.Areas.Erp.Controllers
                 return PartialView(config);
             }
 
+            ViewBag.Message = string.Empty;
             return PartialView(new EmailConfig { AlteradoPor = usuario.Id, Ativo = true, IdEmpresa = usuario.IdEmpresa, Sender = usuario.Empresa.Email, UseSSL = true });
         }
 
-        [ChildActionOnly]
+        [HttpPost]
+        [AreaAuthorizeAttribute("Erp", Roles = "configuracoes-u")]
         public ActionResult Index(EmailConfig config)
         {
             config.AlteradoEm = DateTime.Now;
@@ -43,8 +45,19 @@ namespace Cap.Web.Areas.Erp.Controllers
 
             if (ModelState.IsValid)
             {
-                config.Id = service.Gravar(config);
-                ViewBag.Message = "Configurações gravadas";
+                try
+                {
+                    config.Id = service.Gravar(config);
+                    TempData["Message"] = "Configurações gravadas";
+                }
+                catch (Exception e)
+                {
+                    TempData["Message"] = e.Message;
+                }
+            }
+            else
+            {
+                TempData["Message"] = "Informações inválidas";
             }
 
             return PartialView(config);

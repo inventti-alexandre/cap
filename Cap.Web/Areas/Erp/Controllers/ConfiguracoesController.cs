@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Cap.Web.Common;
 using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers
 {
+    [AreaAuthorizeAttribute("Erp", Roles = "configuracoes-r")]
     public class ConfiguracoesController : Controller
     {
         // GET: Erp/Configuracoes

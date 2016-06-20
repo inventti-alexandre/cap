@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Models.Admin;
 using Cap.Domain.Models.Cap;
+using Cap.Domain.Models.Email;
 using Cap.Domain.Models.Gen;
 using Cap.Domain.Models.Requisicao;
 using System.Data.Entity;
@@ -34,6 +35,7 @@ namespace Cap.Domain.Respository
         public DbSet<ContaTipo> ContaTipo { get; set; }
         public DbSet<Departamento> Departamento { get; set; }
         public DbSet<Deposito> Deposito { get; set; }
+        public DbSet<EmailConfig> MyProperty { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
         public DbSet<Estado> Estado { get; set; }
         public DbSet<EstadoCivil> EstadoCivil { get; set; }

@@ -43,12 +43,13 @@ namespace Cap.Domain.Service.Email
         public int Gravar(EmailConfig item)
         {
             item.Sender = item.Sender.ToLower().Trim();
-            item.SenderSmtp = item.SenderSmtp.ToLower().Trim();
+            item.ServerSmtp = item.ServerSmtp.ToLower().Trim();
             item.AlteradoEm = DateTime.Now;
 
-            if (repository.Listar().Where(x => x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
+            var config = repository.Listar().Where(x => x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).FirstOrDefault();
+            if (config != null)
             {
-                throw new ArgumentException("Já existe configuração de envio de emails cadastrada para esta empresa");
+                item.Id = config.Id;
             }
 
             if (item.Id == 0)
