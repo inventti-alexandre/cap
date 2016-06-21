@@ -86,9 +86,9 @@
 
 </div>
 
-<div id="parcelas" class="container">
+<div class="container">
     <div class="row">
-        <div class="col-md-12 top30">
+        <div id="parcelas" class="col-md-12 top30">
             @{
                 Html.RenderAction("Parcelas", "Parcela", new { idPedido = Model.Id });
             }

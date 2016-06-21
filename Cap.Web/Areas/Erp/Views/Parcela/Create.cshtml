@@ -90,8 +90,24 @@
             data: self.closest('form').serialize(),
             success: function (data) {
                 if (data.success == true) {
-                    $("#modal").modal('hide');
-                    location.reload(false);
+                    //$("#modal").modal('hide');
+                    //location.reload(false);
+                    $('#parcelas').load('/Erp/Parcela/Parcelas?idPedido=' + $('#IdPedido').val());
+                    if (data.deposito == true) {
+                        $.ajax({
+                            url: '/Erp/Deposito/CreateIntoModal/',
+                            type: 'GET',
+                            data: { 'idPedido': $("#IdPedido").val(), 'numParcelas': parseInt($('#Parcelas').val()) },
+                            success: function (result) {
+                                $('#modal').html(result);
+                            },
+                            error: function (e) {
+                                $('#modal').modal('hide');
+                            }
+                        });
+                    } else {
+                        $("#modal").modal('hide');
+                    }
                 } else {
                     $("#modal").html(data);
                 }

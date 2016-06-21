@@ -3,9 +3,11 @@ using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Models.Cap;
 using Cap.Web.Common;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
@@ -121,7 +123,15 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                     }
 
                     ViewBag.IdPedido = idPedido;
-                    return Json(new { success = true });
+
+                    if (model.Pgto.Descricao == "DEPOSITO" || model.Pgto.Descricao == "DEPÓSITO")
+                    {
+                        return Json(new { success = true, deposito = true });
+                    }
+                    else
+                    {
+                        return Json(new { success = true, deposito = false });
+                    }
                 }
 
                 ViewBag.IdPedido = idPedido;

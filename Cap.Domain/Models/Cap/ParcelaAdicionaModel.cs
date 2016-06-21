@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Cap.Domain.Abstract;
+using Cap.Domain.Service.Cap;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -47,5 +49,13 @@ namespace Cap.Domain.Models.Cap
 
         [Display(Name = "Observações")]
         public string Observ { get; set; }
+
+        public virtual Pgto Pgto
+        {
+            get
+            {
+                return new PgtoService().Find(IdPgto);
+            }
+        }
     }
 }

@@ -52,6 +52,10 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Pgto.Descricao)
+            @if ((item.Pgto.Descricao == "DEPOSITO" || item.Pgto.Descricao == "DEPÓSITO") && item.IdDeposito != null)
+            {
+                <a href="#" class="deposito" data-id="@item.IdDeposito" title="Informações do depósito"><i class="glyphicon glyphicon-info-sign"></i></a>
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.NN)
@@ -128,6 +132,11 @@
             $("#modal").load("/Erp/Parcela/Edit?id=" + idParcela, function () {
                 $("#modal").modal('show');
             });
+        });
+
+        $('.deposito').click(function () {
+            var idDeposito = $(this).attr('data-id');
+
         });
     });
 </script>
