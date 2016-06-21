@@ -1,8 +1,5 @@
 ﻿@using Cap.Web.Common.Bind;
 @model Cap.Domain.Models.Cap.ParcelaAdicionaModel
-@{
-// TODO: deposito....
-}
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -11,6 +8,11 @@
             <h4 class="modal-title">Inclusão de parcelas</h4>
         </div>
         <div class="modal-body">
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Message</div>
+            }
 
             @using (Html.BeginForm())
             {
@@ -68,7 +70,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="button" value="Incluir" id="incluirparcela" class="btn btn-default" />
+                            <input type="button" value="Incluir" id="incluirparcela" class="btn btn-primary" />
                         </div>
                     </div>
                 </div>

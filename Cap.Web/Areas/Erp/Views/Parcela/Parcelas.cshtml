@@ -52,9 +52,23 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Pgto.Descricao)
-            @if ((item.Pgto.Descricao == "DEPOSITO" || item.Pgto.Descricao == "DEPÓSITO") && item.IdDeposito != null)
+            @if (item.Pgto.Descricao == "DEPOSITO" || item.Pgto.Descricao == "DEPÓSITO")
             {
-                <a href="#" class="deposito" data-id="@item.IdDeposito" title="Informações do depósito"><i class="glyphicon glyphicon-info-sign"></i></a>
+                if (item.IdDeposito != null)
+                {
+                    <a href="#" class="deposito" data-id="@item.Id" title="Informações do depósito"><i class="glyphicon glyphicon-info-sign"></i></a>
+                }
+                else
+                {
+                    if (item.Pago == false)
+                    {
+                        <a href="#" class="depositoAdd" data-id="@item.Id" title="Adicionar informações para depósito"><i class="glyphicon glyphicon-plus"></i></a>
+                    }
+                    else
+                    {
+                        <a href="#" class="depositoInfo" data-id="@item.Id" title="Informações sobre conta utilizada para depósito"><i class="glyphicon glyphicon-info" style="color:#808080"></i></a>
+                    }
+                }
             }
         </td>
         <td>
@@ -135,8 +149,24 @@
         });
 
         $('.deposito').click(function () {
-            var idDeposito = $(this).attr('data-id');
+            var id = $(this).attr('data-id');
+            $("#modal").load("/Erp/Deposito/EditIntoModal?idParcela=" + id, function () {
+                $("#modal").modal("show");
+            });
+        });
 
+        $('.depositoAdd').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/Deposito/CreateIntoModal?idPedido=0&numParcelas=0&idParcela=' + id, function () {
+                $('#modal').modal('show');
+            });
+        });
+
+        $('.depositoInfo').click(function () {
+            var id = $(this).attr('data-id');
+            $('#modal').load('/Erp/Deposito/InfoIntoModal?idParcela=' + id, function () {
+                $('#modal').modal('show');
+            });
         });
     });
 </script>

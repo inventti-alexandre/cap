@@ -34,7 +34,15 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         {
             try
             {
-                return PartialView(new PesquisaService().Pesquisar(pesquisa));
+                var model = new PesquisaService().Pesquisar(pesquisa);
+                if (model.Count() > 0)
+                {
+                    @ViewBag.ValorTotal = model.Sum(x => x.Valor).ToString("c2");
+                    @ViewBag.ValorPago = model.Where(x => x.Pago == true).Sum(x => x.Valor).ToString("c2");
+                    @ViewBag.ValorAPagar = model.Where(x => x.Pago == false).Sum(x => x.Valor).ToString("c2");
+                }
+
+                return PartialView(model);
             }
             catch (Exception e)
             {

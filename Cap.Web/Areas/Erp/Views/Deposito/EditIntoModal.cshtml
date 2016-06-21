@@ -5,28 +5,22 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title text-danger">Informações para depósito</h4>
+            <h4 class="modal-title">Informações para depósito</h4>
         </div>
         <div class="modal-body">
 
-            @if (ViewBag.Message != null)
-            {
-                <div class="alert alert-danger">@ViewBag.Message</div>
-            }
-            
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
                     @Html.Hidden("IdPedido", ((int)@ViewBag.IdPedido).ToString())
                     @Html.Hidden("IdParcela", ((int)@ViewBag.IdParcela).ToString())
-                    @Html.Hidden("NumParcelas", ((int)ViewBag.NumParcelas).ToString())
                     @Html.HiddenFor(model => model.IdEmpresa)
-                    @Html.HiddenFor(model => model.Id)
-                    @Html.HiddenFor(model => model.AlteradoPor)
                     @Html.HiddenFor(model => model.Ativo)
+                    @Html.HiddenFor(model => model.AlteradoPor)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Favorecido, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -87,7 +81,8 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="button" id="saveDep" value="Gravar" class="btn btn-primary" />
+                            <input type="button" id="updateDep" value="Gravar" class="btn btn-primary" />
+                            <input type="button" id="deleteDep" value="Desvincular deposito" class="btn btn-danger" />
                         </div>
                     </div>
                 </div>
@@ -101,25 +96,43 @@
 
 <script type="text/javascript">
 
-    $('#saveDep').click(function () {
-        var self = $(this).closest('form').serialize();
+    $('#updateDep').click(function () {
         $.ajax({
-            url: '/Erp/Deposito/CreateIntoModal/',
+            url: '/Erp/Deposito/EditIntoModal/',
             type: 'POST',
-            data: self,
+            data: $(this).closest('form').serialize(),
             datatype: 'json',
             success: function (data) {
                 if (data.success == true) {
                     $('#modal').modal('hide');
-                    $('#parcelas').load('/Erp/Parcela/Parcelas?idPedido=' + data.idPedido)
                 } else {
-                    $('#modal').html(data.data);
+                    alert(data.error);
                 }
             },
             error: function (e) {
-                $('#modal').html(e);
-            }            
-        });
+                alert(e.error);
+            }
+        })
     });
 
+    $('#deleteDep').click(function () {
+        var idParcela = $('#IdParcela').val();
+        $.ajax({
+            url: '/Erp/Deposito/CancelDepIntoModal/',
+            type: 'POST',
+            data: { 'idParcela': idParcela },
+            dattype: 'json',
+            success: function (data) {
+                if (data.success == true) {
+                    $('#modal').modal('hide');
+                    $('#parcelas').load('/Erp/Parcela/Parcelas?idPedido=' + $('#IdPedido').val());
+                } else {
+                    alert(data.error);
+                }
+            },
+            error: function (e) {
+                alert(e.error);
+            }
+        });
+    });
 </script>

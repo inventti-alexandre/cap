@@ -75,7 +75,7 @@ namespace Cap.Domain.Service.Cap
                 {
                     parcelas = parcelas.Where(x => x.Vencto >= inicial);
                 }
-                if (final != null)
+                if (final != DateTime.MinValue)
                 {
                     parcelas = parcelas.Where(x => x.Vencto <= final);
                 }

@@ -50,10 +50,10 @@ namespace Cap.Domain.Service.Cap
             item.Observ = string.IsNullOrEmpty(item.Observ) ? "" : item.Observ.ToUpper().Trim();
             item.AlteradoEm = DateTime.Now;
 
-            if (repository.Listar().Where(x => x.IdEmpresa == item.IdEmpresa && x.Favorecido == item.Favorecido && x.Conta == item.Conta && x.Agencia == item.Agencia && x.Poupanca == item.Poupanca && x.Id != item.Id).Count() > 0)
-            {
-                throw new ArgumentException("Já existe um favorecido cadastrado nesta conta e agência");
-            }
+            //if (repository.Listar().Where(x => x.IdEmpresa == item.IdEmpresa && x.Favorecido == item.Favorecido && x.Conta == item.Conta && x.Agencia == item.Agencia && x.Poupanca == item.Poupanca && x.Id != item.Id).Count() > 0)
+            //{
+            //    throw new ArgumentException("Já existe um favorecido cadastrado nesta conta e agência");
+            //}
 
             if (item.Id == 0)
             {

@@ -3,7 +3,7 @@
 <table class="table table-condensed table-striped top20">
     <tr>
         <th>
-            #
+            @Html.DisplayNameFor(model => model.IdPedido)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Vencto)
@@ -39,7 +39,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.IdPedido)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Vencto)
@@ -78,6 +78,24 @@
     }
 
 </table>
+
+@if (ViewBag.ValorTotal != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"><strong>Total pesquisa:</strong></div>
+            <div class="col-md-2 text-right"><strong>@ViewBag.ValorTotal</strong></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><strong>Total pago:</strong></div>
+            <div class="col-md-2 text-right"><strong>@ViewBag.ValorPago</strong></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><strong>Total à pagar:</strong></div>
+            <div class="col-md-2 text-right"><strong>@ViewBag.ValorAPagar</strong></div>
+        </div>
+    </div>
+}
 
 <div class="modal" id="modal">
 
