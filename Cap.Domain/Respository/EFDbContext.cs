@@ -48,9 +48,11 @@ namespace Cap.Domain.Respository
         public DbSet<GrupoLucro> GrupoLucro { get; set; }
         public DbSet<Indice> Indice { get; set; }
         public DbSet<IndVariacao> IndVariacao { get; set; }
+        public DbSet<Logistica> Logistica { get; set; }
         public DbSet<Material> Material { get; set; }
-        public DbSet<Moeda> Moeda { get; set; }
         public DbSet<MatGrupo> MatGrupo { get; set; }
+        public DbSet<Moeda> Moeda { get; set; }
+        public DbSet<Motorista> Motorista { get; set; }
         public DbSet<Parcela> Parcela { get; set; }
         public DbSet<Pedido> Pedido { get; set; }
         public DbSet<Pgto> Pgto { get; set; }
