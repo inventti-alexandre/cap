@@ -27,6 +27,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             var idEmpresa = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
 
             var moedas = service.Listar()
+                .OrderBy(x => x.Descricao)
                 .Where(x => x.IdEmpresa == idEmpresa)
                 .ToList();
 
