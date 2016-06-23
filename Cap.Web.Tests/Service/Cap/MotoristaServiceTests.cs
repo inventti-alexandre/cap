@@ -54,15 +54,15 @@ namespace Cap.Domain.Service.Cap.Tests
         public void FindTest()
         {
             // Arrange
-            string nome;
+            Motorista motorista;
             Usuario usuario = serviceUsuario.Find(2);
 
             // Act
-            nome = service.Find(1).Usuario.Nome;
+            motorista = service.Find(1);
 
             // Assert
-            Assert.IsNotNull(nome);
-            Assert.IsTrue(usuario.Nome == nome);
+            Assert.IsNotNull(motorista);
+            Assert.IsTrue(usuario.Nome == motorista.Usuario.Nome);
         }
     }
 }

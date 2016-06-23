@@ -44,7 +44,7 @@ namespace Cap.Domain.Service.Cap
         {
             item.AlteradoEm = DateTime.Now;
 
-            if (repository.Listar().Where(x => x.UsuarioId == item.UsuarioId).Count() > 0)
+            if (repository.Listar().Where(x => x.UsuarioId == item.UsuarioId && x.Id != item.Id).Count() > 0)
             {
                 throw new ArgumentException("Motorista já cadastrado");
             }

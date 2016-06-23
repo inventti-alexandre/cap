@@ -55,6 +55,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<Material>>().To<MaterialService>();
             kernel.Bind<IBaseService<MatGrupo>>().To<MatGrupoService>();
             kernel.Bind<IBaseService<Moeda>>().To<MoedaService>();
+            kernel.Bind<IBaseService<Motorista>>().To<MotoristaService>();
             kernel.Bind<IBaseService<Parcela>>().To<ParcelaService>();
             kernel.Bind<IBaseService<Pedido>>().To<PedidoService>();
             kernel.Bind<IBaseService<Pgto>>().To<PgtoService>();

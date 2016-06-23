@@ -1,24 +1,24 @@
 ﻿using Cap.Domain.Service.Admin;
-using Cap.Domain.Service.Requisicao;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace Cap.Web.Common.Bind
 {
-    public static class BindUnidadeHelper
+    public static class BindUsuarioHelper
     {
-        public static MvcHtmlString SelectUnidade(this HtmlHelper html, int idUnidade = 0, bool selecione = false)
+        public static MvcHtmlString SelectUsuario(this HtmlHelper html, int idUsuario, bool selecione = false, string tagId = "IdUsuario", bool soAtivos = false)
         {
             var idEmpresa = new UsuarioService().GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
-            var unidades = new UnidadeService().Listar()
-                .Where(x => x.IdEmpresa == idEmpresa)
-                .OrderBy(x => x.Descricao)
+            var usuarios = new UsuarioService().Listar()
+                .Where(x => x.IdEmpresa == idEmpresa &&
+                (soAtivos == false || (x.Ativo == soAtivos)))
+                .OrderBy(x => x.Nome)
                 .ToList();
 
             TagBuilder tag = new TagBuilder("select");
-            tag.MergeAttribute("id", "IdUnidade");
-            tag.MergeAttribute("name", "IdUnidade");
+            tag.MergeAttribute("id", tagId);
+            tag.MergeAttribute("name", tagId);
             tag.MergeAttribute("class", "form-control");
 
             if (selecione == true)
@@ -29,17 +29,18 @@ namespace Cap.Web.Common.Bind
                 tag.InnerHtml += itemSel.ToString();
             }
 
-            foreach (var item in unidades)
+            foreach (var item in usuarios)
             {
                 TagBuilder itemTag = new TagBuilder("option");
                 itemTag.MergeAttribute("value", item.Id.ToString());
-                if (item.Id == idUnidade)
+                if (item.Id == idUsuario)
                 {
                     itemTag.MergeAttribute("selected", "selected");
                 }
-                itemTag.SetInnerText(item.Descricao);
+                itemTag.SetInnerText(item.Nome);
                 tag.InnerHtml += itemTag.ToString();
             }
+
             return new MvcHtmlString(tag.ToString());
         }
     }
