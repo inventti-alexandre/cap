@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Cap.Domain.Models.Cap.Logistica>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MotoristaId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Servico)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observ)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Motorista.Usuario.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Servico)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observ)
+        </td>
+        <td>
+            <a href="#" data-id="@item.Id" class="edit-logistica">Editar</a> |
+            <a href="#" data-id="@item.Id" class="details-logistica">Detalhes</a> |
+            <a href="#" data-id="@item.Id" class="delete-logistica">Excluir</a>
+        </td>
+    </tr>
+}
+
+</table>

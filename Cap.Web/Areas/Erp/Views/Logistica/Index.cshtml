@@ -1,0 +1,47 @@
+﻿@using Cap.Web.Common.Bind;
+@{
+    ViewBag.Title = "Logística";
+}
+
+<h2>Logística</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                Data: <input type="text" class="form-control datepicker" id="dataServico" required />
+            </div>
+            <div class="col-md-4">
+                Motorista: @Html.SelectMotorista(0, true, "idMotorista", true)
+            </div>
+            <div class="col-md-4">
+                <input type="button" id="search" value="Pesquisar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div id="logistica">
+
+</div>
+
+<script type="text/javascript">
+
+    $('#search').click(function () {
+        var self = $(this).closest('form').serialize();
+        $.ajax({
+            url: '/Erp/Logistica/GetLogisticaDia',
+            type: 'GET',
+            data: self,
+            datatype: 'json',
+            success: function (result) {
+                $('#logistica').html(result);
+            },
+            error: function (e) {
+                $('#logista').html(e.error);
+            }
+        });
+    });
+
+</script>

@@ -44,6 +44,7 @@ namespace Cap.Domain.Service.Cap
         {
             item.Observ = (string.IsNullOrEmpty(item.Observ) ? string.Empty : item.Observ.ToUpper().Trim());
             item.ConcluidoObserv = (string.IsNullOrEmpty(item.ConcluidoObserv) ? string.Empty : item.ConcluidoObserv.ToUpper().Trim());
+            item.AlteradoEm = DateTime.Now;
             if (item.DataServico < DateTime.Today.Date && item.Id == 0)
             {
                 throw new ArgumentException("Data do serviço inválida");

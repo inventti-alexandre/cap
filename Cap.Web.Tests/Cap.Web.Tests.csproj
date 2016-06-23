@@ -119,6 +119,7 @@
     <Compile Include="Service\Cap\GrupoFinanceiroServiceTests.cs" />
     <Compile Include="Service\Cap\GrupoLucroServiceTests.cs" />
     <Compile Include="Service\Cap\LiberacaoServiceTests.cs" />
+    <Compile Include="Service\Cap\LogisticaServiceTests.cs" />
     <Compile Include="Service\Cap\MaterialServiceTests.cs" />
     <Compile Include="Service\Cap\MatGrupoServiceTests.cs" />
     <Compile Include="Service\Cap\MoedaServiceTests.cs" />
