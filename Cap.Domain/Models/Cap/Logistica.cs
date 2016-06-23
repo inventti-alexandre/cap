@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cap.Domain.Models.Admin;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,9 +27,11 @@ namespace Cap.Domain.Models.Cap
 
         [Display(Name = "Serviço")]
         [Required(ErrorMessage = "Informe o serviço")]
+        [DataType(DataType.MultilineText)]
         public string Servico { get; set; }
 
         [Display(Name = "Observações")]
+        [DataType(DataType.MultilineText)]
         public string Observ { get; set; }
 
         [Display(Name = "Alterado por")]
@@ -51,10 +54,13 @@ namespace Cap.Domain.Models.Cap
         public int? ConcluidoPor { get; set; }
 
         [Display(Name = "Observações")]
+        [DataType(DataType.MultilineText)]
         public string ConcluidoObserv { get; set; }
 
         public virtual Motorista Motorista { get; set; }
 
         public virtual Empresa Empresa { get; set; }
+
+        public virtual Usuario Usuario { get; set; }
     }
 }

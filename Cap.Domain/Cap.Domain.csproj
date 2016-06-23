@@ -87,6 +87,7 @@
     <Compile Include="Abstract\Email\IEmail.cs" />
     <Compile Include="Abstract\Gen\IIndVariacaoCalculo.cs" />
     <Compile Include="Abstract\IBaseService.cs" />
+    <Compile Include="Abstract\ILogistica.cs" />
     <Compile Include="Common\NotEqualAttribute.cs" />
     <Compile Include="Models\Admin\Estado.cs" />
     <Compile Include="Models\Admin\EstadoCivil.cs" />

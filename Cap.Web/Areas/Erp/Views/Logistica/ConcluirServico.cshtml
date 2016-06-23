@@ -1,0 +1,129 @@
+﻿@model Cap.Domain.Models.Cap.Logistica
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Logística - concluir serviço</h4>
+        </div>
+        <div class="modal-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.EmpresaId)
+                    @Html.HiddenFor(model => model.UsuarioId)
+                    @Html.HiddenFor(model => model.AlteradoEm)
+                    @Html.HiddenFor(model => model.DataServico)
+                    @Html.HiddenFor(model => model.Observ)
+                    @Html.HiddenFor(model => model.Ativo)
+                    @Html.HiddenFor(model => model.Concluido)
+                    @Html.HiddenFor(model => model.Ativo)
+                    @Html.HiddenFor(model => model.ConcluidoPor)
+                    @Html.HiddenFor(model => model.MotoristaId)
+                    @Html.HiddenFor(model => model.Servico)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MotoristaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(model => model.Motorista.Usuario.Nome)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataServico, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @{ 
+                                var dataServico = Model.DataServico.ToShortDateString();
+                            }
+                            @Html.DisplayFor(model => dataServico)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Servico, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(model => model.Servico)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Observ, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(model => model.Observ)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DisplayFor(model => model.Usuario.Nome)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ConcluidoObserv, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ConcluidoObserv, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ConcluidoObserv, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="Concluir" id="close-service" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#close-service').click(function () {
+        var self = $(this).closest('form').serialize();
+        var dia = $('#DataServico').val();
+        $.ajax({
+            url: '/Erp/Logistica/ConcluirServico/',
+            type: 'POST',
+            data: self,
+            datatype: 'json',
+            success: function (result) {
+                if (result.success == true) {
+                    $('#modal').modal('hide');
+                    getLogisticaDia(dia);
+                } else {
+                    $('#modal').html(result);
+                }
+            },
+            error: function (e) {
+                $('#modal').html(e);
+            }
+        });
+    });
+
+    function getLogisticaDia(dia) {
+        $.ajax({
+            url: '/Erp/Logistica/GetLogisticaDia',
+            type: 'GET',
+            data: { 'dataServico': dia },
+            datatype: 'json',
+            success: function (result) {
+                $('#logistica').html(result);
+            },
+            error: function (e) {
+                $('#logista').html(e.error);
+            }
+        });
+    };
+</script>

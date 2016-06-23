@@ -6,13 +6,72 @@ using System.Linq;
 
 namespace Cap.Domain.Service.Cap
 {
-    public class LogisticaService: IBaseService<Logistica>
+    public class LogisticaService: IBaseService<Logistica>, ILogistica
     {
         private IBaseRepository<Logistica> repository;
 
         public LogisticaService()
         {
             repository = new EFRepository<Logistica>();
+        }
+
+        public void CancelarConclusao(int id)
+        {
+            try
+            {
+                var item = repository.Find(id);
+
+                if (item == null)
+                {
+                    throw new ArgumentException("Serviço inexistente");
+                }
+
+                item.Concluido = false;
+                item.ConcluidoEm = null;
+                item.ConcluidoObserv = null;
+                item.ConcluidoPor = null;
+
+                if (item.DataServico < DateTime.Today.Date)
+                {
+                    item.DataServico = DateTime.Today.Date;
+                }
+
+                repository.Alterar(item);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
+        }
+
+        public void Concluir(Logistica logistica)
+        {
+            try
+            {
+                if (logistica.Concluido == true)
+                {
+                    throw new ArgumentException($"Este serviço já estava concluído desde {logistica.ConcluidoEm}");
+                }
+
+                if (logistica.ConcluidoPor == null)
+                {
+                    throw new ArgumentException("Usuário inválido");
+                }
+
+                if (logistica.ConcluidoEm == null || logistica.ConcluidoEm >= DateTime.Today.Date.AddDays(1))
+                {
+                    logistica.ConcluidoEm = DateTime.Now;
+                }
+
+                logistica.Concluido = true;
+                logistica.ConcluidoObserv = (logistica.ConcluidoObserv == null ? null : logistica.ConcluidoObserv.ToUpper().Trim());
+
+                repository.Alterar(logistica);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
         }
 
         public Logistica Excluir(int id)
@@ -42,6 +101,7 @@ namespace Cap.Domain.Service.Cap
 
         public int Gravar(Logistica item)
         {
+            item.Servico = item.Servico.ToUpper().Trim();
             item.Observ = (string.IsNullOrEmpty(item.Observ) ? string.Empty : item.Observ.ToUpper().Trim());
             item.ConcluidoObserv = (string.IsNullOrEmpty(item.ConcluidoObserv) ? string.Empty : item.ConcluidoObserv.ToUpper().Trim());
             item.AlteradoEm = DateTime.Now;

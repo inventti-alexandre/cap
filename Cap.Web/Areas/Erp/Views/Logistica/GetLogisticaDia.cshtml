@@ -11,6 +11,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Observ)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Concluido)
+        </th>
         <th></th>
     </tr>
 
@@ -26,11 +29,61 @@
             @Html.DisplayFor(modelItem => item.Observ)
         </td>
         <td>
-            <a href="#" data-id="@item.Id" class="edit-logistica">Editar</a> |
+            @Html.DisplayFor(modelItem => item.Concluido)
+            @*<span class="glyphicon glyphicon-ok text-info" style="visibility: @(item.Concluido == true ? "visible" : "hidden")"></span>*@
+        </td>
+        <td>
+            <a href="#" data-id="@item.Id" class="edit-logistica" @(item.Concluido == true ? "disabled" : "")>Editar</a> |
             <a href="#" data-id="@item.Id" class="details-logistica">Detalhes</a> |
             <a href="#" data-id="@item.Id" class="delete-logistica">Excluir</a>
+            @if (item.Concluido == false)
+            {
+                @: | <a href="#" data-id="@item.Id" class="close-service">Concluir</a>
+            }
+            @if (item.Concluido == true)
+            {
+                @: | <a href="#" data-id="@item.Id" class="reopen-service">Cancelar conclusão</a>
+            }
         </td>
     </tr>
 }
 
 </table>
+
+<script type="text/javascript">
+
+    $('.edit-logistica').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Logistica/Edit/' + id, function() {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.details-logistica').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Logistica/Details/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.delete-logistica').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Logistica/Delete/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.close-service').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Logistica/ConcluirServico/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.reopen-service').click(function () {
+        $('#modal').load('Erp/Logistica/CancelarConclusao/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+</script>

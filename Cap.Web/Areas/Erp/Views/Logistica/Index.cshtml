@@ -10,25 +10,40 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                Data: <input type="text" class="form-control datepicker" id="dataServico" required />
+                Data: <input type="date" class="form-control datepicker" id="dataServico" value="@ViewBag.Date" required />
             </div>
             <div class="col-md-4">
                 Motorista: @Html.SelectMotorista(0, true, "idMotorista", true)
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 top20">
                 <input type="button" id="search" value="Pesquisar" class="btn btn-primary" />
             </div>
         </div>
     </div>
+    <p class="top20">
+        <a href="#" id="create">Novo agendamento</a>
+    </p>
 }
 
-<div id="logistica">
+<div id="logistica" class="top20">
+
+</div>
+
+<div class="modal" id="modal">
 
 </div>
 
 <script type="text/javascript">
 
+    $(document).ready(function () {
+        getLogistica();
+    });
+
     $('#search').click(function () {
+        getLogistica();
+    });
+
+    function getLogistica() {
         var self = $(this).closest('form').serialize();
         $.ajax({
             url: '/Erp/Logistica/GetLogisticaDia',
@@ -41,6 +56,12 @@
             error: function (e) {
                 $('#logista').html(e.error);
             }
+        });
+    }
+
+    $('#create').click(function () {
+        $('#modal').load('/Erp/Logistica/Create', function () {
+            $('#modal').modal('show');
         });
     });
 

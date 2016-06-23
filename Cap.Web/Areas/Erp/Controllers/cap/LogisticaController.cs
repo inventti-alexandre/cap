@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Cap.Web.Common;
-using Cap.Domain.Abstract;
-using Cap.Domain.Models.Cap;
+﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Models.Cap;
+using System;
+using System.Linq;
+using System.Net;
+using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
 {
@@ -15,11 +13,13 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
         private IBaseService<Logistica> service;
         private ILogin login;
+        private ILogistica serviceConclusao;
 
-        public LogisticaController(IBaseService<Logistica> service, ILogin login)
+        public LogisticaController(IBaseService<Logistica> service, ILogin login, ILogistica serviceConclusao)
         {
             this.service = service;
             this.login = login;
+            this.serviceConclusao = serviceConclusao;
         }
 
         // GET: Erp/Logistica
@@ -74,66 +74,188 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         // GET: Erp/Logistica/Create
         public ActionResult Create()
         {
-            return View();
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+
+            var logistica = new Logistica { DataServico = DateTime.Today.Date, EmpresaId = usuario.IdEmpresa, UsuarioId = usuario.Id };
+
+            return PartialView(logistica);
         }
 
         // POST: Erp/Logistica/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Logistica item)
         {
             try
             {
-                // TODO: Add insert logic here
+                item.AlteradoEm = DateTime.Now;
+                TryUpdateModel(item);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(item);
+                    return Json(new { success = true });
+                }
+
+                return PartialView(item);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return PartialView(item);
             }
         }
 
         // GET: Erp/Logistica/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var item = service.Find((int)id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(item);
         }
 
         // POST: Erp/Logistica/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Logistica item)
         {
             try
             {
-                // TODO: Add update logic here
+                item.AlteradoEm = DateTime.Now;
+                TryUpdateModel(item);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(item);
+                    return Json(new { success = true });
+                }
+
+                return PartialView(item);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return PartialView(item);
             }
         }
 
         // GET: Erp/Logistica/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var item = service.Find((int)id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(item);
         }
 
         // POST: Erp/Logistica/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                service.Excluir(id);
+                return Json(new { success = true });
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+
+                var item = service.Find(id);
+
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return PartialView(item);
+            }
+        }
+
+        // GET: Erp/Logistica/Concluir/5
+        public ActionResult ConcluirServico(int id)
+        {
+            var item = service.Find(id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            item.ConcluidoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return PartialView(item);
+        }
+
+        // POST: Erp/Logistica/Concluir/{logistica}
+        [HttpPost]
+        public ActionResult ConcluirServico(Logistica logistica)
+        {
+            try
+            {
+                serviceConclusao.Concluir(logistica);
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return PartialView(logistica);
+            }
+        }
+
+        // GET: Erp/Logistica/CancelarConclusao/5
+        public ActionResult CancelarConclusao(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var item = service.Find((int)id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(item);
+        }
+
+        // POST: Erp/Logistica/CancelarConclusao/5
+        [HttpPost]
+        public ActionResult CancelarConclusao(int id)
+        {
+            try
+            {
+                serviceConclusao.CancelarConclusao(id);
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                var item = service.Find(id);
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return PartialView(item);
             }
         }
     }
