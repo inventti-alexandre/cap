@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.ReqMaterial>
+
+<h2 class="top40">Insumos</h2>
+
+<p class="top20">
+    <a href="#" id="create-reqmaterial" data-id="@ViewBag.IdRequisicao">Incluir insumo</a>
+</p>
+
+<table class="table table-condensed table-striped top20">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdMaterial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Qtde)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observ)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Material.Descricao)
+        </td>
+        <td>
+            @{ 
+                string qtde = item.Qtde.ToString("n2");
+            }
+            @Html.DisplayFor(x => qtde)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observ)
+        </td>
+        <td>
+            <a href="#" data-id="@item.Id" class="edit-reqmaterial">Editar</a> |
+            <a href="#" data-id="@item.Id" class="details-reqmaterial">Detalhes</a> |
+            <a href="#" data-id="@item.Id" class="delete-reqmaterial">Excluir</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="modal" id="modal"></div>
+
+<script type="text/javascript">
+
+    $('#edit-reqmaterial').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/ReqMaterial/Edit/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('#details-reqmaterial').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/ReqMaterial/Details/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+    $('#delete-reqmaterial').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/ReqMaterial/Delete/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+</script>

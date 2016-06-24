@@ -10,13 +10,14 @@ namespace Cap.Domain.Models.Requisicao
 {
     public enum Situacao
     {
-        EmDigitacao,
-        Cotar,
-        EmCotacao,
-        Cotado,
-        Cancelada,
-        Aprovada,
-        Entregue
+        EmDigitacao = 0,
+        Cotar = 1,
+        EmCotacao = 2,
+        Cotado = 3,
+        Cancelada = 4,
+        Aprovada = 5,
+        Comprada = 6,
+        Entregue = 7
     }
 
     public class ReqRequisicao
@@ -38,13 +39,16 @@ namespace Cap.Domain.Models.Requisicao
 
         [Required(ErrorMessage ="Informe a data máxima para cotação")]
         [Display(Name = "Cotar até")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
         public DateTime CotarAte { get; set; }
 
         [Required(ErrorMessage ="Informe a data de entrega")]
         [Display(Name ="Entregar dia")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
         public DateTime EntregarDia { get; set; }
 
         [Display(Name ="Observações")]
+        [DataType(DataType.MultilineText)]
         public string Observ { get; set; }
 
         [Display(Name = "Entrega noturna")]
@@ -56,6 +60,7 @@ namespace Cap.Domain.Models.Requisicao
         public int IdCotadoPor { get; set; }
 
         [Display(Name = "Cotado em")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
         public DateTime? CotadoEm { get; set; }
 
         [Display(Name = "Liberado para compra")]
@@ -68,6 +73,7 @@ namespace Cap.Domain.Models.Requisicao
         public int IdLiberadoPor { get; set; }
 
         [Display(Name ="Observações da liberação")]
+        [DataType(DataType.MultilineText)]
         public string LiberadoObserv { get; set; }
 
         [NotMapped]

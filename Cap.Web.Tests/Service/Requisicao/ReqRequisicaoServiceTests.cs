@@ -1,4 +1,5 @@
-﻿using Cap.Domain.Abstract;
+﻿using Cap.Domain.Service.Requisicao;
+using Cap.Domain.Abstract;
 using Cap.Domain.Models.Requisicao;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -19,7 +20,7 @@ namespace Cap.Domain.Service.Requisicao.Tests
         public void ReqRequisicaoGravarTest()
         {
             // Arrange
-            var requisicao = new ReqRequisicao { CotarAte = new DateTime(2016, 5, 15), EntregarDia = new DateTime(2016, 5, 17), IdSolicitadoPor = 1, Observ = "teste", IdDepartamento =1, Situacao = Situacao.EmDigitacao };
+            var requisicao = new ReqRequisicao { CotarAte = new DateTime(2016, 5, 15), EntregarDia = new DateTime(2016, 5, 17), IdSolicitadoPor = 2, Observ = "teste", IdDepartamento = 1, Situacao = Situacao.EmDigitacao };
 
             // Act
             requisicao.Id = service.Gravar(requisicao);

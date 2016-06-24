@@ -1,0 +1,83 @@
+﻿@using Cap.Web.Common.Bind;
+@model Cap.Domain.Models.Requisicao.ReqRequisicao
+
+@{
+    ViewBag.Title = "Requisição";
+}
+
+<h2>Requisição</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="container">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.SolicitadoEm)
+        @Html.HiddenFor(model => model.SolicitadoPor)
+        @Html.HiddenFor(model => model.IdCotadoPor)
+        @Html.HiddenFor(model => model.CotadoEm)
+        @Html.HiddenFor(model => model.LiberadoParaCompra)
+        @Html.HiddenFor(model => model.LiberadoEm)
+        @Html.HiddenFor(model => model.IdLiberadoPor)
+        @Html.HiddenFor(model => model.LiberadoObserv)
+
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.IdDepartamento, htmlAttributes: new { @class = "control-label" })
+                @Html.SelectDepartamento(Model.IdDepartamento)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.CotarAte, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.CotarAte, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                @Html.ValidationMessageFor(model => model.CotarAte, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.SolicitadoEm, htmlAttributes: new { @class = "control-label" })<br />
+                @Html.DisplayFor(model => model.SolicitadoEm)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.EntregarDia, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.EntregarDia, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                @Html.ValidationMessageFor(model => model.EntregarDia, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Observ, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Observ, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Observ, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.EntregaNoturna)
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.EntregaNoturna)
+                    @Html.ValidationMessageFor(model => model.EntregaNoturna, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="button" value="Gravar" id="save-requisicao" data-id="@Model.Id" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+}
+
+<div id="materiais">
+
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        bindMateriais(@Model.Id);
+    });
+
+    function bindMateriais(id) {
+        $('#materiais').load('/Erp/ReqMaterial/Index/' + id);
+    }
+</script>
