@@ -24,7 +24,6 @@
                     @Html.HiddenFor(model => model.ConcluidoEm)
                     @Html.HiddenFor(model => model.ConcluidoPor)
                     @Html.HiddenFor(model => model.ConcluidoObserv)
-                    @Html.HiddenFor(model => model.DataServico)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.MotoristaId, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -75,13 +74,12 @@
 <script type="text/javascript">
 
     $('#save-logistica').click(function () {
-        var self = $(this).closest('form').serialize();
+        var self = $(this);
         var dia = $('#DataServico').val();
         $.ajax({
             url: '/Erp/Logistica/Edit/',
             type: 'POST',
-            data: self,
-            datatype: 'json',
+            data: self.closest('form').serialize(),
             success: function (result) {
                 if (result.success == true) {
                     $('#modal').modal('hide');
@@ -101,7 +99,6 @@
             url: '/Erp/Logistica/GetLogisticaDia',
             type: 'GET',
             data: { 'dataServico': dia },
-            datatype: 'json',
             success: function (result) {
                 $('#logistica').html(result);
             },

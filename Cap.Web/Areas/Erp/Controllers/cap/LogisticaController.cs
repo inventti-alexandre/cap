@@ -30,21 +30,23 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/Logistica/GetLogiticaDia/23-06-2016
-        public ActionResult GetLogisticaDia(DateTime? dataServico, int idMotorista = 0)
+        public ActionResult GetLogisticaDia(string dataServico = "", int idMotorista = 0)
         {
 
             try
             {
-                if (dataServico == null)
+                if (string.IsNullOrEmpty(dataServico))
                 {
-                    dataServico = DateTime.Today.Date;
+                    dataServico = DateTime.Today.Date.ToShortDateString();
                 }
 
                 var idEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
+                var dataPesquisa = Convert.ToDateTime(dataServico);
+
                 var logisticas = service.Listar()
                     .Where(x => x.EmpresaId == idEmpresa
-                            && x.DataServico == dataServico
+                            && x.DataServico == dataPesquisa
                             && (idMotorista == 0 || x.MotoristaId == idMotorista))
                     .ToList()
                     .OrderBy(x => x.Motorista.Usuario.Nome)
@@ -54,7 +56,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             }
             catch (Exception e)
             {
-                return Json(new { error = e.Message });
+                return Json(new { error = e.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 

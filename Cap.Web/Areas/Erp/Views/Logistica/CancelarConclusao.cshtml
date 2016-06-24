@@ -1,0 +1,157 @@
+﻿@model Cap.Domain.Models.Cap.Logistica
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Logística - cancelar conclusão de serviço</h4>
+        </div>
+        <div class="modal-body">
+
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MotoristaId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Motorista.Usuario.Nome)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DataServico)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DataServico)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Servico)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Servico)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Observ)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Observ)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UsuarioId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Usuario.Nome)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AlteradoEm)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AlteradoEm)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ativo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Ativo)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Concluido)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Concluido)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ConcluidoEm)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ConcluidoEm)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ConcluidoPor)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ConcluidoPorUsuario)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ConcluidoObserv)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ConcluidoObserv)
+                    </dd>
+
+                </dl>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="button" value="Cancelar conclusão" id="reopen-service" data-id="@Model.Id" class="btn btn-danger" />
+                </div>
+            </div>
+
+        </div>
+        <div class="top20"><br /></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#reopen-service').click(function () {
+        var id = $(this).attr('data-id');
+        var dia = $('#DataService').val();
+        $.ajax({
+            url: '/Erp/Logistica/CancelarConclusao/',
+            type: 'POST',
+            data: { 'id': id },
+            datatype: 'json',
+            success: function (result) {
+                if (result.success == true) {
+                    $('#modal').modal('hide');
+                    getLogisticaDia(dia);
+                } else {
+                    $('#modal').html(result);
+                }
+            },
+            error: function (e) {
+                $('#modal').html(e.error);
+            }
+        });
+    });
+
+    function getLogisticaDia(dia) {
+        $.ajax({
+            url: '/Erp/Logistica/GetLogisticaDia',
+            type: 'GET',
+            data: { 'dataServico': dia },
+            datatype: 'json',
+            success: function (result) {
+                $('#logistica').html(result);
+            },
+            error: function (e) {
+                $('#logista').html(e.error);
+            }
+        });
+    };
+
+</script>

@@ -9,8 +9,8 @@
 {
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                Data: <input type="date" class="form-control datepicker" id="dataServico" value="@ViewBag.Date" required />
+            <div class="col-md-2">
+                Data: <input type="text" class="form-control datepicker" id="dataServico" value="@ViewBag.Date" required />
             </div>
             <div class="col-md-4">
                 Motorista: @Html.SelectMotorista(0, true, "idMotorista", true)
@@ -44,11 +44,12 @@
     });
 
     function getLogistica() {
-        var self = $(this).closest('form').serialize();
+        var dataServico = $('#dataServico').val();
+        var idMotorista = $('#idMotorista').val();
         $.ajax({
             url: '/Erp/Logistica/GetLogisticaDia',
             type: 'GET',
-            data: self,
+            data: { 'dataServico': dataServico, 'idMotorista': idMotorista },
             datatype: 'json',
             success: function (result) {
                 $('#logistica').html(result);

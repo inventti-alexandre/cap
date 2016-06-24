@@ -81,7 +81,8 @@
     });
 
     $('.reopen-service').click(function () {
-        $('#modal').load('Erp/Logistica/CancelarConclusao/' + id, function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Logistica/CancelarConclusao/' + id, function () {
             $('#modal').modal('show');
         });
     });

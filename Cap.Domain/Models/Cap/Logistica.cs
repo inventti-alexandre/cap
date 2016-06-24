@@ -1,4 +1,5 @@
 ﻿using Cap.Domain.Models.Admin;
+using Cap.Domain.Service.Admin;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,8 +14,8 @@ namespace Cap.Domain.Models.Cap
         [Key]
         public int Id { get; set; }
 
-        [Display(Name ="Empresa")]
-        [Range(1,double.MaxValue, ErrorMessage ="Empresa inválida")]
+        [Display(Name = "Empresa")]
+        [Range(1, double.MaxValue, ErrorMessage = "Empresa inválida")]
         public int EmpresaId { get; set; }
 
         [Display(Name = "Motorista")]
@@ -62,5 +63,17 @@ namespace Cap.Domain.Models.Cap
         public virtual Empresa Empresa { get; set; }
 
         public virtual Usuario Usuario { get; set; }
+
+        public virtual string ConcluidoPorUsuario
+        {
+            get
+            {
+                if (ConcluidoPor == null)
+                {
+                    return string.Empty;
+                }
+                return new UsuarioService().Find((int)ConcluidoPor).Nome;
+            }
+        }
     }
 }
