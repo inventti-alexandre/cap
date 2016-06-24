@@ -26,7 +26,7 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
             ViewBag.IdUsuario = id;
             ViewBag.Nome = serviceUsuario.Find(id).Nome;
 
-            return View(service.GetRegras(id));
+            return View(service.GetRegras(id).ToList().OrderBy(x => x.SistemaTela.Descricao));
         }
 
         // POST: Erp/Acesso

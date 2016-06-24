@@ -53,10 +53,10 @@ namespace Cap.Domain.Service.Gen
             item.Observ = string.IsNullOrEmpty(item.Observ) ? string.Empty : item.Observ;
             item.AlteradoEm = DateTime.Now;
 
-            if (repository.Listar().Where(x => x.Nome == item.Nome && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
-            {
-                throw new ArgumentException("Nome já cadastrado");
-            }
+            //if (repository.Listar().Where(x => x.Nome == item.Nome && x.IdEmpresa == item.IdEmpresa && x.Id != item.Id).Count() > 0)
+            //{
+            //    throw new ArgumentException("Nome já cadastrado");
+            //}
 
             if (item.Id == 0)
             {
