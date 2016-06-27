@@ -1,15 +1,13 @@
 ﻿@using Cap.Web.Common.Bind;
 @model Cap.Domain.Models.Requisicao.ReqMaterial
 
-
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title">Requisição - Novo insumo</h4>
+            <h4 class="modal-title">Requisição - Insumo</h4>
         </div>
         <div class="modal-body">
-
 
             @using (Html.BeginForm())
             {
@@ -17,13 +15,15 @@
 
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
                     @Html.HiddenFor(model => model.IdReqRequisicao)
+                    @Html.HiddenFor(model => model.Ativo)
                     @Html.HiddenFor(model => model.AlteradoPor)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.IdMaterial, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.SelectMaterial(Model.IdMaterial, true)
+                            @Html.SelectMaterial(Model.IdMaterial)
                         </div>
                     </div>
 
@@ -45,7 +45,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="button" value="Gravar" id="add-insumo" class="btn btn-primary" />
+                            <input type="button" value="Gravar" id="save-insumo" data-id="@Model.Id" class="btn btn-primary" />
                         </div>
                     </div>
                 </div>
@@ -59,10 +59,10 @@
 
 <script type="text/javascript">
 
-    $('#add-insumo').click(function () {
+    $('#save-insumo').click(function () {
         var self = $(this);
         $.ajax({
-            url: '/Erp/ReqMaterial/Create/',
+            url: '/Erp/ReqMaterial/Edit/',
             type: 'POST',
             data: self.closest('form').serialize(),
             success: function (result) {
@@ -76,10 +76,10 @@
             error: function (e) {
                 $('#modal').html(e);
             }
-        })
+        });
     });
 
-    function bindMateriais(id) {
+    function findMateriais(id) {
         $('#materiais').load('/Erp/ReqMaterial/Index/' + id);
     };
 

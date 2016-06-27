@@ -1,0 +1,159 @@
+﻿@model Cap.Domain.Models.Requisicao.ReqRequisicao
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Requisição - Insumo</h4>
+        </div>
+        <div class="modal-body">
+
+            <h4 class="text-danger">Confirma a exclusão desta requisição?</h4>
+
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdDepartamento)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Departamento.Descricao)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SolicitadoEm)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SolicitadoEm)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdSolicitadoPor)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IdSolicitadoPor)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CotarAte)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CotarAte)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EntregarDia)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EntregarDia)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Observ)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Observ)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EntregaNoturna)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EntregaNoturna)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdCotadoPor)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CotadoPor.Nome)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CotadoEm)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CotadoEm)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LiberadoParaCompra)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LiberadoParaCompra)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LiberadoEm)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LiberadoEm)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IdLiberadoPor)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LiberadoPor.Nome)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LiberadoObserv)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LiberadoObserv)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="button" value="Excluir" data-id="@Model.Id" id="delete-requisicao" class="btn btn-danger" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+    $('#delete-requisicao').click(function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/Erp/Requisicao/Delete/',
+            type: 'POST',
+            data: { 'id': id },
+            success: function (result) {
+                if (result.success == true) {
+                    alert('Requisição excluída');
+                    location.href='/Erp/Requisicao';
+                } else {
+                    $('#modal').html(result);
+                }
+            },
+            error: function (e) {
+                $('#modal').html(e);
+            }
+        });
+    });
+
+</script>

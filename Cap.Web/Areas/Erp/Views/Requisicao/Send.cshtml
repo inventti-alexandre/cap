@@ -1,0 +1,40 @@
+﻿@Model int
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Enviar requisição</h4>
+        </div>
+        <div class="modal-body">
+            <h4>Confirma o envio desta requisição ao departamento de compras?</h4>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+            <button type="button" id="confirma-envio" data-id="@Model" class="btn btn-primary">Enviar</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#confirma-envio').click(function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/Erp/Requisicao/Send/',
+            type: 'POST',
+            data: { 'id': id },
+            success: function (result) {
+                if (result.success == true) {
+                    $('#modal').modal('hide');
+                    location.href = '/Erp/Requisicao/Enviada/' + id;
+                } else {
+                    $('#modal').html(result);
+                }
+            },
+            error: function (e) {
+                $('#modal').html(e);
+            }
+        });
+    });
+</script>

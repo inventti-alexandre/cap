@@ -45,7 +45,7 @@ namespace Cap.Domain.Service.Requisicao
             item.Observ = string.IsNullOrEmpty(item.Observ) ? string.Empty : item.Observ.ToUpper().Trim();
             item.AlteradoEm = DateTime.Now;
 
-            if (repository.Listar().Where(x => x.IdMaterial == item.IdMaterial && x.IdReqRequisicao == item.IdReqRequisicao && x.Id != item.Id).Count() > 0)
+            if (repository.Listar().Where(x => x.IdMaterial == item.IdMaterial && x.IdReqRequisicao == item.IdReqRequisicao && x.Id != item.Id && x.Observ == item.Observ).Count() > 0)
             {
                 throw new ArgumentException("Material já cadastrado nesta requisição");
             }

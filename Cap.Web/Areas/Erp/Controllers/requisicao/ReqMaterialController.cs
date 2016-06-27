@@ -4,6 +4,7 @@ using Cap.Domain.Models.Requisicao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -78,46 +79,86 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         }
 
         // GET: Erp/ReqMaterial/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var item = service.Find((int)id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            item.AlteradoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return PartialView(item);
         }
 
         // POST: Erp/ReqMaterial/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ReqMaterial item)
         {
             try
             {
-                // TODO: Add update logic here
+                item.AlteradoEm = DateTime.Now;
+                TryUpdateModel(item);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(item);
+                    return Json(new { success = true, id = item.IdReqRequisicao });
+                }
+
+                return PartialView(item);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return PartialView(item);
             }
         }
 
         // GET: Erp/ReqMaterial/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var item = service.Find((int)id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(item);
         }
 
         // POST: Erp/ReqMaterial/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                var item = service.Excluir(id);
+                return Json(new { success = true, id = item.IdReqRequisicao });
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                var item = service.Find(id);
+
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+
+                ModelState.AddModelError(string.Empty, e.Message);
+                return PartialView(e);
             }
         }
 

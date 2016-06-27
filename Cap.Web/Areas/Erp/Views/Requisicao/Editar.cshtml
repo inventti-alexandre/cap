@@ -7,21 +7,26 @@
 
 <h2>Requisição</h2>
 
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info">@ViewBag.Message</div>
+}
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="container">
+    <div class="container top20">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.SolicitadoEm)
-        @Html.HiddenFor(model => model.SolicitadoPor)
         @Html.HiddenFor(model => model.IdCotadoPor)
         @Html.HiddenFor(model => model.CotadoEm)
         @Html.HiddenFor(model => model.LiberadoParaCompra)
         @Html.HiddenFor(model => model.LiberadoEm)
         @Html.HiddenFor(model => model.IdLiberadoPor)
         @Html.HiddenFor(model => model.LiberadoObserv)
+        @Html.HiddenFor(model => model.IdSolicitadoPor)
 
         <div class="row">
             <div class="col-md-4">
@@ -60,7 +65,8 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <input type="button" value="Gravar" id="save-requisicao" data-id="@Model.Id" class="btn btn-primary" />
+                @*<input type="button" value="Gravar" id="save-edit-requisicao" data-id="@Model.Id" class="btn btn-primary" />*@
+                <input type="submit" value="Gravar" class="btn btn-primary" />
             </div>
         </div>
 
@@ -79,5 +85,6 @@
 
     function bindMateriais(id) {
         $('#materiais').load('/Erp/ReqMaterial/Index/' + id);
-    }
+    };
+
 </script>

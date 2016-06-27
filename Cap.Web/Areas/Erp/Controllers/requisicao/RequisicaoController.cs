@@ -5,6 +5,7 @@ using Cap.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -26,12 +27,6 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         public ActionResult Index()
         {
             // TODO: painel de controle das requisicoes
-            return View();
-        }
-
-        // GET: Erp/Requisicao/Details/5
-        public ActionResult Details(int id)
-        {
             return View();
         }
 
@@ -65,69 +60,123 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         }
 
         // GET: Erp/Requisicao/Editar/5
-        public ActionResult Editar(int id)
+        public ActionResult Editar(int? id)
         {
-            try
+            if (id == null)
             {
-                ReqRequisicao requisicao = service.Find(id);
-
-                if (requisicao == null)
-                {
-                    return HttpNotFound();
-                }
-
-                return View(requisicao);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            catch (Exception e)
+
+            var item = service.Find((int)id);
+
+            if (item == null)
             {
-                ModelState.AddModelError(string.Empty, e.Message);
-                ReqRequisicao requisicao = service.Find(id);
-
-                if (requisicao == null)
-                {
-                    return HttpNotFound();
-                }
-
-                return View(requisicao);
+                return HttpNotFound();
             }
+
+            return View(item);
         }
 
         // POST: Erp/Requisicao/Editar/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Editar(ReqRequisicao item)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(item);
+                    ViewBag.Message = "Requisição gravada";
+                    return View(item);
+                }
 
-                return RedirectToAction("Index");
+                string modelErrors = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+
+                if (modelErrors.Count() > 0)
+                {
+                    ViewBag.Message = modelErrors;
+                }
+                
+                return View(item);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                string modelErrors = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+
+                ViewBag.Message = modelErrors;
+                return View(e);
             }
         }
 
         // GET: Erp/Requisicao/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var item = service.Find((int)id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(item);
         }
 
         // POST: Erp/Requisicao/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                service.Excluir(id);
+                return Json(new { success = true, id = id });
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                var item = service.Find(id);
+
+                if (item == null)
+                {
+                    return HttpNotFound();
+                }
+
+                ModelState.AddModelError(string.Empty, e.Message);
+                return PartialView(e);
             }
+        }
+
+        // GET: Erp/Requisicao/Send/5
+        public ActionResult Send(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var item = service.Find((int)id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(id);
+        }
+
+        // POST: Erp/Requisicao/Send/5
+        [HttpPost]
+        public ActionResult Send(int id)
+        {
+            return PartialView(id);
         }
     }
 }

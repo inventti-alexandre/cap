@@ -52,14 +52,20 @@
 
 <div class="modal" id="modal"></div>
 
+@if (Model.Count() > 0)
+{
+    <input type="button" value="Excluir requisição" data-id="@ViewBag.IdRequisicao" id="delete-requisicao" class="btn btn-danger" />
+    <input type="button" value="Enviar requisição" data-id="@ViewBag.IdRequisicao" id="send-requisicao" class="btn btn-primary" />
+}
+
 <script type="text/javascript">
 
     $('#create-reqmaterial').click(function () {
-        var id = $(this).attr('data-id');
+    var id = $(this).attr('data-id');
         $('#modal').load('/Erp/ReqMaterial/Create/' + id, function () {
             $('#modal').modal('show');
-        });
     });
+});
 
     $('.edit-reqmaterial').click(function () {
         var id = $(this).attr('data-id');
@@ -74,9 +80,24 @@
             $('#modal').modal('show');
         });
     });
+
     $('.delete-reqmaterial').click(function () {
         var id = $(this).attr('data-id');
         $('#modal').load('/Erp/ReqMaterial/Delete/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('#send-requisicao').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Requisicao/Send/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('#delete-requisicao').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Requisicao/Delete/' + id, function () {
             $('#modal').modal('show');
         });
     });
