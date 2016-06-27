@@ -52,6 +52,7 @@ namespace Cap.Domain.Service.Requisicao
 
             if (item.Id == 0)
             {
+                item.Ativo = true;
                 return repository.Incluir(item).Id;
             }
 

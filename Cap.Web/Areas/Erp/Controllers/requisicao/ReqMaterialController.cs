@@ -24,10 +24,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         // GET: Erp/ReqMaterial/5
         public ActionResult Index(int id)
         {
-            var itens = service.Listar()
-                .Where(x => x.IdReqRequisicao == id)
-                .OrderBy(x => x.Id)
-                .AsEnumerable();
+            var itens = getItens(id);
 
             ViewBag.IdRequisicao = id;
             return PartialView(itens);
@@ -36,28 +33,47 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         // GET: Erp/ReqMaterial/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var item = service.Find(id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(item);
         }
 
         // GET: Erp/ReqMaterial/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+
+            var item = new ReqMaterial { AlteradoPor = usuario.Id, IdReqRequisicao = id };
+
+            return PartialView(item);
         }
 
         // POST: Erp/ReqMaterial/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ReqMaterial item)
         {
             try
             {
-                // TODO: Add insert logic here
+                item.AlteradoEm = DateTime.Now;
+                TryUpdateModel(item);
 
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    service.Gravar(item);
+                    return Json(new { success = true, id = item.IdReqRequisicao });
+                }
+
+                return PartialView(item);
             }
-            catch
+            catch (ArgumentException e)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, e.Message);
+                return PartialView(item);
             }
         }
 
@@ -103,6 +119,14 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             {
                 return View();
             }
+        }
+
+        private List<ReqMaterial> getItens(int idReqRequisicao)
+        {
+            return service.Listar()
+                .Where(x => x.IdReqRequisicao == idReqRequisicao)
+                .OrderBy(x => x.Id)
+                .ToList();
         }
     }
 }

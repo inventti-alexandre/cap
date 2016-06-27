@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model.Qtde)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Material.IdUnidade)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Observ)
         </th>
         <th></th>
@@ -30,6 +33,9 @@
                 string qtde = item.Qtde.ToString("n2");
             }
             @Html.DisplayFor(x => qtde)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Material.Unidade.Descricao)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Observ)
@@ -48,20 +54,27 @@
 
 <script type="text/javascript">
 
-    $('#edit-reqmaterial').click(function () {
+    $('#create-reqmaterial').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/ReqMaterial/Create/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.edit-reqmaterial').click(function () {
         var id = $(this).attr('data-id');
         $('#modal').load('/Erp/ReqMaterial/Edit/' + id, function () {
             $('#modal').modal('show');
         });
     });
 
-    $('#details-reqmaterial').click(function () {
+    $('.details-reqmaterial').click(function () {
         var id = $(this).attr('data-id');
         $('#modal').load('/Erp/ReqMaterial/Details/' + id, function () {
             $('#modal').modal('show');
         });
     });
-    $('#delete-reqmaterial').click(function () {
+    $('.delete-reqmaterial').click(function () {
         var id = $(this).attr('data-id');
         $('#modal').load('/Erp/ReqMaterial/Delete/' + id, function () {
             $('#modal').modal('show');

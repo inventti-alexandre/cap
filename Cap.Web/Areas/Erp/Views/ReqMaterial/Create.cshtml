@@ -1,0 +1,86 @@
+﻿@using Cap.Web.Common.Bind;
+@model Cap.Domain.Models.Requisicao.ReqMaterial
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Requisição - Novo insumo</h4>
+        </div>
+        <div class="modal-body">
+
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.IdReqRequisicao)
+                    @Html.HiddenFor(model => model.AlteradoPor)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdMaterial, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.SelectMaterial(Model.IdMaterial, true)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Qtde, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Qtde, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Qtde, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Observ, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Observ, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Observ, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="Gravar" id="add-insumo" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#add-insumo').click(function () {
+        var self = $(this);
+        $.ajax({
+            url: '/Erp/ReqMaterial/Create/',
+            type: 'POST',
+            data: self.closest('form').serialize(),
+            success: function (result) {
+                if (result.success == true) {
+                    $('#modal').modal('hide');
+                    bindMateriais(result.id);
+                } else {
+                    $('#modal').html(result);
+                }
+            },
+            error: function (e) {
+                $('#modal').html(e);
+            }
+        })
+    });
+
+    function bindMateriais(id) {
+        $('#materiais').load('/Erp/ReqMaterial/Index/' + id);
+    }
+
+</script>
