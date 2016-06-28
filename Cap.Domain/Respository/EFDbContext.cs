@@ -33,9 +33,11 @@ namespace Cap.Domain.Respository
         public DbSet<Conta> Conta { get; set; }
         public DbSet<ContaFinanceira> ContaFinanceira { get; set; }
         public DbSet<ContaTipo> ContaTipo { get; set; }
+        public DbSet<CotFornecedor> CotFornecedor { get; set; }
+        public DbSet<CotGrupo> CotGrupo { get; set; }
         public DbSet<Departamento> Departamento { get; set; }
         public DbSet<Deposito> Deposito { get; set; }
-        public DbSet<EmailConfig> MyProperty { get; set; }
+        public DbSet<EmailConfig> EmailConfig { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
         public DbSet<Estado> Estado { get; set; }
         public DbSet<EstadoCivil> EstadoCivil { get; set; }

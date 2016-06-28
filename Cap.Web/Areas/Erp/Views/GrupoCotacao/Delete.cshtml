@@ -1,31 +1,31 @@
-﻿@model Cap.Domain.Models.Admin.SistemaRegra
+﻿@model Cap.Domain.Models.Requisicao.CotGrupo
 
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title">Excluir regra</h4>
+            <h4 class="modal-title">Excluir grupo de cotação</h4>
         </div>
         <div class="modal-body">
 
-            <h4 class="text-danger">Confirma a exclusão desta regra?</h4>
+            <h4 class="text-danger">Confirma a exclusão deste grupo de cotação?</h4>
 
             <div>
                 <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EmpresaId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EmpresaId)
+                    </dd>
+
                     <dt>
                         @Html.DisplayNameFor(model => model.Descricao)
                     </dt>
 
                     <dd>
                         @Html.DisplayFor(model => model.Descricao)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Sufixo)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Sufixo)
                     </dd>
 
                     <dt>
@@ -37,19 +37,19 @@
                     </dd>
 
                     <dt>
-                        @Html.DisplayNameFor(model => model.AlteradoPor)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Usuario.Nome)
-                    </dd>
-
-                    <dt>
                         @Html.DisplayNameFor(model => model.AlteradoEm)
                     </dt>
 
                     <dd>
                         @Html.DisplayFor(model => model.AlteradoEm)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UsuarioId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.UsuarioId)
                     </dd>
 
                 </dl>
@@ -59,7 +59,7 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-actions no-color">
-                        <input type="button" data-id='@Model.Id' value="Excluir" id="delete-role" class="btn btn-default delete-role" />
+                        <input type="submit" value="Delete" id="delete-grupo" data-id="@Model.Id" class="btn btn-danger" />
                     </div>
                 }
             </div>
@@ -72,22 +72,22 @@
 
 <script type="text/javascript">
 
-    $('#delete-role').click(function () {
-        
+    $('#delete-grupo').click(function () {
         var id = $(this).attr('data-id');
-
         $.ajax({
-            url: '/Erp/SistemaRegra/Delete',
+            url: '/Erp/GrupoCotacao/Delete/',
             type: 'POST',
             data: { 'id': id },
-            datatype: 'hjtml',
-            success: function (data) {
-                if (data.success == true) {
+            success: function (result) {
+                if (result.success == true) {
                     $('#modal').modal('hide');
                     location.reload(false);
                 } else {
-                    $('#modal').html(data);
+                    $('#modal').html(result);
                 }
+            },
+            error: function (e) {
+                $('#modal').html(e);
             }
         });
     });

@@ -1,11 +1,7 @@
 ﻿using Cap.Domain.Models.Admin;
 using Cap.Domain.Service.Admin;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cap.Domain.Models.Cap
 {
@@ -61,7 +57,7 @@ namespace Cap.Domain.Models.Cap
         public virtual Motorista Motorista { get; set; }
 
         public virtual Empresa Empresa { get; set; }
-
+        
         public virtual Usuario Usuario { get; set; }
 
         public virtual string ConcluidoPorUsuario

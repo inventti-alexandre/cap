@@ -1,0 +1,52 @@
+﻿@model Cap.Domain.Models.Requisicao.CotGrupo
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Grupo de cotação</h4>
+        </div>
+        <div class="modal-body">
+
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Descricao)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Descricao)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ativo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Ativo)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AlteradoEm)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AlteradoEm)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UsuarioId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Usuario.Nome)
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

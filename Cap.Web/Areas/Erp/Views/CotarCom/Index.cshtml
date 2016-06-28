@@ -1,0 +1,27 @@
+﻿@using Cap.Web.Common.Bind;
+@{
+    ViewBag.Title = "Cotar com";
+}
+
+<h2>Cotar com</h2>
+
+<div class="container top20">
+    <div class="row">
+        <div class="col-md-12">
+            Cotar com @Html.SelectCotGrupo((int)ViewBag.IdCotGrupo,true)
+        </div>
+    </div>
+</div>
+
+<div id="fornecedores" class="top20">
+
+</div>
+
+<script type="text/javascript">
+
+    $('#IdCotGrupo').click(function () {
+        var id = $(this).val();
+        $('#fornecedores').load('/Erp/CotaCom/Fornecedores/' + id);
+    });
+
+</script>

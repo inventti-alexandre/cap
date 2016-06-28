@@ -127,6 +127,8 @@
     <Compile Include="Models\Email\EmailConfig.cs" />
     <Compile Include="Models\Gen\Indice.cs" />
     <Compile Include="Models\Gen\IndVariacao.cs" />
+    <Compile Include="Models\Requisicao\CotFornecedor.cs" />
+    <Compile Include="Models\Requisicao\CotGrupo.cs" />
     <Compile Include="Models\Requisicao\Material.cs" />
     <Compile Include="Models\Requisicao\MatGrupo.cs" />
     <Compile Include="Models\Cap\Pgto.cs" />
@@ -178,6 +180,8 @@
     <Compile Include="Service\Email\EmailConfigService.cs" />
     <Compile Include="Service\Gen\IndiceService.cs" />
     <Compile Include="Service\Gen\IndVariacaoService.cs" />
+    <Compile Include="Service\Requisicao\CotFornecedorService.cs" />
+    <Compile Include="Service\Requisicao\CotGrupoService.cs" />
     <Compile Include="Service\Requisicao\MaterialService.cs" />
     <Compile Include="Service\Requisicao\MatGrupoService.cs" />
     <Compile Include="Service\Cap\PgtoService.cs" />

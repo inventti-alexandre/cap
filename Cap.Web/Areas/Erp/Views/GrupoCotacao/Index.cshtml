@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.CotGrupo>
+
+@{
+    ViewBag.Title = "Grupos de cotações";
+}
+
+<h2>Grupos de cotações</h2>
+
+<p class="top20">
+    <a href="#" id="new-grupo">Novo grupo</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            <a href="#" class="edit-grupo" data-id="@item.Id">Editar</a> |
+            <a href="#" class="details-grupo" data-id="@item.Id">Detalhes</a> |
+            <a href="#" class="delete-grupo" data-id="@item.Id">Excluir</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="modal" id="modal"></div>
+
+<script type="text/javascript">
+
+    $('.edit-grupo').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/GrupoCotacao/Edit/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.details-grupo').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/GrupoCotacao/Details/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.delete-grupo').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/GrupoCotacao/Delete/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('#new-grupo').click(function () {
+        $('#modal').load('/Erp/GrupoCotacao/Create/', function () {
+            $('#modal').modal('show');
+        });
+    });
+
+</script>

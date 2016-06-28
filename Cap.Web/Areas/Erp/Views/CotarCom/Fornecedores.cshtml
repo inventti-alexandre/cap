@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.CotFornecedor>
+
+<p>
+    <a href="#" id="add-for" data-id="@ViewBag.Id">Incluir fornecedor</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FornecedorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Fornecedor.Fantasia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            <a href="#" class="edit-for" data-id="@item.Id">Editar</a> |
+            <a href="#" class="details-for" data-id="@item.Id">Detalhes</a> |
+            <a href="#" class="delete-for" data-id="@item.Id">Excluir</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="modal" id="modal">
+</div>
+
+<script type="text/javascript">
+
+    $('.edit-for').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/CotarCom/Edit/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.details-for').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/CotarCom/Details/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.delete-for').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/CotarCom/Delete/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('#add-for').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/CotarCom/Create/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+</script>

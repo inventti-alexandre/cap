@@ -27,7 +27,7 @@
             success: function (result) {
                 if (result.success == true) {
                     $('#modal').modal('hide');
-                    location.href = '/Erp/Requisicao/Enviada/' + id;
+                    location.href = '/Erp/Requisicao/Send/' + id;
                 } else {
                     $('#modal').html(result);
                 }

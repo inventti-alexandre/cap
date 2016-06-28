@@ -154,8 +154,8 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             }
         }
 
-        // GET: Erp/Requisicao/Send/5
-        public ActionResult Send(int? id)
+        // GET: Erp/Requisicao/FinishEdit/5
+        public ActionResult FinishEdit(int? id)
         {
             if (id == null)
             {
@@ -173,10 +173,16 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         }
 
         // POST: Erp/Requisicao/Send/5
-        [HttpPost]
         public ActionResult Send(int id)
         {
-            return PartialView(id);
+            var item = service.Find(id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(item);
         }
     }
 }

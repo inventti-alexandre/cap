@@ -133,6 +133,8 @@
     <Compile Include="Service\Gen\AgendaServiceTests.cs" />
     <Compile Include="Service\Gen\AgendaTelefoneServiceTests.cs" />
     <Compile Include="Service\Gen\IndiceServiceTests.cs" />
+    <Compile Include="Service\Requisicao\CotFornecedorServiceTests.cs" />
+    <Compile Include="Service\Requisicao\CotGrupoServiceTests.cs" />
     <Compile Include="Service\Requisicao\ReqMaterialServiceTests.cs" />
     <Compile Include="Service\Requisicao\ReqRequisicaoServiceTests.cs" />
   </ItemGroup>
