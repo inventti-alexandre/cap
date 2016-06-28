@@ -182,6 +182,9 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 return HttpNotFound();
             }
 
+            item.Situacao = Situacao.Cotar;
+            service.Gravar(item);
+
             return View(item);
         }
     }

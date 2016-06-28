@@ -1,0 +1,103 @@
+﻿@model Cap.Domain.Models.Requisicao.CotFornecedor
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Incluir fornecedor</h4>
+        </div>
+        <div class="modal-body">
+
+            <h4 class="text-danger">Confirma a exclusão deste fornecedor neste grupo?</h4>
+
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CotGrupoId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Grupo.Descricao)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FornecedorId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Fornecedor.Fantasia)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ativo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Ativo)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AlteradoEm)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AlteradoEm)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UsuarioId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Usuario.Nome)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="button" value="Excluir" id="delete-cotarcom" data-id="@Model.Id" class="btn btn-danger" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+<script type="text/javascript">
+
+    $('#delete-cotarcom').click(function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/Erp/CotarCom/Delete/',
+            type: 'POST',
+            data: { 'id': id },
+            success: function (result) {
+                if (result.success == true) {
+                    $('#modal').modal('hide');
+                    $('#fornecedores').load('/Erp/CotarCom/Fornecedores?id=' + result.id);
+                } else {
+                    $('#modal').html(result);
+                }
+            },
+            error: function (e) {
+                $('#modal').html(e);
+            }
+        });
+    });
+
+</script>

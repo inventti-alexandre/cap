@@ -39,5 +39,8 @@ namespace Cap.Domain.Models.Requisicao
 
         [Display(Name ="Fornecedor")]
         public virtual Fornecedor Fornecedor { get; set; }
+
+        [Display(Name ="Grupo")]
+        public virtual CotGrupo Grupo { get; set; }
     }
 }

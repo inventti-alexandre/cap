@@ -1,0 +1,72 @@
+﻿@using Cap.Web.Common.Bind;
+@model Cap.Domain.Models.Requisicao.CotFornecedor
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Incluir fornecedor</h4>
+        </div>
+        <div class="modal-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.CotGrupoId)
+                    @Html.HiddenFor(model => model.UsuarioId)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FornecedorId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.SelectFornecedor(0, false, "FornecedorId")
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="Incluir" id="create-cotarcom" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+<script type="text/javascript">
+
+    $('#create-cotarcom').click(function () {
+        var self = $(this);
+        $.ajax({
+            url: '/Erp/CotarCom/Create/',
+            type: 'POST',
+            data: self.closest('form').serialize(),
+            success: function (result) {
+                if (result.success == true) {
+                    $('#fornecedores').load('/Erp/CotarCom/Fornecedores?id=' + result.id);
+                    $('#modal').modal('hide');
+                } else {
+                    $('#modal').html(result);
+                }
+            },
+            error: function (e) {
+                $('#modal').html(e);
+            }
+        })
+    });
+
+</script>

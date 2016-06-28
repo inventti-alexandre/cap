@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.CotFornecedor>
+
+@{ 
+    if (!string.IsNullOrEmpty((string)ViewBag.Message))
+    {
+        <div class="alert alert-info">
+            @ViewBag.Message
+        </div>
+    }
+}
+<table class="table table-condensed table-striped top20">
+    <tr>
+        <th>
+            Cotar Com
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FornecedorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <input type="checkbox" id="selecionado" name="selecionado" value="@item.Id" title="selecione para enviar cotação para este fornecedor" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fornecedor.Fantasia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="top20">
+    <input type="button" value="Enviar cotação" class="btn btn-primary" data-id="@ViewBag.IdRequisicao" id="enviar-cotacao" />
+</div>
+
+<script type="text/javascript">
+
+    $('#enviar-cotacao').click(function () {
+        var id = $(this).attr('data-id');
+        var n = $('input:checked').length;
+        if (n == 0) {
+            alert('Nenhum fornecedor selecionado');
+        } else {
+            var selecionados = new Array();
+            $('input:checked').each(function () {
+                selecionados.push($(this).val());
+            });
+
+            $.ajax({
+                url: '/Erp/CotarCom/EnviarCotacao/',
+                type: 'POST',
+                data: { 'selecionados': selecionados, 'idRequisicao': id },
+                success: function (result) {
+                    if (result.success == true) {
+                        // enviou requisicao para os fornecedores selecionados pelo usuario
+                        // TODO: enviar cotacao para os fornecedores selecionados
+                        // parei aki
+                    } else {
+                        alert(result);
+                    }
+                },
+                error: function (e) {
+                    alert(e);
+                }
+            });
+        }
+    });
+
+</script>

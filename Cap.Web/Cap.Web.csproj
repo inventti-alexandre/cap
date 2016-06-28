@@ -557,6 +557,13 @@
     <Content Include="Areas\Erp\Views\GrupoCotacao\Delete.cshtml" />
     <Content Include="Areas\Erp\Views\CotarCom\Index.cshtml" />
     <Content Include="Areas\Erp\Views\CotarCom\Fornecedores.cshtml" />
+    <Content Include="Areas\Erp\Views\CotarCom\Create.cshtml" />
+    <Content Include="Areas\Erp\Views\CotarCom\Details.cshtml" />
+    <Content Include="Areas\Erp\Views\CotarCom\Edit.cshtml" />
+    <Content Include="Areas\Erp\Views\CotarCom\Delete.cshtml" />
+    <Content Include="Areas\Erp\Views\Requisicao\Send.cshtml" />
+    <Content Include="Areas\Erp\Views\CotarCom\CotarCom.cshtml" />
+    <Content Include="Areas\Erp\Views\CotarCom\GetSelecaoFornecedores.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

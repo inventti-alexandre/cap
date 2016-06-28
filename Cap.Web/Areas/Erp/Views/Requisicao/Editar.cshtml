@@ -65,8 +65,8 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                @*<input type="button" value="Gravar" id="save-edit-requisicao" data-id="@Model.Id" class="btn btn-primary" />*@
                 <input type="submit" value="Gravar" class="btn btn-primary" />
+                <input type="button" value="Excluir requisição" data-id="@Model.Id" id="delete-all-requisicao" class="btn btn-danger" />
             </div>
         </div>
 
@@ -86,5 +86,12 @@
     function bindMateriais(id) {
         $('#materiais').load('/Erp/ReqMaterial/Index/' + id);
     };
+
+    $('#delete-all-requisicao').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Requisicao/Delete/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
 
 </script>

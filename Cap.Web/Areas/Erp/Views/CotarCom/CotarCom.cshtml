@@ -1,0 +1,24 @@
+﻿@using Cap.Web.Common.Bind;
+
+<div class="top20">
+    Grupo @Html.SelectCotGrupo(0, true)
+</div>
+
+<div id="cotarcom">
+
+</div>
+
+<script type="text/javascript">
+
+    $('#IdCotGrupo').change(function () {
+        var id = $(this).val();
+        if (parseInt(id) == 0) {
+            $('#cotarcom').hide();
+        } else {
+            $('#cotarcom').load('/Erp/CotarCom/GetSelecaoFornecedores?idCotGrupo=' + id + '&idRequisicao=' + @ViewBag.IdRequisicao, function() {
+                $('#cotarcom').show();
+            });
+        }
+    });
+
+</script>

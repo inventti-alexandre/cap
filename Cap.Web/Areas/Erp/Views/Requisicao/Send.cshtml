@@ -1,0 +1,77 @@
+﻿@model Cap.Domain.Models.Requisicao.ReqRequisicao
+
+@{
+    ViewBag.Title = "Requisição";
+}
+
+<h2>Requisição</h2>
+
+<div>
+    <h4>Requisição</h4>
+    <p class="text-info">Já definida como requisição à cotar/comprar</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.IdDepartamento, htmlAttributes: new { @class = "control-label" })
+            @Html.DisplayFor(model => model.Departamento.Descricao)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.CotarAte, htmlAttributes: new { @class = "control-label" })
+            @Html.DisplayFor(model => model.CotarAte)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.SolicitadoEm, htmlAttributes: new { @class = "control-label" })<br />
+            @Html.DisplayNameFor(model => model.SolicitadoEm)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.EntregarDia, htmlAttributes: new { @class = "control-label" })
+            @Html.DisplayFor(model => model.EntregarDia)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.Observ, htmlAttributes: new { @class = "control-label" })
+            @Html.DisplayFor(model => model.Observ)
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.EntregaNoturna)
+            <div class="checkbox">
+                @Html.DisplayFor(model => model.EntregaNoturna)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- cotar com -->
+            <div class="panel panel-info">
+                <div class="panel panel-heading">Cotar com</div>
+                <div class="panel-body">
+                    @{
+                        Html.RenderAction("CotarCom", "CotarCom", new { idRequisicao = Model.Id });
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <!-- enviar por email para -->
+            <div class="panel panel-info">
+                <div class="panel panel-heading">Enviar por email</div>
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <!-- imprimir -->
+            <div class="panel panel-info">
+                <div class="panel panel-heading">Imprimir</div>
+                <div class="panel-body">
+                    <input type="button" value="Imprimir" id="print-requisicao" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

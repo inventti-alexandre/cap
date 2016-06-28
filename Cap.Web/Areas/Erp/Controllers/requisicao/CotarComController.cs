@@ -69,7 +69,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 if (ModelState.IsValid)
                 {
                     service.Gravar(item);
-                    return Json(new { success = true });
+                    return Json(new { success = true, id = item.CotGrupoId });
                 }
 
                 return PartialView(item);
@@ -112,7 +112,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 if (ModelState.IsValid)
                 {
                     service.Gravar(item);
-                    return Json(new { success = true });
+                    return Json(new { success = true, id = item.CotGrupoId });
                 }
 
                 return PartialView(item);
@@ -149,8 +149,8 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         {
             try
             {
-                service.Excluir(id);
-                return Json(new { success = true });
+                var item = service.Excluir(id);
+                return Json(new { success = true, id = item.UsuarioId });
             }
             catch (ArgumentException e)
             {
@@ -164,6 +164,34 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 ModelState.AddModelError(string.Empty, e.Message);
                 return PartialView(item);
             }
+        }
+
+        // GET: Erp/CotarCom/CotarCom/5
+        public ActionResult CotarCom(int idRequisicao)
+        {
+            ViewBag.IdRequisicao = idRequisicao;
+            return PartialView();
+        }
+
+        // GET: Erp/CotarCom/GetSelecaoFornecedores
+        public ActionResult GetSelecaoFornecedores(int idCotGrupo, int idRequisicao)
+        {
+            var fornecedores = service.Listar()
+                .Where(x => x.CotGrupoId == idCotGrupo && x.Ativo == true)
+                .OrderBy(x => x.Fornecedor.Fantasia)
+                .ToList();
+
+            ViewBag.IdCotGrupo = idCotGrupo;
+            ViewBag.IdRequisicao = idRequisicao;
+            return PartialView(fornecedores);
+        }
+
+        // POST: Erp/CotarCom/EnviarCotacao/
+        [HttpPost]
+        public ActionResult EnviarCotacao(int[] selecionados, int idRequisicao)
+        {
+            // parei aki e na View que chama este metodo (GetSelecaoFornecedores)
+            return View();
         }
     }
 }

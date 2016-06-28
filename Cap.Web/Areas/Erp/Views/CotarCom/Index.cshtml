@@ -21,7 +21,12 @@
 
     $('#IdCotGrupo').click(function () {
         var id = $(this).val();
-        $('#fornecedores').load('/Erp/CotaCom/Fornecedores/' + id);
+        if (parseInt(id) == 0) {
+            $('#fornecedores').hide();
+        } else {
+            $('#fornecedores').load('/Erp/CotarCom/Fornecedores/' + id);
+            $('#fornecedores').show();
+        }        
     });
 
 </script>

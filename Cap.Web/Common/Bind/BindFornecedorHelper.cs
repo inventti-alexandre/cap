@@ -7,7 +7,7 @@ namespace Cap.Web.Common.Bind
 {
     public static class BindFornecedorHelper
     {
-        public static MvcHtmlString SelectFornecedor(this HtmlHelper html, int idFornecedor, bool selecione = false)
+        public static MvcHtmlString SelectFornecedor(this HtmlHelper html, int idFornecedor, bool selecione = false, string idTag = "IdFornecedor")
         {
             var idEmpresa = new UsuarioService().GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
@@ -17,8 +17,8 @@ namespace Cap.Web.Common.Bind
                 .ToList();
 
             TagBuilder tag = new TagBuilder("select");
-            tag.MergeAttribute("id", "IdFornecedor");
-            tag.MergeAttribute("name", "IdFornecedor");
+            tag.MergeAttribute("id", idTag);
+            tag.MergeAttribute("name", idTag);
             tag.MergeAttribute("class", "form-control");
 
             if (selecione == true)
