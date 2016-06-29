@@ -6,9 +6,10 @@ namespace Cap.Web.Areas.Erp
     {
         // GET: Erp/ModalInfo
         [ValidateInput(false)]
-        public ActionResult Index(string message)
+        public ActionResult Index(string msg)
         {
-            return PartialView(message);
+            ViewBag.Msg = msg;
+            return PartialView();
         }
     }
 }

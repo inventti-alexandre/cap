@@ -1,16 +1,17 @@
-﻿@Model string
-
-<div class="modal-dialog">
+﻿<div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title">ERP</h4>
+            <h4 class="modal-title text-primary">ERP</h4>
         </div>
         <div class="modal-body">
-            @Model
+            @{ 
+                string msg = ((string)ViewBag.Msg).Replace('"', ' ').Trim();
+            }
+            <h4>@msg</h4>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
     </div>
 </div>

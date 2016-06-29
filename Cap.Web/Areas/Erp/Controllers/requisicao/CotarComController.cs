@@ -193,5 +193,27 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             // parei aki e na View que chama este metodo (GetSelecaoFornecedores)
             return View();
         }
+
+        // GET: Erp/CotarCom/EnviarPorEmail/
+        public ActionResult EnviarPorEmail(int idRequisicao)
+        {
+            ViewBag.IdRequisicao = idRequisicao;
+            return PartialView();
+        }
+
+        // POST: Erp/CotarCom/EnviarPorEmail/
+        [HttpPost]
+        public ActionResult EnviarPorEmail(int idRequisicao, string email)
+        {
+            // TODO: service to send email
+            bool enviado = true;
+
+            if (enviado == true)
+            {
+                return Json(new { success = true, message = $"Cotação enviada para { email }" });
+            }
+
+            return PartialView(idRequisicao);
+        }
     }
 }

@@ -172,8 +172,8 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             return PartialView(id);
         }
 
-        // POST: Erp/Requisicao/Send/5
-        public ActionResult Send(int id)
+        // GET: Erp/Requisicao/Send/5
+        public ActionResult PreSend(int id)
         {
             var item = service.Find(id);
 
@@ -185,7 +185,40 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             item.Situacao = Situacao.Cotar;
             service.Gravar(item);
 
-            return View(item);
+            return RedirectToActionPermanent("Send", new { id = id });
         }
+
+        public ActionResult Send(int id)
+        {
+            return View(service.Find(id));
+        }
+
+        // GET: Erp/Requisicao/Imprimir/5
+        public ActionResult Imprimir(int id)
+        {
+            var item = service.Find(id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            // TODO: imprimir requisicao
+            return PartialView(item);
+        }
+
+        // GET: Erp/Requisicao/ImprimirRequisicao/5
+        public ActionResult ImprimirRequisicao(int id, int idFornecedor)
+        {
+            var item = service.Find(id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(item);
+        }
+
     }
 }

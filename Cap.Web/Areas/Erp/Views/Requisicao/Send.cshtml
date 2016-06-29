@@ -6,11 +6,10 @@
 
 <h2>Requisição</h2>
 
-<div>
-    <h4>Requisição</h4>
-    <p class="text-info">Já definida como requisição à cotar/comprar</p>
+<div class="top20">
+    <p class="alert alert-info">Já definida como requisição à cotar/comprar para o comprador da empresa</p>
 
-    <div class="row">
+    <div class="row top30">
         <div class="col-md-4">
             @Html.LabelFor(model => model.IdDepartamento, htmlAttributes: new { @class = "control-label" })
             @Html.DisplayFor(model => model.Departamento.Descricao)
@@ -43,11 +42,15 @@
     </div>
 </div>
 
+<hr />
+
+<h3>AÇÕES</h3>
+
 <div class="container">
-    <div class="row">
+    <div class="row top20">
         <div class="col-md-4">
             <!-- cotar com -->
-            <div class="panel panel-info">
+            <div class="panel panel-info" style="min-height:220px;">
                 <div class="panel panel-heading">Cotar com</div>
                 <div class="panel-body">
                     @{
@@ -58,20 +61,27 @@
         </div>
         <div class="col-md-4">
             <!-- enviar por email para -->
-            <div class="panel panel-info">
-                <div class="panel panel-heading">Enviar por email</div>
+            <div class="panel panel-info" style="min-height:220px;">
+                <div class="panel panel-heading">Enviar cotação por email</div>
                 <div class="panel-body">
+                    @{
+                        Html.RenderAction("EnviarPorEmail", "CotarCom", new { idRequisicao = Model.Id });
+                    }
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <!-- imprimir -->
-            <div class="panel panel-info">
-                <div class="panel panel-heading">Imprimir</div>
+            <div class="panel panel-info" style="min-height:220px;">
+                <div class="panel panel-heading">Imprimir cotação</div>
                 <div class="panel-body">
-                    <input type="button" value="Imprimir" id="print-requisicao" class="btn btn-primary" />
+                    @{
+                        Html.RenderAction("Imprimir", "CotarCom", new { id = Model.Id });
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal" id="modal"></div>

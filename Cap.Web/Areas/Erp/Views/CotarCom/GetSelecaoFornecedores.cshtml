@@ -47,7 +47,7 @@
         var id = $(this).attr('data-id');
         var n = $('input:checked').length;
         if (n == 0) {
-            alert('Nenhum fornecedor selecionado');
+            ShowMessage('Nenhum fornecedor selecionado');
         } else {
             var selecionados = new Array();
             $('input:checked').each(function () {
@@ -64,14 +64,20 @@
                         // TODO: enviar cotacao para os fornecedores selecionados
                         // parei aki
                     } else {
-                        alert(result);
+                        ShowMessage(result);
                     }
                 },
                 error: function (e) {
-                    alert(e);
+                    ShowMessage(e);
                 }
             });
         }
     });
+
+    function ShowMessage(msg) {
+        $('#modal').load('/Erp/ModalInfo/Index/', { 'msg': msg }, function () {
+            $('#modal').modal('show');
+        });
+    };
 
 </script>
