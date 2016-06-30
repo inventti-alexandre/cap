@@ -2,6 +2,7 @@
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Abstract.Cap;
 using Cap.Domain.Abstract.Gen;
+using Cap.Domain.Abstract.Req;
 using Cap.Domain.Models.Admin;
 using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Email;
@@ -77,6 +78,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<Unidade>>().To<UnidadeService>();
             kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();
 
+            kernel.Bind<ICotadoCom>().To<CotCotadoComService>();
             kernel.Bind<IIndVariacaoCalculo>().To<IndVariacaoService>();
             kernel.Bind<ILiberacao>().To<LiberacaoService>();
             kernel.Bind<ILiberacaoPagamento>().To<LiberacaoPagamentoService>();

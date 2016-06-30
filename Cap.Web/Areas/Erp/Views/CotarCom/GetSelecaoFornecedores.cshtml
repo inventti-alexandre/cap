@@ -60,11 +60,9 @@
                 data: { 'selecionados': selecionados, 'idRequisicao': id },
                 success: function (result) {
                     if (result.success == true) {
-                        // enviou requisicao para os fornecedores selecionados pelo usuario
-                        // TODO: enviar cotacao para os fornecedores selecionados
-                        // parei aki
+                        ShowMessage("Cotação enviada");
                     } else {
-                        ShowMessage(result);
+                        ShowMessage(result.arguments);
                     }
                 },
                 error: function (e) {

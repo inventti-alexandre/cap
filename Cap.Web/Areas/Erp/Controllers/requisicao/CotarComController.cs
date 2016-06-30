@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Abstract.Req;
 using Cap.Domain.Models.Requisicao;
 using Cap.Web.Common;
 using System;
@@ -13,11 +14,13 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
     public class CotarComController : Controller
     {
         IBaseService<CotFornecedor> service;
+        ICotadoCom serviceCotadoCom;
         ILogin login;
 
-        public CotarComController(IBaseService<CotFornecedor> service, ILogin login)
+        public CotarComController(IBaseService<CotFornecedor> service, ICotadoCom serviceCotadoCom, ILogin login)
         {
             this.service = service;
+            this.serviceCotadoCom = serviceCotadoCom;
             this.login = login;
         }
 
@@ -190,8 +193,13 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         [HttpPost]
         public ActionResult EnviarCotacao(int[] selecionados, int idRequisicao)
         {
-            // parei aki e na View que chama este metodo (GetSelecaoFornecedores)
-            return View();
+            if (selecionados.Count() > 0)
+            {
+                serviceCotadoCom.EnviarCotacaoFornecedor(idRequisicao, selecionados.ToList(), login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name));
+                return Json(new { success = true });
+            }
+
+            return Json(new { arguments = "Nenhum fornecedor selecionado para envio" });
         }
 
         // GET: Erp/CotarCom/EnviarPorEmail/
@@ -204,7 +212,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         // POST: Erp/CotarCom/EnviarPorEmail/
         [HttpPost]
         public ActionResult EnviarPorEmail(int idRequisicao, string email)
-        {
+        {           
             // TODO: service to send email
             bool enviado = true;
 
