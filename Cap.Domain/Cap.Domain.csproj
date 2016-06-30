@@ -127,6 +127,9 @@
     <Compile Include="Models\Email\EmailConfig.cs" />
     <Compile Include="Models\Gen\Indice.cs" />
     <Compile Include="Models\Gen\IndVariacao.cs" />
+    <Compile Include="Models\Requisicao\CotCotacao.cs" />
+    <Compile Include="Models\Requisicao\CotCotadoCom.cs" />
+    <Compile Include="Models\Requisicao\CotDadosCotacao.cs" />
     <Compile Include="Models\Requisicao\CotFornecedor.cs" />
     <Compile Include="Models\Requisicao\CotGrupo.cs" />
     <Compile Include="Models\Requisicao\Material.cs" />
@@ -180,6 +183,9 @@
     <Compile Include="Service\Email\EmailConfigService.cs" />
     <Compile Include="Service\Gen\IndiceService.cs" />
     <Compile Include="Service\Gen\IndVariacaoService.cs" />
+    <Compile Include="Service\Requisicao\CotCotacaoService.cs" />
+    <Compile Include="Service\Requisicao\CotCotadoComService.cs" />
+    <Compile Include="Service\Requisicao\CotDadosCotacaoService.cs" />
     <Compile Include="Service\Requisicao\CotFornecedorService.cs" />
     <Compile Include="Service\Requisicao\CotGrupoService.cs" />
     <Compile Include="Service\Requisicao\MaterialService.cs" />

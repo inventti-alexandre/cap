@@ -33,6 +33,9 @@ namespace Cap.Domain.Respository
         public DbSet<Conta> Conta { get; set; }
         public DbSet<ContaFinanceira> ContaFinanceira { get; set; }
         public DbSet<ContaTipo> ContaTipo { get; set; }
+        public DbSet<CotCotacao> CotCotacao { get; set; }
+        public DbSet<CotCotadoCom> CotCotadoCom { get; set; }
+        public DbSet<CotDadosCotacao> CotDadosCotacao { get; set; }
         public DbSet<CotFornecedor> CotFornecedor { get; set; }
         public DbSet<CotGrupo> CotGrupo { get; set; }
         public DbSet<Departamento> Departamento { get; set; }

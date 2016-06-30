@@ -233,6 +233,11 @@
     <Compile Include="Areas\Erp\ModalInfoController.cs" />
     <Compile Include="Areas\Erp\Models\FornecedorModel.cs" />
     <Compile Include="Areas\Erp\Models\LoginUsuario.cs" />
+    <Compile Include="CAPDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CAPDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Common\AreaAuthorizeAttribute.cs" />
     <Compile Include="Common\Bind\BindBancoHelper.cs" />
     <Compile Include="Common\Bind\BindCentroCustoHelper.cs" />
@@ -566,6 +571,17 @@
     <Content Include="Areas\Erp\Views\CotarCom\GetSelecaoFornecedores.cshtml" />
     <Content Include="Areas\Erp\Views\CotarCom\EnviarPorEmail.cshtml" />
     <Content Include="Areas\Erp\Views\Requisicao\Imprimir.cshtml" />
+    <Content Include="CAPDataSet.xsc">
+      <DependentUpon>CAPDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="CAPDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CAPDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="CAPDataSet.xss">
+      <DependentUpon>CAPDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

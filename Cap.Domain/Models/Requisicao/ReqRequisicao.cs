@@ -3,6 +3,7 @@ using Cap.Domain.Models.Cap;
 using Cap.Domain.Service.Admin;
 using Cap.Domain.Service.Cap;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -116,5 +117,12 @@ namespace Cap.Domain.Models.Requisicao
             set { }
         }
 
+        [NotMapped]
+        [Display(Name ="Materiais")]
+        public virtual ICollection<ReqMaterial> ReqMaterial { get; set; }
+
+        [NotMapped]
+        [Display(Name ="Cotado com")]
+        public virtual ICollection<CotCotadoCom> CotadoCom { get; set; }
     }
 }
