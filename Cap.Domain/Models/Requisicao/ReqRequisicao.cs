@@ -2,10 +2,12 @@
 using Cap.Domain.Models.Cap;
 using Cap.Domain.Service.Admin;
 using Cap.Domain.Service.Cap;
+using Cap.Domain.Service.Requisicao;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Cap.Domain.Models.Requisicao
 {
@@ -26,29 +28,29 @@ namespace Cap.Domain.Models.Requisicao
         [Key]
         public int Id { get; set; }
 
-        [Range(1,double.MaxValue,ErrorMessage ="Selecione o departamento")]
-        [Display(Name ="Departamento")]
+        [Range(1, double.MaxValue, ErrorMessage = "Selecione o departamento")]
+        [Display(Name = "Departamento")]
         public int IdDepartamento { get; set; }
 
-        [Required(ErrorMessage ="Informe a data de solicitação da requisição")]
-        [Display(Name ="Solicitado em")]
+        [Required(ErrorMessage = "Informe a data de solicitação da requisição")]
+        [Display(Name = "Solicitado em")]
         public DateTime SolicitadoEm { get; set; }
 
-        [Range(1,double.MaxValue, ErrorMessage ="Requisitante inválido")]
-        [Display(Name ="Solicitado por")]
+        [Range(1, double.MaxValue, ErrorMessage = "Requisitante inválido")]
+        [Display(Name = "Solicitado por")]
         public int IdSolicitadoPor { get; set; }
 
-        [Required(ErrorMessage ="Informe a data máxima para cotação")]
+        [Required(ErrorMessage = "Informe a data máxima para cotação")]
         [Display(Name = "Cotar até")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
         public DateTime CotarAte { get; set; }
 
-        [Required(ErrorMessage ="Informe a data de entrega")]
-        [Display(Name ="Entregar dia")]
+        [Required(ErrorMessage = "Informe a data de entrega")]
+        [Display(Name = "Entregar dia")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
         public DateTime EntregarDia { get; set; }
 
-        [Display(Name ="Observações")]
+        [Display(Name = "Observações")]
         [DataType(DataType.MultilineText)]
         public string Observ { get; set; }
 
@@ -57,7 +59,7 @@ namespace Cap.Domain.Models.Requisicao
 
         public Situacao Situacao { get; set; }
 
-        [Display(Name ="Cotado por")]
+        [Display(Name = "Cotado por")]
         public int IdCotadoPor { get; set; }
 
         [Display(Name = "Cotado em")]
@@ -73,7 +75,7 @@ namespace Cap.Domain.Models.Requisicao
         [Display(Name = "Liberado por")]
         public int IdLiberadoPor { get; set; }
 
-        [Display(Name ="Observações da liberação")]
+        [Display(Name = "Observações da liberação")]
         [DataType(DataType.MultilineText)]
         public string LiberadoObserv { get; set; }
 
@@ -118,11 +120,20 @@ namespace Cap.Domain.Models.Requisicao
         }
 
         [NotMapped]
-        [Display(Name ="Materiais")]
-        public virtual ICollection<ReqMaterial> ReqMaterial { get; set; }
+        [Display(Name = "Materiais")]
+        public virtual IEnumerable<ReqMaterial> ReqMaterial
+        {
+            get
+            {
+                return new ReqMaterialService().Listar()
+                    .Where(x => x.IdReqRequisicao == Id)
+                    .OrderBy(x => x.Id)
+                    .ToList();
+            }
+        }
 
         [NotMapped]
-        [Display(Name ="Cotado com")]
+        [Display(Name = "Cotado com")]
         public virtual ICollection<CotCotadoCom> CotadoCom { get; set; }
     }
 }
