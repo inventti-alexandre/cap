@@ -2,6 +2,6 @@
 {
     public interface IEmail
     {
-        bool Enviar(string nome, string destinatario, string assunto, string mensagem);
+        bool Enviar(string nome, string destinatario, string assunto, string mensagem, int idEmpresa, bool isBodyHtml = false);
     }
 }

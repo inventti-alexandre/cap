@@ -277,6 +277,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Common\Modals\loading.html" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
@@ -590,6 +591,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\common.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.az.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bg.min.js" />

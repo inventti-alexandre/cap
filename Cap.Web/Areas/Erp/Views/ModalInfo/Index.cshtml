@@ -5,10 +5,11 @@
             <h4 class="modal-title text-primary">ERP</h4>
         </div>
         <div class="modal-body">
-            @{ 
+            @if (ViewBag.Msg != null)
+            {
                 string msg = ((string)ViewBag.Msg).Replace('"', ' ').Trim();
+                <h4>@msg</h4>
             }
-            <h4>@msg</h4>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>

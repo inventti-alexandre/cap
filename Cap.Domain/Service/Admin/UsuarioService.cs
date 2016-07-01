@@ -133,7 +133,7 @@ namespace Cap.Domain.Service.Admin
         private void EnviarNovaSenha(Usuario usuario, string mensagem)
         {
             var email = new Email.EnviarEmail();
-            email.Enviar(usuario.Nome, usuario.Email, "CAP - nova senha para acesso", mensagem.ToString());
+            email.Enviar(usuario.Nome, usuario.Email, "CAP - nova senha para acesso", mensagem.ToString(), usuario.IdEmpresa, false);
         }
 
         public Usuario ValidaLogin(string email, string senha)

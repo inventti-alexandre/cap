@@ -14,19 +14,24 @@
         var id = $(this).attr('data-id');
         var email = $('#email').val();
         if (email.length > 0) {
+
+            $('#loading').modal('show');
+
             $.ajax({
                 url: '/Erp/CotarCom/EnviarPorEmail',
                 type: 'POST',
                 data: { 'idRequisicao': id, 'email': email },
                 success: function (result) {
+                    $('#loading').modal('hide');
                     if (result.success == true) {
                         ShowMessage(result.message);
                     } else {
-                        ShowMessage(result);
+                        ShowMessage(result.error);
                     }
                 },
                 error: function (e) {
-                    ShowMessage(e);
+                    $('#loading').modal('hide');
+                    ShowMessage(e.error);
                 }
             });
         } else {

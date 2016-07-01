@@ -10,6 +10,7 @@ namespace Cap.Domain.Abstract.Req
     public interface ICotadoCom
     {
         void EnviarCotacaoFornecedor(int idRequisicao, List<int> fornecedores, int idUsuario);
+        bool EnviarCotacaoFornecedor(int idRequisicao, string email);
 
         CotCotadoCom GetCotacaoFornecedor(int idRequisicao, int idFornecedor);
     }

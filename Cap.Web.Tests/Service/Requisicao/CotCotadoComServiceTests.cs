@@ -57,23 +57,5 @@ namespace Cap.Domain.Service.Requisicao.Tests
             Assert.IsTrue(item.FornecedorId == idFornecedor);
             Assert.IsTrue(item.Preenchida == false);
         }
-
-        [TestMethod()]
-        public void getHtmlCotacaoTest()
-        {
-            // ! This method was private, to test has to change to public
-
-            // Arrange
-            int idRequisicao = 1;
-            int idFornecedor = 1;
-            string html;
-            CotCotadoComService ccs = new CotCotadoComService();
-
-            // Act
-            html = ccs.getHtmlCotacao(idRequisicao, idFornecedor);
-
-            // Assert
-            Assert.IsTrue(html.Length > 0);
-        }
     }
 }

@@ -212,16 +212,27 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         // POST: Erp/CotarCom/EnviarPorEmail/
         [HttpPost]
         public ActionResult EnviarPorEmail(int idRequisicao, string email)
-        {           
-            // TODO: service to send email
-            bool enviado = true;
-
-            if (enviado == true)
+        {
+            try
             {
-                return Json(new { success = true, message = $"Cotação enviada para { email }" });
-            }
+                if (string.IsNullOrEmpty(email))
+                {
+                    return Json(new { error = "Informe o email" });
+                }
 
-            return PartialView(idRequisicao);
+                if (serviceCotadoCom.EnviarCotacaoFornecedor(idRequisicao, email) == true)
+                {
+                    return Json(new { success = true, message = $"Cotação enviada para { email }" });
+                }
+                else
+                {
+                    return Json(new { error = "Falha ao enviar email" });
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { error = e.Message });
+            }
         }
     }
 }

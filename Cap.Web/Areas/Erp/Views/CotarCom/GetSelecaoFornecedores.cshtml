@@ -49,6 +49,9 @@
         if (n == 0) {
             ShowMessage('Nenhum fornecedor selecionado');
         } else {
+
+            $('#loading').modal('show');
+
             var selecionados = new Array();
             $('input:checked').each(function () {
                 selecionados.push($(this).val());
@@ -59,6 +62,7 @@
                 type: 'POST',
                 data: { 'selecionados': selecionados, 'idRequisicao': id },
                 success: function (result) {
+                    $('#loading').modal('hide');
                     if (result.success == true) {
                         ShowMessage("Cotação enviada");
                     } else {
@@ -66,6 +70,7 @@
                     }
                 },
                 error: function (e) {
+                    $('#loading').modal('hide');
                     ShowMessage(e);
                 }
             });

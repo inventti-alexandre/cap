@@ -1,17 +1,16 @@
 ﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Email;
 using Cap.Domain.Abstract.Req;
+using Cap.Domain.Models.Admin;
+using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Requisicao;
 using Cap.Domain.Respository;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using Cap.Domain.Abstract.Email;
-using Cap.Domain.Service.Email;
-using Cap.Domain.Models.Cap;
-using Cap.Domain.Service.Cap;
-using System.Text;
-using Cap.Domain.Models.Admin;
 using Cap.Domain.Service.Admin;
+using Cap.Domain.Service.Email;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Cap.Domain.Service.Requisicao
 {
@@ -77,7 +76,9 @@ namespace Cap.Domain.Service.Requisicao
 
         public void EnviarCotacaoFornecedor(int idRequisicao, List<int> fornecedores, int idUsuario)
         {
-            string assunto = $"Cotação de preços id: {idRequisicao}";
+            var requisicao = serviceRequisicao.Find(idRequisicao);
+            var departamento = requisicao.Departamento;
+            string assunto = getAssunto(idRequisicao, departamento);
 
             foreach (var item in fornecedores)
             {
@@ -86,7 +87,7 @@ namespace Cap.Domain.Service.Requisicao
                 if (fornecedor != null)
                 {
                     // envia email
-                    if (serviceEmail.Enviar(fornecedor.Fornecedor.Fantasia, fornecedor.Email, assunto, getHtmlCotacao(idRequisicao, item)) == true)
+                    if (serviceEmail.Enviar(fornecedor.Fornecedor.Fantasia, fornecedor.Email, assunto, getHtmlCotacao(idRequisicao, item, requisicao, departamento), departamento.IdEmpresa, true) == true)
                     {
                         // grava
                         CotCotadoCom cotcom = GetCotacaoFornecedor(idRequisicao, item);
@@ -111,10 +112,23 @@ namespace Cap.Domain.Service.Requisicao
             }
         }
 
-        public string getHtmlCotacao(int idRequisicao, int idFornecedor)
+        public bool  EnviarCotacaoFornecedor(int idRequisicao, string email)
         {
             var requisicao = serviceRequisicao.Find(idRequisicao);
             var departamento = requisicao.Departamento;
+            string assunto = getAssunto(idRequisicao, departamento);
+
+            // envia email
+            return serviceEmail.Enviar("", email, assunto, getHtmlCotacao(idRequisicao, 0, requisicao, departamento), departamento.IdEmpresa, true);
+        }
+
+        private static string getAssunto(int idRequisicao, Departamento departamento)
+        {
+            return $"COTAÇÃO DE PREÇOS { departamento.Empresa.Fantasia } - {departamento.Descricao}, ID: {idRequisicao}";
+        }
+
+        private string getHtmlCotacao(int idRequisicao, int idFornecedor, ReqRequisicao requisicao, Departamento departamento)
+        {
             string codigoParamentro = "LINK_COTACAO";
             string url = serviceParamentro.Listar()
                 .Where(x => x.Codigo == codigoParamentro)
@@ -124,17 +138,21 @@ namespace Cap.Domain.Service.Requisicao
             string link = string.Format("{0}?idRequisicao={1}&idFornecedor={2}", url, idRequisicao, idFornecedor);
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("<h2>COTAÇÃO DE PREÇOS</h2>")
-                .Append($"Departamento: { departamento.Descricao} <br />{ departamento.Endereco }, { departamento.Bairro }, { departamento.Cidade }, CEP { departamento.Cep }<br />")
-                .Append($"Previsão de entrega: {requisicao.EntregarDia.ToShortDateString() } <br />Solicitado por { requisicao.SolicitadoPor.Nome } <br />")
+            sb.Append("<html><head></head><body>")
+                .Append("<h2>COTAÇÃO DE PREÇOS</h2>")
+                .Append($"Empresa: { departamento.Empresa.Razao }<br />")
+                .Append($"Departamento: { departamento.Descricao} - { departamento.Endereco }, { departamento.Bairro }, { departamento.Cidade }, CEP { departamento.Cep }<br />")
+                .Append($"Previsão de entrega: {requisicao.EntregarDia.ToShortDateString() } <br />Solicitado por: { requisicao.SolicitadoPor.Nome } <br />")
                 .Append("<h3>ITENS A COTAR</h3>")
-                .Append("<table>")
-                .Append("<tr><th>")
-                .Append("<td>QUANTIDADE</td>")
-                .Append("<td>UNIDADE</td>")
-                .Append("<td>MATERIAL</td>")
-                .Append("<td>ESPECIFICACOES</td>");
+                .Append("<table style='border 1px solid #C6C6C6;'>")
+                .Append("<thead><tr>")
+                .Append("<th>QUANTIDADE</th>")
+                .Append("<th>UNIDADE</th>")
+                .Append("<th>MATERIAL</th>")
+                .Append("<th>ESPECIFICACOES</th>")
+                .Append("</tr></thead>");
 
+            sb.Append("<tbody>");
             foreach (var item in requisicao.ReqMaterial.ToList())
             {
                 sb.Append("<tr>")
@@ -144,12 +162,16 @@ namespace Cap.Domain.Service.Requisicao
                     .Append($"<td>{ item.Observ }</td>")
                     .Append("</tr>");
             }
-
             sb.Append("</tr></th>")
+                .Append("</tbody>")
                 .Append("</table>");
 
-            sb.Append("<br />")
-                .Append("<h4><a href='{link}' _target='_blank'>CLIQUE PARA RESPONDER ESTA COTAÇÃO</a></h4>");
+            if (idFornecedor != 0)
+            {
+                sb.Append("<br />")
+                    .Append($"<h4><a href='{link}' _target='_blank'>CLIQUE PARA RESPONDER ESTA COTAÇÃO</a></h4>")
+                    .Append("</body></html>");
+            }
 
             return sb.ToString();
         }
