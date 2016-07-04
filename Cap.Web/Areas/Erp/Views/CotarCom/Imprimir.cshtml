@@ -1,0 +1,26 @@
+﻿@using Cap.Web.Common.Bind;
+@model Cap.Domain.Models.Requisicao.ReqRequisicao
+
+<div class="container">
+    <div class="row">
+        Fornecedor<br />
+        @Html.SelectFornecedor(0, true)
+    </div>
+    <div class="row top20">
+        <a href="#" id="lnkrequisicao" target="_blank" disabled class="btn btn-primary">Imprimir</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#IdFornecedor').change(function () {
+        var idFornecedor = $('#IdFornecedor').val();
+        if (parseInt(idFornecedor) == 0) {
+            $('#lnkrequisicao').attr('disabled', 'disabled');
+        } else {
+            $('#lnkrequisicao').attr('href', '/Erp/CotarCom/ImprimirCotacaoEmBranco?id=' + @Model.Id + '&idFornecedor=' + idFornecedor);
+            $('#lnkrequisicao').removeAttr('disabled');
+        }
+    });
+
+</script>

@@ -233,6 +233,7 @@
     <Compile Include="Areas\Erp\ModalInfoController.cs" />
     <Compile Include="Areas\Erp\Models\FornecedorModel.cs" />
     <Compile Include="Areas\Erp\Models\LoginUsuario.cs" />
+    <Compile Include="Areas\Erp\Models\RequisicaoFornecedor.cs" />
     <Compile Include="CAPDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -575,6 +576,10 @@
     <Content Include="CAPDataSet.xsc">
       <DependentUpon>CAPDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Areas\Erp\Views\Requisicao\ImprimirRequisicao.cshtml" />
+    <Content Include="Areas\Erp\Views\CotarCom\Imprimir.cshtml" />
+    <Content Include="Areas\Erp\Views\CotarCom\ImprimirCotacaoEmBranco.cshtml" />
+    <Content Include="Areas\Erp\Views\Shared\_PrintLayout.cshtml" />
     <None Include="CAPDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CAPDataSet.Designer.cs</LastGenOutput>

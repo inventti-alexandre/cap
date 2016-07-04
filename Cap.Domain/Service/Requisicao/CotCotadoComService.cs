@@ -89,27 +89,32 @@ namespace Cap.Domain.Service.Requisicao
                     // envia email
                     if (serviceEmail.Enviar(fornecedor.Fornecedor.Fantasia, fornecedor.Email, assunto, getHtmlCotacao(idRequisicao, item, requisicao, departamento), departamento.IdEmpresa, true) == true)
                     {
-                        // grava
-                        CotCotadoCom cotcom = GetCotacaoFornecedor(idRequisicao, item);
-                        if (cotcom == null)
-                        {
-                            cotcom = new CotCotadoCom
-                            {
-                                AlteradoEm = DateTime.Now,
-                                FornecedorId = item,
-                                Preenchida = false,
-                                ReqRequisicaoId = idRequisicao,
-                                UsuarioId = idUsuario
-                            };
-                        }
-                        else
-                        {
-                            cotcom.AlteradoEm = DateTime.Now;
-                        }
-                        Gravar(cotcom);
+                        // grava envio ao fornecedor
+                        GravarEnvioAoFornecedor(idRequisicao, item, idUsuario);
                     }
                 }
             }
+        }
+
+        public void GravarEnvioAoFornecedor(int idRequisicao, int idFornecedor, int idUsuario)
+        {
+            CotCotadoCom cotcom = GetCotacaoFornecedor(idRequisicao, idFornecedor);
+            if (cotcom == null)
+            {
+                cotcom = new CotCotadoCom
+                {
+                    AlteradoEm = DateTime.Now,
+                    FornecedorId = idFornecedor,
+                    Preenchida = false,
+                    ReqRequisicaoId = idRequisicao,
+                    UsuarioId = idUsuario
+                };
+            }
+            else
+            {
+                cotcom.AlteradoEm = DateTime.Now;
+            }
+            Gravar(cotcom);
         }
 
         public bool  EnviarCotacaoFornecedor(int idRequisicao, string email)
@@ -172,6 +177,11 @@ namespace Cap.Domain.Service.Requisicao
                     .Append($"<h4><a href='{link}' _target='_blank'>CLIQUE PARA RESPONDER ESTA COTAÇÃO</a></h4>")
                     .Append("</body></html>");
             }
+
+            var empresa = departamento.Empresa;
+
+            sb.Append("<hr>")
+                .Append($"{empresa.Razao}<br />{empresa.Endereco}, {empresa.Bairro}, {empresa.Cidade}, {empresa.Estado.UF}, CEP {empresa.Cep}");
 
             return sb.ToString();
         }

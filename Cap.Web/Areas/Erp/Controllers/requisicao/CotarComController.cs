@@ -1,7 +1,9 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Abstract.Req;
+using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Requisicao;
+using Cap.Web.Areas.Erp.Models;
 using Cap.Web.Common;
 using System;
 using System.Linq;
@@ -14,13 +16,17 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
     public class CotarComController : Controller
     {
         IBaseService<CotFornecedor> service;
+        IBaseService<ReqRequisicao> serviceRequisicao;
+        IBaseService<Fornecedor> serviceFornecedor;
         ICotadoCom serviceCotadoCom;
         ILogin login;
 
-        public CotarComController(IBaseService<CotFornecedor> service, ICotadoCom serviceCotadoCom, ILogin login)
+        public CotarComController(IBaseService<CotFornecedor> service, ICotadoCom serviceCotadoCom, IBaseService<ReqRequisicao> serviceRequisicao, IBaseService<Fornecedor> serviceFornecedor, ILogin login)
         {
             this.service = service;
             this.serviceCotadoCom = serviceCotadoCom;
+            this.serviceRequisicao = serviceRequisicao;
+            this.serviceFornecedor = serviceFornecedor;
             this.login = login;
         }
 
@@ -233,6 +239,42 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             {
                 return Json(new { error = e.Message });
             }
+        }
+
+        // GET: Erp/CotarCom/Imprimir/5
+        public ActionResult Imprimir(int id)
+        {
+            var item = serviceRequisicao.Find(id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(item);
+        }
+
+        // GET: Erp/CotarCom/ImprimirRequisicao/5
+        public ActionResult ImprimirCotacaoEmBranco(int id, int idFornecedor)
+        {
+            var item = serviceRequisicao.Find(id);
+
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            var fornecedor = serviceFornecedor.Find(idFornecedor);
+
+            if (fornecedor == null)
+            {
+                return HttpNotFound();
+            }
+
+            // grava envio desta cotacao ao fornecedor
+            serviceCotadoCom.GravarEnvioAoFornecedor(id, idFornecedor, login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name));
+
+            return View(new RequisicaoFornecedor { Fornecedor = fornecedor, Requisicao = item });
         }
     }
 }

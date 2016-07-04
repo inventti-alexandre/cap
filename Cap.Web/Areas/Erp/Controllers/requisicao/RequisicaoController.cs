@@ -1,6 +1,8 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Requisicao;
+using Cap.Web.Areas.Erp.Models;
 using Cap.Web.Common;
 using System;
 using System.Collections.Generic;
@@ -15,11 +17,13 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
     public class RequisicaoController : Controller
     {
         IBaseService<ReqRequisicao> service;
+        IBaseService<Fornecedor> serviceFornecedor;
         ILogin login;
 
-        public RequisicaoController(IBaseService<ReqRequisicao> service, ILogin login)
+        public RequisicaoController(IBaseService<ReqRequisicao> service, IBaseService<Fornecedor> serviceFornecedor, ILogin login)
         {
             this.service = service;
+            this.serviceFornecedor = serviceFornecedor;
             this.login = login;
         }
 
@@ -207,8 +211,8 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             return PartialView(item);
         }
 
-        // GET: Erp/Requisicao/ImprimirRequisicao/5
-        public ActionResult ImprimirRequisicao(int id, int idFornecedor)
+        // GET: Erp/Requisicao/ImprimirCotacao/5
+        public ActionResult ImprimirCotacao(int id, int idFornecedor)
         {
             var item = service.Find(id);
 
@@ -217,7 +221,14 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 return HttpNotFound();
             }
 
-            return PartialView(item);
+            var fornecedor = serviceFornecedor.Find(idFornecedor);
+
+            if (fornecedor == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(new RequisicaoFornecedor { Fornecedor = fornecedor, Requisicao = item });
         }
 
     }

@@ -1,0 +1,54 @@
+﻿@model Cap.Web.Areas.Erp.Models.RequisicaoFornecedor
+
+@{
+    ViewBag.Title = "Cotação de preços";
+    Layout = "~/Areas/Erp/Views/Shared/_PrintLayout.cshtml";
+}
+
+<h2>COTAÇÃO DE PREÇOS</h2>
+
+<div class="container top20">
+    <div class="row">
+        Empresa: @Model.Requisicao.Departamento.Empresa.Razao<br />
+        Departamento: @Model.Requisicao.Departamento.Descricao - @Model.Requisicao.Departamento.Endereco, @Model.Requisicao.Departamento.Bairro, @Model.Requisicao.Departamento.Cidade, CEP @Model.Requisicao.Departamento.Cep<br />
+        Previsão de entrega: @Model.Requisicao.EntregarDia.ToShortDateString()<br />        
+    </div>
+    <div class="row top20">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center">QUANTIDADE</th>
+                    <th class="text-center">UNIDADE</th>
+                    <th>MATERIAL</th>
+                    <th>ESPECIFICAÇÕES</th>
+                    <th>VALOR UNITÁRIO</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.Requisicao.ReqMaterial)
+                {
+                    <tr>
+                        <td class="text-center">@item.Qtde.ToString("n2")</td>
+                        <td class="text-center">@item.Material.Unidade.Descricao</td>
+                        <td>@item.Material.Descricao</td>
+                        <td>@item.Observ</td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <hr />
+    @Model.Requisicao.Departamento.Empresa.Razao<br />
+    @Model.Requisicao.Departamento.Empresa.Endereco, @Model.Requisicao.Departamento.Empresa.Bairro, @Model.Requisicao.Departamento.Empresa.Cidade, @Model.Requisicao.Departamento.Empresa.Estado.UF, CEP @Model.Requisicao.Departamento.Empresa.Cep
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.print();
+        window.orientation("landscape");
+    });
+</script>
+

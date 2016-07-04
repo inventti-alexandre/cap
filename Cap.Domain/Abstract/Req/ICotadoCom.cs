@@ -11,6 +11,7 @@ namespace Cap.Domain.Abstract.Req
     {
         void EnviarCotacaoFornecedor(int idRequisicao, List<int> fornecedores, int idUsuario);
         bool EnviarCotacaoFornecedor(int idRequisicao, string email);
+        void GravarEnvioAoFornecedor(int idRequisicao, int idFornecedor, int idUsuario);
 
         CotCotadoCom GetCotacaoFornecedor(int idRequisicao, int idFornecedor);
     }
