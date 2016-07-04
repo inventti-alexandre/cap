@@ -1,7 +1,10 @@
 ﻿using Cap.Domain.Models.Admin;
 using Cap.Domain.Models.Cap;
+using Cap.Domain.Service.Requisicao;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Cap.Domain.Models.Requisicao
 {
@@ -36,5 +39,16 @@ namespace Cap.Domain.Models.Requisicao
 
         [Display(Name ="Fornecedor")]
         public virtual Fornecedor Fornecedor { get; set; }
+
+        [NotMapped]
+        public virtual CotDadosCotacao DadosCotacao
+        {
+            get
+            {
+                return new CotDadosCotacaoService().Listar()
+                    .Where(x => x.CotCotadoComId == Id)
+                    .FirstOrDefault();
+            }
+        }
     }
 }

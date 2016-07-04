@@ -272,9 +272,11 @@
     <Compile Include="Common\EnumDescription.cs" />
     <Compile Include="Common\Identification.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Public\CotacaoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CotacaoFornecedor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -685,7 +687,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Erp\Views\Menu\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\Cotacao\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
