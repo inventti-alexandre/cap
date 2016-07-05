@@ -1,0 +1,145 @@
+﻿@model Cap.Web.Models.CotacaoFornecedor
+
+@{
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cotação de preços</title>
+</head>
+<body>
+
+    <h2>COTAÇÃO DE PREÇOS</h2>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Message</div>
+    }
+
+    <div class="row top20">
+        @*Departamento: @Model.Requisicao.Departamento.Descricao<br />@Model.Requisicao.Departamento.Endereco, @Model.Requisicao.Departamento.Bairro, @Model.Requisicao.Departamento.Cidade, @Model.Requisicao.Departamento.Estado.UF, CEP @Model.Requisicao.Departamento.Cep*@
+    </div>
+
+    <h3>Itens à cotar</h3>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-inline">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.RequisicaoId)
+            @Html.HiddenFor(model => model.FornecedorId)
+            @Html.HiddenFor(model => model.CotDadosCotacao.Id)
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>QUANTIDADE</th>
+                        <th>UNIDADE</th>
+                        <th>MATERIAL</th>
+                        <th>PREÇO UNITÁRIO</th>
+                        <th>OBSERVAÇÕES</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (int i = 0; i < Model.CotCotacao.Count() -1; i++)
+                    {
+                        <tr>
+                            <td>@Model.CotCotacao[i].ReqMaterial.Qtde</td>                          
+                            <td>@Model.CotCotacao[i].ReqMaterial.Material.Unidade.Descricao</td>
+                            <td>@Model.CotCotacao[i].ReqMaterial.Material.Descricao</td>
+                            <td>
+                                @{ 
+                                    string namePreco = "Preco[" + i.ToString() + "]";
+                                    string nameObserv = "Observ[" + i.ToString() + "]";
+                                }
+                                <input type="text" name="@namePreco" value="@Model.CotCotacao[i].Preco" />
+                            </td>
+                            <td>
+                                <input type="text" name="@nameObserv" value="@Model.CotCotacao[i].Observ" />
+                            </td>
+                        </tr>
+                    }
+
+
+                    @foreach (var item in Model.CotCotacao)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.ReqMaterial.Qtde, new { htmlAttributes = new { @class = "form-control" } })</td>
+                            <td>@Html.DisplayFor(modelItem => item.ReqMaterial.Material.Unidade.Descricao, new { htmlAttributes = new { @class = "form-control" } })</td>
+                            <td>@Html.DisplayFor(modelItem => item.ReqMaterial.Material.Descricao, new { htmlAttributes = new { @class = "form-control" } })</td>
+                            <td>
+                                @*@Html.EditorFor(modelItem => item.Preco, new { htmlAttributes = new { @class = "form-control" } })*@
+                                <input type="text" name="Preco" class="form-control" />
+                                @Html.ValidationMessageFor(model => item.Preco, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @*@Html.EditorFor(modelItem => item.Observ, new { htmlAttributes = new { @class = "form-control" } })*@
+                                <input type="text" name="Observ" class="form-control"/>
+                                @Html.ValidationMessageFor(model => item.Observ, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <hr />
+
+            <div class="row top20">
+                <h3>Condições de pagamento</h3>           
+            </div>           
+
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CotDadosCotacao.Contato, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CotDadosCotacao.Contato, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CotDadosCotacao.Contato, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CotDadosCotacao.Condicao, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CotDadosCotacao.Condicao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CotDadosCotacao.Condicao, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CotDadosCotacao.PrevisaoEntrega, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CotDadosCotacao.PrevisaoEntrega, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CotDadosCotacao.PrevisaoEntrega, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CotDadosCotacao.Validade, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CotDadosCotacao.Validade, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CotDadosCotacao.Validade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CotDadosCotacao.Frete, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CotDadosCotacao.Frete, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CotDadosCotacao.Frete, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CotDadosCotacao.Imposto, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CotDadosCotacao.Imposto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CotDadosCotacao.Imposto, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CotDadosCotacao.Observ, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CotDadosCotacao.Observ, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CotDadosCotacao.Observ, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+            <div class="row top20">
+                <input type="submit" value="Enviar" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</body>
+</html>

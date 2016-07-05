@@ -127,7 +127,7 @@ namespace Cap.Domain.Service.Requisicao
             return serviceEmail.Enviar("", email, assunto, getHtmlCotacao(idRequisicao, 0, requisicao, departamento), departamento.IdEmpresa, true);
         }
 
-        private static string getAssunto(int idRequisicao, Departamento departamento)
+        private string getAssunto(int idRequisicao, Departamento departamento)
         {
             return $"COTAÇÃO DE PREÇOS { departamento.Empresa.Fantasia } - {departamento.Descricao}, ID: {idRequisicao}";
         }

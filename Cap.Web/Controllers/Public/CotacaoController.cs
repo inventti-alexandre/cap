@@ -57,6 +57,18 @@ namespace Cap.Web.Controllers.Public
             }
         }
 
+        // POST: Cotacao
+        [HttpPost]
+        public ActionResult Index(int RequisicaoId, int FornecedorId, ICollection<CotCotacao> cotacoes, FormCollection collection)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Message = ModelState.Values.ToList();
+            }
+
+            return View();
+        }
+
         private CotDadosCotacao getDadosCotacao(int idRequisicao, int idFornecedor)
         {
             var cotadoCom = serviceCotadoCom.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).FirstOrDefault();
