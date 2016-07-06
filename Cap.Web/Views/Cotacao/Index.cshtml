@@ -1,4 +1,4 @@
-﻿@model Cap.Web.Models.CotacaoFornecedor
+﻿@model Cap.Domain.Models.Requisicao.CotacaoFornecedor
 
 @{
     Layout = "~/Views/Shared/_PrintLayout.cshtml";
@@ -15,9 +15,14 @@
 
     <h2>COTAÇÃO DE PREÇOS</h2>
 
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
     @if (ViewBag.Message != null)
     {
-        <div class="alert alert-danger">@ViewBag.Message</div>
+        <div class="alert alert-info">@ViewBag.Message</div>
     }
 
     <div class="row top20">
@@ -48,41 +53,23 @@
                 </thead>
 
                 <tbody>
-                    @for (int i = 0; i < Model.CotCotacao.Count() -1; i++)
+                    @for (int i = 0; i < Model.CotCotacao.Count(); i++)
                     {
                         <tr>
                             <td>@Model.CotCotacao[i].ReqMaterial.Qtde</td>                          
                             <td>@Model.CotCotacao[i].ReqMaterial.Material.Unidade.Descricao</td>
                             <td>@Model.CotCotacao[i].ReqMaterial.Material.Descricao</td>
                             <td>
-                                @{ 
-                                    string namePreco = "Preco[" + i.ToString() + "]";
-                                    string nameObserv = "Observ[" + i.ToString() + "]";
-                                }
-                                <input type="text" name="@namePreco" value="@Model.CotCotacao[i].Preco" />
+                                @Html.TextBox("CotCotacao[" + i + "].Preco", Model.CotCotacao[i].Preco, new { @class = "form-control" })<br />
+                                @Html.ValidationMessageFor(model => model.CotCotacao[i].Preco, "", new { @class = "text-danger" })
                             </td>
                             <td>
-                                <input type="text" name="@nameObserv" value="@Model.CotCotacao[i].Observ" />
-                            </td>
-                        </tr>
-                    }
-
-
-                    @foreach (var item in Model.CotCotacao)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.ReqMaterial.Qtde, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td>@Html.DisplayFor(modelItem => item.ReqMaterial.Material.Unidade.Descricao, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td>@Html.DisplayFor(modelItem => item.ReqMaterial.Material.Descricao, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td>
-                                @*@Html.EditorFor(modelItem => item.Preco, new { htmlAttributes = new { @class = "form-control" } })*@
-                                <input type="text" name="Preco" class="form-control" />
-                                @Html.ValidationMessageFor(model => item.Preco, "", new { @class = "text-danger" })
-                            </td>
-                            <td>
-                                @*@Html.EditorFor(modelItem => item.Observ, new { htmlAttributes = new { @class = "form-control" } })*@
-                                <input type="text" name="Observ" class="form-control"/>
-                                @Html.ValidationMessageFor(model => item.Observ, "", new { @class = "text-danger" })
+                                @Html.TextBox("CotCotacao[" + i + "].Observ", Model.CotCotacao[i].Observ, new { @class = "form-control" })
+                                @Html.Hidden("CotCotacao[" + i + "].Id", Model.CotCotacao[i].Id)
+                                @Html.Hidden("CotCotacao[" + i + "].ReqRequisicaoId", Model.CotCotacao[i].ReqRequisicaoId)
+                                @Html.Hidden("CotCotacao[" + i + "].FornecedorId", Model.CotCotacao[i].FornecedorId)
+                                @Html.Hidden("CotCotacao[" + i + "].ReqMaterialId", Model.CotCotacao[i].ReqMaterialId)
+                                
                             </td>
                         </tr>
                     }
@@ -95,6 +82,8 @@
                 <h3>Condições de pagamento</h3>           
             </div>           
 
+            @Html.HiddenFor(model => model.CotDadosCotacao.Id)
+            @Html.HiddenFor(model => model.CotDadosCotacao.CotCotadoComId)
             <div class="row">
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.CotDadosCotacao.Contato, htmlAttributes: new { @class = "control-label" })

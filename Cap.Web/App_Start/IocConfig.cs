@@ -78,6 +78,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<Unidade>>().To<UnidadeService>();
             kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();
 
+            kernel.Bind<ICotacaoService>().To<CotacaoService>();
             kernel.Bind<ICotadoCom>().To<CotCotadoComService>();
             kernel.Bind<IIndVariacaoCalculo>().To<IndVariacaoService>();
             kernel.Bind<ILiberacao>().To<LiberacaoService>();

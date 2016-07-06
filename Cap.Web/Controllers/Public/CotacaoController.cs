@@ -1,10 +1,8 @@
 ﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Req;
 using Cap.Domain.Models.Requisicao;
-using Cap.Web.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Cap.Web.Controllers.Public
@@ -14,12 +12,14 @@ namespace Cap.Web.Controllers.Public
         private IBaseService<CotCotacao> service;
         private IBaseService<CotCotadoCom> serviceCotadoCom;
         private IBaseService<CotDadosCotacao> serviceDadosCotacao;
+        private ICotacaoService serviceCotacao;
 
-        public CotacaoController(IBaseService<CotCotacao> service, IBaseService<CotCotadoCom> serviceCotadoCom, IBaseService<CotDadosCotacao> serviceDadosCotacao)
+        public CotacaoController(IBaseService<CotCotacao> service, IBaseService<CotCotadoCom> serviceCotadoCom, IBaseService<CotDadosCotacao> serviceDadosCotacao, ICotacaoService serviceCotacao)
         {
             this.service = service;
             this.serviceCotadoCom = serviceCotadoCom;
             this.serviceDadosCotacao = serviceDadosCotacao;
+            this.serviceCotacao = serviceCotacao;
         }
 
         // GET: Cotacao/5/5
@@ -27,28 +27,7 @@ namespace Cap.Web.Controllers.Public
         {
             try
             {
-                var cotacao = service.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).ToList();
-
-                if (cotacao.Count() == 0)
-                {
-                    return HttpNotFound();
-                }
-
-                if (cotacao.FirstOrDefault().Requisicao.Situacao == Situacao.Comprada)
-                {
-                    ViewBag.Message = "Esta cotação já foi comprada";
-                    return View(new CotacaoFornecedor());
-                }
-
-                var cotacaoFornecedor = new CotacaoFornecedor
-                {
-                    RequisicaoId = idRequisicao,
-                    FornecedorId = idFornecedor,
-                    CotCotacao = cotacao,
-                    CotDadosCotacao = getDadosCotacao(idRequisicao, idFornecedor)
-                };
-
-                return View(cotacaoFornecedor);
+                return View(serviceCotacao.GetCotacao(idRequisicao, idFornecedor));
             }
             catch (Exception e)
             {
@@ -59,33 +38,38 @@ namespace Cap.Web.Controllers.Public
 
         // POST: Cotacao
         [HttpPost]
-        public ActionResult Index(int RequisicaoId, int FornecedorId, ICollection<CotCotacao> cotacoes, FormCollection collection)
+        public ActionResult Index(CotacaoFornecedor cotacao)
         {
+            if (cotacao == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            cotacao.CotDadosCotacao.AlteradoEm = DateTime.Now;
+            cotacao.CotDadosCotacao.Condicao = cotacao.CotDadosCotacao.Condicao ?? string.Empty;
+            cotacao.CotDadosCotacao.Contato = cotacao.CotDadosCotacao.Contato ?? string.Empty;
+            cotacao.CotDadosCotacao.Observ = cotacao.CotDadosCotacao.Observ ?? string.Empty;
+            cotacao.CotDadosCotacao.PrevisaoEntrega = cotacao.CotDadosCotacao.PrevisaoEntrega ?? string.Empty;
+            cotacao.CotDadosCotacao.Validade = cotacao.CotDadosCotacao.Validade ?? string.Empty;
+
+            TryUpdateModel(cotacao);
+
             if (ModelState.IsValid)
             {
-                ViewBag.Message = ModelState.Values.ToList();
+                try
+                {
+                    serviceCotacao.GravarCotacao(cotacao);
+                    ViewBag.Message = "Cotação enviada. Obrigado!";
+                    return View(cotacao);
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError(string.Empty, e.Message);
+                    ViewBag.Error = e.Message;
+                }
             }
 
-            return View();
-        }
-
-        private CotDadosCotacao getDadosCotacao(int idRequisicao, int idFornecedor)
-        {
-            var cotadoCom = serviceCotadoCom.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).FirstOrDefault();
-
-            if (cotadoCom == null)
-            {
-                throw new ArgumentException("Esta cotação não esta sendo cotada com sua empresa");
-            }
-
-            var dadosCotacao = cotadoCom.DadosCotacao;
-
-            if (dadosCotacao == null)
-            {
-                return new CotDadosCotacao { CotCotadoComId = cotadoCom.Id };
-            }
-
-            return dadosCotacao;
+            return View(cotacao);
         }
     }
 }

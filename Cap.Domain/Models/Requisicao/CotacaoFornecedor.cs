@@ -2,7 +2,7 @@
 using Cap.Domain.Models.Requisicao;
 using System.Collections.Generic;
 
-namespace Cap.Web.Models
+namespace Cap.Domain.Models.Requisicao
 {
     public class CotacaoFornecedor
     {
