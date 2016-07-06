@@ -31,6 +31,12 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             return PartialView(itens);
         }
 
+        [ChildActionOnly]
+        public ActionResult MaterialRequisicao(int id)
+        {
+            return PartialView(getItens(id));
+        }
+
         // GET: Erp/ReqMaterial/Details/5
         public ActionResult Details(int id)
         {

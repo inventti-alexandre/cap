@@ -19754,7 +19754,7 @@
 <W>113</W>
 <H>123</H>
 <L>2740</L>
-<T>75</T>
+<T>74</T>
 <BRUSH>0,16777215</BRUSH>
 <PEN>0,1,4,0</PEN>
 <FONT>Arial,8,,0,clWindowText,0</FONT>
@@ -22770,11 +22770,11 @@
 </POINT>
 <POINT>
 <X>2526</X>
-<Y>137</Y>
+<Y>136</Y>
 </POINT>
 <POINT>
 <X>2739</X>
-<Y>137</Y>
+<Y>136</Y>
 </POINT>
 </POINTS>
 </RELC>
@@ -22803,7 +22803,7 @@
 </POINT>
 <POINT>
 <X>2827</X>
-<Y>198</Y>
+<Y>197</Y>
 </POINT>
 </POINTS>
 </RELC>
@@ -22832,7 +22832,7 @@
 </POINT>
 <POINT>
 <X>2774</X>
-<Y>198</Y>
+<Y>197</Y>
 </POINT>
 </POINTS>
 </RELC>
@@ -22849,11 +22849,11 @@
 <POINTS>
 <POINT>
 <X>2853</X>
-<Y>137</Y>
+<Y>136</Y>
 </POINT>
 <POINT>
 <X>2897</X>
-<Y>137</Y>
+<Y>136</Y>
 </POINT>
 <POINT>
 <X>2897</X>

@@ -581,6 +581,9 @@
     <Content Include="Areas\Erp\Views\CotarCom\Imprimir.cshtml" />
     <Content Include="Areas\Erp\Views\CotarCom\ImprimirCotacaoEmBranco.cshtml" />
     <Content Include="Areas\Erp\Views\Shared\_PrintLayout.cshtml" />
+    <Content Include="Areas\Erp\Views\Requisicao\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Requisicao\EmAndamento.cshtml" />
+    <Content Include="Areas\Erp\Views\ReqMaterial\MaterialRequisicao.cshtml" />
     <None Include="CAPDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CAPDataSet.Designer.cs</LastGenOutput>

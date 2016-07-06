@@ -5,6 +5,7 @@ using Cap.Domain.Service.Cap;
 using Cap.Domain.Service.Requisicao;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -13,13 +14,21 @@ namespace Cap.Domain.Models.Requisicao
 {
     public enum Situacao
     {
+        [Description("Em digitação")]
         EmDigitacao = 0,
+        [Description("Cotar")]
         Cotar = 1,
+        [Description("Em cotação")]
         EmCotacao = 2,
+        [Description("Cotado")]
         Cotado = 3,
+        [Description("Cancelada")]
         Cancelada = 4,
+        [Description("Aprovada")]
         Aprovada = 5,
+        [Description("Comprada")]
         Comprada = 6,
+        [Description("Entregue")]
         Entregue = 7
     }
 
@@ -134,6 +143,14 @@ namespace Cap.Domain.Models.Requisicao
 
         [NotMapped]
         [Display(Name = "Cotado com")]
-        public virtual ICollection<CotCotadoCom> CotadoCom { get; set; }
+        public virtual IEnumerable<CotCotadoCom> CotadoCom
+        {
+            get
+            {
+                return new CotCotadoComService().Listar()
+                    .Where(x => x.ReqRequisicaoId == Id)
+                    .ToList();
+            }
+        }
     }
 }

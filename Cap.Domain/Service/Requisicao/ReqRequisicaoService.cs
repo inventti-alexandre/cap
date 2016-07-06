@@ -1,14 +1,17 @@
 ﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Req;
 using Cap.Domain.Models.Requisicao;
 using Cap.Domain.Respository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cap.Domain.Service.Requisicao
 {
-    public class ReqRequisicaoService : IBaseService<ReqRequisicao>
+    public class ReqRequisicaoService : IBaseService<ReqRequisicao>, IRequisicao
     {
         private IBaseRepository<ReqRequisicao> repository;
+        private EFDbContext ctx = new EFDbContext();
 
         public ReqRequisicaoService()
         {
@@ -38,6 +41,17 @@ namespace Cap.Domain.Service.Requisicao
         public ReqRequisicao Find(int id)
         {
             return repository.Find(id);
+        }
+
+        public List<ReqRequisicao> GetRequisicoes(Situacao situacao, int idEmpresa, int idUsuario = 0)
+        {
+            return (from r in ctx.ReqRequisicao
+                    join d in ctx.Departamento on r.IdDepartamento equals d.Id
+                    where
+                    d.IdEmpresa == idEmpresa
+                    && r.Situacao == situacao
+                    && (idUsuario == 0 || r.IdSolicitadoPor == idUsuario)
+                    select r).ToList();
         }
 
         public int Gravar(ReqRequisicao item)
@@ -77,7 +91,6 @@ namespace Cap.Domain.Service.Requisicao
             return repository.Listar();
         }
 
-        // TODO: enviar requisicao para cotacao
         // TODO: enviar compra direta
         // TODO: retira
     }

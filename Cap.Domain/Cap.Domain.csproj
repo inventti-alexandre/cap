@@ -90,6 +90,7 @@
     <Compile Include="Abstract\ILogistica.cs" />
     <Compile Include="Abstract\Req\ICotacaoService.cs" />
     <Compile Include="Abstract\Req\ICotadoCom.cs" />
+    <Compile Include="Abstract\Req\IRequisicao.cs" />
     <Compile Include="Common\NotEqualAttribute.cs" />
     <Compile Include="Models\Admin\Estado.cs" />
     <Compile Include="Models\Admin\EstadoCivil.cs" />

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.ReqMaterial>
+
+<table class="table borderless table-condensed">
+@foreach (var item in Model) {
+    <tr style="border:none">
+        <td style="border:none">@Html.DisplayFor(modelItem => item.Material.Descricao)</td>
+        <td style="border:none" class="text-right">@Html.DisplayFor(modelItem => item.Qtde)</td>
+        <td style="border:none">@Html.DisplayFor(modelItem => item.Material.Unidade.Descricao)</td>
+        <td style="border:none">@Html.DisplayFor(modelItem => item.Observ)</td>
+    </tr>
+}
+</table>

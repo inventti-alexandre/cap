@@ -1,5 +1,6 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Abstract.Req;
 using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Requisicao;
 using Cap.Web.Areas.Erp.Models;
@@ -19,18 +20,23 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         IBaseService<ReqRequisicao> service;
         IBaseService<Fornecedor> serviceFornecedor;
         ILogin login;
+        IRequisicao serviceRequisicao;
 
-        public RequisicaoController(IBaseService<ReqRequisicao> service, IBaseService<Fornecedor> serviceFornecedor, ILogin login)
+        public RequisicaoController(IBaseService<ReqRequisicao> service, IBaseService<Fornecedor> serviceFornecedor, ILogin login, IRequisicao serviceRequisicao)
         {
             this.service = service;
             this.serviceFornecedor = serviceFornecedor;
+            this.serviceRequisicao = serviceRequisicao;
             this.login = login;
         }
 
         // GET: Erp/Requisicao
         public ActionResult Index()
         {
-            // TODO: painel de controle das requisicoes
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+
+            ViewBag.IdEmpresa = usuario.IdEmpresa;
+            ViewBag.IdUsuario = usuario.Id;
             return View();
         }
 
@@ -231,5 +237,20 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             return View(new RequisicaoFornecedor { Fornecedor = fornecedor, Requisicao = item });
         }
 
+        // GET: Erp/Requisicao/EmAndamento
+        public ActionResult EmAndamento(int idUsuario = 0)
+        {
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+
+            var requisicoes = new List<ReqRequisicao>();
+
+            // requisicoes a cotar
+            requisicoes.AddRange(serviceRequisicao.GetRequisicoes(Situacao.Cotar, usuario.IdEmpresa));
+
+            // requisicoes em cotacao
+            requisicoes.AddRange(serviceRequisicao.GetRequisicoes(Situacao.EmCotacao, usuario.IdEmpresa));
+
+            return PartialView(requisicoes);
+        }
     }
 }
