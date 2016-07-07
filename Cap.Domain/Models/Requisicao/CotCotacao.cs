@@ -1,6 +1,7 @@
 ﻿using Cap.Domain.Models.Cap;
 using Cap.Domain.Service.Requisicao;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Cap.Domain.Models.Requisicao
 {
@@ -10,33 +11,33 @@ namespace Cap.Domain.Models.Requisicao
         public int Id { get; set; }
 
         [Display(Name = "Requisição")]
-        [Range(1,double.MaxValue,ErrorMessage ="Requisição inválida")]
+        [Range(1, double.MaxValue, ErrorMessage = "Requisição inválida")]
         public int ReqRequisicaoId { get; set; }
 
         [Display(Name = "Fornecedor")]
-        [Range(1,double.MaxValue,ErrorMessage ="Fornecedor inválido")]
+        [Range(1, double.MaxValue, ErrorMessage = "Fornecedor inválido")]
         public int FornecedorId { get; set; }
 
         [Display(Name = "Insumo")]
-        [Range(1,double.MaxValue,ErrorMessage ="Insumo inválido")]
+        [Range(1, double.MaxValue, ErrorMessage = "Insumo inválido")]
         public int ReqMaterialId { get; set; }
 
         [Display(Name = "Preço")]
-        [Required(ErrorMessage ="Informe o preço, se não houver valor informe 0")]
-        [Range(0, double.MaxValue,ErrorMessage ="Preço inválido")]
+        [Required(ErrorMessage = "Informe o preço, se não houver valor informe 0")]
+        [Range(0, double.MaxValue, ErrorMessage = "Preço inválido")]
         public decimal Preco { get; set; }
 
-        [Display(Name ="Observações")]
-        [StringLength(60,ErrorMessage ="A observação é composta por no máximo 60 caracteres")]
+        [Display(Name = "Observações")]
+        [StringLength(60, ErrorMessage = "A observação é composta por no máximo 60 caracteres")]
         public string Observ { get; set; }
 
-        [Display(Name ="Requisição")]
+        [Display(Name = "Requisição")]
         public virtual ReqRequisicao Requisicao { get; set; }
 
-        [Display(Name ="Fornecedor")]
+        [Display(Name = "Fornecedor")]
         public virtual Fornecedor Fornecedor { get; set; }
 
-        [Display(Name ="Material")]
+        [Display(Name = "Material")]
         //public virtual ReqMaterial ReqMaterial { get; set; }
         public virtual ReqMaterial ReqMaterial
         {
@@ -46,5 +47,20 @@ namespace Cap.Domain.Models.Requisicao
             }
         }
 
+        [Display(Name = "Preço com impostos")]
+        public virtual decimal PrecoComImpostos
+        {
+            get
+            {
+                var cotadoCom = Requisicao?.CotadoCom?.Where(x => x.ReqRequisicaoId == ReqRequisicaoId && x.FornecedorId == x.FornecedorId).FirstOrDefault();
+
+                if (cotadoCom == null)
+                {
+                    return Preco;
+                }
+
+                return Preco * (1 + (cotadoCom.DadosCotacao.Imposto));
+            }
+        }
     }
 }

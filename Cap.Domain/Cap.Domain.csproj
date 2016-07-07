@@ -91,6 +91,7 @@
     <Compile Include="Abstract\Req\ICotacaoService.cs" />
     <Compile Include="Abstract\Req\ICotadoCom.cs" />
     <Compile Include="Abstract\Req\IRequisicao.cs" />
+    <Compile Include="Abstract\Req\IResumoCotacao.cs" />
     <Compile Include="Common\NotEqualAttribute.cs" />
     <Compile Include="Models\Admin\Estado.cs" />
     <Compile Include="Models\Admin\EstadoCivil.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Models\Cap\Socio.cs" />
     <Compile Include="Models\Requisicao\ReqMaterial.cs" />
     <Compile Include="Models\Requisicao\ReqRequisicao.cs" />
+    <Compile Include="Models\Requisicao\ResumoCotacao.cs" />
     <Compile Include="Models\Requisicao\Unidade.cs" />
     <Compile Include="Models\Email\EmailCredential.cs" />
     <Compile Include="Models\Gen\Agenda.cs" />

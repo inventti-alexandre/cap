@@ -1,5 +1,5 @@
 ﻿using Cap.Domain.Models.Cap;
-using Cap.Domain.Models.Requisicao;
+using Cap.Domain.Service.Requisicao;
 using System.Collections.Generic;
 
 namespace Cap.Domain.Models.Requisicao
@@ -16,6 +16,12 @@ namespace Cap.Domain.Models.Requisicao
 
         public virtual Fornecedor Fornecedor { get; set; }
 
-        public virtual ReqRequisicao Requisicao { get; set; }
+        public virtual ReqRequisicao Requisicao
+        {
+            get
+            {
+                return new ReqRequisicaoService().Find(RequisicaoId);
+            }
+        }
     }
 }
