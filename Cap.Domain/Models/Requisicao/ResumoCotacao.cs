@@ -1,20 +1,82 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Req;
 using Cap.Domain.Models.Cap;
+using Cap.Domain.Respository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cap.Domain.Models.Requisicao
 {
-    public class ResumoCotacao: IResumoCotacao
+
+    #region "[ Properties ]"
+
+    public class Resumo
+    {
+        public ReqRequisicao Requisicao { get; set; }
+        public List<Influencia> Influencia { get; set; }
+        public decimal PrecoMinimo { get; set; }
+        public List<IndicacaoMelhorPreco> Indicacao { get; set; }
+        public List<CotacaoDetalhada> ResumoDetalhado { get; set; }
+    }
+
+    public class CotacaoDetalhada
+    {
+        public int Id { get; set; }
+        public decimal Qtde { get; set; }
+        public string Unidade { get; set; }
+        public string Descricao { get; set; }
+        public int MaterialId { get; set; }
+        public List<CotacaoItem> Cotacao { get; set; }
+    }
+
+    public class CotacaoItem
+    {
+        public Fornecedor Fornecedor { get; set; }
+        public CotDadosCotacao DadosCotacao { get; set; }
+        public int Material { get; set; }
+        public decimal Unitario { get; set; }
+        public decimal Total { get; set; }
+        public bool MelhorPreco { get; set; }
+        public string Unidade { get; set; }
+    }
+
+    public class IndicacaoMelhorPreco
+    {
+        public bool MelhorPreco { get; set; }
+        public bool CotouTodosItens { get; set; }
+        public Fornecedor Fornecedor { get; set; }
+        public decimal ValorCotacao { get; set; }
+        public decimal DescontoANegociar { get; set; }
+        public decimal DescontoANegociarPorcentagem { get; set; }
+        public string CondicoesPagamento { get; set; }
+    }
+
+    public class Influencia
+    {
+        public int Id { get; set; }
+        public decimal Qtde { get; set; }
+        public string Unidade { get; set; }
+        public int MaterialId { get; set; }
+        public string Descricao { get; set; }
+        public decimal Unitario { get; set; }
+        public decimal UnitarioComImpostos { get; set; }
+        public decimal Total { get; set; }
+        public decimal TotalComImpostos { get; set; }
+        public decimal InfluenciaInsumo { get; set; }
+        public Fornecedor Fornecedor { get; set; }
+        public string Observ { get; set; }
+    }
+
+    #endregion
+
+    public class ResumoCotacao : IResumoCotacao
     {
         private int _idRequisicao;
         private Resumo _resumo;
         private List<CotCotacao> _cotacoes;
-        private CotDadosCotacao _dadosCotacao;
+        private List<CotDadosCotacao> _dadosCotacao;
+        private EFDbContext ctx = new EFDbContext();
 
         private IBaseService<ReqRequisicao> serviceRequisicao;
         private IBaseService<CotCotacao> serviceCotCotacao;
@@ -28,6 +90,7 @@ namespace Cap.Domain.Models.Requisicao
         public Resumo GetResumo(int idRequisicao)
         {
             _idRequisicao = idRequisicao;
+            _dadosCotacao = getDadosCotacao();
             _cotacoes = getCotacoes();
 
             // instancia o resumo
@@ -39,6 +102,15 @@ namespace Cap.Domain.Models.Requisicao
 
             return _resumo;
         }
+
+        private List<CotDadosCotacao> getDadosCotacao()
+        {
+            return (from d in ctx.CotDadosCotacao
+                    join c in ctx.CotCotadoCom on d.Id equals c.ReqRequisicaoId
+                    where c.ReqRequisicaoId == _idRequisicao
+                    select d).ToList();
+        }
+
         private ReqRequisicao getRequisicao()
         {
             var requisicao = serviceRequisicao.Find(_idRequisicao);
@@ -120,71 +192,91 @@ namespace Cap.Domain.Models.Requisicao
             var lista = new List<IndicacaoMelhorPreco>();
 
             // melhor preco - influencia
-            
+            var influencias = _resumo.Influencia
+                .GroupBy(x => x.Fornecedor.Id)
+                .Select(y => new
+                {
+                    Fornecedor = y.Key,
+                    Influencia = _resumo.Influencia.Where(k => k.Fornecedor.Id == y.Key).Sum(k => k.InfluenciaInsumo)
+                })
+                .OrderByDescending(x => x.Influencia);
+
+            foreach (var item in _dadosCotacao)
+            {
+                var indicacao = new IndicacaoMelhorPreco();
+                indicacao.CondicoesPagamento = item.Condicao;
+                indicacao.Fornecedor = item.CotadoCom.Fornecedor;
+                // cotacao de todos os insumos para este fornecedor
+                var cotacao = _cotacoes.Where(x => x.FornecedorId == indicacao.Fornecedor.Id);
+                indicacao.ValorCotacao = cotacao.Sum(x => x.PrecoComImpostos * x.ReqMaterial.Qtde);
+                indicacao.DescontoANegociar = indicacao.ValorCotacao - _resumo.PrecoMinimo;
+                indicacao.DescontoANegociarPorcentagem = (1 - (indicacao.ValorCotacao / _resumo.PrecoMinimo)) * 100;
+                indicacao.CotouTodosItens = (cotacao.Where(x => x.PrecoComImpostos > 0).Count() == 0);
+                lista.Add(indicacao);
+            }
+
+            // definicao do melhor preco (quem tem o menor desconto a negociar)
+            var menorDesconto = lista.Min(x => x.DescontoANegociar);
+            for (int i = 0; i < lista.Count; i++)
+            {
+                lista[i].MelhorPreco = (lista[i].DescontoANegociar == menorDesconto);
+            }
 
             return lista;
         }
 
         private List<CotacaoDetalhada> getResumoDetalhado()
         {
-            throw new NotImplementedException();
+            var lista = new List<CotacaoDetalhada>();
+
+            foreach (var item in _resumo.Requisicao.ReqMaterial)
+            {
+                var detalhada = new CotacaoDetalhada();
+                detalhada.Id = item.Id;
+                detalhada.Descricao = item.Material.Descricao;
+                detalhada.MaterialId = item.Material.Id;
+                detalhada.Qtde = item.Qtde;
+                detalhada.Unidade = item.Material.Unidade.Descricao;
+                detalhada.Cotacao = getCotacaoItem(detalhada.MaterialId, detalhada.Unidade);
+                lista.Add(detalhada);
+            }
+
+            return lista;
         }
 
+        private List<CotacaoItem> getCotacaoItem(int materialId, string unidade)
+        {
+            var lista = new List<CotacaoItem>();
+
+            foreach (var item in _dadosCotacao)
+            {
+                var cotacaoInsumo = new CotacaoItem();
+
+                // dados da cotacao
+                cotacaoInsumo.DadosCotacao = item;
+                cotacaoInsumo.Fornecedor = item.CotadoCom.Fornecedor;
+                cotacaoInsumo.Material = materialId;
+                cotacaoInsumo.Unidade = unidade;
+
+                // composicao do preco
+                cotacaoInsumo.Unitario = _cotacoes
+                    .Where(x => x.FornecedorId == cotacaoInsumo.Fornecedor.Id
+                    && x.ReqMaterial.Material.Id == materialId)
+                    .FirstOrDefault()
+                    .PrecoComImpostos;
+
+                cotacaoInsumo.Total = _resumo.Requisicao.ReqMaterial.Where(x => x.IdMaterial == materialId)
+                    .Select(x => x.Qtde).FirstOrDefault() * cotacaoInsumo.Unitario;
+
+                // melhor preco
+                cotacaoInsumo.MelhorPreco = _resumo.Influencia.Where(x => x.MaterialId == materialId)
+                    .Select(x => x.Fornecedor.Id).FirstOrDefault() == cotacaoInsumo.Fornecedor.Id;
+
+                lista.Add(cotacaoInsumo);
+            }
+
+            return lista;
+        }
     }
 
-    public class Resumo
-    {
-        public ReqRequisicao Requisicao { get; set; }
-        public List<Influencia> Influencia { get; set; }
-        public decimal PrecoMinimo { get; set; }
-        public List<IndicacaoMelhorPreco> Indicacao { get; set; }
-        public List<CotacaoDetalhada> ResumoDetalhado { get; set; }
-    }
-
-    public class CotacaoDetalhada
-    {
-        public int Id { get; set; }
-        public decimal Qtde { get; set; }
-        public string Unidade { get; set; }
-        public string Descricao { get; set; }
-        public int MaterialId { get; set; }
-        public List<CotacaoItem> Cotacao { get; set; }
-    }
-
-    public class CotacaoItem
-    {
-        public Fornecedor Fornecedor { get; set; }
-        public int Material { get; set; }
-        public decimal Unitario { get; set; }
-        public decimal Total { get; set; }
-        public bool MelhorPreco { get; set; }
-        public string Unidade { get; set; }
-    }
-
-    public class IndicacaoMelhorPreco
-    {
-        public bool MelhorPreco { get; set; }
-        public bool CotouTodosItens { get; set; }
-        public Fornecedor Fornecedor { get; set; }
-        public decimal ValorCotacao { get; set; }
-        public decimal DescontoANegociar { get; set; }
-        public decimal DescontoANegociarPorcentagem { get; set; }
-        public string CondicoesPagamento { get; set; }
-    }
-
-    public class Influencia
-    {
-        public int Id { get; set; }
-        public decimal Qtde { get; set; }
-        public string Unidade { get; set; }
-        public int MaterialId { get; set; }
-        public string Descricao { get; set; }
-        public decimal Unitario { get; set; }
-        public decimal UnitarioComImpostos { get; set; }
-        public decimal Total { get; set; }
-        public decimal TotalComImpostos { get; set; }
-        public decimal InfluenciaInsumo { get; set; }
-        public Fornecedor Fornecedor { get; set; }
-        public string Observ { get; set; }
-    }
 }
