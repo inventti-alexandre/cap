@@ -1,0 +1,27 @@
+﻿@model Cap.Domain.Models.Requisicao.Resumo
+
+@{
+    ViewBag.Title = "Resumo da cotação";
+}
+
+<h2>Resumo da cotação</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info">@ViewBag.Message</div>
+}
+
+<div class="row top20 alert alert-info">
+    Departamento: @Model.Requisicao.Departamento.Descricao<br />@Model.Requisicao.Departamento.Endereco, @Model.Requisicao.Departamento.Bairro, @Model.Requisicao.Departamento.Cidade, @Model.Requisicao.Departamento.Estado.UF, CEP @Model.Requisicao.Departamento.Cep
+</div>
+
+@{ 
+    Html.RenderPartial("~/Areas/Erp/Views/Cotacao/Influencia.cshtml", Model.Influencia);
+    Html.RenderPartial("~/Areas/Erp/Views/Cotacao/Indicacao.cshtml", Model.Indicacao);
+    Html.RenderPartial("~/Areas/Erp/Views/Cotacao/Detalhamento.cshtml", Model.ResumoDetalhado);
+}

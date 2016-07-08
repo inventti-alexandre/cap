@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.CotacaoItem>
+
+<table class="borderless" style="border:none">
+    <tr>
+        @foreach (var item in Model)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)<br />
+                <small>@Html.DisplayFor(modelItem => item.Unitario)/@Html.DisplayFor(modelItem => item.Unidade)</small>
+            </td>
+        }
+    </tr>
+</table>

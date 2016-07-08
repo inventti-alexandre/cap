@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.Influencia>
+
+<h3 class="top40">Influência dos Insumos na Cotação</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Qtde)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitarioComImpostos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalComImpostos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InfluenciaInsumo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fornecedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observ)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qtde)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitarioComImpostos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalComImpostos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InfluenciaInsumo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fornecedor.Fantasia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observ)
+        </td>
+    </tr>
+}
+
+</table>

@@ -13,13 +13,15 @@ namespace Cap.Web.Controllers.Public
         private IBaseService<CotCotadoCom> serviceCotadoCom;
         private IBaseService<CotDadosCotacao> serviceDadosCotacao;
         private ICotacaoService serviceCotacao;
+        private IResumoCotacao serviceResumo;
 
-        public CotacaoController(IBaseService<CotCotacao> service, IBaseService<CotCotadoCom> serviceCotadoCom, IBaseService<CotDadosCotacao> serviceDadosCotacao, ICotacaoService serviceCotacao)
+        public CotacaoController(IBaseService<CotCotacao> service, IBaseService<CotCotadoCom> serviceCotadoCom, IBaseService<CotDadosCotacao> serviceDadosCotacao, ICotacaoService serviceCotacao, IResumoCotacao serviceResumo)
         {
             this.service = service;
             this.serviceCotadoCom = serviceCotadoCom;
             this.serviceDadosCotacao = serviceDadosCotacao;
             this.serviceCotacao = serviceCotacao;
+            this.serviceResumo = serviceResumo;
         }
 
         // GET: Cotacao/5/5

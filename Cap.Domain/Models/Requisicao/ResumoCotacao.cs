@@ -4,6 +4,7 @@ using Cap.Domain.Models.Cap;
 using Cap.Domain.Respository;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Cap.Domain.Models.Requisicao
@@ -35,36 +36,52 @@ namespace Cap.Domain.Models.Requisicao
         public Fornecedor Fornecedor { get; set; }
         public CotDadosCotacao DadosCotacao { get; set; }
         public int Material { get; set; }
+        [Display(Name ="Unitário")]
         public decimal Unitario { get; set; }
         public decimal Total { get; set; }
+        [Display(Name ="Melhor preço")]
         public bool MelhorPreco { get; set; }
         public string Unidade { get; set; }
     }
 
     public class IndicacaoMelhorPreco
     {
+        [Display(Name = "Melhor preço")]
         public bool MelhorPreco { get; set; }
+        [Display(Name = "Cotou todos os ítens")]
         public bool CotouTodosItens { get; set; }
         public Fornecedor Fornecedor { get; set; }
+        [Display(Name = "Valor da cotação")]
         public decimal ValorCotacao { get; set; }
+        [Display(Name = "Desconto à negociar")]
         public decimal DescontoANegociar { get; set; }
+        [Display(Name = "% a negociar")]
         public decimal DescontoANegociarPorcentagem { get; set; }
+        [Display(Name = "Condições de pagamento")]
         public string CondicoesPagamento { get; set; }
     }
 
     public class Influencia
     {
         public int Id { get; set; }
+        [Display(Name = "Qtde.")]
         public decimal Qtde { get; set; }
         public string Unidade { get; set; }
+        [Display(Name = "Material")]
         public int MaterialId { get; set; }
+        [Display(Name = "Material")]
         public string Descricao { get; set; }
+        [Display(Name = "Unitário")]
         public decimal Unitario { get; set; }
+        [Display(Name = "Unitário com impostos")]
         public decimal UnitarioComImpostos { get; set; }
         public decimal Total { get; set; }
+        [Display(Name = "Total com impostos")]
         public decimal TotalComImpostos { get; set; }
+        [Display(Name = "Influência")]
         public decimal InfluenciaInsumo { get; set; }
         public Fornecedor Fornecedor { get; set; }
+        [Display(Name = "Observações")]
         public string Observ { get; set; }
     }
 
@@ -77,7 +94,6 @@ namespace Cap.Domain.Models.Requisicao
         private List<CotCotacao> _cotacoes;
         private List<CotDadosCotacao> _dadosCotacao;
         private EFDbContext ctx = new EFDbContext();
-
         private IBaseService<ReqRequisicao> serviceRequisicao;
         private IBaseService<CotCotacao> serviceCotCotacao;
 

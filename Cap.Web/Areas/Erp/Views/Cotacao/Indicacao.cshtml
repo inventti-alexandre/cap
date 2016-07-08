@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.IndicacaoMelhorPreco>
+
+<h3 class="top60">Indicação do Melhor Preço</h3>
+
+<table class="table">
+    <tr>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.MelhorPreco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fornecedor.Fantasia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorCotacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DescontoANegociar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CondicoesPagamento)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="text-center">
+            <div class="glyphicon glyphicon-arrow-right text-info @item.MelhorPreco == true ? '' :  'hidden'"></div>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fornecedor.Fantasia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorCotacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescontoANegociarPorcentagem) % = 
+            @Html.DisplayFor(modelItem => item.DescontoANegociar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CondicoesPagamento)
+        </td>
+    </tr>
+}
+
+</table>
