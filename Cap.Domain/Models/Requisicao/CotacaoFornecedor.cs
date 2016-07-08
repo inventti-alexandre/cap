@@ -1,6 +1,7 @@
 ﻿using Cap.Domain.Models.Cap;
 using Cap.Domain.Service.Requisicao;
 using System.Collections.Generic;
+using System;
 
 namespace Cap.Domain.Models.Requisicao
 {

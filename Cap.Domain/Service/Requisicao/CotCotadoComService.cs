@@ -6,6 +6,7 @@ using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Requisicao;
 using Cap.Domain.Respository;
 using Cap.Domain.Service.Admin;
+using Cap.Domain.Service.Cap;
 using Cap.Domain.Service.Email;
 using System;
 using System.Collections.Generic;
@@ -90,7 +91,7 @@ namespace Cap.Domain.Service.Requisicao
                     if (serviceEmail.Enviar(fornecedor.Fornecedor.Fantasia, fornecedor.Email, assunto, getHtmlCotacao(idRequisicao, item, requisicao, departamento), departamento.IdEmpresa, true) == true)
                     {
                         // grava envio ao fornecedor
-                        GravarEnvioAoFornecedor(idRequisicao, item, idUsuario);
+                        GravarEnvioAoFornecedor(idRequisicao, fornecedor.FornecedorId, idUsuario);
                     }
                 }
             }

@@ -4,22 +4,22 @@
 
 <table class="table">
     <tr>
-        <th>
+        <th class="text-right">
             @Html.DisplayNameFor(model => model.Qtde)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.Unidade)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descricao)
         </th>
-        <th>
+        <th class="text-right">
             @Html.DisplayNameFor(model => model.UnitarioComImpostos)
         </th>
-        <th>
+        <th class="text-right">
             @Html.DisplayNameFor(model => model.TotalComImpostos)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.InfluenciaInsumo)
         </th>
         <th>
@@ -32,22 +32,22 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        <td class="text-right">
             @Html.DisplayFor(modelItem => item.Qtde)
         </td>
-        <td>
+        <td class="text-center">
             @Html.DisplayFor(modelItem => item.Unidade)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
-        <td>
+        <td class="text-right">
             @Html.DisplayFor(modelItem => item.UnitarioComImpostos)
         </td>
-        <td>
+        <td class="text-right">
             @Html.DisplayFor(modelItem => item.TotalComImpostos)
         </td>
-        <td>
+        <td class="text-center">
             @Html.DisplayFor(modelItem => item.InfluenciaInsumo)
         </td>
         <td>

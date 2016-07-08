@@ -16,6 +16,7 @@ namespace Cap.Domain.Models.Requisicao
     {
         public ReqRequisicao Requisicao { get; set; }
         public List<Influencia> Influencia { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal PrecoMinimo { get; set; }
         public List<IndicacaoMelhorPreco> Indicacao { get; set; }
         public List<CotacaoDetalhada> ResumoDetalhado { get; set; }
@@ -24,6 +25,7 @@ namespace Cap.Domain.Models.Requisicao
     public class CotacaoDetalhada
     {
         public int Id { get; set; }
+        [DisplayFormat(DataFormatString = "{0:N2}")]
         public decimal Qtde { get; set; }
         public string Unidade { get; set; }
         public string Descricao { get; set; }
@@ -37,8 +39,11 @@ namespace Cap.Domain.Models.Requisicao
         public CotDadosCotacao DadosCotacao { get; set; }
         public int Material { get; set; }
         [Display(Name ="Unitário")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Unitario { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Total { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         [Display(Name ="Melhor preço")]
         public bool MelhorPreco { get; set; }
         public string Unidade { get; set; }
@@ -52,10 +57,13 @@ namespace Cap.Domain.Models.Requisicao
         public bool CotouTodosItens { get; set; }
         public Fornecedor Fornecedor { get; set; }
         [Display(Name = "Valor da cotação")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal ValorCotacao { get; set; }
         [Display(Name = "Desconto à negociar")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal DescontoANegociar { get; set; }
         [Display(Name = "% a negociar")]
+        [DisplayFormat(DataFormatString = "{0:N2}%")]
         public decimal DescontoANegociarPorcentagem { get; set; }
         [Display(Name = "Condições de pagamento")]
         public string CondicoesPagamento { get; set; }
@@ -74,11 +82,15 @@ namespace Cap.Domain.Models.Requisicao
         [Display(Name = "Unitário")]
         public decimal Unitario { get; set; }
         [Display(Name = "Unitário com impostos")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal UnitarioComImpostos { get; set; }
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Total { get; set; }
         [Display(Name = "Total com impostos")]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal TotalComImpostos { get; set; }
         [Display(Name = "Influência")]
+        [DisplayFormat(DataFormatString = "{0:N2}%")]
         public decimal InfluenciaInsumo { get; set; }
         public Fornecedor Fornecedor { get; set; }
         [Display(Name = "Observações")]
@@ -122,7 +134,7 @@ namespace Cap.Domain.Models.Requisicao
         private List<CotDadosCotacao> getDadosCotacao()
         {
             return (from d in ctx.CotDadosCotacao
-                    join c in ctx.CotCotadoCom on d.Id equals c.ReqRequisicaoId
+                    join c in ctx.CotCotadoCom on d.CotCotadoComId equals c.Id
                     where c.ReqRequisicaoId == _idRequisicao
                     select d).ToList();
         }
@@ -222,6 +234,7 @@ namespace Cap.Domain.Models.Requisicao
                 var indicacao = new IndicacaoMelhorPreco();
                 indicacao.CondicoesPagamento = item.Condicao;
                 indicacao.Fornecedor = item.CotadoCom.Fornecedor;
+
                 // cotacao de todos os insumos para este fornecedor
                 var cotacao = _cotacoes.Where(x => x.FornecedorId == indicacao.Fornecedor.Id);
                 indicacao.ValorCotacao = cotacao.Sum(x => x.PrecoComImpostos * x.ReqMaterial.Qtde);

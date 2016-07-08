@@ -8,11 +8,11 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.requisicao
 {
-    public class CotacaoController : Controller
+    public class CotacaoFornecedorController : Controller
     {
         private IResumoCotacao service;
 
-        public CotacaoController(IResumoCotacao service)
+        public CotacaoFornecedorController(IResumoCotacao service)
         {
             this.service = service;
         }

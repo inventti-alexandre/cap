@@ -221,7 +221,7 @@
     <Compile Include="Areas\Erp\Controllers\HomeController.cs" />
     <Compile Include="Areas\Erp\Controllers\LoginController.cs" />
     <Compile Include="Areas\Erp\Controllers\MenuController.cs" />
-    <Compile Include="Areas\Erp\Controllers\requisicao\CotacaoController.cs" />
+    <Compile Include="Areas\Erp\Controllers\requisicao\CotacaoFornecedorController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\CotarComController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\GrupoCotacaoController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\MaterialController.cs" />
@@ -585,11 +585,11 @@
     <Content Include="Areas\Erp\Views\Requisicao\Index.cshtml" />
     <Content Include="Areas\Erp\Views\Requisicao\EmAndamento.cshtml" />
     <Content Include="Areas\Erp\Views\ReqMaterial\MaterialRequisicao.cshtml" />
-    <Content Include="Areas\Erp\Views\Cotacao\Resumo.cshtml" />
-    <Content Include="Areas\Erp\Views\Cotacao\Influencia.cshtml" />
-    <Content Include="Areas\Erp\Views\Cotacao\Indicacao.cshtml" />
-    <Content Include="Areas\Erp\Views\Cotacao\Detalhamento.cshtml" />
-    <Content Include="Areas\Erp\Views\Cotacao\CotacaoItem.cshtml" />
+    <Content Include="Areas\Erp\Views\CotacaoFornecedor\Resumo.cshtml" />
+    <Content Include="Areas\Erp\Views\CotacaoFornecedor\Influencia.cshtml" />
+    <Content Include="Areas\Erp\Views\CotacaoFornecedor\Indicacao.cshtml" />
+    <Content Include="Areas\Erp\Views\CotacaoFornecedor\Detalhamento.cshtml" />
+    <Content Include="Areas\Erp\Views\CotacaoFornecedor\CotacaoItem.cshtml" />
     <None Include="CAPDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CAPDataSet.Designer.cs</LastGenOutput>

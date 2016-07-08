@@ -35,7 +35,8 @@ namespace Cap.Domain.Service.Email
                     message.IsBodyHtml = false;
 
                     // envia o email
-                    smtpClient.Send(message);
+                    // TODO: voltar aqui
+                    //smtpClient.Send(message);
 
                     return true;
                 }

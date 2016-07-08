@@ -3,6 +3,7 @@ using Cap.Domain.Abstract.Req;
 using Cap.Domain.Models.Requisicao;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Cap.Domain.Service.Requisicao
 {
@@ -11,37 +12,67 @@ namespace Cap.Domain.Service.Requisicao
         private IBaseService<CotCotacao> service;
         private IBaseService<CotDadosCotacao> serviceDadosCotacao;
         private IBaseService<CotCotadoCom> serviceCotadoCom;
+        private IBaseService<ReqMaterial> serviceReqMaterial;
 
         public CotacaoService()
         {
             this.service = new CotCotacaoService();
             this.serviceDadosCotacao = new CotDadosCotacaoService();
             this.serviceCotadoCom = new CotCotadoComService();
+            this.serviceReqMaterial = new ReqMaterialService();
         }
 
         public CotacaoFornecedor GetCotacao(int idRequisicao, int idFornecedor)
         {
-            var cotacao = service.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).ToList();
+            //var cotacao = service.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).ToList();
+            var cotCom = serviceCotadoCom.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).FirstOrDefault();
 
-            if (cotacao.Count() == 0)
+            if (cotCom == null)
             {
                 throw new ArgumentException("Cotação inexistente");
             }
 
-            if (cotacao.FirstOrDefault().Requisicao.Situacao == Situacao.Comprada)
+            if (cotCom.Requisicao.Situacao == Situacao.Comprada)
             {
-                throw new ArgumentException("Esta cotação já foi comprada");
+                throw new ArgumentException("Esta requisição já foi comprada");
             }
 
             var cotacaoFornecedor = new CotacaoFornecedor
             {
                 RequisicaoId = idRequisicao,
                 FornecedorId = idFornecedor,
-                CotCotacao = cotacao,
+                CotCotacao = getCotacaoFornecedor(idRequisicao, idFornecedor),
                 CotDadosCotacao = getDadosCotacao(idRequisicao, idFornecedor)
             };
 
             return cotacaoFornecedor;
+        }
+
+        private List<CotCotacao> getCotacaoFornecedor(int idRequisicao, int idFornecedor)
+        {
+            var cotacaoFornecedor = service.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).ToList();
+
+            if (cotacaoFornecedor.Count > 0)
+            {
+                // fornecedor ja preencheu ou quer alterar esta cotacao que ainda esta em andamento
+                return cotacaoFornecedor;
+            }
+
+            // nao ha tuplas em CotCotacao para este fornecedor
+            var materiais = serviceReqMaterial.Listar().Where(x => x.IdReqRequisicao == idRequisicao).ToList();
+            foreach (var item in materiais)
+            {
+                cotacaoFornecedor.Add(new CotCotacao
+                {
+                    FornecedorId = idFornecedor,
+                    Observ = string.Empty,
+                    Preco = 0,
+                    ReqMaterialId = item.Id,
+                    ReqRequisicaoId = idRequisicao
+                });
+            }
+
+            return cotacaoFornecedor;            
         }
 
         private CotDadosCotacao getDadosCotacao(int idRequisicao, int idFornecedor)
