@@ -21,7 +21,9 @@
 </div>
 
 @{ 
-    Html.RenderPartial("~/Areas/Erp/Views/CotacaoFornecedor/Influencia.cshtml", Model.Influencia);
+    Html.RenderPartial("~/Areas/Erp/Views/CotacaoFornecedor/Influencia.cshtml", Model);
     Html.RenderPartial("~/Areas/Erp/Views/CotacaoFornecedor/Indicacao.cshtml", Model.Indicacao);
     Html.RenderPartial("~/Areas/Erp/Views/CotacaoFornecedor/Detalhamento.cshtml", Model.ResumoDetalhado);
 }
+
+<div class="modal" id="modal"></div>

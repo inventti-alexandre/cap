@@ -14,7 +14,9 @@
             @Html.DisplayNameFor(model => model.Descricao)
         </th>
         <th>
-            
+            @{ 
+                Html.RenderPartial("~/Areas/Erp/Views/CotacaoFornecedor/CotacaoItemDados.cshtml", Model.First().Cotacao);
+            }            
         </th>
     </tr>
 

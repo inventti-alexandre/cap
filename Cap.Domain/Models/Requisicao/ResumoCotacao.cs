@@ -183,7 +183,7 @@ namespace Cap.Domain.Models.Requisicao
                 // menor cotacao disponivel para este insumo dentre as cotacoes disponiveis
                 CotCotacao cotacao;
                 cotacao = _cotacoes.Where(x => x.ReqMaterialId == influencia.MaterialId && x.PrecoComImpostos > 0)
-                    .OrderBy(x => x.Preco)
+                    .OrderBy(x => x.PrecoComImpostos)
                     .FirstOrDefault();
                 if (cotacao == null)
                 {
@@ -245,10 +245,10 @@ namespace Cap.Domain.Models.Requisicao
             }
 
             // definicao do melhor preco (quem tem o menor desconto a negociar)
-            var menorDesconto = lista.Min(x => x.DescontoANegociar);
+            var fornecedorMelhorPreco = lista.OrderBy(x => x.DescontoANegociar).Select(x => x.Fornecedor.Id).FirstOrDefault();
             for (int i = 0; i < lista.Count; i++)
             {
-                lista[i].MelhorPreco = (lista[i].DescontoANegociar == menorDesconto);
+                lista[i].MelhorPreco = (lista[i].Fornecedor.Id == fornecedorMelhorPreco);
             }
 
             return lista;
@@ -298,8 +298,14 @@ namespace Cap.Domain.Models.Requisicao
                     .Select(x => x.Qtde).FirstOrDefault() * cotacaoInsumo.Unitario;
 
                 // melhor preco
-                cotacaoInsumo.MelhorPreco = _resumo.Influencia.Where(x => x.MaterialId == materialId)
-                    .Select(x => x.Fornecedor.Id).FirstOrDefault() == cotacaoInsumo.Fornecedor.Id;
+                var melhorCotacao = _cotacoes
+                    .Where(x => x.ReqMaterial.IdMaterial == materialId && x.PrecoComImpostos > 0)
+                    .OrderBy(x => x.PrecoComImpostos)
+                    .FirstOrDefault();
+                if (melhorCotacao != null)
+                {
+                    cotacaoInsumo.MelhorPreco = (melhorCotacao.PrecoComImpostos == cotacaoInsumo.Unitario);
+                }
 
                 lista.Add(cotacaoInsumo);
             }

@@ -24,7 +24,10 @@
 @foreach (var item in Model) {
     <tr>
         <td class="text-center">
-            <div class="glyphicon glyphicon-arrow-right text-info @item.MelhorPreco == true ? '' :  'hidden'"></div>
+            @if (item.MelhorPreco == true)
+            {
+                <div class="glyphicon glyphicon-arrow-right text-success"></div>
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Fornecedor.Fantasia)

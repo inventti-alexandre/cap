@@ -4,8 +4,15 @@
     <tr style="border:none">
         @foreach (var item in Model)
         {
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)<br />
+            <td style="border:none; width:120px;">
+                @if (item.MelhorPreco == true)
+                {
+                    <div class="text-danger"><strong>@Html.DisplayFor(modelItem => item.Total)</strong></div>
+                }
+                else
+                {
+                    <div>@Html.DisplayFor(modelItem => item.Total)</div>
+                }
                 <small>@Html.DisplayFor(modelItem => item.Unitario)/@Html.DisplayFor(modelItem => item.Unidade)</small>
             </td>
         }

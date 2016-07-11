@@ -1,36 +1,36 @@
-﻿@model IEnumerable<Cap.Domain.Models.Requisicao.Influencia>
+﻿@model Cap.Domain.Models.Requisicao.Resumo
 
 <h3 class="top40">Influência dos Insumos na Cotação</h3>
 
 <table class="table">
     <tr>
         <th class="text-right">
-            @Html.DisplayNameFor(model => model.Qtde)
+            @Html.DisplayNameFor(model => model.Influencia.First().Qtde)
         </th>
         <th class="text-center">
-            @Html.DisplayNameFor(model => model.Unidade)
+            @Html.DisplayNameFor(model => model.Influencia.First().Unidade)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Descricao)
+            @Html.DisplayNameFor(model => model.Influencia.First().Descricao)
         </th>
         <th class="text-right">
-            @Html.DisplayNameFor(model => model.UnitarioComImpostos)
+            @Html.DisplayNameFor(model => model.Influencia.First().UnitarioComImpostos)
         </th>
         <th class="text-right">
-            @Html.DisplayNameFor(model => model.TotalComImpostos)
+            @Html.DisplayNameFor(model => model.Influencia.First().TotalComImpostos)
         </th>
         <th class="text-center">
-            @Html.DisplayNameFor(model => model.InfluenciaInsumo)
+            @Html.DisplayNameFor(model => model.Influencia.First().InfluenciaInsumo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Fornecedor)
+            @Html.DisplayNameFor(model => model.Influencia.First().Fornecedor)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Observ)
+            @Html.DisplayNameFor(model => model.Influencia.First().Observ)
         </th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Influencia) {
     <tr>
         <td class="text-right">
             @Html.DisplayFor(modelItem => item.Qtde)
@@ -58,5 +58,12 @@
         </td>
     </tr>
 }
+    <tr>
+        @{ 
+            string precoMinimo = Model.PrecoMinimo.ToString("c2");
+        }
+        <td colspan="5" class="text-right"><strong>@precoMinimo</strong></td>
+        <td colspan="3">(composição do melhor preço)</td>
+    </tr>
 
 </table>

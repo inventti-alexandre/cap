@@ -12,10 +12,10 @@
                 <th>@Html.DisplayNameFor(model => model.SolicitadoPor)</th>
                 <th></th>
             </tr>
-            @foreach(var item in Model)
+            @foreach (var item in Model)
             {
                 string entregarDia = item.EntregarDia.ToShortDateString();
-                int cotacoes = item.CotadoCom.Where(x => x.Preenchida == false).Count();
+                int cotacoes = item.CotadoCom.Count();
                 int cotados = item.CotadoCom.Where(x => x.Preenchida == true).Count();
                 <tr class="borderless">
                     <td style="border:none" class="text-center active">@cotados/@cotacoes</td>
@@ -24,14 +24,16 @@
                     <td style="border:none" class="text-center active">@Html.DisplayFor(x => entregarDia)</td>
                     <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.SolicitadoPor.Nome)</td>
                     <td style="border:none" class="active">
-                    Editar | Excluir | Mapa | Comprar | Logística
+                        <a href="/Erp/Requisicao/Editar/@item.Id">Editar</a> | 
+                        <a href="/Erp/CotacaoFornecedor/Resumo/@item.Id" target="_blank">Mapa</a> |
+                        Comprar | Logística
                     </td>
                 </tr>
                 <tr class="borderless">
                     <td style="border:none"></td>
-                    <td style="border:none" colspan="5">@{ Html.RenderAction("MaterialRequisicao", "ReqMaterial", new { id = item.Id }); }</td>                    
+                    <td style="border:none" colspan="5">@{ Html.RenderAction("MaterialRequisicao", "ReqMaterial", new { id = item.Id }); }</td>
                 </tr>
-            }
+                        }
             <tr>
                 <td colspan="6"><hr /></td>
             </tr>

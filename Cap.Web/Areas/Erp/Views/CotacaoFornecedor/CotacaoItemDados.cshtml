@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.CotacaoItem>
+
+<table class="borderless" style="border:none">
+    <tr style="border:none">
+        @foreach(var item in Model)
+        {
+            string imposto = item.DadosCotacao.Imposto.ToString("n2");
+            string frete = item.DadosCotacao.Frete.ToString("c2");
+            <td style="border:none; width:100px;">
+                <small>
+                    @Html.DisplayFor(modelItem => item.DadosCotacao.CotadoCom.Fornecedor.Fantasia)<br />
+                    @Html.DisplayFor(modelItem => item.DadosCotacao.Condicao)<br />
+                    @Html.DisplayFor(modelItem => item.DadosCotacao.PrevisaoEntrega)<br />
+                    Frete: @frete<br />
+                    Impostos: @imposto%<br />
+                    Validade: @Html.DisplayFor(modelItem => item.DadosCotacao.Validade)<br />
+                    @Html.DisplayFor(modelItem => item.DadosCotacao.Contato)<br />
+                    @Html.DisplayFor(modelItem => item.DadosCotacao.Observ)<br />
+                    <a href="#" class="edit-dados-cotacao" data-id="@item.DadosCotacao.Id">editar</a>
+                </small>
+            </td>
+        }
+    </tr>
+</table>
+
+<script type="text/javascript">
+    $('.edit-dados-cotacao').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/CotDadosCotacao/Edit/' + id, function () {
+            $('#modal').modal('show');
+        });
+    })
+</script>
