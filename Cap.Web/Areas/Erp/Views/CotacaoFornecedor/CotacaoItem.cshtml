@@ -5,15 +5,9 @@
         @foreach (var item in Model)
         {
             <td style="border:none; width:120px;">
-                @if (item.MelhorPreco == true)
-                {
-                    <div class="text-danger"><strong>@Html.DisplayFor(modelItem => item.Total)</strong></div>
+                @{ 
+                    Html.RenderPartial("~/Areas/Erp/Views/CotacaoFornecedor/CotacaoItemPreco.cshtml", item);
                 }
-                else
-                {
-                    <div>@Html.DisplayFor(modelItem => item.Total)</div>
-                }
-                <small>@Html.DisplayFor(modelItem => item.Unitario)/@Html.DisplayFor(modelItem => item.Unidade)</small>
             </td>
         }
     </tr>

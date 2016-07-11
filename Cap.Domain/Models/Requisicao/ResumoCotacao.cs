@@ -35,6 +35,7 @@ namespace Cap.Domain.Models.Requisicao
 
     public class CotacaoItem
     {
+        public int CotCotacaoId { get; set; }
         public Fornecedor Fornecedor { get; set; }
         public CotDadosCotacao DadosCotacao { get; set; }
         public int Material { get; set; }
@@ -282,6 +283,7 @@ namespace Cap.Domain.Models.Requisicao
                 var cotacaoInsumo = new CotacaoItem();
 
                 // dados da cotacao
+                cotacaoInsumo.CotCotacaoId = _cotacoes.Where(x => x.FornecedorId == item.CotadoCom.Fornecedor.Id && x.ReqMaterialId == materialId).FirstOrDefault().Id;
                 cotacaoInsumo.DadosCotacao = item;
                 cotacaoInsumo.Fornecedor = item.CotadoCom.Fornecedor;
                 cotacaoInsumo.Material = materialId;
@@ -290,7 +292,7 @@ namespace Cap.Domain.Models.Requisicao
                 // composicao do preco
                 cotacaoInsumo.Unitario = _cotacoes
                     .Where(x => x.FornecedorId == cotacaoInsumo.Fornecedor.Id
-                    && x.ReqMaterial.Material.Id == materialId)
+                    && x.ReqMaterialId == materialId)
                     .FirstOrDefault()
                     .PrecoComImpostos;
 

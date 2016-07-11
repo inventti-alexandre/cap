@@ -75,7 +75,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="button" value="Gravar" id="save-dados-cotacao" class="btn btn-primary" />
+                            <input type="button" value="Gravar" id="save-dados-cotacao" data-id-requisicao="@Model.CotadoCom.ReqRequisicaoId" class="btn btn-primary" />
                         </div>
                     </div>
                 </div>
@@ -87,10 +87,12 @@
     </div>
 </div>
 
+<script src="~/Scripts/js/show-message.js"></script>
 <script type="text/javascript">
 
     $('#save-dados-cotacao').click(function () {
         var self = $(this);
+        var idRequisicao = $(this).attr('data-id-requisicao');
         $.ajax({
             url: '/Erp/CotDadosCotacao/Edit/',
             type: 'POST',
@@ -98,6 +100,7 @@
             success: function (result) {
                 if (result.success == true) {
                     $('#modal').modal('hide');
+                    atualizarDetalhamento(idRequisicao)
                     ShowMessage('Dados da cotação gravados');
                 } else {
                     $('#modal').html(result.data);
@@ -106,7 +109,21 @@
             error: function (e) {
                 ShowMesssage(e.error);
             }
-        })
+        });
     });
+
+    function atualizarDetalhamento(id) {
+        $.ajax({
+            url: '/Erp/CotacaoFornecedor/Detalhamento/',
+            type: 'GET',
+            data: { 'id': id },
+            success: function (result) {
+                $('#detalhamento').html(result);
+            },
+            error: function (e) {
+                $('#detalhamento').html(e.error);
+            }
+        });
+    };
 
 </script>

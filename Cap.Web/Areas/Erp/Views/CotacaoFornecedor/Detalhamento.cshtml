@@ -1,42 +1,45 @@
 ﻿@model IEnumerable<Cap.Domain.Models.Requisicao.CotacaoDetalhada>
 
-<h3 class="top60">Detalhamento da Cotação</h3>
+<div id="detalhamento">
+    <h3 class="top60">Detalhamento da Cotação</h3>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Qtde)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Unidade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
-            @{ 
-                Html.RenderPartial("~/Areas/Erp/Views/CotacaoFornecedor/CotacaoItemDados.cshtml", Model.First().Cotacao);
-            }            
-        </th>
-    </tr>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Qtde)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @{
+                    Html.RenderPartial("~/Areas/Erp/Views/CotacaoFornecedor/CotacaoItemDados.cshtml", Model.First().Cotacao);
+                }
+            </th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Qtde)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Unidade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
-            @{ 
-                Html.RenderPartial("~/Areas/Erp/Views/CotacaoFornecedor/CotacaoItem.cshtml", item.Cotacao);
-            }
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qtde)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @{
+                        Html.RenderPartial("~/Areas/Erp/Views/CotacaoFornecedor/CotacaoItem.cshtml", item.Cotacao);
+                    }
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>

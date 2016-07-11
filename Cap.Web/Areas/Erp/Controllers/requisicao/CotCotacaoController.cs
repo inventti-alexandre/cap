@@ -1,5 +1,4 @@
 ﻿using Cap.Domain.Abstract;
-using Cap.Domain.Abstract.Req;
 using Cap.Domain.Models.Requisicao;
 using System;
 using System.Collections.Generic;
@@ -9,57 +8,55 @@ using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.requisicao
 {
-    public class CotDadosCotacaoController : Controller
+    public class CotCotacaoController : Controller
     {
-        IBaseService<CotDadosCotacao> service;
+        IBaseService<CotCotacao> service;
 
-        public CotDadosCotacaoController(IBaseService<CotDadosCotacao> service)
+        public CotCotacaoController(IBaseService<CotCotacao> service)
         {
             this.service = service;
         }
 
-        // GET: Erp/CotDadosCotacao
+        // GET: Erp/CotCotacao
         public ActionResult Index(int id)
         {
-            var dados = service.Find(id);
+            var cotacaoItem = service.Find(id);
 
-            if (dados == null)
+            if (cotacaoItem == null)
             {
                 return HttpNotFound();
             }
 
-            return PartialView(dados);
+            return PartialView(cotacaoItem);
         }
 
-        // GET: Erp/CotDadosCotacao/Edit/5
+
+         // GET: Erp/CotCotacao/Edit/5
         public ActionResult Edit(int id)
         {
-            var dados = service.Find(id);
+            var cotacaoItem = service.Find(id);
 
-            if (dados == null)
+            if (cotacaoItem == null)
             {
                 return HttpNotFound();
             }
 
-            return PartialView(dados);
+            return PartialView(cotacaoItem);
         }
 
-        // POST: Erp/CotDadosCotacao/Edit/5
+        // POST: Erp/CotCotacao/Edit/5
         [HttpPost]
-        public ActionResult Edit(CotDadosCotacao dados)
+        public ActionResult Edit(CotCotacao item)
         {
             try
             {
-                dados.AlteradoEm = DateTime.Now;
-                TryUpdateModel(dados);
-
                 if (ModelState.IsValid)
                 {
-                    service.Gravar(dados);
+                    service.Gravar(item);
                     return Json(new { success = true });
                 }
 
-                return PartialView(dados);
+                return PartialView(item);
             }
             catch (ArgumentException e)
             {

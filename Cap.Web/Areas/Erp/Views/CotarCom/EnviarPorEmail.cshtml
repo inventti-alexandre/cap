@@ -7,7 +7,7 @@
         <input type="button" data-id="@ViewBag.IdRequisicao" id="enviar" value="Enviar" class="btn btn-primary" />
     </div>
 </div>
-
+<script src="~/Scripts/js/show-message.js"></script>
 <script type="text/javascript">
 
     $('#enviar').click(function () {
@@ -38,11 +38,5 @@
             ShowMessage('Informe um email.');
         }
     });
-
-    function ShowMessage(msg) {
-        $('#modal').load('/Erp/ModalInfo/Index/', { 'msg': msg }, function () {
-            $('#modal').modal('show');
-        });
-    };
 
 </script>

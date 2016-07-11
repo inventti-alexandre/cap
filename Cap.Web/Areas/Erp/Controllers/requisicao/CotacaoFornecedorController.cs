@@ -32,5 +32,20 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 return View(new Resumo());
             }   
         }
+
+        // GET: Erp/Cotacao/Detalhamento/5
+        public ActionResult Detalhamento(int id)
+        {
+            try
+            {
+                var resumo = service.GetResumo(id);
+
+                return PartialView("Detalhamento", resumo.ResumoDetalhado);
+            }
+            catch (Exception e)
+            {
+                return Json(new { error = e.Message });
+            }
+        }
     }
 }

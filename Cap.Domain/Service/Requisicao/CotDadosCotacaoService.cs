@@ -29,7 +29,7 @@ namespace Cap.Domain.Service.Requisicao
 
         public CotDadosCotacao Find(int id)
         {
-            return repository.Excluir(id);
+            return repository.Find(id);
         }
 
         public int Gravar(CotDadosCotacao item)

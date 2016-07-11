@@ -1,0 +1,18 @@
+﻿@model Cap.Domain.Models.Requisicao.CotacaoItem
+
+@if (Model.MelhorPreco == true)
+{
+    <div class="text-danger"><strong>@Html.DisplayFor(model => Model.Total)</strong></div>
+}
+else
+{
+    <div>@Html.DisplayFor(model => Model.Total)</div>
+}
+<small>@Html.DisplayFor(model => Model.Unitario)/@Html.DisplayFor(model => Model.Unidade)</small><br />
+<small><a href="#" class="edit-price" data-id="@Model.CotCotacaoId">editar</a></small>
+
+<script type="text/javascript">
+    $('.edit-price').click(function () {
+        var id = $(this).attr('data-id');
+    });
+</script>
