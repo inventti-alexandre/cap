@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -19,14 +20,16 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
     {
         IBaseService<ReqRequisicao> service;
         IBaseService<Fornecedor> serviceFornecedor;
+        IBaseService<Logistica> serviceLogistica;
         ILogin login;
         IRequisicao serviceRequisicao;
 
-        public RequisicaoController(IBaseService<ReqRequisicao> service, IBaseService<Fornecedor> serviceFornecedor, ILogin login, IRequisicao serviceRequisicao)
+        public RequisicaoController(IBaseService<ReqRequisicao> service, IBaseService<Fornecedor> serviceFornecedor, ILogin login, IRequisicao serviceRequisicao, IBaseService<Logistica> serviceLogistica)
         {
             this.service = service;
             this.serviceFornecedor = serviceFornecedor;
             this.serviceRequisicao = serviceRequisicao;
+            this.serviceLogistica = serviceLogistica;
             this.login = login;
         }
 
@@ -263,17 +266,24 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 return HttpNotFound();
             }
 
+            Logistica logistica;
+
             if (requisicao.LogisticaId == null)
             {
-                requisicao.Logistica = new Domain.Models.Cap.Logistica
+                logistica = new Domain.Models.Cap.Logistica
                 {
                     AlteradoEm = DateTime.Now,
-                    DataServico = requisicao.EntregarDia,
+                    DataServico = requisicao.EntregarDia < DateTime.Today.Date ? DateTime.Today.Date : requisicao.EntregarDia,
                     EmpresaId = requisicao.Departamento.IdEmpresa,
                     Observ = string.Empty,
-                    Servico = string.Empty,
+                    Id = 0,
+                    Servico = getStringServico(requisicao),
                     UsuarioId = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name)
                 };
+            }
+            else
+            {
+                logistica = requisicao.Logistica;
             }
 
             ViewBag.Departamento = requisicao.Departamento.Descricao;
@@ -281,21 +291,25 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             ViewBag.SolicitadoPor = requisicao.SolicitadoPor.Nome;
             ViewBag.Situacao = requisicao.Situacao.ToString();
             ViewBag.Id = requisicao.Id;
-            return View(requisicao.Logistica);
+            return View(logistica);
         }
 
         // POST: Erp/Requisicao/Logistica/5
         [HttpPost]
-        public ActionResult EmAndamento(Logistica logistica)
+        public ActionResult Logistica(Logistica logistica, int idRequisicao)
         {
+            var requisicao = service.Find(idRequisicao);
+            ViewBag.Departamento = requisicao.Departamento.Descricao;
+            ViewBag.EntregarDia = requisicao.EntregarDia.ToShortDateString();
+            ViewBag.SolicitadoPor = requisicao.SolicitadoPor.Nome;
+            ViewBag.Situacao = requisicao.Situacao.ToString();
+            ViewBag.Id = requisicao.Id;
+
             try
             {
-                logistica.AlteradoEm = DateTime.Now;
-                TryUpdateModel(logistica);
-
                 if (ModelState.IsValid)
                 {
-                    // TODO: acao
+                    serviceRequisicao.SendToLogistica(logistica, idRequisicao);
                     return RedirectToAction("Index");
                 }
 
@@ -307,5 +321,23 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 return View(logistica);
             }
         }
+
+        private string getStringServico(ReqRequisicao requisicao)
+        {
+            var sb = new StringBuilder();
+
+            sb.Append("Providenciar:")
+                .AppendLine(" ")
+                .AppendLine($"Departamento: { requisicao.Departamento.Descricao}, {requisicao.Departamento.Endereco}")
+                .AppendLine("");
+
+            foreach (var item in requisicao.ReqMaterial)
+            {
+                sb.AppendLine($"{ item.Qtde.ToString("n2")} { item.Material.Unidade.Descricao } {item.Material.Descricao} {item.Observ}");
+            }
+
+            return sb.ToString();
+        }
+
     }
 }

@@ -6,7 +6,6 @@ using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Requisicao;
 using Cap.Domain.Respository;
 using Cap.Domain.Service.Admin;
-using Cap.Domain.Service.Cap;
 using Cap.Domain.Service.Email;
 using System;
 using System.Collections.Generic;
@@ -141,8 +140,6 @@ namespace Cap.Domain.Service.Requisicao
                 .FirstOrDefault()
                 .Valor;
 
-            string link = string.Format("{0}?idRequisicao={1}&idFornecedor={2}", url, idRequisicao, idFornecedor);
-
             StringBuilder sb = new StringBuilder();
             sb.Append("<html><head></head><body>")
                 .Append("<h2>COTAÇÃO DE PREÇOS</h2>")
@@ -174,6 +171,7 @@ namespace Cap.Domain.Service.Requisicao
 
             if (idFornecedor != 0)
             {
+                string link = string.Format("{0}?idRequisicao={1}&idFornecedor={2}", url, idRequisicao, idFornecedor);
                 sb.Append("<br />")
                     .Append($"<h4><a href='{link}' _target='_blank'>CLIQUE PARA RESPONDER ESTA COTAÇÃO</a></h4>")
                     .Append("</body></html>");

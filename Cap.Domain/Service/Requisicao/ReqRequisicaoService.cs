@@ -1,7 +1,9 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Req;
+using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Requisicao;
 using Cap.Domain.Respository;
+using Cap.Domain.Service.Cap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,12 @@ namespace Cap.Domain.Service.Requisicao
     {
         private IBaseRepository<ReqRequisicao> repository;
         private EFDbContext ctx = new EFDbContext();
+        private IBaseService<Logistica> serviceLogistica;
 
         public ReqRequisicaoService()
         {
             repository = new EFRepository<ReqRequisicao>();
+            serviceLogistica = new LogisticaService();
         }
 
         public ReqRequisicao Excluir(int id)
@@ -89,6 +93,36 @@ namespace Cap.Domain.Service.Requisicao
         public IQueryable<ReqRequisicao> Listar()
         {
             return repository.Listar();
+        }
+
+        public void SendToLogistica(Logistica logistica, int idRequisicao)
+        {
+            try
+            {
+                var requisicao = repository.Find(idRequisicao);
+
+                if (requisicao == null)
+                {
+                    throw new ArgumentException("Requisição inexistente");
+                }
+
+                // grava logistica
+                logistica.AlteradoEm = DateTime.Now;
+                logistica.Ativo = true;
+                logistica.ConcluidoObserv = string.Empty;
+                logistica.Observ = logistica.Observ == null ? string.Empty : logistica.Observ.ToUpper().Trim();
+                logistica.Id = 0;
+                serviceLogistica.Gravar(logistica);
+
+                // grava LogisticaId em requisicao
+                requisicao.LogisticaId = logistica.Id;
+                requisicao.Situacao = Situacao.Comprada;
+                repository.Alterar(requisicao);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         // TODO: enviar compra direta
