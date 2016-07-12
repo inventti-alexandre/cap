@@ -1,0 +1,98 @@
+﻿@using Cap.Web.Common.Bind;
+@model Cap.Domain.Models.Cap.Logistica
+
+@{
+    ViewBag.Title = "Logística";
+
+    if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.Error
+        </div>
+    }
+}
+
+<h2>Requisição - transferência através de logística</h2>
+
+<div class="alert alert-info">
+    As vezes uma requisição é solicitada, no entanto não se faz necessária a compra, visto que há material disponível em estoque
+    que atenda as necessidades.<br /><br />
+    É possível, portanto, enviar esta requisição para a logística da empresa para que providencie a entrega.
+</div>
+
+<h3>REQUISIÇÃO</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 active">
+            Departamento:<br />@ViewBag.Departamento
+        </div>
+        <div class="col-md-2 active">
+            Entregar dia:<br />@ViewBag.EntregarDia
+        </div>
+        <div class="col-md-2 active">
+            Solicitado por:<br />@ViewBag.SolicitadoPor
+        </div>
+        <div class="col-md-2 active">
+            Situação:<br />@ViewBag.Situacao
+        </div>
+    </div>
+    <div class="row">
+        @{  Html.RenderAction("MaterialRequisicao", "ReqMaterial", new { id = ViewBag.Id }); }
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel panel-heading">Logística</div>
+    <div class="panel-body">
+        @using (Html.BeginForm("EmAndamento", "Requisicao", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class= "text-danger"})
+                @Html.HiddenFor(model => model.AlteradoEm)
+                @Html.HiddenFor(model => model.EmpresaId)
+                @Html.HiddenFor(model => model.UsuarioId)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MotoristaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.SelectMotorista(Model.MotoristaId, false, "MotoristaId", false)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DataServico, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DataServico, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.DataServico, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Servico, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Servico, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Servico, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Observ, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Observ, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Observ, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Gravar" class="btn btn-primary" />
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>

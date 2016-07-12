@@ -88,6 +88,9 @@ namespace Cap.Domain.Models.Requisicao
         [DataType(DataType.MultilineText)]
         public string LiberadoObserv { get; set; }
 
+        [Display(Name ="Logística")]
+        public int? LogisticaId { get; set; }
+
         [NotMapped]
         public virtual Departamento Departamento
         {
@@ -152,5 +155,9 @@ namespace Cap.Domain.Models.Requisicao
                     .ToList();
             }
         }
+
+        [NotMapped]
+        [Display(Name ="Logística")]
+        public virtual Logistica Logistica { get; set; }
     }
 }

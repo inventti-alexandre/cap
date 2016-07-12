@@ -252,5 +252,60 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
 
             return PartialView(requisicoes);
         }
+
+        // GET: Erp/Requisicao/Logistica/5
+        public ActionResult Logistica(int id)
+        {
+            var requisicao = service.Find(id);
+
+            if (requisicao == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (requisicao.LogisticaId == null)
+            {
+                requisicao.Logistica = new Domain.Models.Cap.Logistica
+                {
+                    AlteradoEm = DateTime.Now,
+                    DataServico = requisicao.EntregarDia,
+                    EmpresaId = requisicao.Departamento.IdEmpresa,
+                    Observ = string.Empty,
+                    Servico = string.Empty,
+                    UsuarioId = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name)
+                };
+            }
+
+            ViewBag.Departamento = requisicao.Departamento.Descricao;
+            ViewBag.EntregarDia = requisicao.EntregarDia.ToShortDateString();
+            ViewBag.SolicitadoPor = requisicao.SolicitadoPor.Nome;
+            ViewBag.Situacao = requisicao.Situacao.ToString();
+            ViewBag.Id = requisicao.Id;
+            return View(requisicao.Logistica);
+        }
+
+        // POST: Erp/Requisicao/Logistica/5
+        [HttpPost]
+        public ActionResult EmAndamento(Logistica logistica)
+        {
+            try
+            {
+                logistica.AlteradoEm = DateTime.Now;
+                TryUpdateModel(logistica);
+
+                if (ModelState.IsValid)
+                {
+                    // TODO: acao
+                    return RedirectToAction("Index");
+                }
+
+                return View(logistica);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(string.Empty, e.Message);
+                return View(logistica);
+            }
+        }
     }
 }

@@ -134,3 +134,12 @@ input[type="checkbox"].input-validation-error {
 .gi-3x{font-size: 3em;}
 .gi-4x{font-size: 4em;}
 .gi-5x{font-size: 5em;}
+
+/* modal scroll position */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+}
+body.viewport-lg {
+    position: absolute; 
+}

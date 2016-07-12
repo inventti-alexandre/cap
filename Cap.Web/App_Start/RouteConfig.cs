@@ -14,6 +14,12 @@ namespace Cap.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Cotacao",
+                url: "{controller}/{idRequisicao}/{idFornecedor}",
+                defaults: new { controller = "Cotacao", action = "Index" },
+                constraints: new { idRequisicao = @"\d+", idFornecedor = @"\d+" });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

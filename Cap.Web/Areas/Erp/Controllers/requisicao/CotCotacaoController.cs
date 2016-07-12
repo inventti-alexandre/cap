@@ -1,9 +1,6 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Models.Requisicao;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.requisicao

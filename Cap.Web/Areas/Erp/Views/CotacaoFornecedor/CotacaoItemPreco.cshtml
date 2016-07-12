@@ -11,8 +11,22 @@ else
 <small>@Html.DisplayFor(model => Model.Unitario)/@Html.DisplayFor(model => Model.Unidade)</small><br />
 <small><a href="#" class="edit-price" data-id="@Model.CotCotacaoId">editar</a></small>
 
+<script src="~/Scripts/js/show-message.js"></script>
 <script type="text/javascript">
     $('.edit-price').click(function () {
         var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/Erp/CotCotacao/Edit/',
+            type: 'GET',
+            data: { 'id': id },
+            datatype: 'json',
+            success: function (result) {
+                $('#modal').html(result);
+                $('#modal').modal('show');
+            },
+            error: function (e) {
+                ShowMessage(e.error);
+            }
+        })
     });
 </script>

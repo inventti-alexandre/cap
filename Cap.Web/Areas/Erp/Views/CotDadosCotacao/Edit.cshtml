@@ -4,7 +4,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title">Regra</h4>
+            <h4 class="modal-title">Condições de pagamento</h4>
         </div>
         <div class="modal-body">
 
@@ -88,6 +88,8 @@
 </div>
 
 <script src="~/Scripts/js/show-message.js"></script>
+<script src="~/Scripts/js/cotacao-atualizar-detalhamento.js"></script>
+
 <script type="text/javascript">
 
     $('#save-dados-cotacao').click(function () {
@@ -100,7 +102,7 @@
             success: function (result) {
                 if (result.success == true) {
                     $('#modal').modal('hide');
-                    atualizarDetalhamento(idRequisicao)
+                    atualizarDetalhamento(idRequisicao);
                     ShowMessage('Dados da cotação gravados');
                 } else {
                     $('#modal').html(result.data);
@@ -111,19 +113,5 @@
             }
         });
     });
-
-    function atualizarDetalhamento(id) {
-        $.ajax({
-            url: '/Erp/CotacaoFornecedor/Detalhamento/',
-            type: 'GET',
-            data: { 'id': id },
-            success: function (result) {
-                $('#detalhamento').html(result);
-            },
-            error: function (e) {
-                $('#detalhamento').html(e.error);
-            }
-        });
-    };
 
 </script>

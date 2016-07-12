@@ -97,6 +97,19 @@ namespace Cap.Domain.Service.Requisicao
         public void GravarCotacao(CotacaoFornecedor cotacao)
         {
             // grava dados da cotacao
+            if (cotacao.CotDadosCotacao.Id == 0)
+            {
+                // redundancia
+                var cotadoComId = cotacao.CotDadosCotacao.CotadoCom.Id;
+                if (cotadoComId != 0)
+                {
+                    var dados = serviceDadosCotacao.Listar().Where(x => x.CotCotadoComId == cotadoComId).FirstOrDefault();
+                    if (dados != null)
+                    {
+                        cotacao.CotDadosCotacao.Id = dados.Id;
+                    }
+                }
+            }
             serviceDadosCotacao.Gravar(cotacao.CotDadosCotacao);
 
             // grava cotacao

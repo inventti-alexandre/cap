@@ -6,7 +6,7 @@
         {
             string imposto = item.DadosCotacao.Imposto.ToString("n2");
             string frete = item.DadosCotacao.Frete.ToString("c2");
-            <td style="border:none; width:100px;">
+            <td style="border:none; width:120px;">
                 <small>
                     @Html.DisplayFor(modelItem => item.DadosCotacao.CotadoCom.Fornecedor.Fantasia)<br />
                     @Html.DisplayFor(modelItem => item.DadosCotacao.Condicao)<br />
