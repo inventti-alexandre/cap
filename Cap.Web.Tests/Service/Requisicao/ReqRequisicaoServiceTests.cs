@@ -3,6 +3,8 @@ using Cap.Domain.Abstract;
 using Cap.Domain.Models.Requisicao;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Cap.Domain.Abstract.Req;
+using System.Collections.Generic;
 
 namespace Cap.Domain.Service.Requisicao.Tests
 {
@@ -10,10 +12,12 @@ namespace Cap.Domain.Service.Requisicao.Tests
     public class ReqRequisicaoServiceTests
     {
         private IBaseService<ReqRequisicao> service;
+        private IRequisicao serviceRequisicao;
 
         public ReqRequisicaoServiceTests()
         {
             service = new ReqRequisicaoService();
+            serviceRequisicao = new ReqRequisicaoService();
         }
 
         [TestMethod()]
@@ -27,6 +31,20 @@ namespace Cap.Domain.Service.Requisicao.Tests
 
             // Assert
             Assert.IsTrue(requisicao.Id > 0);
+        }
+
+        [TestMethod()]
+        public void GetRequisicoesTest()
+        {
+            // Arrange
+            List<ReqRequisicao> requisicoes;
+            DateTime inicial = DateTime.Today.Date.AddDays(-5);
+
+            // Act
+            requisicoes = serviceRequisicao.GetRequisicoes(Situacao.Comprada, 2, 0, inicial);
+
+            // Assert
+            Assert.IsTrue(requisicoes.Count > 0);
         }
     }
 }

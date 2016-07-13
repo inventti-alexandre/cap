@@ -88,8 +88,15 @@ namespace Cap.Domain.Models.Requisicao
         [DataType(DataType.MultilineText)]
         public string LiberadoObserv { get; set; }
 
+        [Display(Name ="PedidoId")]
+        public int? PedidoId { get; set; }
+
         [Display(Name ="Logística")]
         public int? LogisticaId { get; set; }
+
+        [Display(Name ="Data compra")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
+        public DateTime? CompradoEm { get; set; }
 
         [NotMapped]
         public virtual Departamento Departamento
@@ -159,5 +166,9 @@ namespace Cap.Domain.Models.Requisicao
         [NotMapped]
         [Display(Name ="Logística")]
         public virtual Logistica Logistica { get; set; }
+
+        [NotMapped]
+        [Display(Name ="Pedido")]
+        public virtual Pedido Pedido { get; set; }
     }
 }

@@ -256,6 +256,19 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             return PartialView(requisicoes);
         }
 
+        // GET: Erp/Requisicao/Compradas/
+        public ActionResult Compradas(int idUsuario = 0)
+        {
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            DateTime inicial = DateTime.Today.Date.AddDays(-5);
+
+            // requisicoes compradas
+            var requisicoes = serviceRequisicao.GetRequisicoes(Situacao.Comprada, usuario.IdEmpresa, 0, inicial)
+                .OrderByDescending(x => x.CompradoEm);
+
+            return PartialView(requisicoes);
+        }        
+
         // GET: Erp/Requisicao/Logistica/5
         public ActionResult Logistica(int id)
         {
@@ -275,7 +288,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                     AlteradoEm = DateTime.Now,
                     DataServico = requisicao.EntregarDia < DateTime.Today.Date ? DateTime.Today.Date : requisicao.EntregarDia,
                     EmpresaId = requisicao.Departamento.IdEmpresa,
-                    Observ = string.Empty,
+                    Observ = $"Requisição # { requisicao.Id}",
                     Id = 0,
                     Servico = getStringServico(requisicao),
                     UsuarioId = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name)
@@ -327,13 +340,13 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             var sb = new StringBuilder();
 
             sb.Append("Providenciar:")
-                .AppendLine(" ")
+                .AppendLine("\n\n")
                 .AppendLine($"Departamento: { requisicao.Departamento.Descricao}, {requisicao.Departamento.Endereco}")
-                .AppendLine("");
+                .AppendLine("\n\n");
 
             foreach (var item in requisicao.ReqMaterial)
             {
-                sb.AppendLine($"{ item.Qtde.ToString("n2")} { item.Material.Unidade.Descricao } {item.Material.Descricao} {item.Observ}");
+                sb.AppendLine($"{ item.Qtde.ToString("n2")} { item.Material.Unidade.Descricao } {item.Material.Descricao} {item.Observ}\n");
             }
 
             return sb.ToString();

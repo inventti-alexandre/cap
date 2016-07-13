@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\Admin\ILogin.cs" />
+    <Compile Include="Abstract\Admin\ISistemaConfig.cs" />
     <Compile Include="Abstract\Admin\ITelaRegra.cs" />
     <Compile Include="Abstract\Admin\ITrocaSenha.cs" />
     <Compile Include="Abstract\Admin\IUsuarioRegra.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Models\Admin\Feriado.cs" />
     <Compile Include="Models\Admin\Grupo.cs" />
     <Compile Include="Models\Admin\SistemaArea.cs" />
+    <Compile Include="Models\Admin\SistemaConfig.cs" />
     <Compile Include="Models\Admin\SistemaParametro.cs" />
     <Compile Include="Models\Admin\SistemaRegra.cs" />
     <Compile Include="Models\Admin\SistemaTela.cs" />
@@ -158,6 +160,7 @@
     <Compile Include="Service\Admin\FeriadoService.cs" />
     <Compile Include="Service\Admin\GrupoService.cs" />
     <Compile Include="Service\Admin\SistemaAreaService.cs" />
+    <Compile Include="Service\Admin\SistemaConfigService.cs" />
     <Compile Include="Service\Admin\SistemaParametroService.cs" />
     <Compile Include="Service\Admin\SistemaRegraService.cs" />
     <Compile Include="Service\Admin\SistemaTelaService.cs" />

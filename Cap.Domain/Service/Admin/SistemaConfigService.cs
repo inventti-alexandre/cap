@@ -1,0 +1,77 @@
+﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Models.Admin;
+using System;
+using System.Linq;
+
+namespace Cap.Domain.Service.Admin
+{
+    public class SistemaConfigService: ISistemaConfig
+    {
+        private IBaseService<SistemaParametro> service;
+        const string _requisicaoExibirComprasUltimosDias = "REQ_EXIB_COMP_ULT_DIAS";
+
+        public SistemaConfigService()
+        {
+            this.service = new SistemaParametroService();
+        }
+
+        public SistemaConfig GetConfig(int idEmpresa)
+        {
+            string valor;
+
+            var item = new SistemaConfig();
+            item.IdEmpresa = idEmpresa;
+
+            // requisicoes compradas nos ultimos N dias
+            valor = getParametro(_requisicaoExibirComprasUltimosDias, idEmpresa);
+            item.RequisicaoExibirComprasUltimosDias = string.IsNullOrEmpty(valor) ? 5 : Convert.ToInt32(valor);
+
+            return item;
+        }
+
+        public void SetConfig(SistemaConfig config, int idUsuario)
+        {
+            // requisicoes compradas nos ultimos N dias
+            setParametro(_requisicaoExibirComprasUltimosDias, config.IdEmpresa, idUsuario, config.RequisicaoExibirComprasUltimosDias.ToString());
+        }
+
+        private string getParametro(string codigo, int idEmpresa)
+        {
+            var parametro = service.Listar().Where(x => x.IdEmpresa == idEmpresa && x.Codigo == codigo).FirstOrDefault();
+
+            if (parametro == null)
+            {
+                return string.Empty;
+            }
+
+            return parametro.Valor;
+        }
+
+        private void setParametro(string codigo, int idEmpresa, int idUsuario, string valor)
+        {
+            var parametro = service.Listar().Where(x => x.IdEmpresa == idEmpresa && x.Codigo == codigo).FirstOrDefault();
+
+            if (parametro == null)
+            {
+                parametro = new SistemaParametro
+                {
+                    AlteradoEm = DateTime.Now,
+                    AlteradoPor = idUsuario,
+                    Codigo = codigo,
+                    Descricao = codigo,
+                    IdEmpresa = idEmpresa,
+                    Valor = valor
+                };
+            }
+            else
+            {
+                parametro.Valor = valor;
+                parametro.AlteradoEm = DateTime.Now;
+                parametro.AlteradoPor = idUsuario;
+            }
+
+            service.Gravar(parametro);
+        }
+    }
+}

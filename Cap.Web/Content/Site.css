@@ -44,7 +44,7 @@ textarea {
     color:#fff;
 }
 
-.borderless td, .borderless th {
+.borderless, .borderless td, .borderless th {
     border: none;
 }
 
@@ -136,10 +136,10 @@ input[type="checkbox"].input-validation-error {
 .gi-5x{font-size: 5em;}
 
 /* modal scroll position */
-body.modal-open {
+/*body.modal-open {
     overflow: hidden;
     position: fixed;
 }
 body.viewport-lg {
     position: absolute; 
-}
+}*/

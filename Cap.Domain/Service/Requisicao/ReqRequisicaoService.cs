@@ -47,7 +47,7 @@ namespace Cap.Domain.Service.Requisicao
             return repository.Find(id);
         }
 
-        public List<ReqRequisicao> GetRequisicoes(Situacao situacao, int idEmpresa, int idUsuario = 0)
+        public List<ReqRequisicao> GetRequisicoes(Situacao situacao, int idEmpresa, int idUsuario = 0, DateTime? inicial = null, DateTime? final = null)
         {
             return (from r in ctx.ReqRequisicao
                     join d in ctx.Departamento on r.IdDepartamento equals d.Id
@@ -55,6 +55,8 @@ namespace Cap.Domain.Service.Requisicao
                     d.IdEmpresa == idEmpresa
                     && r.Situacao == situacao
                     && (idUsuario == 0 || r.IdSolicitadoPor == idUsuario)
+                    && (inicial == null || (r.CompradoEm != null && r.CompradoEm > inicial))
+                    && (final == null || (r.CompradoEm != null && r.CompradoEm < final))
                     select r).ToList();
         }
 
@@ -117,6 +119,7 @@ namespace Cap.Domain.Service.Requisicao
                 // grava LogisticaId em requisicao
                 requisicao.LogisticaId = logistica.Id;
                 requisicao.Situacao = Situacao.Comprada;
+                requisicao.CompradoEm = DateTime.Today.Date;
                 repository.Alterar(requisicao);
             }
             catch (Exception e)

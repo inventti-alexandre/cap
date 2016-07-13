@@ -3,11 +3,10 @@
 @if (Model.Count() > 0)
 {
     <div class="panel panel-info">
-        <div class="panel panel-heading">Requisições em andamento</div>
+        <div class="panel panel-heading">Requisições compradas nos últimos 5 dias</div>
         <div class="panel-body">
             <table class="table borderless">
                 <tr>
-                    <th class="text-center">Cotações</th>
                     <th>Situação</th>
                     <th>@Html.DisplayNameFor(model => model.Departamento.Descricao)</th>
                     <th class="text-center">@Html.DisplayNameFor(model => model.EntregarDia)</th>
@@ -17,19 +16,29 @@
                 @foreach (var item in Model)
                 {
                     string entregarDia = item.EntregarDia.ToShortDateString();
-                    int cotacoes = item.CotadoCom.Count();
-                    int cotados = item.CotadoCom.Where(x => x.Preenchida == true).Count();
                     <tr class="borderless">
-                        <td style="border:none" class="text-center active">@cotados/@cotacoes</td>
-                        <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.Situacao)</td>
+                        <td style="border:none" class="active">
+                            @if (item.LogisticaId == null)
+                            {
+                                @Html.DisplayFor(modelItem => item.Situacao)
+                            }
+                            else
+                            {
+                                @:Logística
+                            }
+                        </td>
                         <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.Departamento.Descricao)</td>
                         <td style="border:none" class="text-center active">@Html.DisplayFor(x => entregarDia)</td>
                         <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.SolicitadoPor.Nome)</td>
                         <td style="border:none" class="active">
-                            <a href="/Erp/Requisicao/Editar/@item.Id">Editar</a> |
-                            <a href="/Erp/CotacaoFornecedor/Resumo/@item.Id" target="_blank">Mapa</a> |
-                            <a href="/Erp/Requisicao/Comprar/@item.Id">Comprar</a> |
-                            <a href="/Erp/Requisicao/Logistica/@item.Id">Logística</a>
+                            @if (item.LogisticaId == null)
+                            {
+                                <a href="/Erp/Pedido/Edit/@item.PedidoId">Ver agendamento financeiro</a>
+                            }
+                            else
+                            {
+                                <a href="#" data-id="@item.LogisticaId" class="logistica">Ver logística</a>
+                            }
                         </td>
                     </tr>
                     <tr class="borderless">
@@ -44,3 +53,14 @@
         </div>
     </div>
 }
+
+<script type="text/javascript">
+
+    $('.logistica').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Logistica/Details/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+</script>
