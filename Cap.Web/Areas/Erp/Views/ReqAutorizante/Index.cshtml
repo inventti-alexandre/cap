@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.ReqAutorizante>
+
+@{
+    ViewBag.Title = "Autorizantes de Compra de Requisições";
+}
+
+<h2>Autorizantes de Compra de Requisições</h2>
+
+<p>
+    <a href="#" id="new-autorizante">Novo autorizante</a>
+</p>
+
+<table class="table top20">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UsuarioId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlteradoEm)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Autorizante.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlteradoEm)
+            </td>
+            <td>
+                <a href="#" class="details-autorizante" data-id="@item.Id">Detalhes</a> |
+                <a href="#" class="delete-autorizante" data-id="@item.Id">Excluir</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="modal" id="modal"></div>
+
+<script type="text/javascript">
+
+    $('#new-autorizante').click(function () {
+        $('#modal').load('/Erp/Reqautorizante/Create', function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.details-autorizante').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Reqautorizante/Details/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.delete-autorizante').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Reqautorizante/Delete/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+</script>

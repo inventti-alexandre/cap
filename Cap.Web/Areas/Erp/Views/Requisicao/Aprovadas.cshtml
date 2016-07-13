@@ -3,42 +3,32 @@
 @if (Model.Count() > 0)
 {
     <div class="panel panel-info">
-        <div class="panel panel-heading">Requisições compradas nos últimos @ViewBag.Dias dias</div>
+        <div class="panel panel-heading">Requisições aprovadas para compra</div>
         <div class="panel-body">
             <table class="table borderless">
                 <tr>
-                    <th>Situação</th>
                     <th>@Html.DisplayNameFor(model => model.Departamento.Descricao)</th>
                     <th class="text-center">@Html.DisplayNameFor(model => model.EntregarDia)</th>
                     <th>@Html.DisplayNameFor(model => model.SolicitadoPor)</th>
+                    <th>@Html.DisplayNameFor(model => model.IdLiberadoPor)</th>
+                    <th>@Html.DisplayNameFor(model => model.LiberadoObserv)</th>
                     <th></th>
                 </tr>
                 @foreach (var item in Model)
                 {
                     string entregarDia = item.EntregarDia.ToShortDateString();
                     <tr class="borderless">
-                        <td style="border:none" class="active">
-                            @if (item.LogisticaId == null)
-                            {
-                                @Html.DisplayFor(modelItem => item.Situacao)
-                            }
-                            else
-                            {
-                                @:Logística
-                            }
-                        </td>
                         <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.Departamento.Descricao)</td>
                         <td style="border:none" class="text-center active">@Html.DisplayFor(x => entregarDia)</td>
                         <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.SolicitadoPor.Nome)</td>
                         <td style="border:none" class="active">
-                            @if (item.LogisticaId == null)
-                            {
-                                <a href="/Erp/Pedido/Edit/@item.PedidoId">Ver agendamento financeiro</a>
-                            }
-                            else
-                            {
-                                <a href="#" data-id="@item.LogisticaId" class="logistica">Ver logística</a>
-                            }
+                            @Html.DisplayFor(modeItem => item.LiberadoPor.Nome) em @Html.DisplayFor(modelItem => item.LiberadoEm)
+                        </td>
+                        <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.LiberadoObserv)</td>
+                        <td style="border:none" class="active">
+                            <a href="/Erp/CotacaoFornecedor/Resumo/@item.Id" target="_blank">Mapa</a> |
+                            <a href="/Erp/Requisicao/Comprar/@item.Id">Comprar</a> |
+                            <a href="/Erp/Requisicao/Logistica/@item.Id">Logística</a>
                         </td>
                     </tr>
                     <tr class="borderless">
@@ -51,16 +41,4 @@
                 </tr>
             </table>
         </div>
-    </div>
-}
-
-<script type="text/javascript">
-
-    $('.logistica').click(function () {
-        var id = $(this).attr('data-id');
-        $('#modal').load('/Erp/Logistica/Details/' + id, function () {
-            $('#modal').modal('show');
-        });
-    });
-
-</script>
+    </div>}

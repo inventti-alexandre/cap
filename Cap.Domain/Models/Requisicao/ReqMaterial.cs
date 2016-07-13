@@ -46,7 +46,6 @@ namespace Cap.Domain.Models.Requisicao
             {
                 return new UsuarioService().Find(AlteradoPor);
             }
-            set { }
         }
 
         [NotMapped]
@@ -57,7 +56,6 @@ namespace Cap.Domain.Models.Requisicao
             {
                 return new MaterialService().Find(IdMaterial);
             }
-            set { }
         }
     }
 }

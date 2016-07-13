@@ -228,6 +228,7 @@
     <Compile Include="Areas\Erp\Controllers\requisicao\GrupoCotacaoController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\MaterialController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\MatGrupoController.cs" />
+    <Compile Include="Areas\Erp\Controllers\requisicao\ReqAutorizanteController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\ReqMaterialController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\RequisicaoController.cs" />
     <Compile Include="Areas\Erp\Controllers\requisicao\UnidadeController.cs" />
@@ -600,6 +601,11 @@
     <Content Include="Areas\Erp\Views\Requisicao\Logistica.cshtml" />
     <Content Include="Areas\Erp\Views\Requisicao\Compradas.cshtml" />
     <Content Include="Areas\Erp\Views\SistemaConfig\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Requisicao\Aprovadas.cshtml" />
+    <Content Include="Areas\Erp\Views\ReqAutorizante\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\ReqAutorizante\Details.cshtml" />
+    <Content Include="Areas\Erp\Views\ReqAutorizante\Create.cshtml" />
+    <Content Include="Areas\Erp\Views\ReqAutorizante\Delete.cshtml" />
     <None Include="CAPDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CAPDataSet.Designer.cs</LastGenOutput>

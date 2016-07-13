@@ -23,13 +23,15 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         IBaseService<Logistica> serviceLogistica;
         ILogin login;
         IRequisicao serviceRequisicao;
+        ISistemaConfig serviceConfig;
 
-        public RequisicaoController(IBaseService<ReqRequisicao> service, IBaseService<Fornecedor> serviceFornecedor, ILogin login, IRequisicao serviceRequisicao, IBaseService<Logistica> serviceLogistica)
+        public RequisicaoController(IBaseService<ReqRequisicao> service, IBaseService<Fornecedor> serviceFornecedor, ILogin login, IRequisicao serviceRequisicao, IBaseService<Logistica> serviceLogistica, ISistemaConfig serviceConfig)
         {
             this.service = service;
             this.serviceFornecedor = serviceFornecedor;
             this.serviceRequisicao = serviceRequisicao;
             this.serviceLogistica = serviceLogistica;
+            this.serviceConfig = serviceConfig;
             this.login = login;
         }
 
@@ -253,6 +255,9 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             // requisicoes em cotacao
             requisicoes.AddRange(serviceRequisicao.GetRequisicoes(Situacao.EmCotacao, usuario.IdEmpresa));
 
+            // requisicoes cotadas
+            requisicoes.AddRange(serviceRequisicao.GetRequisicoes(Situacao.Cotado, usuario.IdEmpresa));
+
             return PartialView(requisicoes);
         }
 
@@ -260,14 +265,28 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         public ActionResult Compradas(int idUsuario = 0)
         {
             var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
-            DateTime inicial = DateTime.Today.Date.AddDays(-5);
+            int dias = serviceConfig.GetConfig(usuario.IdEmpresa).RequisicaoExibirComprasUltimosDias;
+            DateTime inicial = DateTime.Today.Date.AddDays(dias * -1);
 
             // requisicoes compradas
             var requisicoes = serviceRequisicao.GetRequisicoes(Situacao.Comprada, usuario.IdEmpresa, 0, inicial)
                 .OrderByDescending(x => x.CompradoEm);
 
+            ViewBag.Dias = dias;
             return PartialView(requisicoes);
         }        
+
+        // GET: Erp/Requisicao/Aprovadas
+        public ActionResult Aprovadas(int idUsuario = 0)
+        {
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+
+            // requisicoes aprovadas
+            var requisicoes = serviceRequisicao.GetRequisicoes(Situacao.Aprovada, usuario.IdEmpresa)
+                .OrderBy(x => x.EntregarDia);
+
+            return PartialView(requisicoes);
+        }
 
         // GET: Erp/Requisicao/Logistica/5
         public ActionResult Logistica(int id)

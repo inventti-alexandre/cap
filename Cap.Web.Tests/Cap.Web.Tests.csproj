@@ -140,6 +140,7 @@
     <Compile Include="Service\Requisicao\CotDadosCotacaoServiceTests.cs" />
     <Compile Include="Service\Requisicao\CotFornecedorServiceTests.cs" />
     <Compile Include="Service\Requisicao\CotGrupoServiceTests.cs" />
+    <Compile Include="Service\Requisicao\ReqAutorizanteServiceTests.cs" />
     <Compile Include="Service\Requisicao\ReqMaterialServiceTests.cs" />
     <Compile Include="Service\Requisicao\ReqRequisicaoServiceTests.cs" />
   </ItemGroup>

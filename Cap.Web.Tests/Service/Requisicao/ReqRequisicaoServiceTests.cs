@@ -1,9 +1,8 @@
-﻿using Cap.Domain.Service.Requisicao;
-using Cap.Domain.Abstract;
+﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Req;
 using Cap.Domain.Models.Requisicao;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Cap.Domain.Abstract.Req;
 using System.Collections.Generic;
 
 namespace Cap.Domain.Service.Requisicao.Tests

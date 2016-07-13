@@ -67,6 +67,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<Pedido>>().To<PedidoService>();
             kernel.Bind<IBaseService<Pgto>>().To<PgtoService>();
             kernel.Bind<IBaseService<RegimeTributario>>().To<RegimeTributarioService>();
+            kernel.Bind<IBaseService<ReqAutorizante>>().To<ReqAutorizanteService>();
             kernel.Bind<IBaseService<ReqMaterial>>().To<ReqMaterialService>();
             kernel.Bind<IBaseService<ReqRequisicao>>().To<ReqRequisicaoService>();
             kernel.Bind<IBaseService<SistemaArea>>().To<SistemaAreaService>();

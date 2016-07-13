@@ -25,12 +25,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Gravar" id="gravar-sistema-config" class="btn btn-default" />
+                <input type="button" value="Gravar" id="gravar-sistema-config" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
+<script src="~/Scripts/js/show-message.js"></script>
 <script type="text/javascript">
 
     $('#gravar-sistema-config').click(function () {
@@ -40,7 +41,10 @@
             data: $(this).closest('form').serialize(),
             datatype: 'json',
             success: function (result) {
-                
+                $('#sistemaconfig').html(result);
+            },
+            error: function (e) {
+                ShowMessage(e);
             }
         });
     });

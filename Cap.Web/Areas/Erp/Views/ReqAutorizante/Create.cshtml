@@ -1,0 +1,75 @@
+﻿@using Cap.Web.Common.Bind
+@model Cap.Domain.Models.Requisicao.ReqAutorizante
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Autorizante</h4>
+        </div>
+        <div class="modal-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.EmpresaId)
+                    @Html.HiddenFor(model => model.AlteradoEm)
+                    @Html.HiddenFor(model => model.AlteradoPor)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.SelectUsuario(0, false, "UsuarioId", true)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="Incluir" id="incluir" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+      
+          </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#incluir').click(function () {
+        var self = $(this);
+        $.ajax({
+            url: '/Erp/ReqAutorizante/Create',
+            type: 'POST',
+            data: self.closest('form').serialize(),
+            datatype: 'json',
+            success: function (result) {
+                if (result.success == true) {
+                    alert(e + ' success');
+                    $('#modal').modal('hide');
+                    location.reload(false);
+                } else {
+                    alert(e + ' success error');
+                    $('#modal').html(result);
+                }
+            },
+            error: function (e) {
+                alert(e.error + ' error');
+                $('#modal').modal('hide');
+                ShowMessage(e.error);
+            }
+        });
+    });
+
+    function ShowMessage(msg) {
+        $('#modal').load('/Erp/ModalInfo/Index/', { 'msg': msg }, function () {
+            $('#modal').modal('show');
+        });
+    };
+</script>

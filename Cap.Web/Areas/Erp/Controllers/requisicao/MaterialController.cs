@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Models.Requisicao;
+using Cap.Web.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Cap.Web.Common;
 using System.Net;
-using Cap.Domain.Abstract;
-using Cap.Domain.Models.Requisicao;
-using Cap.Domain.Abstract.Admin;
+using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.requisicao
 {

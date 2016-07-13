@@ -5,20 +5,10 @@
 
 <h2>Requisições</h2>
 
-<div class="container">
-    <div class="row top20">
-        <div class="col-md-12">
-            @{  
-                Html.RenderAction("EmAndamento");
-            }
-        </div>
-        <div class="col-md-12">
-            @{ 
-                Html.RenderAction("Compradas");
-            }
-        </div>
-    </div>
-</div>
+@{
+    Html.RenderAction("EmAndamento");
+    Html.RenderAction("Aprovadas");
+    Html.RenderAction("Compradas");
+}
 
 <div id="modal" class="modal"></div>
-
