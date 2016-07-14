@@ -329,12 +329,14 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         // GET: Erp/Requisicao/EntregasPrevistas/5
         public ActionResult EntregasPrevistas(DateTime? data)
         {
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+
             if (data == null)
             {
+                var dias = serviceConfig.GetConfig(usuario.IdEmpresa).RequisicaoExibirEntregasPrevistasAteProximosDias;
                 data = DateTime.Today.Date;
             }
 
-            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
             var requisicoes = serviceRequisicao.GetEntregas((DateTime)data, usuario.IdEmpresa, 0);
 
             return PartialView(requisicoes);

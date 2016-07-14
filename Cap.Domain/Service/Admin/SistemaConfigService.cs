@@ -10,6 +10,7 @@ namespace Cap.Domain.Service.Admin
     {
         private IBaseService<SistemaParametro> service;
         const string _requisicaoExibirComprasUltimosDias = "REQ_EXIB_COMP_ULT_DIAS";
+        const string _requisicaoExibirEntregasPrevistasAteProximosDias = "REQ_EXIB_ENT_PREV_ATE_PROX_DIAS";
 
         public SistemaConfigService()
         {
@@ -26,6 +27,10 @@ namespace Cap.Domain.Service.Admin
             // requisicoes compradas nos ultimos N dias
             valor = getParametro(_requisicaoExibirComprasUltimosDias, idEmpresa);
             item.RequisicaoExibirComprasUltimosDias = string.IsNullOrEmpty(valor) ? 5 : Convert.ToInt32(valor);
+
+            // requisicoes compradas com entregas previstas e nao confirmadas proximos N dias
+            valor = getParametro(_requisicaoExibirEntregasPrevistasAteProximosDias, idEmpresa);
+            item.RequisicaoExibirEntregasPrevistasAteProximosDias = string.IsNullOrEmpty(valor) ? 3 : Convert.ToInt32(valor);
 
             return item;
         }
