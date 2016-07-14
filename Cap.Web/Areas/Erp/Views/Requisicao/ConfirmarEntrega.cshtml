@@ -1,0 +1,49 @@
+﻿@using Cap.Web.Common.Bind
+@model Cap.Domain.Models.Requisicao.ReqRequisicao
+
+@{
+    ViewBag.Title = "Confirmação de entrega de requisição";
+
+    if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger top40">@ViewBag.Error</div>
+    }
+}
+
+<h2 class="top40">Confirmação de entrega de requisição</h2>
+
+<div class="alert alert-info top40">
+        <h4>@Model.Departamento.Descricao, com entrega prevista para @Model.EntregarDia.ToShortDateString(), solicitado por @Model.SolicitadoPor.Nome</h4>
+</div>
+<h3 class="top40">Insumos</h3>
+<hr class="top20" />
+@{ Html.RenderAction("MaterialRequisicao", "ReqMaterial", new { id = Model.Id }); }
+
+<h3 class="top40">Confirmação da entrega</h3>
+<hr class="top20" />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EntregaConfirmadaPor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.SelectUsuario((int)ViewBag.IdUsuario, true, "EntregaConfirmadaPor", true)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Confirmar entrega" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>

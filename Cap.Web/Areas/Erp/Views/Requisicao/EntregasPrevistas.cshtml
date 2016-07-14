@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Cap.Domain.Models.Requisicao.ReqRequisicao>
+
+@if (Model.Count() > 0)
+{
+    <div class="panel panel-info">
+        <div class="panel panel-heading">Entregas previstas/entregues hoje</div>
+        <div class="panel-body">
+            <table class="table borderless">
+                <tr>
+                    <th>Situação</th>
+                    <th>@Html.DisplayNameFor(model => model.Departamento.Descricao)</th>
+                    <th class="text-center">@Html.DisplayNameFor(model => model.EntregarDia)</th>
+                    <th>@Html.DisplayNameFor(model => model.SolicitadoPor)</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    string entregarDia = item.EntregarDia.ToShortDateString();
+                    <tr class="borderless">
+                        <td style="border:none" class="active">
+                            @if (item.LogisticaId == null)
+                            {
+                                @Html.DisplayFor(modelItem => item.Situacao)
+                            }
+                            else
+                            {
+                                @:Logística
+                            }
+                        </td>
+                        <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.Departamento.Descricao)</td>
+                        <td style="border:none" class="text-center active">@Html.DisplayFor(x => entregarDia)</td>
+                        <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.SolicitadoPor.Nome)</td>
+                        <td style="border:none" class="active">
+                            @if (item.Situacao == Cap.Domain.Models.Requisicao.Situacao.Comprada)
+                            {
+                                <a href="/Erp/Confirmar-entrega/@item.Id">Confirmar entrega</a>
+                            }
+                        </td>
+                    </tr>
+                    <tr class="borderless">
+                        <td style="border:none"></td>
+                        <td style="border:none" colspan="5">@{ Html.RenderAction("MaterialRequisicao", "ReqMaterial", new { id = item.Id }); }</td>
+                    </tr>
+                            }
+                <tr>
+                    <td colspan="6"><hr /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}

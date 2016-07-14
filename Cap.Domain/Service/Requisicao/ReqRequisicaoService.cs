@@ -128,6 +128,50 @@ namespace Cap.Domain.Service.Requisicao
             }
         }
 
+        public List<ReqRequisicao> GetEntregas(DateTime data, int idEmpresa, int idUsuario = 0)
+        {
+            return (from r in ctx.ReqRequisicao
+                    join d in ctx.Departamento on r.IdDepartamento equals d.Id
+                    where
+                    d.IdEmpresa == idEmpresa
+                    && (r.Situacao == Situacao.Comprada || r.Situacao == Situacao.Entregue)
+                    && (idUsuario == 0 || r.IdSolicitadoPor == idUsuario)
+                    && r.EntregarDia == data
+                    select r).ToList();
+        }
+
+        public void ConfirmarEntrega(int id, int idUsuario)
+        {
+            try
+            {
+                var requisicao = repository.Find(id);
+
+                if (requisicao == null)
+                {
+                    throw new ArgumentException("Requisição inexistente");
+                }
+
+                if (requisicao.Situacao == Situacao.Entregue)
+                {
+                    throw new ArgumentException("Esta requisição já foi entregue");
+                }
+
+                if (requisicao.Situacao != Situacao.Comprada)
+                {
+                    throw new ArgumentException("Esta requisição ainda não foi comprada");
+                }
+
+                requisicao.Situacao = Situacao.Entregue;
+                requisicao.EntregueEm = DateTime.Now;
+                requisicao.EntregaConfirmadaPor = idUsuario;
+                repository.Alterar(requisicao);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException(e.Message);
+            }
+        }
+
         // TODO: enviar compra direta
         // TODO: retira
     }

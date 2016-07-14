@@ -98,6 +98,13 @@ namespace Cap.Domain.Models.Requisicao
         [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
         public DateTime? CompradoEm { get; set; }
 
+        [Display(Name = "Entregue em")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
+        public DateTime? EntregueEm { get; set; }
+
+        [Display(Name = "Entrega confirmada por")]
+        public int? EntregaConfirmadaPor { get; set; }
+
         [NotMapped]
         public virtual Departamento Departamento
         {

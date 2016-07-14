@@ -326,6 +326,20 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             return View(logistica);
         }
 
+        // GET: Erp/Requisicao/EntregasPrevistas/5
+        public ActionResult EntregasPrevistas(DateTime? data)
+        {
+            if (data == null)
+            {
+                data = DateTime.Today.Date;
+            }
+
+            var usuario = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            var requisicoes = serviceRequisicao.GetEntregas((DateTime)data, usuario.IdEmpresa, 0);
+
+            return PartialView(requisicoes);
+        }
+
         // POST: Erp/Requisicao/Logistica/5
         [HttpPost]
         public ActionResult Logistica(Logistica logistica, int idRequisicao)
@@ -354,6 +368,50 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             }
         }
 
+        // GET: Erp/Requisicao/ConfirmarEntrega
+        public ActionResult ConfirmarEntrega(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var requisicao = service.Find((int)id);
+
+            if (requisicao == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.IdUsuario = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name);
+            return View(requisicao);
+        }
+
+        // POST: Erp/Requisicao/ConfirmarEntrega
+        [HttpPost]
+        public ActionResult ConfirmarEntrega(int id, int entregaConfirmadaPor)
+        {
+            try
+            {
+                if (entregaConfirmadaPor == 0)
+                {
+                    ViewBag.IdUsuario = entregaConfirmadaPor;
+                    throw new ArgumentException("Selecione o responsável pela confirmação");
+                }
+
+                serviceRequisicao.ConfirmarEntrega(id, entregaConfirmadaPor);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                ViewBag.IdUsuario = entregaConfirmadaPor;
+                return View(service.Find(id));
+            }
+        }
+
+        #region [ methods ]
+
         private string getStringServico(ReqRequisicao requisicao)
         {
             var sb = new StringBuilder();
@@ -371,5 +429,6 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             return sb.ToString();
         }
 
+        #endregion
     }
 }
