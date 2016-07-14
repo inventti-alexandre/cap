@@ -39,6 +39,17 @@
                 @Html.SelectDepartamento(Model.IdDepartamento)
             </div>
             <div class="col-md-4">
+                @Html.LabelFor(model => model.GrupoCustoId, htmlAttributes: new { @class = "control-label" })
+                @Html.SelectGrupoCusto(Model.GrupoCustoId, false, "GrupoCustoId")
+            </div>
+            <div class="col-md-4" id="centroCusto">
+                @Html.LabelFor(model => model.CentroCustoId, htmlAttributes: new { @class = "control-label" })
+                @Html.SelectCentroCusto(Model.GrupoCustoId, Model.CentroCustoId, false, "CentroCustoId")
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
                 @Html.LabelFor(model => model.CotarAte, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.CotarAte, new { htmlAttributes = new { @class = "form-control datepicker" } })
                 @Html.ValidationMessageFor(model => model.CotarAte, "", new { @class = "text-danger" })
@@ -47,14 +58,14 @@
                 @Html.LabelFor(model => model.SolicitadoEm, htmlAttributes: new { @class = "control-label" })<br />
                 @Html.DisplayFor(model => model.SolicitadoEm)
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-md-4">
                 @Html.LabelFor(model => model.EntregarDia, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.EntregarDia, new { htmlAttributes = new { @class = "form-control datepicker" } })
                 @Html.ValidationMessageFor(model => model.EntregarDia, "", new { @class = "text-danger" })
             </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-4">
                 @Html.LabelFor(model => model.Observ, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.Observ, new { htmlAttributes = new { @class = "form-control" } })
@@ -68,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row top30">
             <div class="col-md-12">
                 <input type="submit" value="Gravar" class="btn btn-primary" />
                 <input type="button" value="Excluir requisição" data-id="@Model.Id" id="delete-all-requisicao" class="btn btn-danger" />
@@ -97,6 +108,11 @@
         $('#modal').load('/Erp/Requisicao/Delete/' + id, function () {
             $('#modal').modal('show');
         });
+    });
+
+    $('#GrupoCustoId').change(function () {
+        var idGrupoCusto = $(this).val();
+        $('#centroCusto').load('/Erp/CentroCusto/DropDown?idGrupoCusto=' + idGrupoCusto + '&idTag=GrupoCustoId');
     });
 
 </script>

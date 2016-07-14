@@ -24,6 +24,20 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.GrupoCustoId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.SelectGrupoCusto(Model.GrupoCustoId, true, "GrupoCustoId")
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CentroCustoId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div id="centroCusto" class="col-md-10">
+                @Html.SelectCentroCusto(Model.GrupoCustoId, Model.CentroCustoId, true, "CentroCustoId")
+            </div>
+        </div>
+        
+        <div class="form-group">
             @Html.LabelFor(model => model.CotarAte, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CotarAte, new { htmlAttributes = new { @class = "form-control" } })
@@ -64,3 +78,12 @@
         </div>
     </div>
 }
+
+<script type="text/javascript">
+
+    $('#GrupoCustoId').change(function () {
+        var idGrupoCusto = $(this).val();
+        $('#centroCusto').load('/Erp/CentroCusto/DropDown?idGrupoCusto=' + idGrupoCusto + '&idTag=CentroCustoId');
+    });
+
+</script>

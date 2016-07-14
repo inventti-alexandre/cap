@@ -48,7 +48,14 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         // GET: Erp/Requisicao/Create
         public ActionResult Nova()
         {
-            var item = new ReqRequisicao { CotarAte = DateTime.Today.Date.AddDays(1), EntregarDia = DateTime.Today.Date.AddDays(2), SolicitadoEm = DateTime.Today.Date, Situacao = Situacao.EmDigitacao };
+            var item = new ReqRequisicao
+            {
+                IdSolicitadoPor = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name),
+                CotarAte = DateTime.Today.Date.AddDays(1),
+                EntregarDia = DateTime.Today.Date.AddDays(2),
+                SolicitadoEm = DateTime.Today.Date,
+                Situacao = Situacao.EmDigitacao
+            };
 
             return View(item);
         }

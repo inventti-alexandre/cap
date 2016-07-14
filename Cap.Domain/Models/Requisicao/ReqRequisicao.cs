@@ -41,6 +41,16 @@ namespace Cap.Domain.Models.Requisicao
         [Display(Name = "Departamento")]
         public int IdDepartamento { get; set; }
 
+        [Display(Name = "Grupo de custo")]
+        [Required(ErrorMessage = "Selecione o grupo de custo")]
+        [Range(1, double.MaxValue, ErrorMessage = "Selecione o grupo de custo")]
+        public int GrupoCustoId { get; set; }
+
+        [Display(Name = "Centro de custo")]
+        [Required(ErrorMessage ="Selecione o centro de custo")]
+        [Range(1,double.MaxValue,ErrorMessage ="Selecione o centro de custo")]
+        public int CentroCustoId { get; set; }
+
         [Required(ErrorMessage = "Informe a data de solicitação da requisição")]
         [Display(Name = "Solicitado em")]
         public DateTime SolicitadoEm { get; set; }
@@ -177,5 +187,13 @@ namespace Cap.Domain.Models.Requisicao
         [NotMapped]
         [Display(Name ="Pedido")]
         public virtual Pedido Pedido { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Grupo de custo")]
+        public virtual GrupoCusto GrupoCusto { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Centro de custo")]
+        public virtual CentroCusto CentroCusto { get; set; }
     }
 }

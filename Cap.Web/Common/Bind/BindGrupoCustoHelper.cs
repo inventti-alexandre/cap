@@ -7,7 +7,7 @@ namespace Cap.Web.Common.Bind
 {
     public static class BindGrupoCustoHelper
     {
-        public static MvcHtmlString SelectGrupoCusto(this HtmlHelper html, int idGrupoCusto = 0, bool selecione = false)
+        public static MvcHtmlString SelectGrupoCusto(this HtmlHelper html, int idGrupoCusto = 0, bool selecione = false, string idTag = "IdGrupoCusto")
         {
             var idEmpresa = new UsuarioService().GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
@@ -17,8 +17,8 @@ namespace Cap.Web.Common.Bind
                 .ToList();
 
             TagBuilder tag = new TagBuilder("select");
-            tag.MergeAttribute("id", "IdGrupoCusto");
-            tag.MergeAttribute("name", "IdGrupoCusto");
+            tag.MergeAttribute("id", idTag);
+            tag.MergeAttribute("name", idTag);
             tag.MergeAttribute("class", "form-control");
 
             if (selecione == true)

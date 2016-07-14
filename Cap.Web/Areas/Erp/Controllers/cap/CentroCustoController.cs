@@ -49,10 +49,11 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
         }
 
         // GET: Erp/CentroCusto/DropDown/5
-        public ActionResult DropDown(int idGrupoCusto, int idCentroCusto = 0)
+        public ActionResult DropDown(int idGrupoCusto, int idCentroCusto = 0, string idTag = "IdGrupoCusto")
         {
             ViewBag.IdGrupoCusto = idGrupoCusto;
             ViewBag.IdCentroCusto = idCentroCusto;
+            ViewBag.IdTag = idTag;
             return PartialView();
         }
 
