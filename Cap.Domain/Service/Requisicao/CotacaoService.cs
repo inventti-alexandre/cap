@@ -22,10 +22,10 @@ namespace Cap.Domain.Service.Requisicao
             this.serviceReqMaterial = new ReqMaterialService();
         }
 
-        public CotacaoFornecedor GetCotacao(int idRequisicao, int idFornecedor)
+        public CotacaoFornecedor GetCotacao(string guid)
         {
             //var cotacao = service.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).ToList();
-            var cotCom = serviceCotadoCom.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).FirstOrDefault();
+            var cotCom = serviceCotadoCom.Listar().Where(x => x.Guid == guid).FirstOrDefault();
 
             if (cotCom == null)
             {
@@ -39,10 +39,10 @@ namespace Cap.Domain.Service.Requisicao
 
             var cotacaoFornecedor = new CotacaoFornecedor
             {
-                RequisicaoId = idRequisicao,
-                FornecedorId = idFornecedor,
-                CotCotacao = getCotacaoFornecedor(idRequisicao, idFornecedor),
-                CotDadosCotacao = getDadosCotacao(idRequisicao, idFornecedor)
+                RequisicaoId = cotCom.ReqRequisicaoId,
+                FornecedorId = cotCom.FornecedorId,
+                CotCotacao = getCotacaoFornecedor(cotCom.ReqRequisicaoId, cotCom.FornecedorId),
+                CotDadosCotacao = getDadosCotacao(cotCom.ReqRequisicaoId, cotCom.FornecedorId)
             };
 
             return cotacaoFornecedor;

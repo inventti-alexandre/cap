@@ -74,11 +74,19 @@ namespace Cap.Domain.Service.Requisicao
                 .FirstOrDefault();                
         }
 
+        public CotCotadoCom GetCotacaoFornecedor(string guid)
+        {
+            return repository.Listar()
+                .Where(x => x.Guid == guid)
+                .FirstOrDefault();
+        }
+
         public void EnviarCotacaoFornecedor(int idRequisicao, List<int> fornecedores, int idUsuario)
         {
             var requisicao = serviceRequisicao.Find(idRequisicao);
             var departamento = requisicao.Departamento;
             string assunto = getAssunto(idRequisicao, departamento);
+            string guid;
 
             foreach (var item in fornecedores)
             {
@@ -87,16 +95,17 @@ namespace Cap.Domain.Service.Requisicao
                 if (fornecedor != null)
                 {
                     // envia email
-                    if (serviceEmail.Enviar(fornecedor.Fornecedor.Fantasia, fornecedor.Email, assunto, getHtmlCotacao(idRequisicao, item, requisicao, departamento), departamento.IdEmpresa, true) == true)
+                    guid = new Guid().ToString();
+                    if (serviceEmail.Enviar(fornecedor.Fornecedor.Fantasia, fornecedor.Email, assunto, getHtmlCotacao(guid, item, requisicao, departamento), departamento.IdEmpresa, true) == true)
                     {
                         // grava envio ao fornecedor
-                        GravarEnvioAoFornecedor(idRequisicao, fornecedor.FornecedorId, idUsuario);
+                        GravarEnvioAoFornecedor(idRequisicao, fornecedor.FornecedorId, idUsuario, guid);
                     }
                 }
             }
         }
 
-        public void GravarEnvioAoFornecedor(int idRequisicao, int idFornecedor, int idUsuario)
+        public void GravarEnvioAoFornecedor(int idRequisicao, int idFornecedor, int idUsuario, string guid)
         {
             CotCotadoCom cotcom = GetCotacaoFornecedor(idRequisicao, idFornecedor);
             if (cotcom == null)
@@ -107,7 +116,8 @@ namespace Cap.Domain.Service.Requisicao
                     FornecedorId = idFornecedor,
                     Preenchida = false,
                     ReqRequisicaoId = idRequisicao,
-                    UsuarioId = idUsuario
+                    UsuarioId = idUsuario,
+                    Guid = guid
                 };
             }
             else
@@ -123,8 +133,7 @@ namespace Cap.Domain.Service.Requisicao
             var departamento = requisicao.Departamento;
             string assunto = getAssunto(idRequisicao, departamento);
 
-            // envia email
-            return serviceEmail.Enviar("", email, assunto, getHtmlCotacao(idRequisicao, 0, requisicao, departamento), departamento.IdEmpresa, true);
+            return serviceEmail.Enviar("", email, assunto, getHtmlCotacao(new Guid().ToString(), 0, requisicao, departamento), departamento.IdEmpresa, true);
         }
 
         private string getAssunto(int idRequisicao, Departamento departamento)
@@ -132,7 +141,7 @@ namespace Cap.Domain.Service.Requisicao
             return $"COTAÇÃO DE PREÇOS { departamento.Empresa.Fantasia } - {departamento.Descricao}, ID: {idRequisicao}";
         }
 
-        private string getHtmlCotacao(int idRequisicao, int idFornecedor, ReqRequisicao requisicao, Departamento departamento)
+        private string getHtmlCotacao(string guid, int idFornecedor, ReqRequisicao requisicao, Departamento departamento)
         {
             string codigoParamentro = "LINK_COTACAO";
             string url = serviceParamentro.Listar()
@@ -171,7 +180,7 @@ namespace Cap.Domain.Service.Requisicao
 
             if (idFornecedor != 0)
             {
-                string link = string.Format("{0}?idRequisicao={1}&idFornecedor={2}", url, idRequisicao, idFornecedor);
+                string link = $"{url}/{guid}";
                 sb.Append("<br />")
                     .Append($"<h4><a href='{link}' _target='_blank'>CLIQUE PARA RESPONDER ESTA COTAÇÃO</a></h4>")
                     .Append("</body></html>");

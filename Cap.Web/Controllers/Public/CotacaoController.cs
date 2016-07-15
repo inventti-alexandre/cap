@@ -25,11 +25,11 @@ namespace Cap.Web.Controllers.Public
         }
 
         // GET: Cotacao/5/5
-        public ActionResult Index(int idRequisicao, int idFornecedor)
+        public ActionResult Index(string guid)
         {
             try
             {
-                return View(serviceCotacao.GetCotacao(idRequisicao, idFornecedor));
+                return View(serviceCotacao.GetCotacao(guid));
             }
             catch (Exception e)
             {

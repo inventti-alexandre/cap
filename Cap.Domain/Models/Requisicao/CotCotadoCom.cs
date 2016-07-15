@@ -31,6 +31,10 @@ namespace Cap.Domain.Models.Requisicao
         [Required(ErrorMessage ="Usuário inválido")]
         public int UsuarioId { get; set; }
 
+        [Display(Name = "Guid")]
+        [Required(ErrorMessage ="Guid inválido")]
+        public string Guid { get; set; }
+
         [Display(Name = "Requisição")]
         public virtual ReqRequisicao Requisicao { get; set; }
 

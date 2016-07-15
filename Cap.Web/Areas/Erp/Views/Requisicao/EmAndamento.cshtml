@@ -26,8 +26,12 @@
                         <td style="border:none" class="text-center active">@Html.DisplayFor(x => entregarDia)</td>
                         <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.SolicitadoPor.Nome)</td>
                         <td style="border:none" class="active">
+                            <a href="/Erp/Requisicao/Send/@item.Id">Incluir</a>
                             <a href="/Erp/Requisicao/Editar/@item.Id">Editar</a> |
-                            <a href="/Erp/CotacaoFornecedor/Resumo/@item.Id" target="_blank">Mapa</a> |
+                            @if (cotados > 0)
+                            {
+                                <a href="/Erp/CotacaoFornecedor/Resumo/@item.Id" target="_blank">Mapa</a> @:|
+                            }
                             <a href="/Erp/Requisicao/Comprar/@item.Id">Comprar</a> |
                             <a href="/Erp/Requisicao/Logistica/@item.Id">Logística</a>
                         </td>

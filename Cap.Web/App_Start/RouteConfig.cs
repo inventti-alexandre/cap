@@ -15,9 +15,10 @@ namespace Cap.Web
 
             routes.MapRoute(
                 name: "Cotacao",
-                url: "Cotacao/{idRequisicao}/{idFornecedor}",
-                defaults: new { controller = "Cotacao", action = "Index" },
-                constraints: new { idRequisicao = @"\d+", idFornecedor = @"\d+" });
+                url: "Cotacao/{guid}",
+                defaults: new { controller = "Cotacao", action = "Index", guid = "" }
+                //constraints: new { idRequisicao = @"\d+", idFornecedor = @"\d+" });
+            );
 
             routes.MapRoute(
                 name: "Default",
