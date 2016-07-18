@@ -316,7 +316,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                     EmpresaId = requisicao.Departamento.IdEmpresa,
                     Observ = $"Requisição # { requisicao.Id}",
                     Id = 0,
-                    Servico = getStringServico(requisicao),
+                    Servico = serviceRequisicao.GetStringServico(requisicao, null),
                     UsuarioId = login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name)
                 };
             }
@@ -418,26 +418,5 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 return View(service.Find(id));
             }
         }
-
-        #region [ methods ]
-
-        private string getStringServico(ReqRequisicao requisicao)
-        {
-            var sb = new StringBuilder();
-
-            sb.Append("Providenciar:")
-                .AppendLine("\n\n")
-                .AppendLine($"Departamento: { requisicao.Departamento.Descricao}, {requisicao.Departamento.Endereco}")
-                .AppendLine("\n\n");
-
-            foreach (var item in requisicao.ReqMaterial)
-            {
-                sb.AppendLine($"{ item.Qtde.ToString("n2")} { item.Material.Unidade.Descricao } {item.Material.Descricao} {item.Observ}\n");
-            }
-
-            return sb.ToString();
-        }
-
-        #endregion
     }
 }

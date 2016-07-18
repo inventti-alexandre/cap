@@ -2,6 +2,7 @@
 using Cap.Domain.Models.Cap;
 using Cap.Domain.Service.Requisicao;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -52,6 +53,18 @@ namespace Cap.Domain.Models.Requisicao
                 return new CotDadosCotacaoService().Listar()
                     .Where(x => x.CotCotadoComId == Id)
                     .FirstOrDefault();
+            }
+        }
+
+        [NotMapped]
+        public virtual List<CotCotacao> Cotacao
+        {
+            get
+            {
+                return new CotCotacaoService().Listar()
+                    .Where(x => x.ReqRequisicaoId == ReqRequisicaoId
+                        && x.FornecedorId == FornecedorId)
+                        .ToList();                    
             }
         }
     }

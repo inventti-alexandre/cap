@@ -8,6 +8,8 @@ using Cap.Domain.Models.Requisicao;
 using Cap.Domain.Models.Cap;
 using Cap.Domain.Service.Cap;
 using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Email;
+using Cap.Domain.Service.Email;
 
 namespace Cap.Domain.Service.Requisicao
 {
@@ -16,12 +18,16 @@ namespace Cap.Domain.Service.Requisicao
         private IBaseService<Pedido> servicePedido;
         private IBaseService<Parcela> serviceParcela;
         private IBaseService<ReqRequisicao> serviceRequisicao;
+        private IRequisicao serviceRequisicaoLogistica;
+        private IEmail serviceEmail;
 
         public ReqComprarService()
         {
             this.servicePedido = new PedidoService();
             this.serviceParcela = new ParcelaService();
             this.serviceRequisicao = new ReqRequisicaoService();
+            this.serviceRequisicaoLogistica = new ReqRequisicaoService();
+            serviceEmail = new EnviarEmail();
         }
 
         public void Comprar(ReqComprar item)
@@ -48,17 +54,26 @@ namespace Cap.Domain.Service.Requisicao
                 item.Requisicao.Situacao = Situacao.Comprada;
                 serviceRequisicao.Gravar(item.Requisicao);
 
-                // parei aki
                 // agenda logistica
                 if (item.AgendarLogistica == true)
                 {
-                    // TODO: agendar logistica
+                    serviceRequisicaoLogistica.SendToLogistica(new Logistica
+                    {
+                        ConcluidoObserv = string.Empty,
+                        DataServico =
+                        item.Requisicao.EntregarDia,
+                        EmpresaId = item.Requisicao.Departamento.IdEmpresa,
+                        Observ = string.Empty,
+                        MotoristaId = 0,
+                        UsuarioId = item.Requisicao.IdSolicitadoPor,
+                        Servico = serviceRequisicaoLogistica.GetStringServico(item.Requisicao, item.FornecedorId)
+                    }, item.Requisicao.Id);
                 }
 
                 // envia ordem de compra ao fornecedor
                 if (item.EnviarOrdemCompra == true)
                 {
-                    // TODO: enviar ordem de compra
+                    EnviarOrdemCompra(item);
                 }
 
             }
@@ -95,5 +110,86 @@ namespace Cap.Domain.Service.Requisicao
 
             return item;
         }
+
+        public void EnviarOrdemCompra(ReqComprar item)
+        {
+            var requisicao = item.Requisicao;
+            var departamento = requisicao.Departamento;
+            var fornecedor = item.Fornecedor;
+            var agenda = fornecedor.Agenda;
+            var empresa = departamento.Empresa;
+            var cotadoCom = item.Requisicao.CotadoCom.Where(x => x.ReqRequisicaoId == requisicao.Id).FirstOrDefault();
+            var dadosCotacao = cotadoCom.DadosCotacao;
+            var cotacao = dadosCotacao.CotadoCom.Cotacao;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<h2>ORDEM DE COMPRA</h2>");
+
+            // empresa
+            sb.AppendLine($"<br/><br/><strong>{ empresa.Razao }</strong>")
+                .AppendLine($"<br />{ agenda.Endereco }, { agenda.Bairro }, { agenda.Cidade }, { agenda.Estado.UF }, CEP { agenda.Cep }")
+                .AppendLine($"<br />{ agenda?.Emails?.FirstOrDefault()?.Email }, Tel. { agenda?.Telefones?.FirstOrDefault()?.Numero }");
+
+            // fornecedor
+            sb.AppendLine("<br/><br/À")
+                .AppendLine($"<br/>{fornecedor.Fantasia} - {fornecedor.Razao}");
+
+            // itens da requisicao
+            sb.AppendLine("Favor providenciar os materiais abaixo relacionados:")
+                .AppendLine("<table>")
+                .AppendLine("<tr>")
+                .AppendLine("<td>QUANTIDADE</td>")
+                .AppendLine("<td>UNIDADE</td>")
+                .AppendLine("<td>INSUMO</td>")
+                .AppendLine("<td>PREÇO UNITÁRIO</td>")
+                .AppendLine("</tr>");
+            
+            foreach (var material in requisicao.ReqMaterial)
+            {
+                var preco = cotacao.Where(x => x.ReqMaterialId == material.Id).FirstOrDefault().PrecoComImpostos;
+
+                sb.AppendLine("<tr>")
+                    .AppendLine($"<td>{ material.Qtde.ToString("N2") }</td>")
+                    .AppendLine($"<td>{ material.Material.Unidade.Descricao }</td>")
+                    .AppendLine($"<td>{ material.Material.Descricao }</td>")
+                    .AppendLine($"<td>{ material.Material.Unidade.Descricao }</td>")
+                    .AppendLine($"<td>{ preco.ToString("c2") }</td>")
+                    .AppendLine("</tr>");                
+            }
+            // valor total da cotacao
+            var totalCotacao = cotacao.Sum(x => x.PrecoComImpostos);
+
+            sb.AppendLine("<tr>")
+                .AppendLine("<td colspan='4'>VALOR TOTAL</td>")
+                .AppendLine($"<td>{ totalCotacao }</td>")
+                .AppendLine("<tr>");
+            sb.AppendLine("</table>");
+
+            // condicoes de pagamento
+            sb.AppendLine("<h4>Condições de pagamento</h4>")
+                .AppendLine($"Valor total do pedido { totalCotacao.ToString("c2")} conforme negociação, na seguinte condição de pagamento:")
+                .AppendLine("<br/>");
+            // TODO: listar condicoes de pagamento
+
+            // faturamento
+            sb.AppendLine("<h4>Faturamento</h4>")
+                .AppendLine($"{empresa.Razao}<br>Local de cobrança: {empresa.Endereco}, {empresa.Bairro}, {empresa.Cidade}, {empresa.Estado.UF}, CEP {empresa.Cep }")
+                .AppendLine($"CNPJ: {empresa.Cnpj}, Inscrição Estadual: {empresa.IE }");
+
+            // entrega
+            sb.AppendLine("<h4>ENTREGA</h4>")
+                .AppendLine($"{departamento.Endereco}, {departamento.Bairro},{ departamento.Cidade}, { departamento.Estado.UF}, CEP {departamento.Cep}")
+                .AppendLine($"<br />Entregar dia { requisicao.EntregarDia.ToShortDateString() }");
+
+            // footer
+            sb.AppendLine("<hr>")
+                .AppendLine($"Esta ordem de compra foi gerada por { item.CompradaPorUsuario}")
+                .AppendLine($"<br>Dúvidas sobre esta ordem, gentileza entrar em contato com { item.CompradaPorUsuario.Email }")
+                .AppendLine($"<br>Ordem de compra #{item.Requisicao.Id} emitida em { DateTime.Now.ToString()}");
+
+            // TODO: email do fornecedor
+            serviceEmail.Enviar(dadosCotacao.Contato, agenda.Emails.First().Email, $"ORDEM DE COMPRA {requisicao.Id}", sb.ToString(), empresa.Id, true);
+        }
+        
     }
 }

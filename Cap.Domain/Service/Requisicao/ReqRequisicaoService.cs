@@ -7,6 +7,7 @@ using Cap.Domain.Service.Cap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Cap.Domain.Service.Requisicao
 {
@@ -15,11 +16,13 @@ namespace Cap.Domain.Service.Requisicao
         private IBaseRepository<ReqRequisicao> repository;
         private EFDbContext ctx = new EFDbContext();
         private IBaseService<Logistica> serviceLogistica;
+        private IBaseService<Fornecedor> serviceFornecedor;
 
         public ReqRequisicaoService()
         {
             repository = new EFRepository<ReqRequisicao>();
             serviceLogistica = new LogisticaService();
+            serviceFornecedor = new FornecedorService();
         }
 
         public ReqRequisicao Excluir(int id)
@@ -172,6 +175,41 @@ namespace Cap.Domain.Service.Requisicao
             }
         }
 
+        public string GetStringServico(ReqRequisicao requisicao, int? idFornecedor)
+        {
+            try
+            {
+                var sb = new StringBuilder();
+
+                sb.Append("Providenciar:")
+                    .AppendLine("\n\n")
+                    .AppendLine($"Departamento: { requisicao.Departamento.Descricao}, {requisicao.Departamento.Endereco}")
+                    .AppendLine("\n\n");
+
+                if (idFornecedor != null)
+                {
+                    var fornecedor = serviceFornecedor.Find((int)idFornecedor);
+                    if (fornecedor == null)
+                    {
+                        throw new ArgumentException("Fornecedor inválido");
+                    }
+                    sb.Append($"Fornecedor: { fornecedor.Fantasia } - {fornecedor.Agenda.Endereco}, {fornecedor.Agenda.Bairro}, {fornecedor.Agenda.Cidade}")
+                        .AppendLine(@"\n\n\");
+                }
+
+                foreach (var item in requisicao.ReqMaterial)
+                {
+                    sb.AppendLine($"{ item.Qtde.ToString("n2")} { item.Material.Unidade.Descricao } {item.Material.Descricao} {item.Observ}\n");
+                }
+
+                return sb.ToString();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        
         // TODO: enviar compra direta
         // TODO: retira
     }

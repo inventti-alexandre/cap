@@ -1,4 +1,6 @@
-﻿using Cap.Domain.Models.Cap;
+﻿using Cap.Domain.Models.Admin;
+using Cap.Domain.Models.Cap;
+using Cap.Domain.Service.Admin;
 using Cap.Domain.Service.Cap;
 using System;
 using System.Collections.Generic;
@@ -52,5 +54,16 @@ namespace Cap.Domain.Models.Requisicao
                 return new FornecedorService().Find(FornecedorId);
             }
         }
+
+        [NotMapped]
+        [Display(Name = "Comprada por")]
+        public virtual Usuario CompradaPorUsuario
+        {
+            get
+            {
+                return new UsuarioService().Find(CompradaPor);
+            }
+        }
+
     }
 }
