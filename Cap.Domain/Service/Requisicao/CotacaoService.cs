@@ -4,6 +4,7 @@ using Cap.Domain.Models.Requisicao;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Cap.Domain.Models.Cap;
 
 namespace Cap.Domain.Service.Requisicao
 {
@@ -13,6 +14,8 @@ namespace Cap.Domain.Service.Requisicao
         private IBaseService<CotDadosCotacao> serviceDadosCotacao;
         private IBaseService<CotCotadoCom> serviceCotadoCom;
         private IBaseService<ReqMaterial> serviceReqMaterial;
+        private IBaseService<ReqRequisicao> serviceRequisicao;
+        private IBaseService<Fornecedor> serviceFornecedor;
 
         public CotacaoService()
         {
@@ -20,11 +23,11 @@ namespace Cap.Domain.Service.Requisicao
             this.serviceDadosCotacao = new CotDadosCotacaoService();
             this.serviceCotadoCom = new CotCotadoComService();
             this.serviceReqMaterial = new ReqMaterialService();
+            this.serviceRequisicao = new ReqRequisicaoService();
         }
 
         public CotacaoFornecedor GetCotacao(string guid)
         {
-            //var cotacao = service.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).ToList();
             var cotCom = serviceCotadoCom.Listar().Where(x => x.Guid == guid).FirstOrDefault();
 
             if (cotCom == null)
@@ -46,6 +49,41 @@ namespace Cap.Domain.Service.Requisicao
             };
 
             return cotacaoFornecedor;
+        }
+
+        public CotacaoFornecedor GetCotacao(int idRequisicao, int idFornecedor, int idUsuario)
+        {
+            var cotCom = serviceCotadoCom.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).FirstOrDefault();
+
+            if (cotCom != null)
+            {
+                // ja foi enviada cotacao para este fornecedor
+                return GetCotacao(cotCom.Guid);
+            }
+
+            var requisicao = serviceRequisicao.Find(idRequisicao);
+            if (requisicao == null)
+            {
+                throw new ArgumentException("Requisição inexistente");
+            }
+
+            var fornecedor = serviceFornecedor.Find(idFornecedor);
+            if (fornecedor == null)
+            {
+                throw new ArgumentException("Fornecedor inexistente");
+            }
+
+            var guid = Guid.NewGuid().ToString();
+            serviceCotadoCom.Gravar(new CotCotadoCom
+            {
+                Email = fornecedor.Email,
+                FornecedorId = idFornecedor,
+                Guid = guid,
+                ReqRequisicaoId = idRequisicao,
+                UsuarioId = idUsuario
+            });
+
+            return GetCotacao(guid);            
         }
 
         private List<CotCotacao> getCotacaoFornecedor(int idRequisicao, int idFornecedor)

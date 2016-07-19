@@ -27,7 +27,7 @@
                         <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.SolicitadoPor.Nome)</td>
                         <td style="border:none" class="active">
                             <a href="/Erp/Requisicao/Editar/@item.Id">Editar</a> |
-                            <a href="/Erp/Requisicao/Send/@item.Id">Incluir cotação</a> |
+                            <a href="/Erp/CotacaoCompra/Index/@item.Id">Incluir cotação</a> |
                             @if (cotados > 0)
                             {
                                 <a href="/Erp/CotacaoFornecedor/Resumo/@item.Id" target="_blank">Mapa</a> @:|

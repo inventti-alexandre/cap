@@ -1,4 +1,5 @@
-﻿@model Cap.Domain.Models.Requisicao.ReqRequisicao
+﻿@using Cap.Web.Common.Bind;
+@model Cap.Domain.Models.Requisicao.ReqRequisicao
 
 @{
     ViewBag.Title = "Incluir cotação";
@@ -7,17 +8,49 @@
 <h2>Incluir cotação</h2>
 
 <hr />
-<h4>Requisição</h4>
+<h3>Requisição</h3>
 
 <div class="row">
-    <div class="col-md-4">Departamento:<br />@Model.Departamento.Descricao</div>
-    <div class="col-md-4">Grupo custo:@Model.GrupoCusto.Descricao</div>
-    <div class="col-md-4">Centro custo:@Model.CentroCusto.Descricao</div>
+    <div class="col-md-4">Departamento:<br /><strong>@Model.Departamento.Descricao</strong></div>
+    <div class="col-md-4">Grupo custo:<br /><strong>@Model.GrupoCusto.Descricao</strong></div>
+    <div class="col-md-4">Centro custo:<br /><strong>@Model.CentroCusto.Descricao</strong></div>
 </div>
 <div class="row">
-    <div class="col-md-4">Entregar até:<br />@Model.EntregarDia.ToShortDateString()</div>
-    <div class="col-md-8">Observações:<br />@Model.Observ</div>
+    <div class="col-md-4">Entregar até:<br /><strong>@Model.EntregarDia.ToShortDateString()</strong></div>
+    <div class="col-md-8">Observações:<br /><strong>@Model.Observ</strong></div>
 </div>
 
-<hr />
-<h4>Fornecedor</h4>
+<div class="row top20">
+    <div class="col-md-4">
+        <label for="IdFornecedor">Selecione o fornecedor:</label>
+        @Html.SelectFornecedor(0, true, "IdFornecedor")
+    </div>
+</div>
+
+<div id="cotacao">
+
+</div>
+
+<script type="text/javascript">
+
+    $("#IdFornecedor").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: '/Erp/CotacaoCompra/GetCotacaoFornecedor/',
+            type: 'GET',
+            data: { 'idRequisicao': @Model.Id, 'idFornecedor': id },
+            success: function(result) {
+                if (result.success == true) {
+                    $('#cotacao').html(result);
+                }
+                else{
+                    $('#cotacao.').html(result.error);
+                }
+            },
+            error: function(e){
+                $('#cotacao').html(e.error);
+            }
+        })
+    });
+
+</script>

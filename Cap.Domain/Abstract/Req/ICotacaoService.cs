@@ -7,5 +7,7 @@ namespace Cap.Domain.Abstract.Req
         void GravarCotacao(CotacaoFornecedor cotacao);
 
         CotacaoFornecedor GetCotacao(string guid);
+
+        CotacaoFornecedor GetCotacao(int idRequisicao, int idFornecedor, int idUsuario);
     }
 }

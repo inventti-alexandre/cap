@@ -47,8 +47,8 @@ namespace Cap.Domain.Models.Requisicao
         public int GrupoCustoId { get; set; }
 
         [Display(Name = "Centro de custo")]
-        [Required(ErrorMessage ="Selecione o centro de custo")]
-        [Range(1,double.MaxValue,ErrorMessage ="Selecione o centro de custo")]
+        [Required(ErrorMessage = "Selecione o centro de custo")]
+        [Range(1, double.MaxValue, ErrorMessage = "Selecione o centro de custo")]
         public int CentroCustoId { get; set; }
 
         [Required(ErrorMessage = "Informe a data de solicitação da requisição")]
@@ -98,13 +98,13 @@ namespace Cap.Domain.Models.Requisicao
         [DataType(DataType.MultilineText)]
         public string LiberadoObserv { get; set; }
 
-        [Display(Name ="PedidoId")]
+        [Display(Name = "PedidoId")]
         public int? PedidoId { get; set; }
 
-        [Display(Name ="Logística")]
+        [Display(Name = "Logística")]
         public int? LogisticaId { get; set; }
 
-        [Display(Name ="Data compra")]
+        [Display(Name = "Data compra")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
         public DateTime? CompradoEm { get; set; }
 
@@ -181,19 +181,31 @@ namespace Cap.Domain.Models.Requisicao
         }
 
         [NotMapped]
-        [Display(Name ="Logística")]
+        [Display(Name = "Logística")]
         public virtual Logistica Logistica { get; set; }
 
         [NotMapped]
-        [Display(Name ="Pedido")]
+        [Display(Name = "Pedido")]
         public virtual Pedido Pedido { get; set; }
 
         [NotMapped]
         [Display(Name = "Grupo de custo")]
-        public virtual GrupoCusto GrupoCusto { get; set; }
+        public virtual GrupoCusto GrupoCusto
+        {
+            get
+            {
+                return new GrupoCustoService().Find(GrupoCustoId);
+            }
+        }
 
         [NotMapped]
         [Display(Name = "Centro de custo")]
-        public virtual CentroCusto CentroCusto { get; set; }
+        public virtual CentroCusto CentroCusto
+        {
+            get
+            {
+                return new CentroCustoService().Find(CentroCustoId);
+            }
+        }
     }
 }
