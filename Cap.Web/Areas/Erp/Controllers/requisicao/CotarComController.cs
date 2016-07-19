@@ -272,7 +272,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             }
 
             // grava envio desta cotacao ao fornecedor
-            serviceCotadoCom.GravarEnvioAoFornecedor(id, idFornecedor, login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name), Guid.NewGuid().ToString());
+            serviceCotadoCom.GravarEnvioAoFornecedor(id, idFornecedor, login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name), Guid.NewGuid().ToString(), fornecedor.Email);
 
             return View(new RequisicaoFornecedor { Fornecedor = fornecedor, Requisicao = item });
         }

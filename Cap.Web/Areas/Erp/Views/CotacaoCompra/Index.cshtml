@@ -1,0 +1,23 @@
+﻿@model Cap.Domain.Models.Requisicao.ReqRequisicao
+
+@{
+    ViewBag.Title = "Incluir cotação";
+}
+
+<h2>Incluir cotação</h2>
+
+<hr />
+<h4>Requisição</h4>
+
+<div class="row">
+    <div class="col-md-4">Departamento:<br />@Model.Departamento.Descricao</div>
+    <div class="col-md-4">Grupo custo:@Model.GrupoCusto.Descricao</div>
+    <div class="col-md-4">Centro custo:@Model.CentroCusto.Descricao</div>
+</div>
+<div class="row">
+    <div class="col-md-4">Entregar até:<br />@Model.EntregarDia.ToShortDateString()</div>
+    <div class="col-md-8">Observações:<br />@Model.Observ</div>
+</div>
+
+<hr />
+<h4>Fornecedor</h4>

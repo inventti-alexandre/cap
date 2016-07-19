@@ -22,6 +22,12 @@ namespace Cap.Domain.Models.Requisicao
         [Range(1,double.MaxValue,ErrorMessage ="Fornecedor inválido")]
         public int FornecedorId { get; set; }
 
+        [Display(Name ="Email")]
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage ="Email do fornecedor inválido")]
+        [StringLength(100, ErrorMessage ="O email do fornecedor é composto por no máximo 100 caracteres")]
+        public string Email { get; set; }
+
         public bool Preenchida { get; set; }
 
         [Display(Name ="Alterado em")]

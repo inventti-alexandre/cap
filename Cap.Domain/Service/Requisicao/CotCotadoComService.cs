@@ -99,13 +99,13 @@ namespace Cap.Domain.Service.Requisicao
                     if (serviceEmail.Enviar(fornecedor.Fornecedor.Fantasia, fornecedor.Email, assunto, getHtmlCotacao(guid, item, requisicao, departamento), departamento.IdEmpresa, true) == true)
                     {
                         // grava envio ao fornecedor
-                        GravarEnvioAoFornecedor(idRequisicao, fornecedor.FornecedorId, idUsuario, guid);
+                        GravarEnvioAoFornecedor(idRequisicao, fornecedor.FornecedorId, idUsuario, guid, fornecedor.Email);
                     }
                 }
             }
         }
 
-        public void GravarEnvioAoFornecedor(int idRequisicao, int idFornecedor, int idUsuario, string guid)
+        public void GravarEnvioAoFornecedor(int idRequisicao, int idFornecedor, int idUsuario, string guid, string email)
         {
             CotCotadoCom cotcom = GetCotacaoFornecedor(idRequisicao, idFornecedor);
             if (cotcom == null)
@@ -117,7 +117,8 @@ namespace Cap.Domain.Service.Requisicao
                     Preenchida = false,
                     ReqRequisicaoId = idRequisicao,
                     UsuarioId = idUsuario,
-                    Guid = guid
+                    Guid = guid,
+                    Email = email
                 };
             }
             else
@@ -127,7 +128,7 @@ namespace Cap.Domain.Service.Requisicao
             Gravar(cotcom);
         }
 
-        public bool  EnviarCotacaoFornecedor(int idRequisicao, string email)
+        public bool EnviarCotacaoFornecedor(int idRequisicao, string email)
         {
             var requisicao = serviceRequisicao.Find(idRequisicao);
             var departamento = requisicao.Departamento;

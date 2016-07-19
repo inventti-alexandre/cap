@@ -85,7 +85,7 @@ namespace Cap.Domain.Models.Gen
 
         [NotMapped]
         [Display(Name ="Emails")]
-        public virtual IEnumerable<AgendaEmail> Emails
+        public virtual List<AgendaEmail> Emails
         {
             get
             {
@@ -96,7 +96,7 @@ namespace Cap.Domain.Models.Gen
 
         [NotMapped]
         [Display(Name ="Telefones")]
-        public virtual IEnumerable<AgendaTelefone> Telefones
+        public virtual List<AgendaTelefone> Telefones
         {
             get
             {

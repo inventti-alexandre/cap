@@ -189,7 +189,6 @@ namespace Cap.Domain.Service.Requisicao
 
             // TODO: email do fornecedor
             serviceEmail.Enviar(dadosCotacao.Contato, agenda.Emails.First().Email, $"ORDEM DE COMPRA {requisicao.Id}", sb.ToString(), empresa.Id, true);
-        }
-        
+        }        
     }
 }
