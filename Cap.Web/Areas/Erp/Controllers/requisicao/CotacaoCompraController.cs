@@ -88,7 +88,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 {
                     serviceCotacao.GravarCotacao(cotacao);
                     ViewBag.Message = "Cotação enviada. Obrigado!";
-                    return PartialView(cotacao);
+                    return Json(new { success = true });
                 }
                 catch (Exception e)
                 {

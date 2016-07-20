@@ -5,6 +5,9 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Cap.Domain.Models.Cap;
+using Cap.Domain.Service.Cap;
+using Cap.Domain.Models.Admin;
+using Cap.Domain.Service.Admin;
 
 namespace Cap.Domain.Service.Requisicao
 {
@@ -16,6 +19,7 @@ namespace Cap.Domain.Service.Requisicao
         private IBaseService<ReqMaterial> serviceReqMaterial;
         private IBaseService<ReqRequisicao> serviceRequisicao;
         private IBaseService<Fornecedor> serviceFornecedor;
+        private IBaseService<Usuario> serviceUsuario;
 
         public CotacaoService()
         {
@@ -24,6 +28,8 @@ namespace Cap.Domain.Service.Requisicao
             this.serviceCotadoCom = new CotCotadoComService();
             this.serviceReqMaterial = new ReqMaterialService();
             this.serviceRequisicao = new ReqRequisicaoService();
+            this.serviceFornecedor = new FornecedorService();
+            this.serviceUsuario = new UsuarioService();
         }
 
         public CotacaoFornecedor GetCotacao(string guid)
@@ -74,9 +80,10 @@ namespace Cap.Domain.Service.Requisicao
             }
 
             var guid = Guid.NewGuid().ToString();
+            var email = string.IsNullOrEmpty(fornecedor.Email) ? serviceUsuario.Find(idUsuario).Email : fornecedor.Email;
             serviceCotadoCom.Gravar(new CotCotadoCom
             {
-                Email = fornecedor.Email,
+                Email = email,
                 FornecedorId = idFornecedor,
                 Guid = guid,
                 ReqRequisicaoId = idRequisicao,
@@ -137,8 +144,8 @@ namespace Cap.Domain.Service.Requisicao
             // grava dados da cotacao
             if (cotacao.CotDadosCotacao.Id == 0)
             {
-                // redundancia
-                var cotadoComId = cotacao.CotDadosCotacao.CotadoCom.Id;
+                //var cotadoComId = cotacao.CotDadosCotacao.CotadoCom.Id;
+                var cotadoComId = cotacao.CotDadosCotacao.CotCotadoComId;
                 if (cotadoComId != 0)
                 {
                     var dados = serviceDadosCotacao.Listar().Where(x => x.CotCotadoComId == cotadoComId).FirstOrDefault();

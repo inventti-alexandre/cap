@@ -109,12 +109,14 @@ namespace Cap.Domain.Models.Cap
         {
             get
             {
-                string email = Agenda?.Emails?.First()?.Email;
-                if (string.IsNullOrEmpty(email))
+                if (Agenda!=null)
                 {
-                    return string.Empty;
+                    if (Agenda.Emails.Count() > 0)
+                    {
+                        return Agenda.Emails.First().Email;
+                    }
                 }
-                return email;
+                return string.Empty;
             }
         }
     }

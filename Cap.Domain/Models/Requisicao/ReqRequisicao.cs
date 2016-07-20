@@ -182,7 +182,16 @@ namespace Cap.Domain.Models.Requisicao
 
         [NotMapped]
         [Display(Name = "Logística")]
-        public virtual Logistica Logistica { get; set; }
+        public virtual Logistica Logistica {
+            get
+            {
+                if (LogisticaId == null)
+                {
+                    return null;
+                }
+                return new LogisticaService().Find((int)LogisticaId);
+            }
+        }
 
         [NotMapped]
         [Display(Name = "Pedido")]

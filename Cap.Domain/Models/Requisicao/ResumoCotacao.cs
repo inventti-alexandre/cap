@@ -177,7 +177,7 @@ namespace Cap.Domain.Models.Requisicao
                 // material
                 influencia.Descricao = item.Material.Descricao;
                 influencia.Id = item.Id;
-                influencia.MaterialId = item.IdMaterial;
+                influencia.MaterialId = item.Id;
                 influencia.Qtde = item.Qtde;
                 influencia.Unidade = item.Material.Unidade.Descricao;
 
@@ -267,7 +267,7 @@ namespace Cap.Domain.Models.Requisicao
                 detalhada.MaterialId = item.Material.Id;
                 detalhada.Qtde = item.Qtde;
                 detalhada.Unidade = item.Material.Unidade.Descricao;
-                detalhada.Cotacao = getCotacaoItem(detalhada.MaterialId, detalhada.Unidade);
+                detalhada.Cotacao = getCotacaoItem(detalhada.Id, detalhada.Unidade);
                 lista.Add(detalhada);
             }
 
@@ -296,12 +296,12 @@ namespace Cap.Domain.Models.Requisicao
                     .FirstOrDefault()
                     .PrecoComImpostos;
 
-                cotacaoInsumo.Total = _resumo.Requisicao.ReqMaterial.Where(x => x.IdMaterial == materialId)
+                cotacaoInsumo.Total = _resumo.Requisicao.ReqMaterial.Where(x => x.Id == materialId)
                     .Select(x => x.Qtde).FirstOrDefault() * cotacaoInsumo.Unitario;
 
                 // melhor preco
                 var melhorCotacao = _cotacoes
-                    .Where(x => x.ReqMaterial.IdMaterial == materialId && x.PrecoComImpostos > 0)
+                    .Where(x => x.ReqMaterial.Id == materialId && x.PrecoComImpostos > 0)
                     .OrderBy(x => x.PrecoComImpostos)
                     .FirstOrDefault();
                 if (melhorCotacao != null)

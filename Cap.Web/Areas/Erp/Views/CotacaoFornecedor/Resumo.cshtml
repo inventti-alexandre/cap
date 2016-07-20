@@ -31,6 +31,8 @@
 
     <input type="button" value="Recalcular" id="recalcular" data-id="@Model.Requisicao.Id" class="btn btn-primary" />
 
+    @Html.ActionLink("Voltar", "Index", "Requisicao", null, new { @class = "btn btn-primary" })
+
     <script type="text/javascript">
     $('#recalcular').click(function () {
         $('#loading').modal('show');

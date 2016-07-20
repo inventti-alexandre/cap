@@ -31,6 +31,10 @@
 
 </div>
 
+<div class="row top20">
+    @Html.ActionLink("Voltar", "Index", "Requisicao")
+</div>
+
 <script type="text/javascript">
 
     $("#IdFornecedor").change(function () {
@@ -40,12 +44,7 @@
             type: 'GET',
             data: { 'idRequisicao': @Model.Id, 'idFornecedor': id },
             success: function(result) {
-                if (result.success == true) {
-                    $('#cotacao').html(result);
-                }
-                else{
-                    $('#cotacao.').html(result.error);
-                }
+                $('#cotacao').html(result);
             },
             error: function(e){
                 $('#cotacao').html(e.error);
