@@ -1,0 +1,36 @@
+﻿<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Excluir cotação</h4>
+        </div>
+        <div class="modal-body">
+            <h4 class="text-danger">Confirma a exclusão desta cotação?</h4>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" id="confirm-delete" data-id="@ViewBag.Id">Excluir</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#confirm-delete').click(function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '/Erp/CotacaoFornecedor/Excluir/' + id,
+            type: 'POST',
+            success: function (result) {
+                if (result.success == true) {
+                    $('#modal').modal('hide');
+                    window.location.reload(false);
+                } else {
+                    $('#modal').html(result);
+                }
+            },
+            error: function (e) {
+                $('#modal').html(e.error);
+            }
+        });
+    });
+</script>

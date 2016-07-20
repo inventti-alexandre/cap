@@ -16,12 +16,14 @@
                     Validade: @Html.DisplayFor(modelItem => item.DadosCotacao.Validade)<br />
                     @Html.DisplayFor(modelItem => item.DadosCotacao.Contato)<br />
                     @Html.DisplayFor(modelItem => item.DadosCotacao.Observ)<br />
-                    <a href="#" class="edit-dados-cotacao" data-id="@item.DadosCotacao.Id">editar</a>
+                    <a href="#" class="edit-dados-cotacao" data-id="@item.DadosCotacao.Id">editar</a> | 
+                    <a href="#" class="delete-cotacao" data-id="@item.DadosCotacao.CotadoCom.Id">excluir</a>
                 </small>
             </td>
         }
     </tr>
 </table>
+
 
 <script type="text/javascript">
     $('.edit-dados-cotacao').click(function () {
@@ -30,4 +32,11 @@
             $('#modal').modal('show');
         });
     })
+
+    $('.delete-cotacao').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/CotacaoFornecedor/Excluir/' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
 </script>

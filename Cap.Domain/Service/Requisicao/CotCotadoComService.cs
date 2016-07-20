@@ -21,6 +21,8 @@ namespace Cap.Domain.Service.Requisicao
         private IBaseService<CotFornecedor> serviceCotFornecedor;
         private IBaseService<ReqRequisicao> serviceRequisicao;
         private IBaseService<SistemaParametro> serviceParamentro;
+        private IBaseService<CotCotacao> serviceCotCotacao;
+        private IBaseService<CotDadosCotacao> serviceCotDadosCotacao;
 
         public CotCotadoComService()
         {
@@ -29,12 +31,31 @@ namespace Cap.Domain.Service.Requisicao
             serviceCotFornecedor = new CotFornecedorService();
             serviceParamentro = new SistemaParametroService();
             serviceRequisicao = new ReqRequisicaoService();
+            serviceCotCotacao = new CotCotacaoService();
+            serviceCotDadosCotacao = new CotDadosCotacaoService();
         }
 
         public CotCotadoCom Excluir(int id)
         {
             try
             {
+                var cotadoCom = repository.Find(id);
+                if (cotadoCom == null)
+                {
+                    throw new ArgumentException("Esta requisição não foi cotada com este fornecedor");
+                }
+
+                // exclui cotacoes deste fornecedor
+                var cotacoes = serviceCotCotacao.Listar().Where(x => x.ReqRequisicaoId == cotadoCom.ReqRequisicaoId && x.FornecedorId == cotadoCom.FornecedorId).ToList();
+                foreach (var item in cotacoes)
+                {
+                    serviceCotCotacao.Excluir(item.Id);
+                }
+
+                // dados da cotacao
+                serviceCotDadosCotacao.Excluir(cotadoCom.DadosCotacao.Id);
+
+                // exclui cotado com
                 return repository.Excluir(id);
             }
             catch (Exception e)

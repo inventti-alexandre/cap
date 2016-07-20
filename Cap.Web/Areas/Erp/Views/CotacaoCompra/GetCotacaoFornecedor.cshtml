@@ -111,7 +111,7 @@
             data: self.closest('form').serialize(),
             success: function (result) {
                 if (result.success == true) {
-                    alert('Cotação enviada com sucesso');
+                    location.href = '/Erp/Requisicao/Index';
                 } else {
                     $('#cotacao').html(result);
                 }
