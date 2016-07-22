@@ -108,6 +108,13 @@ namespace Cap.Domain.Models.Requisicao
         [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
         public DateTime? CompradoEm { get; set; }
 
+        [Display(Name ="Valor negociado")]
+        public decimal? ValorNegociado { get; set; }
+
+        [Display(Name = "Entrega prevista para")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
+        public DateTime? EntregaPrevistaPara { get; set; }
+
         [Display(Name = "Entregue em")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yy}", ApplyFormatInEditMode = true)]
         public DateTime? EntregueEm { get; set; }

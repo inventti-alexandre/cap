@@ -8,6 +8,7 @@
             <table class="table borderless">
                 <tr>
                     <th>Situação</th>
+                    <th>Fornecedor</th>
                     <th>@Html.DisplayNameFor(model => model.Departamento.Descricao)</th>
                     <th class="text-center">@Html.DisplayNameFor(model => model.EntregarDia)</th>
                     <th>@Html.DisplayNameFor(model => model.SolicitadoPor)</th>
@@ -27,6 +28,7 @@
                                 @:Logística
                             }
                         </td>
+                        <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.Pedido.Fornecedor.Fantasia)</td>
                         <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.Departamento.Descricao)</td>
                         <td style="border:none" class="text-center active">@Html.DisplayFor(x => entregarDia)</td>
                         <td style="border:none" class="active">@Html.DisplayFor(modelItem => item.SolicitadoPor.Nome)</td>

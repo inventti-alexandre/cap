@@ -1,17 +1,15 @@
-﻿using Cap.Domain.Abstract.Req;
+﻿using Cap.Domain.Abstract;
+using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Abstract.Email;
+using Cap.Domain.Abstract.Req;
+using Cap.Domain.Models.Cap;
+using Cap.Domain.Models.Requisicao;
+using Cap.Domain.Service.Admin;
+using Cap.Domain.Service.Cap;
+using Cap.Domain.Service.Email;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Cap.Domain.Models.Requisicao;
-using Cap.Domain.Models.Cap;
-using Cap.Domain.Service.Cap;
-using Cap.Domain.Abstract;
-using Cap.Domain.Abstract.Email;
-using Cap.Domain.Service.Email;
-using Cap.Domain.Abstract.Admin;
-using Cap.Domain.Service.Admin;
 
 namespace Cap.Domain.Service.Requisicao
 {
@@ -232,8 +230,8 @@ namespace Cap.Domain.Service.Requisicao
                     IdEmpresa = requisicao.Departamento.IdEmpresa,
                     IdMoeda = padrao.MoedaPadrao,
                     IdPedido = idPedido,
-                     IdPgto = padrao.FormaTradicionalDePagamento,
-                    Valor = valorCotacao,
+                    IdPgto = padrao.FormaTradicionalDePagamento,
+                    Valor = (decimal)requisicao.ValorNegociado,
                     Vencto = DateTime.Today.Date.AddDays(30)
                 });
 

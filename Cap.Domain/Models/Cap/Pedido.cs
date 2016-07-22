@@ -135,5 +135,15 @@ namespace Cap.Domain.Models.Cap
                 return new CentroCustoService().Find(IdCentroCusto);
             }
         }
+
+        [NotMapped]
+        [Display(Name ="Fornecedor")]
+        public Fornecedor Fornecedor
+        {
+            get
+            {
+                return new FornecedorService().Find(IdFornecedor);
+            }
+        }
     }
 }
