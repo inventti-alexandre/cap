@@ -1,13 +1,9 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Abstract.Req;
-using Cap.Domain.Models.Cap;
 using Cap.Domain.Models.Requisicao;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.requisicao
@@ -17,12 +13,14 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
         private ICotacaoService serviceCotacao;
         private IBaseService<ReqRequisicao> serviceRequisicao;
         ILogin login;
+        IReqComprar comprar;
 
-        public CotacaoCompraController(ICotacaoService serviceCotacao, IBaseService<ReqRequisicao> serviceRequisicao, ILogin login)
+        public CotacaoCompraController(ICotacaoService serviceCotacao, IBaseService<ReqRequisicao> serviceRequisicao, ILogin login, IReqComprar comprar)
         {
             this.serviceCotacao = serviceCotacao;
             this.serviceRequisicao = serviceRequisicao;
             this.login = login;
+            this.comprar = comprar;
         }
 
         // GET: Erp/CotacaoCompra
@@ -87,8 +85,7 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
                 try
                 {
                     serviceCotacao.GravarCotacao(cotacao);
-                    ViewBag.Message = "Cotação enviada. Obrigado!";
-                    return Json(new { success = true });
+                    return Json(new { success = true, idRequisicao = cotacao.RequisicaoId, idFornecedor = cotacao.FornecedorId });
                 }
                 catch (Exception e)
                 {
@@ -98,6 +95,20 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             }
 
             return PartialView(cotacao);
+        }
+
+        public ActionResult AgendarPagamento(int idRequisicao, int idFornecedor)
+        {
+            try
+            {
+                int idPedido = comprar.AgendarPagamento(idRequisicao, idFornecedor, login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name));
+                return Json(new { success = true, idPedido = idPedido });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

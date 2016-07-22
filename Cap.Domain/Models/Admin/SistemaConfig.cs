@@ -18,5 +18,13 @@ namespace Cap.Domain.Models.Admin
         [Display(Name = "Exibir requisições compradas com entregas previstas nos próximos dias")]
         [Range(1,30,ErrorMessage ="O valor varia entre 1 e 30 dias, para outros períodos utilize a pesquisa")]
         public int RequisicaoExibirEntregasPrevistasAteProximosDias { get; set; }
+
+        [Display(Name ="Moeda padrão")]
+        [Range(1,int.MaxValue, ErrorMessage ="Selecione a moeda padrão para agendamento das parcelas")]
+        public int MoedaPadrao { get; set; }
+
+        [Display(Name = "Forma preferencial de pagamento ao agendar parcelas")]
+        [Range(1,int.MaxValue, ErrorMessage ="Informe a forma preferencial de agendamento das parcelas")]
+        public int FormaTradicionalDePagamento { get; set; }
     }
 }

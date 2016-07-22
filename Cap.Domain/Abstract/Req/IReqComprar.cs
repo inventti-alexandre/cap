@@ -6,6 +6,7 @@ namespace Cap.Domain.Abstract.Req
     {
         void Comprar(ReqComprar item);
         void EnviarOrdemCompra(ReqComprar item);
+        int AgendarPagamento(int idRequisicao, int idFornecedor, int idUsuario);
 
     }
 }

@@ -97,7 +97,7 @@
         </div>
 
         <div class="row top20">
-            <input type="button" id="enviarCotacao" value="Enviar" class="btn btn-primary" />
+            <input type="button" id="enviarCotacao" value="Agendar pagamento" class="btn btn-primary" />
         </div>
     </div>
 }
@@ -111,7 +111,7 @@
             data: self.closest('form').serialize(),
             success: function (result) {
                 if (result.success == true) {
-                    location.href = '/Erp/Requisicao/Index';
+                    window.location('/Erp/Pedido/Edit/' + result.IdPedido);
                 } else {
                     $('#cotacao').html(result);
                 }

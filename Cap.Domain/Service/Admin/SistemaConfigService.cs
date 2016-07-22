@@ -11,6 +11,8 @@ namespace Cap.Domain.Service.Admin
         private IBaseService<SistemaParametro> service;
         const string _requisicaoExibirComprasUltimosDias = "REQ_EXIB_COMP_ULT_DIAS";
         const string _requisicaoExibirEntregasPrevistasAteProximosDias = "REQ_EXIB_ENT_PREV_ATE_PROX_DIAS";
+        const string _moedaPadrao = "MOEDA_PADRAO";
+        const string _pgtoPreferencial = "PGTO_PREF";
 
         public SistemaConfigService()
         {
@@ -32,13 +34,23 @@ namespace Cap.Domain.Service.Admin
             valor = getParametro(_requisicaoExibirEntregasPrevistasAteProximosDias, idEmpresa);
             item.RequisicaoExibirEntregasPrevistasAteProximosDias = string.IsNullOrEmpty(valor) ? 3 : Convert.ToInt32(valor);
 
+            // moeda padrao
+            valor = getParametro(_moedaPadrao, idEmpresa);
+            item.MoedaPadrao = string.IsNullOrEmpty(valor) ? 0 : Convert.ToInt32(valor);
+
+            // forma preferencial de pagamento
+            valor = getParametro(_pgtoPreferencial, idEmpresa);
+            item.FormaTradicionalDePagamento = string.IsNullOrEmpty(valor) ? 0 : Convert.ToInt32(valor);
+
             return item;
         }
 
         public void SetConfig(SistemaConfig config, int idUsuario)
         {
-            // requisicoes compradas nos ultimos N dias
             setParametro(_requisicaoExibirComprasUltimosDias, config.IdEmpresa, idUsuario, config.RequisicaoExibirComprasUltimosDias.ToString());
+            setParametro(_requisicaoExibirEntregasPrevistasAteProximosDias, config.IdEmpresa, idUsuario, config.RequisicaoExibirEntregasPrevistasAteProximosDias.ToString());
+            setParametro(_moedaPadrao, config.IdEmpresa, idUsuario, config.MoedaPadrao.ToString());
+            setParametro(_pgtoPreferencial, config.IdEmpresa, idUsuario, config.FormaTradicionalDePagamento.ToString());
         }
 
         private string getParametro(string codigo, int idEmpresa)

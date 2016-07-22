@@ -10,6 +10,8 @@ using Cap.Domain.Service.Cap;
 using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Email;
 using Cap.Domain.Service.Email;
+using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Service.Admin;
 
 namespace Cap.Domain.Service.Requisicao
 {
@@ -18,8 +20,10 @@ namespace Cap.Domain.Service.Requisicao
         private IBaseService<Pedido> servicePedido;
         private IBaseService<Parcela> serviceParcela;
         private IBaseService<ReqRequisicao> serviceRequisicao;
+        private IBaseService<CotCotacao> serviceCotCom;
         private IRequisicao serviceRequisicaoLogistica;
         private IEmail serviceEmail;
+        private ISistemaConfig config;
 
         public ReqComprarService()
         {
@@ -27,7 +31,9 @@ namespace Cap.Domain.Service.Requisicao
             this.serviceParcela = new ParcelaService();
             this.serviceRequisicao = new ReqRequisicaoService();
             this.serviceRequisicaoLogistica = new ReqRequisicaoService();
+            this.serviceCotCom = new CotCotacaoService();
             serviceEmail = new EnviarEmail();
+            config = new SistemaConfigService();
         }
 
         public void Comprar(ReqComprar item)
@@ -189,6 +195,60 @@ namespace Cap.Domain.Service.Requisicao
 
             // TODO: email do fornecedor
             serviceEmail.Enviar(dadosCotacao.Contato, agenda.Emails.First().Email, $"ORDEM DE COMPRA {requisicao.Id}", sb.ToString(), empresa.Id, true);
-        }        
+        }
+
+        public int AgendarPagamento(int idRequisicao, int idFornecedor, int idUsuario)
+        {
+            try
+            {
+                var requisicao = serviceRequisicao.Find(idRequisicao);
+                var valorCotacao = serviceCotCom.Listar().Where(x => x.ReqRequisicaoId == idRequisicao && x.FornecedorId == idFornecedor).ToList().Sum(x => x.PrecoComImpostos);
+
+                // gera pedido
+                int idPedido = servicePedido.Gravar(new Pedido
+                {
+                    AlteradoEm = DateTime.Now,
+                    AlteradoPor = idUsuario,
+                    Ativo = true,
+                    CriadoEm = DateTime.Now,
+                    CriadoPor = idUsuario,
+                    IdCentroCusto = requisicao.CentroCustoId,
+                    IdDepartamento = requisicao.IdDepartamento,
+                    IdEmpresa = requisicao.Departamento.IdEmpresa,
+                    IdFornecedor = idFornecedor,
+                    IdGrupoCusto = requisicao.GrupoCustoId,
+                });
+
+                var padrao = config.GetConfig(requisicao.Departamento.IdEmpresa);
+
+                // grava uma parcela
+                int idParcela = serviceParcela.Gravar(new Parcela
+                {
+                    AlteradoEm = DateTime.Now,
+                    AlteradoPor = idUsuario,
+                    Ativo = true,
+                    CriadoEm = DateTime.Now,
+                    CriadoPor = idUsuario,
+                    IdEmpresa = requisicao.Departamento.IdEmpresa,
+                    IdMoeda = padrao.MoedaPadrao,
+                    IdPedido = idPedido,
+                     IdPgto = padrao.FormaTradicionalDePagamento,
+                    Valor = valorCotacao,
+                    Vencto = DateTime.Today.Date.AddDays(30)
+                });
+
+                // atualiza requisicao
+                requisicao.Situacao = Situacao.Comprada;
+                requisicao.PedidoId = idPedido;
+                serviceRequisicao.Gravar(requisicao);
+
+                // retorna idPedido
+                return idPedido;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

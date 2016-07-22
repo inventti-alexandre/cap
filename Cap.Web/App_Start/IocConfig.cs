@@ -86,6 +86,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<ILiberacaoPagamento>().To<LiberacaoPagamentoService>();
             kernel.Bind<ILogin>().To<UsuarioService>();
             kernel.Bind<ILogistica>().To<LogisticaService>();
+            kernel.Bind<IReqComprar>().To<ReqComprarService>();
             kernel.Bind<IRequisicao>().To<ReqRequisicaoService>();
             kernel.Bind<IResumoCotacao>().To<ResumoCotacao>();
             kernel.Bind<ISistemaConfig>().To<SistemaConfigService>();

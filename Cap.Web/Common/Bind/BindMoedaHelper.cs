@@ -7,7 +7,7 @@ namespace Cap.Web.Common.Bind
 {
     public static class BindMoedaHelper
     {
-        public static MvcHtmlString SelectMoeda(this HtmlHelper html, int idMoeda = 0, bool selecione = false)
+        public static MvcHtmlString SelectMoeda(this HtmlHelper html, int idMoeda = 0, bool selecione = false, string idTag = "IdMoeda")
         {
             var idEmpresa = new UsuarioService().GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
@@ -17,8 +17,8 @@ namespace Cap.Web.Common.Bind
                 .ToList();
 
             TagBuilder tag = new TagBuilder("select");
-            tag.MergeAttribute("id", "IdMoeda");
-            tag.MergeAttribute("name", "IdMoeda");
+            tag.MergeAttribute("id", idTag);
+            tag.MergeAttribute("name", idTag);
             tag.MergeAttribute("class", "form-control");
             tag.MergeAttribute("style", "width:80px;");
 
