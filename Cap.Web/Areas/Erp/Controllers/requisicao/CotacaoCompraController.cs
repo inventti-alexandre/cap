@@ -84,8 +84,13 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             {
                 try
                 {
+                    // grava cotacao
                     serviceCotacao.GravarCotacao(cotacao);
-                    return Json(new { success = true, idRequisicao = cotacao.RequisicaoId, idFornecedor = cotacao.FornecedorId });
+
+                    // agenda pedido/parcela
+                    int idPedido = AgendarPagamento(cotacao.RequisicaoId, cotacao.FornecedorId);
+
+                    return Json(new { success = true, idPedido = idPedido }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception e)
                 {
@@ -97,12 +102,11 @@ namespace Cap.Web.Areas.Erp.Controllers.requisicao
             return PartialView(cotacao);
         }
 
-        public ActionResult AgendarPagamento(int idRequisicao, int idFornecedor)
+        private int AgendarPagamento(int idRequisicao, int idFornecedor)
         {
             try
             {
-                int idPedido = comprar.AgendarPagamento(idRequisicao, idFornecedor, login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name));
-                return Json(new { success = true, idPedido = idPedido });
+                return comprar.AgendarPagamento(idRequisicao, idFornecedor, login.GetIdUsuario(System.Web.HttpContext.Current.User.Identity.Name));
             }
             catch (Exception)
             {

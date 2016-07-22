@@ -97,7 +97,7 @@
         </div>
 
         <div class="row top20">
-            <input type="button" id="enviarCotacao" value="Agendar pagamento" class="btn btn-primary" />
+            <input type="button" id="enviarCotacao" value="Fechar cotação e agendar pagamento" class="btn btn-primary" />
         </div>
     </div>
 }
@@ -111,13 +111,14 @@
             data: self.closest('form').serialize(),
             success: function (result) {
                 if (result.success == true) {
-                    window.location('/Erp/Pedido/Edit/' + result.IdPedido);
+                    var idPedido = parseInt(result.idPedido);
+                    location.href = '/Erp/Pedido/Edit/' + idPedido;
                 } else {
                     $('#cotacao').html(result);
                 }
             },
             error: function (e) {
-                $('#cotacao').html(e);
+                $('#cotacao').html(e.error);
             }
         })
     })

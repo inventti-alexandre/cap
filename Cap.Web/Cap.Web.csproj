@@ -240,7 +240,6 @@
     <Compile Include="Areas\Erp\Models\FornecedorModel.cs" />
     <Compile Include="Areas\Erp\Models\LoginUsuario.cs" />
     <Compile Include="Areas\Erp\Models\RequisicaoFornecedor.cs" />
-    <Compile Include="Areas\Erp\Models\RequisicaoParcela.cs" />
     <Compile Include="CAPDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

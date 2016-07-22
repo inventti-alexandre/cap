@@ -5,7 +5,7 @@
     ViewBag.Title = "Pedido";
 }
 
-<h2>Pedido @Html.DisplayFor(model => model.Id)</h2>
+<h3>Agendamento de débito</h3>
 
 @using (Html.BeginForm())
 {
@@ -29,7 +29,7 @@
 
         <div class="container">
 
-            <div class="row">
+            <div class="row top20">
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.IdDepartamento, htmlAttributes: new { @class = "control-label" })
                     @Html.SelectDepartamento(Model.IdDepartamento)

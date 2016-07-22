@@ -240,6 +240,7 @@ namespace Cap.Domain.Service.Requisicao
                 // atualiza requisicao
                 requisicao.Situacao = Situacao.Comprada;
                 requisicao.PedidoId = idPedido;
+                requisicao.CompradoEm = DateTime.Now;
                 serviceRequisicao.Gravar(requisicao);
 
                 // retorna idPedido
