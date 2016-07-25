@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model.IdPgto)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.NN)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Observ)
         </th>
         <th>
@@ -38,50 +41,32 @@
             @Html.DisplayFor(modelItem => item.Pgto.Descricao)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.NN)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Observ)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Liberado)
+            @Html.DisplayFor(modelItem => item.CriadoPorUsuario.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LiberadoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LiberadoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CriadoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CriadoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMaster)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMasterPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMasterEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlteradoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlteradoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pago)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            <a href="#" class="passnn" data-id="@item.Id">Anexar código barras</a> |
+            @Html.ActionLink("Editar", "Edit", "Pedido", new { id=item.IdPedido }, null)
         </td>
     </tr>
 }
 
 </table>
+
+<div id="modal" class="modal"></div>
+
+<script type="text/javascript">
+
+    $('.passnn').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load("/Erp/Boleto/GetParcela/" + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+</script>

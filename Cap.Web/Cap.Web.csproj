@@ -615,6 +615,7 @@
     <Content Include="Areas\Erp\Views\CotacaoFornecedor\Excluir.cshtml" />
     <Content Include="Areas\Erp\Views\Boleto\Index.cshtml" />
     <Content Include="Areas\Erp\Views\Boleto\GetParcelas.cshtml" />
+    <Content Include="Areas\Erp\Views\Boleto\GetParcela.cshtml" />
     <None Include="CAPDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CAPDataSet.Designer.cs</LastGenOutput>
