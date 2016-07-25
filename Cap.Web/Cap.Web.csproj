@@ -190,6 +190,7 @@
     <Compile Include="Areas\Erp\Controllers\basico\TelaRegraController.cs" />
     <Compile Include="Areas\Erp\Controllers\basico\UsuarioController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\BancoController.cs" />
+    <Compile Include="Areas\Erp\Controllers\cap\BoletoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\CentroCustoController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\CentroLucroController.cs" />
     <Compile Include="Areas\Erp\Controllers\cap\ContaController.cs" />
@@ -612,6 +613,8 @@
     <Content Include="Areas\Erp\Views\CotacaoCompra\Index.cshtml" />
     <Content Include="Areas\Erp\Views\CotacaoCompra\GetCotacaoFornecedor.cshtml" />
     <Content Include="Areas\Erp\Views\CotacaoFornecedor\Excluir.cshtml" />
+    <Content Include="Areas\Erp\Views\Boleto\Index.cshtml" />
+    <Content Include="Areas\Erp\Views\Boleto\GetParcelas.cshtml" />
     <None Include="CAPDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CAPDataSet.Designer.cs</LastGenOutput>
