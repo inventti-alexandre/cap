@@ -1,0 +1,68 @@
+﻿@model Cap.Domain.Models.Gen.ArquivoMorto
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Arquivo morto</h4>
+        </div>
+        <div class="modal-body">
+
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Caixa)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Caixa)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DepartamentoId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Departamento.Descricao)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Conteudo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Conteudo)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Observ)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Observ)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UsuarioId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.UsuarioId)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AlteradoEm)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AlteradoEm)
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>

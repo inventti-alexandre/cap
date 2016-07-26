@@ -9,7 +9,7 @@
     <a href="#" id="create">Novo arquivo</a>
 </p>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Get, new { name="frmPesquisa", id="frmPesquisa" }))
 {
     @Html.AntiForgeryToken()
 
@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-md-3">
                 Caixa<br />
-                <input type="number" id="caixa" name="caixa" class="form-control" />
+                <input type="number" id="caixa" name="caixa" min="0" class="form-control" />
             </div>
             <div class="col-md-3">
                 Departamento<br />
@@ -43,31 +43,33 @@
     </div>
 }
 
-<div id="modal" class="modal"></div>
-<div id="arquivos"></div>
+<div class="modal" id="modal">
 
-@section Scripts{
-    
-    <script type="text/javascript">
-        
-        $('#create').click(function () {
-            $('#modal').load('@Url.Action("Create", "Arquivo")'), function() {
-                $('#modal').modal('show');
+</div>
+
+<div id="arquivos" class="top20">
+
+</div>
+
+<script type="text/javascript">
+
+    $('#create').click(function () {
+        $('#modal').load('/Erp/Arquivo/Create', function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('#pesquisar').click(function () {
+        var form = $('#frmPesquisa');
+        $.ajax({
+            url: '/Erp/Arquivo/Pesquisar',
+            type: 'GET',
+            data: form.serialize(),
+            datatype: 'json',
+            success: function (result) {
+                $('#arquivos').html(result);
             }
         });
+    });
 
-        $('#pesquisar').click(function () {
-            var self = $(this);
-            $.ajax({
-                url: '/Erp/Arquivo/Pesquisar',
-                type: 'GET',
-                data: self.closest('form').serialize(),
-                datatype: 'json',
-                success: function (result) {
-                    $('#arquivos').html(result);
-                }
-            });
-        });
-
-    </script>
-}
+</script>

@@ -40,3 +40,26 @@
 }
 
 </table>
+
+<script type="text/javascript">
+    $('.detalhes').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load("/Erp/Arquivo/Details/" + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.editar').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load("/Erp/Arquivo/Edit/" + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+    $('.excluir').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load("/Erp/Arquivo/Delete/" + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+</script>

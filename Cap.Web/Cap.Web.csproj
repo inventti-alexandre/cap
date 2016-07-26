@@ -620,6 +620,9 @@
     <Content Include="Areas\Erp\Views\Arquivo\Index.cshtml" />
     <Content Include="Areas\Erp\Views\Arquivo\Create.cshtml" />
     <Content Include="Areas\Erp\Views\Arquivo\Pesquisar.cshtml" />
+    <Content Include="Areas\Erp\Views\Arquivo\Details.cshtml" />
+    <Content Include="Areas\Erp\Views\Arquivo\Edit.cshtml" />
+    <Content Include="Areas\Erp\Views\Arquivo\Delete.cshtml" />
     <None Include="CAPDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CAPDataSet.Designer.cs</LastGenOutput>

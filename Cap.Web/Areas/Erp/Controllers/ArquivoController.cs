@@ -27,9 +27,9 @@ namespace Cap.Web.Areas.Erp.Controllers
         }
 
         // GET: Erp/Arquivo/Pesquisa
-        public ActionResult Pesquisar(int caixa, string conteudo, string observ, int idDepartamento)
+        public ActionResult Pesquisar(int? caixa, string conteudo, string observ, int idDepartamento)
         {
-            if (caixa != 0 && string.IsNullOrEmpty(conteudo) && string.IsNullOrEmpty(observ) && idDepartamento != 0)
+            if (caixa == null && string.IsNullOrEmpty(conteudo) && string.IsNullOrEmpty(observ) && idDepartamento == 0)
             {
                 return PartialView(new List<ArquivoMorto>());
             }
@@ -45,18 +45,18 @@ namespace Cap.Web.Areas.Erp.Controllers
 
             if (!string.IsNullOrEmpty(observ))
             {
-                observ = conteudo.ToUpper().Trim();
+                observ = observ.ToUpper().Trim();
             }
             else
             {
-                observ = conteudo.ToUpper().Trim();
+                observ = observ.ToUpper().Trim();
             }
 
             var idEmpresa = login.GetUsuario(System.Web.HttpContext.Current.User.Identity.Name).IdEmpresa;
 
             var arquivos = service.Listar()
                 .Where(x => x.EmpresaId == idEmpresa
-                && (caixa == 0 || x.Caixa == caixa)
+                && ((caixa == null || caixa == 0) || x.Caixa == caixa)
                 && (conteudo == null || x.Conteudo.Contains(conteudo))
                 && (observ == null || x.Observ.Contains(observ))
                 && (idDepartamento == 0 || x.DepartamentoId == idDepartamento))
@@ -199,7 +199,7 @@ namespace Cap.Web.Areas.Erp.Controllers
             var arquivo = service.Listar()
                 .Where(x => x.EmpresaId == idEmpresa)
                 .OrderByDescending(x => x.Caixa)
-                .First();
+                .FirstOrDefault();
 
             if (arquivo == null)
             {

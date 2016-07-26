@@ -17,14 +17,14 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Id)
                     @Html.HiddenFor(model => model.EmpresaId)
-                    @Html.HiddenFor(model => model.Caixa)
                     @Html.HiddenFor(model => model.UsuarioId)
                     @Html.HiddenFor(model => model.AlteradoEm)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Caixa, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.DisplayFor(model => model.Caixa, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.Caixa, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Caixa, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -53,11 +53,12 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="button" id="incluir" value="Create" class="btn btn-primary" />
+                            <input type="button" id="editar" data-id="@Model.Id" value="Gravar" class="btn btn-primary" />
                         </div>
                     </div>
                 </div>
             }
+
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
@@ -67,20 +68,20 @@
 
 <script type="text/javascript">
 
-    $('#incluir').click(function () {
+    $('#editar').click(function () {
+        var id = $(this).attr('data-id');
         var self = $(this);
         $.ajax({
-            url: '@Url.Action("Create","Arquivo")',
+            url: '/Erp/Arquivo/Edit',
             type: 'POST',
             data: self.closest('form').serialize(),
             datatype: 'json',
             success: function (result) {
                 if (result.success == true) {
                     atualizarPesquisa();
-                    $('#modal').load('/Erp/ModalInfo/Index', { 'msg': 'Arquivo incluído' });
-                } else {
-                    $('#modal').html(result);
+                    $('#modal').load('/Erp/ModalInfo/Index', { 'msg': 'Arquivo alterado' });
                 }
+                $('#modal').html(result);
             },
             error: function (e) {
                 $('#modal').load('/Erp/ModalInfo/Index', { 'msg': e.error });
@@ -102,5 +103,4 @@
         });
 
     };
-
 </script>

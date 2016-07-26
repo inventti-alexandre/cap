@@ -31,6 +31,7 @@ namespace Cap.Domain.Models.Gen
         public string Conteudo { get; set; }
 
         [Display(Name ="Observações")]
+        [DataType(DataType.MultilineText)]
         public string Observ { get; set; }
 
         [Display(Name ="Alterado por")]
