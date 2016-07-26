@@ -63,7 +63,6 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 {
                     service.Gravar(tela);
                     return Json(new { success = true });
-                    //return RedirectToAction("Index");
                 }
 
                 return PartialView(tela);
@@ -108,7 +107,6 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
                 {
                     service.Gravar(tela);
                     return Json(new { success = true });
-                    //return RedirectToAction("Index");
                 }
 
                 return PartialView(tela);
@@ -148,7 +146,6 @@ namespace Cap.Web.Areas.Erp.Controllers.basico
             {
                 service.Excluir(id);
                 return Json(new { success = true });
-                //return RedirectToAction("Index");
             }
             catch (ArgumentException e)
             {

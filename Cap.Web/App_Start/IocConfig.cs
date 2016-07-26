@@ -32,6 +32,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<Agenda>>().To<AgendaService>();
             kernel.Bind<IBaseService<AgendaEmail>>().To<AgendaEmailService>();
             kernel.Bind<IBaseService<AgendaTelefone>>().To<AgendaTelefoneService>();
+            kernel.Bind<IBaseService<ArquivoMorto>>().To<ArquivoMortoService>();
             kernel.Bind<IBaseService<Banco>>().To<BancoService>();
             kernel.Bind<IBaseService<CentroCusto>>().To<CentroCustoService>();
             kernel.Bind<IBaseService<CentroLucro>>().To<CentroLucroService>();
