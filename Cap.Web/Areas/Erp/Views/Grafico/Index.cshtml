@@ -20,7 +20,7 @@
             Pagável em:<br />
             @Html.SelectPgto(0, true)
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 top20">
             <input type="button" id="gerarGrafico" class="btn btn-primary" value="Gerar gráfico" />
         </div>
     </div>
@@ -30,6 +30,9 @@
 
 <script type="text/javascript">
     $('#gerarGrafico').click(function () {
-        $('#img').attr('src', '/Erp/Grafico/GetGrafico?dias=30&idDepartamento=0&idPgto=0');
+        var dias = parseInt($('#dias').val());
+        var idDepartamento = parseInt($('#IdDepartamento').val());
+        var idPgto = parseInt($('#IdPgto').val());
+        $('#img').attr('src', '/Erp/Grafico/GetGrafico?dias=' + dias + '&idDepartamento='+ idDepartamento + '&idPgto=' + idPgto);
     });
 </script>
