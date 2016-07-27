@@ -26,24 +26,10 @@
     </div>
 }
 
-<div id="grafico"></div>
-<div id="modal" class="modal"></div>
+<img id="img" />
 
 <script type="text/javascript">
-
     $('#gerarGrafico').click(function () {
-        var self = $(this);
-        $.ajax({
-            url: '/Erp/Grafico/GetGrafico',
-            type: 'GET',
-            data: self.closest('form').serialize(),
-            success: function (result) {
-                $('#grafico').html(result);
-            },
-            error: function (e) {
-                $('#modal').load('/Erp/ModalInfo/Index', { 'msg': e.error });
-            }
-        });
+        $('#img').attr('src', '/Erp/Grafico/GetGrafico?dias=30&idDepartamento=0&idPgto=0');
     });
-
 </script>

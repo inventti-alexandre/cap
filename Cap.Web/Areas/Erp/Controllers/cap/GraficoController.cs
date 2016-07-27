@@ -1,6 +1,8 @@
 ﻿using Cap.Domain.Abstract.Admin;
 using Cap.Domain.Abstract.Cap;
 using System;
+using System.Linq;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace Cap.Web.Areas.Erp.Controllers.cap
@@ -27,7 +29,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             return View();
         }
 
-        public ActionResult GetGrafico(int dias, int idDepartamento, int idPgto)
+        public Chart GetGrafico(int dias, int idDepartamento, int idPgto)
         {
             try
             {
@@ -35,11 +37,19 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
                 DateTime inicial = DateTime.Today.Date;
                 DateTime final = inicial.AddDays(dias);
                 var grafico = service.GetGrafico(inicial, final, idEmpresa, idDepartamento, idPgto);
-                return PartialView(grafico);
+
+                Chart myChart = new Chart(800, 600)
+                    .AddTitle("Vencimentos futuros")
+                    .AddSeries(
+                    name: "Vencimentos",
+                    xValue: grafico.Select(x => x.Dia).ToArray(),
+                    yValues: grafico.Select(x => x.Valor).ToArray()).Write();                 
+
+                return myChart;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return Json(new { success = false, error = e.Message }, JsonRequestBehavior.AllowGet);
+                throw;
             }
         }
     }
