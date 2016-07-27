@@ -117,6 +117,7 @@
     <Compile Include="Service\Cap\DepositoServiceTests.cs" />
     <Compile Include="Service\Cap\EmpresaServiceTests.cs" />
     <Compile Include="Service\Cap\FornecedorServiceTests.cs" />
+    <Compile Include="Service\Cap\GraficoServiceTests.cs" />
     <Compile Include="Service\Cap\GrupoCustoServiceTests.cs" />
     <Compile Include="Service\Cap\GrupoFinanceiroServiceTests.cs" />
     <Compile Include="Service\Cap\GrupoLucroServiceTests.cs" />

@@ -1,0 +1,49 @@
+﻿@using Cap.Web.Common.Bind;
+@{
+    ViewBag.Title = "Gráfico de vencimentos futuros";
+}
+
+<h3>Gráfico de vencimentos futuros</h3>
+
+@using (Html.BeginForm())
+{
+    <div class="row top20">
+        <div class="col-md-3">
+            Dias:<br />
+            <input type="number" id="dias" name="dias" min="1" max="31" value="@ViewBag.Dias" />
+        </div>
+        <div class="col-md-3">
+            Departamento:<br />
+            @Html.SelectDepartamento(0, true)
+        </div>
+        <div class="col-md-3">
+            Pagável em:<br />
+            @Html.SelectPgto(0, true)
+        </div>
+        <div class="col-md-3">
+            <input type="button" id="gerarGrafico" class="btn btn-primary" value="Gerar gráfico" />
+        </div>
+    </div>
+}
+
+<div id="grafico"></div>
+<div id="modal" class="modal"></div>
+
+<script type="text/javascript">
+
+    $('#gerarGrafico').click(function () {
+        var self = $(this);
+        $.ajax({
+            url: '/Erp/Grafico/GetGrafico',
+            type: 'GET',
+            data: self.closest('form').serialize(),
+            success: function (result) {
+                $('#grafico').html(result);
+            },
+            error: function (e) {
+                $('#modal').load('/Erp/ModalInfo/Index', { 'msg': e.error });
+            }
+        });
+    });
+
+</script>

@@ -83,6 +83,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBoleto>().To<BoletoService>();
             kernel.Bind<ICotacaoService>().To<CotacaoService>();
             kernel.Bind<ICotadoCom>().To<CotCotadoComService>();
+            kernel.Bind<IGrafico>().To<GraficoService>();
             kernel.Bind<IIndVariacaoCalculo>().To<IndVariacaoService>();
             kernel.Bind<ILiberacao>().To<LiberacaoService>();
             kernel.Bind<ILiberacaoPagamento>().To<LiberacaoPagamentoService>();

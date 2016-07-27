@@ -84,6 +84,7 @@
     <Compile Include="Abstract\Admin\ITrocaSenha.cs" />
     <Compile Include="Abstract\Admin\IUsuarioRegra.cs" />
     <Compile Include="Abstract\Cap\IBoleto.cs" />
+    <Compile Include="Abstract\Cap\IGrafico.cs" />
     <Compile Include="Abstract\Cap\ILiberacao.cs" />
     <Compile Include="Abstract\Cap\ILiberacaoPagamento.cs" />
     <Compile Include="Abstract\Email\IEmail.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Models\Cap\Empresa.cs" />
     <Compile Include="Models\Cap\Fornecedor.cs" />
     <Compile Include="Models\Cap\FPgto.cs" />
+    <Compile Include="Models\Cap\Grafico.cs" />
     <Compile Include="Models\Cap\GrupoCusto.cs" />
     <Compile Include="Models\Cap\GrupoFinanceiro.cs" />
     <Compile Include="Models\Cap\GrupoLucro.cs" />
@@ -183,6 +185,7 @@
     <Compile Include="Service\Cap\EmpresaService.cs" />
     <Compile Include="Service\Cap\FornecedorService.cs" />
     <Compile Include="Service\Cap\FPgtoService.cs" />
+    <Compile Include="Service\Cap\GraficoService.cs" />
     <Compile Include="Service\Cap\GrupoCustoService.cs" />
     <Compile Include="Service\Cap\GrupoFinanceiroService.cs" />
     <Compile Include="Service\Cap\GrupoLucroService.cs" />

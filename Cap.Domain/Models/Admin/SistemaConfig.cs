@@ -26,5 +26,9 @@ namespace Cap.Domain.Models.Admin
         [Display(Name = "Forma preferencial de pagamento ao agendar parcelas")]
         [Range(1,int.MaxValue, ErrorMessage ="Informe a forma preferencial de agendamento das parcelas")]
         public int FormaTradicionalDePagamento { get; set; }
+
+        [Display(Name = "Dias gráfico")]
+        [Range(1, 31, ErrorMessage ="Valor entre 1 e 31")]
+        public int GraficoDias { get; set; }
     }
 }

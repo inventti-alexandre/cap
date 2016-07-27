@@ -13,6 +13,7 @@ namespace Cap.Domain.Service.Admin
         const string _requisicaoExibirEntregasPrevistasAteProximosDias = "REQ_EXIB_ENT_PREV_ATE_PROX_DIAS";
         const string _moedaPadrao = "MOEDA_PADRAO";
         const string _pgtoPreferencial = "PGTO_PREF";
+        const string _graficoDias = "GRAFICO_DIAS";
 
         public SistemaConfigService()
         {
@@ -42,6 +43,10 @@ namespace Cap.Domain.Service.Admin
             valor = getParametro(_pgtoPreferencial, idEmpresa);
             item.FormaTradicionalDePagamento = string.IsNullOrEmpty(valor) ? 0 : Convert.ToInt32(valor);
 
+            // grafico dias
+            valor = getParametro(_graficoDias, idEmpresa);
+            item.GraficoDias = string.IsNullOrEmpty(valor) ? 30 : Convert.ToInt32(valor);
+
             return item;
         }
 
@@ -51,6 +56,7 @@ namespace Cap.Domain.Service.Admin
             setParametro(_requisicaoExibirEntregasPrevistasAteProximosDias, config.IdEmpresa, idUsuario, config.RequisicaoExibirEntregasPrevistasAteProximosDias.ToString());
             setParametro(_moedaPadrao, config.IdEmpresa, idUsuario, config.MoedaPadrao.ToString());
             setParametro(_pgtoPreferencial, config.IdEmpresa, idUsuario, config.FormaTradicionalDePagamento.ToString());
+            setParametro(_graficoDias, config.IdEmpresa, idUsuario, config.GraficoDias.ToString());
         }
 
         private string getParametro(string codigo, int idEmpresa)
