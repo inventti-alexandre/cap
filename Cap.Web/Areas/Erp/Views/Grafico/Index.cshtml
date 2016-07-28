@@ -10,7 +10,7 @@
     <div class="row top20">
         <div class="col-md-3">
             Dias:<br />
-            <input type="number" id="dias" name="dias" min="1" max="31" value="@ViewBag.Dias" />
+            <input type="number" id="dias" name="dias" min="1" max="31" value="@ViewBag.Dias" class="form-control" />
         </div>
         <div class="col-md-3">
             Departamento:<br />
@@ -26,13 +26,33 @@
     </div>
 }
 
-<img id="img" />
+<div class="row top50">
+    <div class="col-md-12 text-center">
+        <div class="panel panel-info">
+            <div class="panel panel-heading"><h4>Previsão de pagamentos próximos <span id="prox"></span> dias</h4></div>
+            <div class="panel-body">
+                <img id="img" class="row top40" />
+            </div>
+        </div>        
+    </div>
+</div>
 
 <script type="text/javascript">
+
+    $(document).ready(function () {
+        gerarGrafico();
+    });
+
     $('#gerarGrafico').click(function () {
+        gerarGrafico();
+    });
+
+    function gerarGrafico() {
         var dias = parseInt($('#dias').val());
         var idDepartamento = parseInt($('#IdDepartamento').val());
         var idPgto = parseInt($('#IdPgto').val());
-        $('#img').attr('src', '/Erp/Grafico/GetGrafico?dias=' + dias + '&idDepartamento='+ idDepartamento + '&idPgto=' + idPgto);
-    });
+        $('#img').attr('src', '/Erp/Grafico/GetGrafico?dias=' + dias + '&idDepartamento=' + idDepartamento + '&idPgto=' + idPgto);
+        $('#prox').html(dias);
+    };
+
 </script>

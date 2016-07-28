@@ -57,6 +57,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<GrupoCusto>>().To<GrupoCustoService>();
             kernel.Bind<IBaseService<GrupoFinanceiro>>().To<GrupoFinanceiroService>();
             kernel.Bind<IBaseService<GrupoLucro>>().To<GrupoLucroService>();
+            kernel.Bind<IBaseService<InfoCaixa>>().To<InfoCaixaService>();
             kernel.Bind<IBaseService<Indice>>().To<IndiceService>();
             kernel.Bind<IBaseService<IndVariacao>>().To<IndVariacaoService>();
             kernel.Bind<IBaseService<Logistica>>().To<LogisticaService>();
@@ -81,6 +82,7 @@ namespace Cap.Web.App_Start
             kernel.Bind<IBaseService<Usuario>>().To<UsuarioService>();
 
             kernel.Bind<IBoleto>().To<BoletoService>();
+            kernel.Bind<ICaixa>().To<CaixaService>();
             kernel.Bind<ICotacaoService>().To<CotacaoService>();
             kernel.Bind<ICotadoCom>().To<CotCotadoComService>();
             kernel.Bind<IGrafico>().To<GraficoService>();

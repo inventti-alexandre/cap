@@ -1,0 +1,45 @@
+﻿@using Cap.Web.Common.Bind;
+@{
+    ViewBag.Title = "Caixa";
+}
+
+<h2>Caixa</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        Data inicial:<br />
+        <input type="date" id="inicial" name="inicial" class="form-control datepicker" required />
+    </div>
+    <div class="col-md-3">
+        Data final:<br />
+        <input type="date" id="final" name="final" class="form-control datepicker" required />
+    </div>
+    <div class="col-md-3">
+        Departamento:<br />
+        @Html.SelectDepartamento(0, true);
+    </div>
+    <div class="col-md-3">
+        Fornecedor:<br />
+        @Html.SelectFornecedor(0, true);
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        Pagável em:<br />
+        @Html.SelectPgto(0, true);
+    </div>
+    <div class="col-md-9 col-md-offset-6 text-right top20">
+        <input type="button" value="Atualizar" id="atualizar" class="btn btn-primary"/>
+    </div>
+</div>
+
+<div id="parcelas"></div>
+<div id="modal" class="modal"></div>
+
+<script type="text/javascript">
+
+    $('#atualizar').click(function () {
+
+    });
+</script>
