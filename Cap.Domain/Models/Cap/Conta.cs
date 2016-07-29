@@ -109,5 +109,14 @@ namespace Cap.Domain.Models.Cap
                 return new ContaTipoService().Find(IdContaTipo);
             }
         }
+
+        [NotMapped]
+        public int ProximoCheque
+        {
+            get
+            {
+                return ChequeAtual + 1;
+            }
+        }
     }
 }

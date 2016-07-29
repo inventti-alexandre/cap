@@ -38,7 +38,8 @@ namespace Cap.Domain.Service.Cap
                             join f in ctx.Fornecedor on ped.IdFornecedor equals f.Id
                             join p in ctx.Pgto on par.IdPgto equals p.Id
                             where
-                            par.IdEmpresa == idEmpresa
+                            ped.Ativo == true
+                            && par.IdEmpresa == idEmpresa
                             && par.IdFpgto == null
                             && (idDepartamento == 0 || ped.IdDepartamento == idDepartamento)
                             && (idFornecedor == 0 || ped.IdFornecedor == idFornecedor)
@@ -51,6 +52,16 @@ namespace Cap.Domain.Service.Cap
                             .ToList();
 
             return parcelas;                
+        }
+
+        public decimal GetTotalSelecionado(List<int> idParcelas)
+        {
+            if (idParcelas.Count == 0)
+            {
+                return 0;
+            }
+
+            return ctx.Parcela.Where(x => idParcelas.Contains(x.Id)).Sum(x => x.Valor);                
         }
     }
 }

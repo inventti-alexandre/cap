@@ -1,171 +1,106 @@
 ﻿@model IEnumerable<Cap.Domain.Models.Cap.Parcela>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdEmpresa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdPedido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Vencto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Valor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdPgto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdDeposito)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmissaoPre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NNData)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NNPor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdFpgto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Observ)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Liberado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LiberadoPor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LiberadoEm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdMoeda)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CriadoEm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CriadoPor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LibMaster)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LibMasterPor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LibMasterEm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlteradoPor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AlteradoEm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pago)
-        </th>
-        <th></th>
-    </tr>
+<div class="panel panel-info">
+    <div class="panel-heading">Parcelas à pagar <span id="valorSelecionado"></span></div>
+    <div class="panel-body" style="min-height:400px; max-height:400px;">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Selecione
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pedido.IdFornecedor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Valor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Vencto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdMoeda)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Valor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdPgto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pedido.IdDepartamento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Observ)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NN)
+                </th>
+                <th></th>
+            </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdEmpresa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdPedido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Vencto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Valor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdPgto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdDeposito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmissaoPre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NNData)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NNPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdFpgto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Observ)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Liberado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LiberadoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LiberadoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdMoeda)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CriadoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CriadoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMaster)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMasterPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibMasterEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlteradoPor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlteradoEm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pago)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        <input type="checkbox" id="selecionado" name="selecionado" data-valor="@item.Valor" value="@item.Id" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pedido.Fornecedor.Fantasia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Valor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Vencto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Moeda.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Valor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pgto.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pedido.Departamento.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Observ)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NN)
+                    </td>
+                    <td>
+                        <a href="#" data-id="@item.Id" title="Detalhes da parcela" class="details"><i class="glyphicon glyphicon-info-sign"></i></a>
+                        <a href="/Erp/Pedido/Edit/@item.Pedido.Id" title="Editar a parcela no pedido"><i class="glyphicon glyphicon-edit"</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
 
-</table>
+<script type="text/javascript">
+    
+    $('input:checkbox').click(function () {
+        var total = 0;
+        $('input:checked').each(function () {
+            var valor = parseFloat($(this).attr('data-valor'));
+            total += valor;
+        });
+        if (total == 0) {
+            $('#valorSelecionado').html('');
+        } else {
+            $('#valorSelecionado').html('- valor selecionado: ' + total);
+        }
+    });
+
+    $('.details').click(function () {
+        var id = $(this).attr('data-id');
+        $('#modal').load('/Erp/Pesquisa/Details?id=' + id, function () {
+            $('#modal').modal('show');
+        });
+    });
+
+</script>

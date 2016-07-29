@@ -70,7 +70,6 @@
                 @Html.DisplayFor(modelItem => item.Ativo)
             </td>
             <td>
-                @*<a href="@Url.Action("Edit", new { id = item.Id })" title="Editar a parcela"><i class="glyphicon glyphicon-edit"></i></a>*@
                 <a href="/Erp/Pedido/Edit/@item.IdPedido" title="Editar a parcela no pedido"><i class="glyphicon glyphicon-edit"></i></a>
                 <a href="#" data-id="@item.Id" title="Detalhes da parcela" class="details"><i class="glyphicon glyphicon-info-sign"></i></a>
             </td>

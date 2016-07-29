@@ -39,12 +39,14 @@
                     @Html.SelectFornecedor(Model.IdFornecedor)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.CriadoEm, htmlAttributes: new { @class = "control-label" })<br />
-                    @Html.DisplayFor(model => model.CriadoEm, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.LabelFor(model => model.GrupoCusto, htmlAttributes: new { @class = "control-label" })<br />
+                    @Html.SelectGrupoCusto(Model.IdGrupoCusto, false)
                 </div>
                 <div class="col-md-3">
-                    @Html.LabelFor(model => model.CriadoPor, htmlAttributes: new { @class = "control-label" })<br />
-                    @Html.DisplayFor(model => model.CriadoPorUsuario.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.LabelFor(model => model.CentroCusto, htmlAttributes: new { @class = "control-label" })<br />
+                    <div id="centroCusto">
+                        @Html.SelectCentroCusto(Model.IdGrupoCusto, Model.IdCentroCusto)
+                    </div>
                 </div>
             </div>
 
@@ -58,6 +60,11 @@
                     @Html.LabelFor(model => model.DataNF, htmlAttributes: new { @class = "control-label" })
                     @Html.EditorFor(model => model.DataNF, new { htmlAttributes = new { @class = "form-control datepicker" } })
                     @Html.ValidationMessageFor(model => model.DataNF, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.CriadoEm, htmlAttributes: new { @class = "control-label" })<br />
+                    @Html.DisplayFor(model => model.CriadoEm, new { htmlAttributes = new { @class = "form-control" } }) por
+                    @Html.DisplayFor(model => model.CriadoPorUsuario.Nome, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label" })
@@ -102,6 +109,11 @@
         $('#modal').load('/Erp/Pedido/Delete/' + id, function () {
             $('#modal').modal('show');
         });
+    });
+
+    $('#IdGrupoCusto').click(function () {
+        var idGrupoCusto = $(this).val();
+        $('#idCentroCusto').load('/Erp/CentroCusto/DropDown?idGrupoCusto=' + idGrupoCusto);
     });
 
 </script>

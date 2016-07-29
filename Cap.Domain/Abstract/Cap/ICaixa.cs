@@ -11,6 +11,7 @@ namespace Cap.Domain.Abstract.Cap
     public interface ICaixa
     {
         List<Parcela> GetParcelas(int idEmpresa, DateTime inicial, DateTime final, int idDepartamento, int idFornecedor, int idPgto);
+        decimal GetTotalSelecionado(List<int> idParcelas);
         List<Parcela> BaixarParcelas(List<int> idParcelas, int idUsuario, int idConta, int idCheque, DateTime caixaDia);
         List<Parcela> EstornarCheque(int idConta, int idCheque, int idUsuario);
     }
