@@ -86,6 +86,7 @@
     <Compile Include="Abstract\Cap\IBoleto.cs" />
     <Compile Include="Abstract\Cap\ICaixa.cs" />
     <Compile Include="Abstract\Cap\IGrafico.cs" />
+    <Compile Include="Abstract\Cap\IInfoCaixa.cs" />
     <Compile Include="Abstract\Cap\ILiberacao.cs" />
     <Compile Include="Abstract\Cap\ILiberacaoPagamento.cs" />
     <Compile Include="Abstract\Email\IEmail.cs" />

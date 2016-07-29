@@ -1,5 +1,7 @@
 ﻿using Cap.Domain.Abstract;
 using Cap.Domain.Abstract.Admin;
+using Cap.Domain.Abstract.Cap;
+using Cap.Domain.Models.Admin;
 using Cap.Domain.Models.Cap;
 using System;
 using System.Linq;
@@ -10,30 +12,29 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
     public class InfoCaixaController : Controller
     {
         private IBaseService<InfoCaixa> service;
+        private IBaseService<Feriado> feriado;
         private ILogin login;
+        private IInfoCaixa info;
 
-        public InfoCaixaController(IBaseService<InfoCaixa> service, ILogin login)
+        public InfoCaixaController(IBaseService<InfoCaixa> service, ILogin login, IBaseService<Feriado> feriado, IInfoCaixa info)
         {
             this.service = service;
             this.login = login;
+            this.feriado = feriado;
+            this.info = info;
         }
 
         // GET: Erp/InfoCaixa
         public ActionResult Index()
         {
-            InfoCaixa item = service.Listar().Where(x => x.EmpresaId == GetIdEmpresa()).FirstOrDefault();
-
-            if (item == null)
-            {
-                item = new InfoCaixa { AlteradoEm = DateTime.Now, DataCaixa = DateTime.Today.Date, EmpresaId = GetIdEmpresa(), UsuarioId = GetIdUsuario() };
-            }
+            InfoCaixa item = info.GetInfoCaixa(GetIdEmpresa(), GetIdUsuario());
 
             return View(item);
         }
 
         // POST: Erp/InfoCaixa/Create
         [HttpPost]
-        public ActionResult Save(InfoCaixa item)
+        public ActionResult Index(InfoCaixa item)
         {
             try
             {

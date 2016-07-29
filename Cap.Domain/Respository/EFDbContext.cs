@@ -53,6 +53,7 @@ namespace Cap.Domain.Respository
         public DbSet<GrupoFinanceiro> GrupoFinanceiro { get; set; }
         public DbSet<GrupoLucro> GrupoLucro { get; set; }
         public DbSet<Indice> Indice { get; set; }
+        public DbSet<InfoCaixa> InfoCaixa { get; set; }
         public DbSet<IndVariacao> IndVariacao { get; set; }
         public DbSet<Logistica> Logistica { get; set; }
         public DbSet<Material> Material { get; set; }

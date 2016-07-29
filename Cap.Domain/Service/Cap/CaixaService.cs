@@ -6,24 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cap.Domain.Models.Cap;
+using Cap.Domain.Abstract;
 
 namespace Cap.Domain.Service.Cap
 {
     public class CaixaService: ICaixa
     {
         private EFDbContext ctx;
+        private IBaseService<InfoCaixa> serviceInfoCaixa;
 
         public CaixaService()
         {
             this.ctx = new EFDbContext();
+            this.serviceInfoCaixa = new InfoCaixaService();
         }
 
         public List<Parcela> BaixarParcelas(List<int> idParcelas, int idUsuario, int idConta, int idCheque, DateTime caixaDia)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DataCaixa DataCaixa()
         {
             throw new NotImplementedException();
         }
@@ -54,11 +52,5 @@ namespace Cap.Domain.Service.Cap
 
             return parcelas;                
         }
-    }
-
-    public class DataCaixa
-    {
-        public DateTime Inicial { get; set; }
-        public DateTime Final { get; set; }
     }
 }

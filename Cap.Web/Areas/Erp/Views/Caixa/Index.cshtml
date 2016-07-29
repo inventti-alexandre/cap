@@ -1,38 +1,35 @@
-﻿@using Cap.Web.Common.Bind;
+﻿@model Cap.Domain.Models.Cap.InfoCaixa
+@using Cap.Web.Common.Bind;
 @{
     ViewBag.Title = "Caixa";
 }
 
-<h2>Caixa</h2>
+<h2>Caixa do dia @Model.DataCaixa.ToShortDateString()</h2>
 
-<div class="row">
-    <div class="col-md-3">
-        Data inicial:<br />
-        <input type="date" id="inicial" name="inicial" class="form-control datepicker" required />
-    </div>
-    <div class="col-md-3">
-        Data final:<br />
-        <input type="date" id="final" name="final" class="form-control datepicker" required />
-    </div>
-    <div class="col-md-3">
-        Departamento:<br />
-        @Html.SelectDepartamento(0, true);
-    </div>
-    <div class="col-md-3">
-        Fornecedor:<br />
-        @Html.SelectFornecedor(0, true);
-    </div>
-</div>
+@using (Html.BeginForm(null, null, FormMethod.Get, new { id = "frmSel", name = "frmSel" }))
+{
+    @Html.HiddenFor(model => model.DataCaixa)
+    @Html.HiddenFor(model => model.Inicial)
+    @Html.HiddenFor(model => model.Final)
 
-<div class="row">
-    <div class="col-md-3">
-        Pagável em:<br />
-        @Html.SelectPgto(0, true);
+    <div class="row">
+        <div class="col-md-3">
+            Departamento:<br />
+            @Html.SelectDepartamento(0, true)
+        </div>
+        <div class="col-md-3">
+            Fornecedor:<br />
+            @Html.SelectFornecedor(0, true)
+        </div>
+        <div class="col-md-3">
+            Pagável em:<br />
+            @Html.SelectPgto(0, true)
+        </div>
+        <div class="col-md-3 top20">
+            <input type="button" value="Atualizar" id="atualizar" class="btn btn-primary" />
+        </div>
     </div>
-    <div class="col-md-9 col-md-offset-6 text-right top20">
-        <input type="button" value="Atualizar" id="atualizar" class="btn btn-primary"/>
-    </div>
-</div>
+}
 
 <div id="parcelas"></div>
 <div id="modal" class="modal"></div>
@@ -40,6 +37,23 @@
 <script type="text/javascript">
 
     $('#atualizar').click(function () {
-
+        getParcelas();
     });
+
+    function getParcelas() {
+        var self = $('#frmSel');
+        $.ajax({
+            url: '/Erp/Caixa/GetParcelas/',
+            type: 'GET',
+            data: self.serialize(),
+            success: function (result) {
+                $('#parcelas').html(result);
+            },
+            error: function (e) {
+                $('#modal').load('/Erp/ModalInfo/Index/', { 'msg': e.error });
+                $('#modal').modal('show');
+            }
+        });
+    };
+
 </script>

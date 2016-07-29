@@ -10,19 +10,19 @@
 
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.IdEmpresa)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.IdEmpresa)
-                </dd>
-
-                <dt>
                     @Html.DisplayNameFor(model => model.IdPedido)
                 </dt>
 
                 <dd>
                     @Html.DisplayFor(model => model.IdPedido)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Pedido.IdDepartamento)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Pedido.Departamento.Descricao)
                 </dd>
 
                 <dt>
