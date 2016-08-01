@@ -110,6 +110,30 @@ namespace Cap.Domain.Models.Cap
         [DataType(DataType.DateTime)]
         public DateTime AlteradoEm { get; set; }
 
+        [Display(Name ="Conta")]
+        public int? ContaId { get; set; }
+
+        [Display(Name ="Cheque")]
+        public int? Cheque { get; set; }
+
+        [Display(Name ="Baixado em")]
+        public DateTime? BaixadoEm { get; set; }
+
+        [Display(Name = "Baixado por")]
+        public int? BaixadoPor { get; set; }
+
+        [Display(Name ="Caixa do dia")]
+        public DateTime? DataCaixa { get; set; }
+
+        [Display(Name ="Compensado")]
+        public bool CompBanco { get; set; }
+
+        [Display(Name ="Compensado em")]
+        public DateTime? CompBancoData { get; set; }
+
+        [Display(Name ="Conta")]
+        public virtual Conta Conta { get; set; }
+
         [NotMapped]
         [Display(Name = "Usuário")]
         public virtual Usuario Usuario

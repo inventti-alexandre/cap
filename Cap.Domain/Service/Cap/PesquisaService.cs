@@ -50,13 +50,9 @@ namespace Cap.Domain.Service.Cap
                 final = DateTime.MinValue;
             }
 
-            // TODO: pesquisar formas de pagamento
-            // IdBanco
-            // IdConta
-            // Cheque
-
             var parcelas = (from par in ctx.Parcela
                             join ped in ctx.Pedido on par.IdPedido equals ped.Id
+                            join c in ctx.Conta on par.ContaId equals c.Id
                             where
                             (ped.Ativo == true && par.Ativo == true &&
                             (pesquisa.IdPedido == 0 || ped.Id == pesquisa.IdPedido) &&
@@ -65,9 +61,11 @@ namespace Cap.Domain.Service.Cap
                             (pesquisa.IdPgto == 0 || par.IdPgto == pesquisa.IdPgto) &&
                             (pesquisa.IdFPgto == 0 || par.IdFpgto == pesquisa.IdFPgto) &&
                             (pesquisa.Observ == "" || par.Observ.Contains(pesquisa.Observ)) &&
-                            (pesquisa.NN == "" || par.NN == pesquisa.NN)
-                            )
-                            select par);
+                            (pesquisa.NN == "" || par.NN == pesquisa.NN) &&
+                            (pesquisa.Cheque == 0 || par.Cheque == pesquisa.Cheque) &&
+                            (pesquisa.IdConta == 0 || par.ContaId == pesquisa.IdConta) &&
+                            (pesquisa.IdBanco == 0 || c.Id == pesquisa.IdBanco)
+                            ) select par);
 
             if (pesquisa.PesquisarPorDataPagamento == false)
             {
@@ -82,7 +80,14 @@ namespace Cap.Domain.Service.Cap
             }
             else
             {
-                // TODO: pesquisa por data de pagamento
+                if (inicial != DateTime.MinValue)
+                {
+                    parcelas = parcelas.Where(x => x.BaixadoEm >= inicial);
+                }
+                if (final != DateTime.MinValue)
+                {
+                    parcelas = parcelas.Where(x => x.BaixadoEm <= final);
+                }
             }
 
             if (pesquisa.Valor > 0)
