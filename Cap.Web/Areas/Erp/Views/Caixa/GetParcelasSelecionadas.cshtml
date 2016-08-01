@@ -1,0 +1,95 @@
+﻿@using Cap.Web.Common.Bind;
+@model Cap.Web.Areas.Erp.Models.BaixarParcelasSelecionadasModel
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close close-modal" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Baixar parcelas</h4>
+        </div>
+        <div class="modal-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Selecionados)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdConta, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.SelectConta(Model.IdConta, true)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cheque, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Cheque, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Cheque, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataCompensacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.DataCompensacao, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DataCompensacao, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="button" value="Baixar" id="baixarselecionadas" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $('#baixarselecionadas').click(function () {
+        var self = $(this);
+        $.ajax({
+            url: '/Erp/Caixa/BaixarParcelasSelecionadas',
+            type: 'POST',
+            data: self.closest('form').serialize(),
+            success: function (result) {
+                if (result.success == true) {
+                    $('#modal').load('/Erp/ModalInfo/Index', { 'msg': 'Parcelas baixadas' });
+                    getParcelas();
+                } else {
+                    $('#modal').load('/Erp/ModalInfo/Index', { 'msg': result.error });
+                }
+            },
+            error: function (e) {
+                $('#modal').load('/Erp/ModalInfo/Index', { 'msg': e.error });
+            }
+        });
+    });
+
+    function getParcelas() {
+        var self = $('#frmSel');
+        $.ajax({
+            url: '/Erp/Caixa/GetParcelas/',
+            type: 'GET',
+            data: self.serialize(),
+            success: function (result) {
+                $('#parcelas').html(result);
+            },
+            error: function (e) {
+                $('#modal').load('/Erp/ModalInfo/Index/', { 'msg': e.error });
+                $('#modal').modal('show');
+            }
+        });
+    };
+
+</script>

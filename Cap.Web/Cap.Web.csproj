@@ -631,7 +631,7 @@
     <Content Include="Areas\Erp\Views\Caixa\Index.cshtml" />
     <Content Include="Areas\Erp\Views\InfoCaixa\Index.cshtml" />
     <Content Include="Areas\Erp\Views\Caixa\GetParcelas.cshtml" />
-    <Content Include="Areas\Erp\Views\Caixa\BaixarParcelasSelecionadas.cshtml" />
+    <Content Include="Areas\Erp\Views\Caixa\GetParcelasSelecionadas.cshtml" />
     <None Include="CAPDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>CAPDataSet.Designer.cs</LastGenOutput>

@@ -37,7 +37,7 @@
     <input type="button" id="credito" value="Novo crédito" class="btn btn-primary" />
     <input type="button" id="estcred" value="Estornar crédito" class="btn btn-primary" />
     <input type="button" id="avista" value="Conta à vista" class="btn btn-primary" />
-    <input type="button" id="baixar" value="Baixar seleção" class="btn btn-primary" />
+    <input type="button" id="getbaixar" value="Baixar seleção" class="btn btn-primary" />
     <input type="button" id="estornar" value="Estornar cheque" class="btn btn-primary" />
     <input type="button" id="alterarcomp" value="Alterar compensação" class="btn btn-primary" />
     <input type="button" id="trocar" value="Trocar cheque" class="btn btn-primary" />
@@ -57,11 +57,11 @@
         getParcelas();
     });
 
-    $('#baixar').click(function () {
+    $('#getbaixar').click(function () {
         var selecionados = getParcelasSelecionadas();
         var idConta = $('#idContaDefault').val();
         if (selecionados != null) {
-            $('#modal').load('/Erp/Caixa/BaixarParcelasSelecionadas/', new { 'selecionados': selecionados, 'idConta': idConta }, function () {
+            $('#modal').load('/Erp/Caixa/GetParcelasSelecionadas/', { 'selecionados': selecionados, 'idConta': idConta }, function () {
                 $('#modal').modal('show');
             });
         }

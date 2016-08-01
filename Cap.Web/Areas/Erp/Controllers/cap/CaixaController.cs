@@ -72,8 +72,8 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             }
         }
 
-        // GET: Erp/Caixa/BaixarParcelasSelecionadas/[5]
-        public ActionResult BaixarParcelasSelecionadas(int[] selecionados, int idConta)
+        // GET: Erp/Caixa/GetParcelasSelecionadas/[5]
+        public ActionResult GetParcelasSelecionadas(int[] selecionados, int idConta)
         {
             try
             {
@@ -93,6 +93,28 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
             }
         }
 
+        // POST: Erp/Caixa/BaixarParcelasSelecionadas/[5]
+        [HttpPost]
+        public ActionResult BaixarParcelasSelecionadas(BaixarParcelasSelecionadasModel item)
+        {
+            try
+            {
+                DateTime dataCaixa;
+                if (!DateTime.TryParse(item.DataCompensacao, out dataCaixa))
+                {
+                    throw new ArgumentException("Informe a data do caixa");
+                }
+
+                var usuario = getUsuario();
+                caixa.BaixarParcelas(item.Selecionados.ToList(), usuario.Id, item.IdConta, item.Cheque, dataCaixa);
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                return Json(new { error = e.Message });
+            }
+        }
+
         private DateTime getDataCaixa()
         {
             var usuario = getUsuario();
@@ -101,23 +123,13 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
         private int getProximoCheque(int idConta)
         {
+            if (idConta == 0)
+            {
+                return 1;
+            }
+
             var usuario = getUsuario();
             return contaService.Find(idConta).ProximoCheque;
-        }
-
-        // POST: Erp/Caixa/BaixarParcelasSelecionadas/[5]
-        [HttpPost]
-        public ActionResult BaixarParcelasSelecionadas(int[] selecionados, int idConta, int idCheque, string dataCompensacao)
-        {
-            try
-            {
-                throw new NotImplementedException();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
         }
 
         private Usuario getUsuario()

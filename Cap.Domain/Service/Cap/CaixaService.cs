@@ -14,16 +14,55 @@ namespace Cap.Domain.Service.Cap
     {
         private EFDbContext ctx;
         private IBaseService<InfoCaixa> serviceInfoCaixa;
+        private IInfoCaixa caixa;
 
         public CaixaService()
         {
             this.ctx = new EFDbContext();
             this.serviceInfoCaixa = new InfoCaixaService();
+            this.caixa = new InfoCaixaService();
         }
 
-        public List<Parcela> BaixarParcelas(List<int> idParcelas, int idUsuario, int idConta, int idCheque, DateTime caixaDia)
+        public List<Parcela> BaixarParcelas(List<int> idParcelas, int idUsuario, int idConta, int cheque, DateTime caixaDia)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (idParcelas.Count == 0)
+                {
+                    throw new ArgumentException("Nenhuma parcela selecionada para baixa");
+                }
+
+                if (idUsuario <= 0)
+                {
+                    throw new ArgumentException("Usuário inválido");
+                }
+
+                if (cheque <= 0)
+                {
+                    throw new ArgumentException("Número do cheque inválido");
+                }
+
+                var usuario = ctx.Usuario.Find(idUsuario);
+                if (usuario == null)
+                {
+                    throw new ArgumentException("Usuário inválido");
+                }
+
+                if (caixaDia < caixa.GetInfoCaixa(usuario.IdEmpresa, usuario.Id).DataCaixa)
+                {
+                    throw new ArgumentException("Data do caixa inválida");
+                }
+
+
+                // TODO: baixar parcela
+                return new List<Parcela>();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public List<Parcela> EstornarCheque(int idConta, int idCheque, int idUsuario)
