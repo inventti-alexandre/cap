@@ -52,7 +52,8 @@ namespace Cap.Domain.Service.Cap
 
             var parcelas = (from par in ctx.Parcela
                             join ped in ctx.Pedido on par.IdPedido equals ped.Id
-                            join c in ctx.Conta on par.ContaId equals c.Id
+                            join c in ctx.Conta on par.ContaId equals c.Id into _c
+                            from c in _c.DefaultIfEmpty()
                             where
                             (ped.Ativo == true && par.Ativo == true &&
                             (pesquisa.IdPedido == 0 || ped.Id == pesquisa.IdPedido) &&
@@ -104,6 +105,16 @@ namespace Cap.Domain.Service.Cap
                 {
                     parcelas = parcelas.Where(x => x.Valor == pesquisa.Valor);
                 }
+            }
+
+            if (pesquisa.SituacaoPagamento == 1) 
+            {
+                // em atraso
+                parcelas = parcelas.Where(x => x.Vencto < DateTime.Today.Date && x.Cheque == null);
+            } else if (pesquisa.SituacaoPagamento == 2)
+            {
+                // pagos
+                parcelas = parcelas.Where(x => x.Cheque != null);
             }
 
             return parcelas.ToList();

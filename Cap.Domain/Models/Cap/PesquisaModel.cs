@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 
 namespace Cap.Domain.Models.Cap
 {
-    public enum SituacaoPagamento
-    {
-        EmAberto,
-        Pago
-    }
-
     public class PesquisaModel
     {
         [Display(Name = "Departamento")]
@@ -67,5 +61,8 @@ namespace Cap.Domain.Models.Cap
 
         [Display(Name = "Cheque")]
         public int Cheque { get; set; }
+
+        [Display(Name = "Situação do pagamento")]
+        public int SituacaoPagamento { get; set; }
     }
 }

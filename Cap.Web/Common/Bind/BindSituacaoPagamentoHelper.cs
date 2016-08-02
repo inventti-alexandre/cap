@@ -22,13 +22,13 @@ namespace Cap.Web.Common.Bind
                 tag.InnerHtml += itemSel.ToString();
             }
 
-            TagBuilder emAberto = new TagBuilder("select");
-            emAberto.MergeAttribute("value", "0");
+            TagBuilder emAberto = new TagBuilder("option");
+            emAberto.MergeAttribute("value", "1");
             emAberto.SetInnerText("EM ABERTO");
             tag.InnerHtml += emAberto.ToString();
 
-            TagBuilder pago = new TagBuilder("select");
-            pago.MergeAttribute("value", "1");
+            TagBuilder pago = new TagBuilder("option");
+            pago.MergeAttribute("value", "2");
             pago.SetInnerText("PAGO");
             tag.InnerHtml += pago.ToString();
 

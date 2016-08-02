@@ -99,25 +99,19 @@
                 @Html.ValidationMessageFor(model => model.Observ, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-3">
-                @Html.LabelFor(model => model.PesquisarPorDataPagamento, htmlAttributes: new { @class = "control-label" })
+                <strong>Pesquisar por</strong>
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.PesquisarPorDataPagamento)
-                    @Html.ValidationMessageFor(model => model.PesquisarPorDataPagamento, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.PesquisarPorDataPagamento) data de pagamento
                 </div>
             </div>
             <div class="col-md-3">
-                @Html.LabelFor(model => model.MaiorQue, htmlAttributes: new { @class = "control-label" })
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.MaiorQue)
-                    @Html.ValidationMessageFor(model => model.MaiorQue, "", new { @class = "text-danger" })
-                </div>
+                <strong>Valores</strong><br />
+                @Html.EditorFor(model => model.MaiorQue) maiores que <br />
+                @Html.EditorFor(model => model.MenorQue) menores que
             </div>
             <div class="col-md-3">
-                @Html.LabelFor(model => model.MenorQue, htmlAttributes: new { @class = "control-label" })
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.MenorQue)
-                    @Html.ValidationMessageFor(model => model.MenorQue, "", new { @class = "text-danger" })
-                </div>
+                @Html.LabelFor(model => model.SituacaoPagamento, htmlAttributes: new { @class = "control-label" })
+                @Html.SelectSituacaoPagamento(Model.SituacaoPagamento, true)
             </div>
         </div>
 
