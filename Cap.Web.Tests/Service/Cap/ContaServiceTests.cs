@@ -45,5 +45,18 @@ namespace Cap.Domain.Service.Cap.Tests
             // Assert
             Assert.IsTrue(contas.Count() > 0);
         }
+
+        [TestMethod()]
+        public void ExcluirTest()
+        {
+            // Arrange
+            int id = 1;
+
+            // Act
+            var conta = service.Excluir(id);
+
+            // Assert
+            Assert.IsTrue(conta != null);
+        }
     }
 }

@@ -70,7 +70,7 @@ namespace Cap.Web.Areas.Erp.Controllers.cap
 
             if (parcela == null)
             {
-                return Json(new { success = false, error = "Parcela inexistente " }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, error = "Parcela inexistente" }, JsonRequestBehavior.AllowGet);
             }
 
             return PartialView(parcela);
