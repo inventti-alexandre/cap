@@ -56,7 +56,7 @@
             url: '/Erp/SistemaRegra/Create',
             type: 'POST',
             data: self.closest('form').serialize(),
-            datatype: 'html',
+            datatype: 'json',
             success: function (data) {
                 if (data.success == true) {
                     $('#modal').modal('hide');
